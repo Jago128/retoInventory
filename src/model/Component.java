@@ -5,13 +5,16 @@ public class Component {
 	private String nameC;
 	private TypeC typeC;
 	private int codBrand;
-	public Component(int codC, String nameC, TypeC typeC, int codBrand) {
+	private double price;
+	
+	public Component(int codC, String nameC, TypeC typeC, int codBrand, double price) {
 		this.codC = codC;
 		this.nameC = nameC;
 		this.typeC = typeC;
 		this.codBrand = codBrand;
+		this.price = price;
 	}
-	
+
 	public int getCodC() {
 		return codC;
 	}
@@ -42,6 +45,14 @@ public class Component {
 	
 	public void setCodBrand(int codBrand) {
 		this.codBrand = codBrand;
+	}
+
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
 	}
 
 	@Override
