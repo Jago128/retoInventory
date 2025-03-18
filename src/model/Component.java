@@ -71,10 +71,9 @@ public class Component {
 		this.price = price;
 	}
 
-<<<<<<< HEAD
+
 	//Declare toString
-=======
->>>>>>> refs/heads/Victor
+
 	@Override
 	public String toString() {
 		return "Component [codC=" + codC + ", nameC=" + nameC + ", typeC=" + typeC + ", codBrand=" + codBrand + "]";
