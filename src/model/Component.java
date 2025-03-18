@@ -8,6 +8,7 @@ public class Component {
 	private int codBrand;
 	private double price;
 	
+
 	//Declare empty constructor
 	public Component() {
 		this.codC = 0;
@@ -18,6 +19,7 @@ public class Component {
 	}
 	
 	//Declare parametrized constructor
+
 	public Component(int codC, String nameC, TypeC typeC, int codBrand, double price) {
 		this.codC = codC;
 		this.nameC = nameC;
@@ -26,7 +28,9 @@ public class Component {
 		this.price = price;
 	}
 
+
 	//Declare getters and setters
+
 	public int getCodC() {
 		return codC;
 	}
@@ -67,7 +71,10 @@ public class Component {
 		this.price = price;
 	}
 
+<<<<<<< HEAD
 	//Declare toString
+=======
+>>>>>>> refs/heads/Victor
 	@Override
 	public String toString() {
 		return "Component [codC=" + codC + ", nameC=" + nameC + ", typeC=" + typeC + ", codBrand=" + codBrand + "]";
