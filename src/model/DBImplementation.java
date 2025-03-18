@@ -38,7 +38,7 @@ public class DBImplementation implements MediaMartaDAO {
 	}
 	
 	@Override
-	public boolean insertProd(Product p) {
+	public boolean insertProd(Product prod) {
 		//[PH]
 		boolean check=false;
 		this.openConnection();
@@ -53,7 +53,7 @@ public class DBImplementation implements MediaMartaDAO {
 	}
 
 	@Override
-	public boolean insertComp(Component c) {
+	public boolean insertComp(Component comp) {
 		
 		return false;
 	}

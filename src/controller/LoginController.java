@@ -14,12 +14,12 @@ public class LoginController {
 	}
 	
 	//Set up methods for usage
-	public boolean insertProd(Product p) {
-		return dao.insertProd(p);
+	public boolean insertProd(Product prod) {
+		return dao.insertProd(prod);
 	}
 	
-	public boolean insertComp(Component c) {
-		return dao.insertComp(c);
+	public boolean insertComp(Component comp) {
+		return dao.insertComp(comp);
 	}
 	
 	public boolean sellAndSubstract() {
