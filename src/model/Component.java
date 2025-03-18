@@ -19,7 +19,6 @@ public class Component {
 	}
 	
 	//Declare parametrized constructor
-
 	public Component(int codC, String nameC, TypeC typeC, int codBrand, double price) {
 		this.codC = codC;
 		this.nameC = nameC;
@@ -30,7 +29,6 @@ public class Component {
 
 
 	//Declare getters and setters
-
 	public int getCodC() {
 		return codC;
 	}
@@ -73,7 +71,6 @@ public class Component {
 
 
 	//Declare toString
-
 	@Override
 	public String toString() {
 		return "Component [codC=" + codC + ", nameC=" + nameC + ", typeC=" + typeC + ", codBrand=" + codBrand + "]";
