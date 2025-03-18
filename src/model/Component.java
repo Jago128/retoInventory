@@ -1,12 +1,23 @@
 package model;
 
 public class Component {
+	//Declare variables
 	private int codC;
 	private String nameC;
 	private TypeC typeC;
 	private int codBrand;
 	private double price;
 	
+	//Declare empty constructor
+	public Component() {
+		this.codC = 0;
+		this.nameC = "";
+		this.typeC = TypeC.GRAPHICS;
+		this.codBrand = 0;
+		this.price = 0;
+	}
+	
+	//Declare parametrized constructor
 	public Component(int codC, String nameC, TypeC typeC, int codBrand, double price) {
 		this.codC = codC;
 		this.nameC = nameC;
@@ -15,6 +26,7 @@ public class Component {
 		this.price = price;
 	}
 
+	//Declare getters and setters
 	public int getCodC() {
 		return codC;
 	}
@@ -55,6 +67,7 @@ public class Component {
 		this.price = price;
 	}
 
+	//Declare toString
 	@Override
 	public String toString() {
 		return "Component [codC=" + codC + ", nameC=" + nameC + ", typeC=" + typeC + ", codBrand=" + codBrand + "]";

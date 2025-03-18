@@ -1,11 +1,21 @@
 package model;
 
 public class User {
+	//Declare variables
 	private int codU;
 	private String username;
 	private String password;
 	private TypeU typeU;
 	
+	//Declare empty constructor
+	public User() {
+		this.codU = 0;
+		this.username = "";
+		this.password = "";
+		this.typeU = TypeU.CLIENT;
+	}
+	
+	//Declare parametrized constructor
 	public User(int codU, String username, String password, TypeU typeU) {
 		this.codU = codU;
 		this.username = username;
@@ -13,6 +23,7 @@ public class User {
 		this.typeU = typeU;
 	}
 
+	//Declare getters and setters
 	public int getCodU() {
 		return codU;
 	}
@@ -45,6 +56,7 @@ public class User {
 		this.typeU = typeU;
 	}
 
+	//Declare toString
 	@Override
 	public String toString() {
 		return "User [codU=" + codU + ", username=" + username + ", password=" + password + ", typeU=" + typeU + "]";
