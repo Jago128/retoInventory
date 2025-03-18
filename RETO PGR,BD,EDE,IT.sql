@@ -44,32 +44,32 @@ PRIMARY KEY(CODPRODUCT,CODCOMPONENT),
 FOREIGN KEY (CODPRODUCT) REFERENCES PRODUCT (CODPRODUCT),
 FOREIGN KEY (CODCOMPONENT) REFERENCES COMPONENT (CODCOMPONENT)
 );
-INSERT INTO USER 
+INSERT INTO USER (USERNAME,PSW,TYPE_U)
 VALUES 
-	(1,"Paco","1234","Client"),
-	(2,"Jagoba","4321","Admin"),
-    (3,"Victor","4321","Admin"),
-	(4,"Xabi","4321","Admin"),
-	(5,"Alex","4321","Admin"),
-    (6,"Pepe","1234","Client"),
-    (7,"Felix","1234","Client");
+	("Paco","1234","Client"),
+	("Jagoba","4321","Admin"),
+    ("Victor","4321","Admin"),
+	("Xabi","4321","Admin"),
+	("Alex","4321","Admin"),
+    ("Pepe","1234","Client"),
+    ("Felix","1234","Client");
       
-INSERT INTO BRAND 
+INSERT INTO BRAND (NAMEBRAND)
 VALUES 
-	(11,"Apple"),
-    (12,"Samsung"),
-    (13,"Lenovo"),
-    (14,"Huawei"),
-    (15,"ASUS"),
-    (16,"INTEL");
+	("Apple"),
+    ("Samsung"),
+    ("Lenovo"),
+    ("Huawei"),
+    ("ASUS"),
+    ("INTEL");
     
-INSERT INTO PRODUCT 
+INSERT INTO PRODUCT (NAMEP,TYPEP,PRICE,STOCK,CODBRAND)
 VALUES 
-	(100,"Iphone X","Mobile",500,150,11),
-    (101,"Samsung Galaxy Book 4","Computer",399,70,12),
-    (102,"Lenovo IdeaPad Slim 3","Computer",700,300,13),
-    (103,"Samsung Galaxy S24","Mobile",550,244,12),
-    (104,"HUAWEI Pura 70 Pro","Mobile",1000,700,14);
+	("Iphone X","Mobile",500,150,11),
+    ("Samsung Galaxy Book 4","Computer",399,70,12),
+    ("Lenovo IdeaPad Slim 3","Computer",700,300,13),
+    ("Samsung Galaxy S24","Mobile",550,244,12),
+    ("HUAWEI Pura 70 Pro","Mobile",1000,700,14);
     
 INSERT INTO PURCHASE 
 VALUES 
@@ -78,16 +78,27 @@ VALUES
     (104,7,1,'2025-03-03'),
     (102,1,2,'2025-02-25');
     
-INSERT INTO COMPONENT 
+INSERT INTO COMPONENT (NAMECOMP,TYPEC,CODBRAND,PRICECOMP)
 VALUES 
-	(500,"Asus GT710","Graphics",15,81.99),
-    (501,"Intel Core i5-13400","Processor",16,170),
-    (502,"ESC 4000 G4X","RAM",15,110.99),
-    (503,"OFFTEK 8GB","RAM",15,30),
-    (504,"ASUS Dual RTX 4060 TI","Graphics",15,81.99),
-	(505,"Ultra 9 285K","Processor",16,665);
+	("Asus GT710","Graphics",15,81.99),
+    ("Intel Core i5-13400","Processor",16,170),
+    ("ESC 4000 G4X","RAM",15,110.99),
+    ("OFFTEK 8GB","RAM",15,30),
+    ("ASUS Dual RTX 4060 TI","Graphics",15,81.99),
+	("Ultra 9 285K","Processor",16,665);
     
 INSERT INTO CONTAIN 
 VALUES 
 	(101,500),
     (102,505);
+    
+    
+Delimiter //    
+CREATE PROCEDURE InsertProduct (NAMEP VARCHAR(50),TYPEP ENUM ("Mobile","Computer"),PRICE DOUBLE,STOCK DOUBLE,CODBRAND INT)
+BEGIN 
+	INSERT INTO Product (NAMEP,TYPEP,PRICE,STOCK,CODBRAND)
+	VALUES (NAMEP,TYPEP,PRICE,STOCK,CODBRAND);
+	SELECT 'Producto añadido' AS Mensaje;        
+END //
+Delimiter ;
+
