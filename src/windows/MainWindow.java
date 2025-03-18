@@ -1,37 +1,20 @@
 package windows;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.LoginController;
 
-public class WindowLogin extends JFrame {
+// MAIN MENU WINDOW 
+// Go to->(MenuWindow, SignInWindow)
+// Back to->(*close*)
+public class MainWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
-	/**
-	 * Create the frame.
-	 */
-	public WindowLogin(LoginController cont) {
+	public MainWindow(LoginController cont) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -39,5 +22,4 @@ public class WindowLogin extends JFrame {
 
 		setContentPane(contentPane);
 	}
-
 }

@@ -1,7 +1,7 @@
 package controller;
 
 import model.*;
-import windows.WindowLogin;
+import windows.MainWindow;
 
 public class LoginController {
 	//Prepare the DB Implementation
@@ -9,7 +9,7 @@ public class LoginController {
 	
 	public void visualizarPantalla() {
 		//Create the Login Frame
-		WindowLogin frame = new WindowLogin(this);
+		MainWindow frame = new MainWindow(this);
 		frame.setVisible(true);
 	}
 	
