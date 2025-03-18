@@ -1,5 +1,5 @@
 package model;
 
-public class MediaMartaDAO {
+public interface MediaMartaDAO {
 
 }
