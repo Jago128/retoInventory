@@ -49,7 +49,6 @@ public class Purchase {
 
 	@Override
 	public String toString() {
-		return "Purchase [codProduct=" + codProduct + ", codUser=" + codUser + ", quantity=" + quantity + ", date="
-				+ date + "]";
+		return "Purchase [codProduct=" + codProduct + ", codUser=" + codUser + ", quantity=" + quantity + ", date=" + date + "]";
 	}
 }
