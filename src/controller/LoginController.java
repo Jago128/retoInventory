@@ -1,13 +1,13 @@
 package controller;
 
 import model.*;
-import windows.WindowLogin;
+import windows.MainWindow;
 
 public class LoginController {
 	MediaMartaDAO dao=new DBImplementation();
 	
 	public void visualizarPantalla() {
-		WindowLogin frame = new WindowLogin(this);
+		MainWindow frame = new MainWindow(this);
 		frame.setVisible(true);
 	}
 }
