@@ -1,13 +1,14 @@
 package windows;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.LoginController;
 
+// MAIN MENU WINDOW 
+// Go to->(MenuWindow, SignInWindow)
+// Back to->(*close*)
 public class MainWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -21,5 +22,4 @@ public class MainWindow extends JFrame {
 
 		setContentPane(contentPane);
 	}
-
 }

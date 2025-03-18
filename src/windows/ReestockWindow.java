@@ -8,6 +8,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+// SHOW LOW STOCK WINDOW  
+// Go to->(*close*)
+// Back to->(LowStockWindow)
 public class ReestockWindow extends JDialog {
 
 	private static final long serialVersionUID = 1L;

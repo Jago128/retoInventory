@@ -8,6 +8,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+// SHOW BY BRAND WINDOW  
+// Go to->(CheckOutWindow, NewItemWindow, VerificationWindow)
+// Back to->(MenuWindow)
 public class BrandWindow extends JDialog {
 
 	private static final long serialVersionUID = 1L;

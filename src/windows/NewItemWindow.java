@@ -8,10 +8,10 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
-// CHECK OUT WINDOW 
+// ADD NEW ITEM WINDOW 
 // Go to->(*close*)
 // Back to->(ProductWindow, ComponentWindow, BrandWindow)
-public class CheckOutWindow extends JDialog {
+public class NewItemWindow extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
@@ -21,7 +21,7 @@ public class CheckOutWindow extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			CheckOutWindow dialog = new CheckOutWindow();
+			NewItemWindow dialog = new NewItemWindow();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -32,7 +32,7 @@ public class CheckOutWindow extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public CheckOutWindow() {
+	public NewItemWindow() {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());

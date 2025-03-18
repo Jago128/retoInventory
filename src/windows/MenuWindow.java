@@ -6,6 +6,9 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+// MENU WINDOW 
+// Go to->(ProductWindow, ComponentWindow, BrandWindow, LowStockWindow)
+// Back to->(*close*)
 public class MenuWindow extends JFrame {
 
 	private static final long serialVersionUID = 1L;

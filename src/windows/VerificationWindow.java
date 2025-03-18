@@ -8,6 +8,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+// VERIFICATION WINDOW  
+// Go to->(*close*)
+// Back to->(CheckOutWindow, NewItemWindow, VerificationWindow)
 public class VerificationWindow extends JDialog {
 
 	private static final long serialVersionUID = 1L;

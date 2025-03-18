@@ -8,6 +8,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+// CREATE NEW USER WINDOW 
+// Go to->(MenuWindow)
+// Back to->(MainWindow)
 public class SignInWindow extends JDialog {
 
 	private static final long serialVersionUID = 1L;

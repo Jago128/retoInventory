@@ -8,6 +8,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+// SHOW LOW STOCK WINDOW  
+// Go to->(ReestockWindow)
+// Back to->(CheckOutWindow, NewItemWindow, VerificationWindow)
 public class LowStockWindow extends JDialog {
 
 	private static final long serialVersionUID = 1L;
