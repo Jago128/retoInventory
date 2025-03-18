@@ -67,7 +67,6 @@ public class DBImplementation implements MediaMartaDAO {
 	@Override
 	public void showProdsOrderedByStockLowerThan5AndRestock() {
 		
-		
 	}
 
 	@Override
