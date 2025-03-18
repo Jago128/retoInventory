@@ -71,8 +71,18 @@ public class DBImplementation implements MediaMartaDAO {
 
 	@Override
 	public boolean deleteProd(int cod) {
+		boolean check=false;
+		this.openConnection();
 		
-		return false;
+		
+		try {
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return check;
 	}
 
 	@Override
