@@ -1,0 +1,109 @@
+commit a4e4abc7a3d96234dc0c47ddf84537cf09ed3c69
+Author: Enchufe0 <sabatelvictor96@gmail.com>
+Date:   Tue Mar 18 10:50:56 2025 +0100
+
+    Comments In the DBImplementation refering to the inserts
+
+commit b9037643fe263c15c88ec06ff26cc558fc906991
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Tue Mar 18 10:40:40 2025 +0100
+
+    e
+
+commit 13f96f1fe49b160743826d3292f8d866a4ab1f42
+Merge: 2173785 15690a8
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Tue Mar 18 10:38:31 2025 +0100
+
+    Merge remote-tracking branch 'origin/windows' into main
+
+commit 15690a86a35ba40046e41bc094061bbdd1e4b1f4
+Author: MedievAlex <alexirazola@gmail.com>
+Date:   Tue Mar 18 10:37:10 2025 +0100
+
+    Added comments to all Windows and created NewItemWindow.
+
+commit 21737859972ba16c27f532b29b713b04307dac45
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Tue Mar 18 10:37:00 2025 +0100
+
+    e
+
+commit acfed8c44b3d88eb6a9fba9781fdbaaaeb10596f
+Author: Enchufe0 <sabatelvictor96@gmail.com>
+Date:   Tue Mar 18 10:32:40 2025 +0100
+
+    w
+
+commit 605a2ecb9618e07ea4db1e198d7a18d82c5b3cfc
+Merge: 6094719 be9511a
+Author: Enchufe0 <sabatelvictor96@gmail.com>
+Date:   Tue Mar 18 10:31:54 2025 +0100
+
+    Merge branch 'Victor' into main
+
+commit 6094719a48c48f49d6a42ddbb8374be501b62b39
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Tue Mar 18 10:18:54 2025 +0100
+
+    Comments on DBImplementation
+
+commit c054568122a3021bb4f63a8ea16013d716cfc874
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Tue Mar 18 10:15:10 2025 +0100
+
+    Added comments (excluding DBImplementation), and fixed classConfig
+
+commit be9511a8e4d2cbf32983a3dce5cbe16c0dbee11c
+Author: Enchufe0 <sabatelvictor96@gmail.com>
+Date:   Tue Mar 18 09:56:50 2025 +0100
+
+    Price añadido
+
+commit 566f41b3a4781d16c71321a399e86f6854f0d851
+Author: MedievAlex <alexirazola@gmail.com>
+Date:   Tue Mar 18 09:55:53 2025 +0100
+
+    Added Windows and modified the main.
+
+commit 86cff7b2313a608f54903084bbeb079170e34f0f
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Tue Mar 18 09:41:10 2025 +0100
+
+    Price added to component
+
+commit 5f2d0034c5737154dc1df9a2112b58732f592237
+Author: Enchufe0 <sabatelvictor96@gmail.com>
+Date:   Tue Mar 18 09:39:30 2025 +0100
+
+    e
+
+commit 4124010a0e698927860040813cd3c055e373954e
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Tue Mar 18 09:29:53 2025 +0100
+
+    e
+
+commit 3972111a1d43bc846be3ed54354e36a068fcc0ad
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Tue Mar 18 09:24:05 2025 +0100
+
+    Main done, windows not ready, DB stuff not ready.
+
+commit 4546a4586735c92fd39cc85db6fa41659d930111
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Tue Mar 18 09:21:12 2025 +0100
+
+    e
+
+commit 2294e0efb67d1c237be23059f033684a8fcbca2d
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Tue Mar 18 09:20:45 2025 +0100
+
+    Classes created. DB stuff not ready.
+
+commit d416600ae11de8e6bf7e70a4189deb3ec5f1d436
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Mon Mar 17 14:21:18 2025 +0100
+
+    Create Repo
