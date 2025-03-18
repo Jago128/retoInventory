@@ -16,6 +16,10 @@ public class DBImplementation implements MediaMartaDAO {
 	private String userBD;
 	private String passwordBD;
 	
+	// SQL queries for the methods in Java.
+	final String sqlInsertProd = "INSERT INTO PRODUCT (NAMEP, TYPEP, PRICE, STOCK, CODBRAND) VALUES (?, ?, ?, ?, ?)";
+	final String sqlInsertComp = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, PRICECOMP, CODBRAND) VALUES (?, ?, ?, ?)";
+	
 	//Declare implementation constructor
 	public DBImplementation() {
 		this.configFile = ResourceBundle.getBundle("model.classConfig");
@@ -37,6 +41,7 @@ public class DBImplementation implements MediaMartaDAO {
 		}
 	}
 	
+	// Inserts New Products to the database.
 	@Override
 	public boolean insertProd(Product prod) {
 		//[PH]
@@ -44,6 +49,15 @@ public class DBImplementation implements MediaMartaDAO {
 		this.openConnection();
 		
 		try {
+			stmt = con.prepareStatement(sqlInsertProd);;
+			stmt.setString(1, prod.getNameP());
+			stmt.setObject(2, prod.getTypeP());
+			stmt.setDouble(3, prod.getPrice());
+			stmt.setInt(4, prod.getStock());
+			stmt.setInt(5, prod.getCodBrand());
+			if (stmt.executeUpdate()>0) {
+				check=true;
+			}
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
@@ -52,10 +66,27 @@ public class DBImplementation implements MediaMartaDAO {
 		return check;
 	}
 
+	// Insert New Components to the database.
 	@Override
 	public boolean insertComp(Component comp) {
+		boolean check=false;
 		
-		return false;
+		this.openConnection();
+		try {
+			stmt = con.prepareStatement(sqlInsertProd);
+			stmt.setString(1, comp.getNameC());
+			stmt.setObject(2, comp.getTypeC());
+			stmt.setDouble(3, comp.getPrice());
+			stmt.setInt(4, comp.getCodBrand());
+			if (stmt.executeUpdate()>0) {
+				check=true;
+			}
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return check;
 	}
 
 	@Override
