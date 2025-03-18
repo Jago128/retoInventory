@@ -6,6 +6,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controller.LoginController;
+
 public class WindowLogin extends JFrame {
 
 	private static final long serialVersionUID = 1L;
@@ -18,8 +20,7 @@ public class WindowLogin extends JFrame {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					WindowLogin frame = new WindowLogin();
-					frame.setVisible(true);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -30,7 +31,7 @@ public class WindowLogin extends JFrame {
 	/**
 	 * Create the frame.
 	 */
-	public WindowLogin() {
+	public WindowLogin(LoginController cont) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
