@@ -4,19 +4,21 @@ import java.sql.*;
 import java.util.*;
 
 public class DBImplementation implements MediaMartaDAO {
-	
+	//Prepare statement variables
 	private Connection con;
 	private PreparedStatement stmt;
+	
+	//Prepare SQL Connection variables (with a supressed warning, as it's kind of annoying to see)
 	private ResourceBundle configFile;
-
 	@SuppressWarnings("unused")
 	private String driverBD;
 	private String urlBD;
 	private String userBD;
 	private String passwordBD;
 	
+	//Declare implementation constructor
 	public DBImplementation() {
-		this.configFile = ResourceBundle.getBundle("modelo.classConfig");
+		this.configFile = ResourceBundle.getBundle("model.classConfig");
 		this.driverBD = this.configFile.getString("Driver");
 		this.urlBD = this.configFile.getString("Conn");
 		this.userBD = this.configFile.getString("DBUser");
@@ -25,6 +27,7 @@ public class DBImplementation implements MediaMartaDAO {
 	
 	private void openConnection() {
 		try {
+			//Try opening the connection
 			con = DriverManager.getConnection(urlBD, this.userBD, this.passwordBD);
 		} catch (SQLException e) {
 			System.out.println("Error al intentar abrir la BD");
@@ -36,6 +39,7 @@ public class DBImplementation implements MediaMartaDAO {
 	
 	@Override
 	public boolean insertProd(Product p) {
+		//[PH]
 		boolean check=false;
 		this.openConnection();
 		
