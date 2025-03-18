@@ -37,6 +37,7 @@ public class DBImplementation implements MediaMartaDAO {
 		}
 	}
 	
+	// Inserts New Products to the database.
 	@Override
 	public boolean insertProd(Product p) {
 		//[PH]
@@ -52,6 +53,7 @@ public class DBImplementation implements MediaMartaDAO {
 		return check;
 	}
 
+	// Insert New Components to the database.
 	@Override
 	public boolean insertComp(Component c) {
 		
