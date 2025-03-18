@@ -1,5 +1,5 @@
 package model;
 
-public class DBImplementation {
+public class DBImplementation implements MediaMartaDAO {
 
 }
