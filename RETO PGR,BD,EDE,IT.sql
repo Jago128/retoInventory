@@ -2,8 +2,8 @@ CREATE DATABASE MEDIAMARTA;
 USE MEDIAMARTA;
 
 CREATE TABLE USER(
-CODUSER INT AUTO_INCREMENT PRIMARY KEY ,
-USERNAME VARCHAR(15),
+CODUSER VARCHAR(20) PRIMARY KEY ,
+USERNAME VARCHAR(30),
 PSW VARCHAR(15),
 TYPE_U ENUM ("Client","Admin")
 );
@@ -22,7 +22,7 @@ FOREIGN KEY (CODBRAND) REFERENCES BRAND (CODBRAND)
 );
 CREATE TABLE PURCHASE (
 CODPRODUCT INT,
-CODUSER INT,
+CODUSER VARCHAR (20),
 PRIMARY KEY (CODPRODUCT,CODUSER),
 QUANTITY DOUBLE,
 DATEP DATE,
@@ -44,15 +44,15 @@ PRIMARY KEY(CODPRODUCT,CODCOMPONENT),
 FOREIGN KEY (CODPRODUCT) REFERENCES PRODUCT (CODPRODUCT),
 FOREIGN KEY (CODCOMPONENT) REFERENCES COMPONENT (CODCOMPONENT)
 );
-INSERT INTO USER (USERNAME,PSW,TYPE_U)
+INSERT INTO USER 
 VALUES 
-	("Paco","1234","Client"),
-	("Jagoba","4321","Admin"),
-    ("Victor","4321","Admin"),
-	("Xabi","4321","Admin"),
-	("Alex","4321","Admin"),
-    ("Pepe","1234","Client"),
-    ("Felix","1234","Client");
+	("Pakete7","Paco","1234","Client"),
+	("Jago128","Jagoba","4321","Admin"),
+    ("BoliBick","Victor","4321","Admin"),
+	("Xabitxu","Xabi","4321","Admin"),
+	("Mineralex","Alex","4321","Admin"),
+    ("PepGuardiola","Pepe","1234","Client"),
+    ("Joao10","Felix","1234","Client");
       
 INSERT INTO BRAND (NAMEBRAND)
 VALUES 
@@ -73,10 +73,10 @@ VALUES
     
 INSERT INTO PURCHASE 
 VALUES 
-	(100,1,5,'2025-02-20'),
-    (101,6,12,'2025-01-04'),
-    (104,7,1,'2025-03-03'),
-    (102,1,2,'2025-02-25');
+	(100,'Pakete7',5,'2025-02-20'),
+    (101,'PepGuardiola',12,'2025-01-04'),
+    (104,'Joao10',1,'2025-03-03'),
+    (102,'Pakete7',2,'2025-02-25');
     
 INSERT INTO COMPONENT (NAMECOMP,TYPEC,CODBRAND,PRICECOMP)
 VALUES 
@@ -102,3 +102,61 @@ BEGIN
 END //
 Delimiter ;
 
+Delimiter //
+CREATE PROCEDURE DeleteProduct (NomProd VARCHAR(50))
+BEGIN
+	DECLARE CodigoProd INT;
+    DECLARE ENCONTRADO BOOLEAN DEFAULT TRUE;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET ENCONTRADO = FALSE;
+	SELECT CODPRODUCT INTO CodigoProd FROM PRODUCT WHERE NAMEP = NomProd;
+
+    IF !ENCONTRADO THEN
+		SELECT CONCAT('El producto ', NomProd,' no se ha encontrado.');
+    ELSE 
+		SELECT CONCAT('Producto ', NomProd,' se ha borrado correctamente.');
+		DELETE FROM PRODUCTO WHERE CODPRODUCT = CodigoProd;
+    END IF;        
+END //
+Delimiter ;
+
+
+Delimiter //
+CREATE PROCEDURE ShowProducts ()
+BEGIN
+	DECLARE Fin BOOLEAN DEFAULT FALSE;
+    DECLARE NomProd VARCHAR(50);
+    DECLARE TipoP ENUM ("Mobile","Computer");
+    DECLARE PriceP DOUBLE;
+    DECLARE StockP DOUBLE;
+    DECLARE CodBrand INT;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET FIN = TRUE;    
+    DECLARE C CURSOR FOR SELECT NAMEP,TYPEP,PRICE,STOCK,CODBRAND FROM PRODUCT; 	
+    OPEN C;
+	FETCH C INTO NomProd,TipoP,PriceP,StockP,CodBrand; 
+	WHILE !FIN DO
+		SELECT CONCAT ('Name: ', NomProd, ' Type: ', TipoP,' Price: ', PriceP,' Stock: ', StockP,' CodeBrand: ', CodBrand) "Datos pedidos"; 
+		Fetch c into NomProd,TipoP,PriceP,StockP,CodBrand; 
+    END WHILE; 
+    CLOSE C; 
+END //
+Delimiter ;
+
+Delimiter //
+CREATE PROCEDURE ShowComponents ()
+BEGIN
+	DECLARE Fin BOOLEAN DEFAULT FALSE;
+    DECLARE NomComp VARCHAR(50);
+    DECLARE TipoC ENUM ("Mobile","Computer");
+    DECLARE CodBrand INT;
+    DECLARE PriceComp DOUBLE;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET FIN = TRUE;    
+    DECLARE C CURSOR FOR SELECT NAMECOMP,TYPEC,CODBRAND,PRICECOMP FROM COMPONENT; 	
+    OPEN C;
+	FETCH C INTO NomComp,TipoC,CodBrand,PriceComp; 
+	WHILE !FIN DO
+		SELECT CONCAT ('Name: ', NomComp, ' Type: ', TipoC,' CodeBrand: ', CodBrand,' Price: ', PriceComp) "Datos pedidos"; 
+		Fetch c into NomComp,TipoC,CodBrand,PriceComp;  
+    END WHILE; 
+    CLOSE C; 
+END //
+Delimiter ;
