@@ -13,6 +13,21 @@ public class LoginController {
 		frame.setVisible(true);
 	}
 	
+	// Verify the user exist
+	public boolean verifyUser(User user) {
+		return dao.verifyUser(user);
+	}
+	
+	// Verify the user and the password exist and matches
+	public boolean verifyUserPassword(User user) {
+		return dao.verifyUserPassword(user);
+	}
+	
+	// Verify the user type
+	public boolean verifyUserType(User user) {
+		return dao.verifyUserType(user);
+	}
+	
 	//Set up methods for usage
 	public boolean insertProd(Product prod) {
 		return dao.insertProd(prod);
