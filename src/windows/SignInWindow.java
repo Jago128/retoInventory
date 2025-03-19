@@ -8,6 +8,8 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import controller.LoginController;
+
 // CREATE NEW USER WINDOW 
 // Go to->(MenuWindow)
 // Back to->(MainWindow)
@@ -15,8 +17,9 @@ public class SignInWindow extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
+	private LoginController cont;
 
-	public SignInWindow() {
+	public SignInWindow(LoginController controlador) {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
