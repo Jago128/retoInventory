@@ -34,8 +34,8 @@ public class LoginController {
 		return dao.insertComp(comp);
 	}
 	
-	public boolean sellAndSubstract() {
-		return dao.sellAndSubstract();
+	public boolean sellAndSubstract(double amount, String nom) {
+		return dao.sellAndSubstract(amount, nom);
 	}
 	
 	public boolean deleteProd(String nom) {

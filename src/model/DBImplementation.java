@@ -20,12 +20,12 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLINSERTPROD = "INSERT INTO PRODUCT (NAMEP, TYPEP, PRICE, STOCK, CODBRAND) VALUES (?, ?, ?, ?, ?)";
 	final String SQLINSERTCOMP = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, PRICECOMP, CODBRAND) VALUES (?, ?, ?, ?)";
 	final String SQLDELETE = "DELETE FROM PRODUCT WHERE CODPRODUCT=(SELECT CODPRODUCT FROM PRODUCT WHERE NAMEP = ?)";
-
-	// SQL sentences
 	final String SQLUSER = "SELECT * FROM user WHERE coduser = ?";
 	final String SQLUSERPSW = "SELECT * FROM user WHERE coduser = ? AND psw = ?";
+	final String SQLPROD = "SELECT PROD FROM PRODUCT WHERE NAMEP = ?";
+	final String SQLSELL = "SELECT sellAndSubstract(?,?)";
 	final String SQLTYPE = "SELECT type_u FROM user WHERE coduser = ?";
-	
+
 	/* Queries to use as reference, to be deleted later
 	 * final String SQLINSERT = "INSERT INTO user VALUES (?,?)";
 	 * final String SQLCONSULTA = "SELECT * FROM user";
@@ -84,7 +84,7 @@ public class DBImplementation implements MediaMartaDAO {
 		//Open connection and declare a boolean to check if the password exists and matches
 		boolean exists=false;
 		this.openConnection();
-		
+
 		try {
 			//Prepares the SQL query
 			stmt = con.prepareStatement(SQLUSERPSW);
@@ -187,9 +187,28 @@ public class DBImplementation implements MediaMartaDAO {
 	}
 
 	@Override
-	public boolean sellAndSubstract() {
-
-		return false;
+	public boolean sellAndSubstract(double amount, String nom) {
+		//Open connection and declare a boolean to check if the update is properly executed
+		boolean check=false;
+		
+		this.openConnection();
+		try {
+			//Prepares the SQL query
+			stmt = con.prepareStatement(SQLPROD);
+			stmt.setDouble(1, amount);
+			stmt.setString(2, nom);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.next()) {
+				check=true;
+			}
+			//Closes the connection
+			rs.close();
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return check;
 	}
 
 	@Override
