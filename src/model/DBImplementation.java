@@ -16,22 +16,32 @@ public class DBImplementation implements MediaMartaDAO {
 	private String userBD;
 	private String passwordBD;
 
+
 	// SQL queries for the methods in Java
 	final String SQLINSERTPROD = "INSERT INTO PRODUCT (NAMEP, TYPEP, PRICE, STOCK, CODBRAND) VALUES (?, ?, ?, ?, ?)";
 	final String SQLINSERTCOMP = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, PRICECOMP, CODBRAND) VALUES (?, ?, ?, ?)";
 	final String SQLDELETE = "DELETE FROM PRODUCT WHERE CODPRODUCT=(SELECT CODPRODUCT FROM PRODUCT WHERE NAMEP = ?)";
+
+	//-User
 	final String SQLUSER = "SELECT * FROM user WHERE coduser = ?";
 	final String SQLUSERPSW = "SELECT * FROM user WHERE coduser = ? AND psw = ?";
 	final String SQLPROD = "SELECT PROD FROM PRODUCT WHERE NAMEP = ?";
 	final String SQLSELL = "SELECT sellAndSubstract(?,?)";
 	final String SQLTYPE = "SELECT type_u FROM user WHERE coduser = ?";
 
+
+
+	//-Show
+	final String SQLSELECTPRODUCT = "SELECT * FROM product";
+	final String SQLSELECTCOMPONENT = "SELECT * FROM product";
+	final String SQLSELECTBRAND = "SELECT * FROM product";
+	
 	/* Queries to use as reference, to be deleted later
 	 * final String SQLINSERT = "INSERT INTO user VALUES (?,?)";
 	 * final String SQLCONSULTA = "SELECT * FROM user";
 	 * final String SQLBORRAR = "DELETE FROM user WHERE coduser=?";
 	 * final String SQLMODIFY = "UPDATE user SET psw=? WHERE coduser=?" */
-
+	
 	//Declare implementation constructor
 	public DBImplementation() {
 		this.configFile = ResourceBundle.getBundle("model.classConfig");
@@ -119,9 +129,9 @@ public class DBImplementation implements MediaMartaDAO {
 			//Executes the SQL query
 			ResultSet rs = stmt.executeQuery();
 			//If there is any result, the user exists, and they are an admin
-			if (rs.next()) {
-				admin = true;
-			}
+			if (rs.next() && rs.getString(1).equals("Admin")) {
+            	admin = true;
+            }
 			//Closes the connection
 			rs.close();
 			stmt.close();
@@ -131,7 +141,7 @@ public class DBImplementation implements MediaMartaDAO {
 		}
 		return admin;
 	}	
-
+	
 	@Override
 	public boolean insertProd(Product prod) {
 		//Open connection and declare a boolean to check if the update is properly executed

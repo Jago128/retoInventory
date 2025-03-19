@@ -9,6 +9,7 @@ import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import controller.LoginController;
+import model.User;
 
 // CREATE NEW USER WINDOW 
 // Go to->(MenuWindow)

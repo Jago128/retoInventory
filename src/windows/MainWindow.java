@@ -29,6 +29,7 @@ public class MainWindow extends JFrame implements ActionListener{
 	private JButton btnLogIn, btnSignIn, btnClose;
 	private JLabel lblMesageUp, lblMessageDown;
 	private LoginController cont;
+	private User user;
 
 	public MainWindow(LoginController controlador) {
 		setTitle("LOGIN");
@@ -85,7 +86,7 @@ public class MainWindow extends JFrame implements ActionListener{
 		
 		btnClose = new JButton("CLOSE");
 		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		btnClose.setBounds(369, 242, 67, 21);
+		btnClose.setBounds(369, 246, 67, 21);
 		contentPane.add(btnClose);
 		
 		btnLogIn.addActionListener(this);
@@ -93,15 +94,29 @@ public class MainWindow extends JFrame implements ActionListener{
 		btnClose.addActionListener(this);
 	}
 
+	// Verifies the type of the user
+	public boolean verifyUserType(User user, boolean admin) {
+		if(cont.verifyUserType(user)) { // If is admin it will be true
+			admin=true;
+		}else { // If its not it will be false
+			admin=false;
+		}
+		return admin;
+	}
+	
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub	
+		boolean admin=false;
+		
 		if (e.getSource()==btnClose) {
 			this.dispose();
 		}
 		if (e.getSource()==btnLogIn) {
-			if (cont.verifyUserPassword(new User (textCodU.getText(),new String(passwordPsw.getPassword())))) {
+			User user = new User (textCodU.getText(),new String(passwordPsw.getPassword()));
+			if (cont.verifyUserPassword(user)) {
 				lblMesageUp.setText("Welcome "+textCodU.getText());
-				MenuWindow menu=new  MenuWindow(cont); 
+				admin=verifyUserType(user, admin);
+				MenuWindow menu=new  MenuWindow(admin, cont); // The admin variable is sent to show or not certain option in the next windows
 				menu.setVisible(true);
 				dispose();
 			}else {
