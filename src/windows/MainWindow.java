@@ -94,10 +94,11 @@ public class MainWindow extends JFrame implements ActionListener{
 		btnClose.addActionListener(this);
 	}
 
+	// Verifies the type of the user
 	public boolean verifyUserType(User user, boolean admin) {
-		if(cont.verifyUserType(user)) {
+		if(cont.verifyUserType(user)) { // If is admin it will be true
 			admin=true;
-		}else {
+		}else { // If its not it will be false
 			admin=false;
 		}
 		return admin;
@@ -115,7 +116,7 @@ public class MainWindow extends JFrame implements ActionListener{
 			if (cont.verifyUserPassword(user)) {
 				lblMesageUp.setText("Welcome "+textCodU.getText());
 				admin=verifyUserType(user, admin);
-				MenuWindow menu=new  MenuWindow(admin, cont); 
+				MenuWindow menu=new  MenuWindow(admin, cont); // The admin variable is sent to show or not certain option in the next windows
 				menu.setVisible(true);
 				dispose();
 			}else {

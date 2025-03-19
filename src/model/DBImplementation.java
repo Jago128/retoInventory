@@ -17,10 +17,15 @@ public class DBImplementation implements MediaMartaDAO {
 	private String passwordBD;
 	
 	// SQL sentences
+	//-User
 	final String SQLUSER = "SELECT * FROM user WHERE coduser = ?";
 	final String SQLUSERPSW = "SELECT * FROM user WHERE coduser = ? AND psw = ?";
 	final String SQLTYPE = "SELECT type_u FROM user WHERE coduser = ?";
-		
+	//-Show
+	final String SQLSELECTPRODUCT = "SELECT * FROM product";
+	final String SQLSELECTCOMPONENT = "SELECT * FROM product";
+	final String SQLSELECTBRAND = "SELECT * FROM product";
+	
 	//final String SQLINSERT = "INSERT INTO user VALUES (?,?)";
 	//final String SQLCONSULTA = "SELECT * FROM user";
 	//final String SQLBORRAR = "DELETE FROM user WHERE coduser=?";

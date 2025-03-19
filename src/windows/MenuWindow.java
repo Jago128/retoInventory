@@ -52,10 +52,10 @@ public class MenuWindow extends JFrame implements ActionListener{
 		btnCheckStock.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		btnCheckStock.setBounds(117, 205, 196, 35);
 		contentPane.add(btnCheckStock);
-		if(admin) {
+		if(admin) { // In case the user is admin the button will be visible
 			btnCheckStock.setVisible(true);
 		}
-		else {
+		else { // If not the user will not have this option visible
 			btnCheckStock.setVisible(false);
 		}
 
@@ -71,24 +71,29 @@ public class MenuWindow extends JFrame implements ActionListener{
 	}
 
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub	
+		// Closes the window	
 		if (e.getSource()==btnClose) {
 			this.dispose();
 		}
+		// Opens the window of the products
 		if (e.getSource()==btnProducts) {
-			ProductWindow product=new  ProductWindow(this, admin, cont); 
+			ProductWindow product=new  ProductWindow(this, admin, cont); // The admin variable is sent to show or not certain option in the next windows
 			product.setVisible(true);
 		}
+		// Opens the window of the components
 		if (e.getSource()==btnComponents) {
-			ComponentWindow component=new  ComponentWindow(this, admin, cont); 
+			ComponentWindow component=new  ComponentWindow(this, admin, cont); // The admin variable is sent to show or not certain option in the next windows
 			component.setVisible(true);
 		}
+		// Opens the window of the brands
 		if (e.getSource()==btnBrands) {
-			BrandWindow brand=new  BrandWindow(this, admin, cont); 
+			BrandWindow brand=new  BrandWindow(this, admin, cont); // The admin variable is sent to show or not certain option in the next windows
 			brand.setVisible(true);
 		}
+		// Opens the window of the low stock window (only visible with admin users)
 		if (e.getSource()==btnCheckStock) {
-			
+			LowStockWindow lowStock=new  LowStockWindow(this, cont); 
+			lowStock.setVisible(true);
 		}
 	}
 }
