@@ -16,6 +16,16 @@ public class DBImplementation implements MediaMartaDAO {
 	private String userBD;
 	private String passwordBD;
 	
+	// SQL sentences
+	final String SQLUSER = "SELECT * FROM user WHERE coduser = ?";
+	final String SQLUSERPSW = "SELECT * FROM user WHERE coduser = ? AND psw = ?";
+	final String SQLTYPE = "SELECT type_u FROM user WHERE coduser = ?";
+		
+	//final String SQLINSERT = "INSERT INTO user VALUES (?,?)";
+	//final String SQLCONSULTA = "SELECT * FROM user";
+	//final String SQLBORRAR = "DELETE FROM user WHERE coduser=?";
+	//final String SQLMODIFY = "UPDATE user SET psw=? WHERE coduser=?";
+	
 	//Declare implementation constructor
 	public DBImplementation() {
 		this.configFile = ResourceBundle.getBundle("model.classConfig");
@@ -37,6 +47,81 @@ public class DBImplementation implements MediaMartaDAO {
 		}
 	}
 	
+	// Verify the user exist 
+	public boolean verifyUser(User user){
+		// Open connection
+		boolean existe=false;
+		this.openConnection();
+		
+		try {
+			stmt = con.prepareStatement(SQLUSER);
+            stmt.setString(1, user.getCodU());
+            ResultSet resultado = stmt.executeQuery();
+
+            // If there is any result, the user exists
+            if (resultado.next()) {
+                existe = true;
+            }
+            resultado.close();
+            stmt.close();
+            con.close();
+
+        } catch (SQLException e) {
+            System.out.println("[Error]" + e.getMessage());
+        }
+
+        return existe;
+    }
+	
+	// Verify the user and the password exist and matches
+	public boolean verifyUserPassword(User user){
+		// Open connection
+		boolean existe=false;
+		this.openConnection();
+		try {
+			stmt = con.prepareStatement(SQLUSERPSW);
+            stmt.setString(1, user.getCodU());
+            stmt.setString(2, user.getPassword());
+            ResultSet resultado = stmt.executeQuery();
+
+            // If there is any result, the user exists
+            if (resultado.next()) {
+                existe = true;
+            }
+            resultado.close();
+            stmt.close();
+            con.close();
+        } catch (SQLException e) {
+            System.out.println("[Error]" + e.getMessage());
+        }
+        return existe;
+    }
+
+	// Verify the user type (only used once the user is verified)
+	public boolean verifyUserType(User user){
+		// Open connection
+		boolean admin=false;
+		this.openConnection();
+		
+		try {
+			stmt = con.prepareStatement(SQLTYPE);
+            stmt.setString(1, user.getCodU());
+            ResultSet resultado = stmt.executeQuery();
+
+            // If there is any result, the user exists
+            if (resultado.next()) {
+                admin = true;
+            }
+            resultado.close();
+            stmt.close();
+            con.close();
+
+        } catch (SQLException e) {
+            System.out.println("[Error]" + e.getMessage());
+        }
+        return admin;
+    }	
+		
 	@Override
 	public boolean insertProd(Product prod) {
 		//[PH]

@@ -2,21 +2,21 @@ package model;
 
 public class User {
 	//Declare variables
-	private int codU;
+	private String codU;
 	private String username;
 	private String password;
 	private TypeU typeU;
 	
 	//Declare empty constructor
 	public User() {
-		this.codU = 0;
+		this.codU = "";
 		this.username = "";
 		this.password = "";
 		this.typeU = TypeU.CLIENT;
 	}
 	
 	//Declare parametrized constructor
-	public User(int codU, String username, String password, TypeU typeU) {
+	public User(String codU, String username, String password, TypeU typeU) {
 		this.codU = codU;
 		this.username = username;
 		this.password = password;
@@ -24,11 +24,11 @@ public class User {
 	}
 
 	//Declare getters and setters
-	public int getCodU() {
+	public String getCodU() {
 		return codU;
 	}
 
-	public void setCodU(int codU) {
+	public void setCodU(String codU) {
 		this.codU = codU;
 	}
 
