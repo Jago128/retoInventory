@@ -6,7 +6,7 @@ public interface MediaMartaDAO {
 	public boolean insertComp(Component comp);
 	public boolean sellAndSubstract();
 	public void showProdsOrderedByStock();
-	public boolean deleteProd(int cod);
+	public boolean deleteProd(String nom);
 	public void showProd();
 	public void showBrandsAndItsItems();
 	public void showComponents();

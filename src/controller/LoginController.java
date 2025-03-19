@@ -26,7 +26,7 @@ public class LoginController {
 		return dao.sellAndSubstract();
 	}
 	
-	public boolean deleteProd(int cod) {
-		return dao.deleteProd(cod);
+	public boolean deleteProd(String nom) {
+		return dao.deleteProd(nom);
 	}
 }

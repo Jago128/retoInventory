@@ -17,8 +17,9 @@ public class DBImplementation implements MediaMartaDAO {
 	private String passwordBD;
 	
 	// SQL queries for the methods in Java.
-	final String sqlInsertProd = "INSERT INTO PRODUCT (NAMEP, TYPEP, PRICE, STOCK, CODBRAND) VALUES (?, ?, ?, ?, ?)";
-	final String sqlInsertComp = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, PRICECOMP, CODBRAND) VALUES (?, ?, ?, ?)";
+	final String SQLINSERTPROD = "INSERT INTO PRODUCT (NAMEP, TYPEP, PRICE, STOCK, CODBRAND) VALUES (?, ?, ?, ?, ?)";
+	final String SQLINSERTCOMP = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, PRICECOMP, CODBRAND) VALUES (?, ?, ?, ?)";
+	final String SQLDELETE = "DELETE FROM PRODUCT WHERE CODPRODUCT=(SELECT CODPRODUCT FROM PRODUCT WHERE NAMEP = ?)";
 	
 	//Declare implementation constructor
 	public DBImplementation() {
@@ -49,7 +50,7 @@ public class DBImplementation implements MediaMartaDAO {
 		this.openConnection();
 		
 		try {
-			stmt = con.prepareStatement(sqlInsertProd);;
+			stmt = con.prepareStatement(SQLINSERTCOMP);;
 			stmt.setString(1, prod.getNameP());
 			stmt.setObject(2, prod.getTypeP());
 			stmt.setDouble(3, prod.getPrice());
@@ -73,7 +74,7 @@ public class DBImplementation implements MediaMartaDAO {
 		
 		this.openConnection();
 		try {
-			stmt = con.prepareStatement(sqlInsertProd);
+			stmt = con.prepareStatement(SQLINSERTPROD);
 			stmt.setString(1, comp.getNameC());
 			stmt.setObject(2, comp.getTypeC());
 			stmt.setDouble(3, comp.getPrice());
@@ -101,12 +102,15 @@ public class DBImplementation implements MediaMartaDAO {
 	}
 
 	@Override
-	public boolean deleteProd(int cod) {
+	public boolean deleteProd(String nom) {
 		boolean check=false;
 		this.openConnection();
-		
-		
 		try {
+			stmt=con.prepareStatement(SQLDELETE);
+			stmt.setString(1, nom);
+			if (stmt.executeUpdate()>0) {
+				check=true;
+			}
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
