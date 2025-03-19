@@ -1,15 +1,12 @@
 CREATE DATABASE MEDIAMARTA;
 USE MEDIAMARTA;
 
-
-CREATE TABLE USER(
-CODUSER VARCHAR(20) PRIMARY KEY ,
+CREATE TABLE USER(CODUSER VARCHAR(20) PRIMARY KEY ,
 USERNAME VARCHAR(30),
 PSW VARCHAR(15),
 TYPE_U ENUM ("Client","Admin"));
 
-CREATE TABLE BRAND (
-CODBRAND INT AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE BRAND (CODBRAND INT AUTO_INCREMENT PRIMARY KEY,
 NAMEBRAND VARCHAR(15));
 
 CREATE TABLE PRODUCT (CODPRODUCT INT AUTO_INCREMENT PRIMARY KEY,
@@ -18,8 +15,8 @@ TYPEP ENUM ("Mobile","Computer"),
 PRICE DOUBLE,
 STOCK DOUBLE,
 CODBRAND INT,
-FOREIGN KEY (CODBRAND) REFERENCES BRAND (CODBRAND)
-);
+FOREIGN KEY (CODBRAND) REFERENCES BRAND (CODBRAND));
+
 CREATE TABLE PURCHASE (
 CODPRODUCT INT,
 CODUSER VARCHAR (20),
@@ -40,42 +37,37 @@ CREATE TABLE CONTAIN (CODPRODUCT INT,
 CODCOMPONENT INT,
 PRIMARY KEY(CODPRODUCT,CODCOMPONENT),
 FOREIGN KEY (CODPRODUCT) REFERENCES PRODUCT (CODPRODUCT),
-FOREIGN KEY (CODCOMPONENT) REFERENCES COMPONENT (CODCOMPONENT)
-);
+FOREIGN KEY (CODCOMPONENT) REFERENCES COMPONENT (CODCOMPONENT));
 
-INSERT INTO USER 
-VALUES 
-	("Pakete7","Paco","1234","Client"),
-	("Jago128","Jagoba","4321","Admin"),
-    ("BoliBick","Victor","4321","Admin"),
-	("Xabitxu","Xabi","4321","Admin"),
-	("Mineralex","Alex","4321","Admin"),
-    ("PepGuardiola","Pepe","1234","Client"),
-    ("Joao10","Felix","1234","Client");
+INSERT INTO USER VALUES 
+("Pakete7","Paco","1234","Client"),
+("Jago128","Jagoba","4321","Admin"),
+("BoliBick","Victor","4321","Admin"),
+("Xabitxu","Xabi","4321","Admin"),
+("Mineralex","Alex","4321","Admin"),
+("PepGuardiola","Pepe","1234","Client"),
+("Joao10","Felix","1234","Client");
       
-INSERT INTO BRAND (NAMEBRAND)
-VALUES 
-	("Apple"),
-    ("Samsung"),
-    ("Lenovo"),
-    ("Huawei"),
-    ("ASUS"),
-    ("INTEL");
+INSERT INTO BRAND (NAMEBRAND) VALUES 
+("Apple"),
+("Samsung"),
+("Lenovo"),
+("Huawei"),
+("ASUS"),
+("INTEL");
     
-INSERT INTO PRODUCT (NAMEP,TYPEP,PRICE,STOCK,CODBRAND)
-VALUES 
-	("Iphone X","Mobile",500,150,11),
-    ("Samsung Galaxy Book 4","Computer",399,70,12),
-    ("Lenovo IdeaPad Slim 3","Computer",700,300,13),
-    ("Samsung Galaxy S24","Mobile",550,244,12),
-    ("HUAWEI Pura 70 Pro","Mobile",1000,700,14);
+INSERT INTO PRODUCT (NAMEP,TYPEP,PRICE,STOCK,CODBRAND) VALUES
+("Iphone X","Mobile",500,150,11),
+("Samsung Galaxy Book 4","Computer",399,70,12),
+("Lenovo IdeaPad Slim 3","Computer",700,300,13),
+("Samsung Galaxy S24","Mobile",550,244,12),
+("HUAWEI Pura 70 Pro","Mobile",1000,700,14);
     
-INSERT INTO PURCHASE 
-VALUES 
-	(100,'Pakete7',5,'2025-02-20'),
-    (101,'PepGuardiola',12,'2025-01-04'),
-    (104,'Joao10',1,'2025-03-03'),
-    (102,'Pakete7',2,'2025-02-25');
+INSERT INTO PURCHASE VALUES 
+(100,'Pakete7',5,'2025-02-20'),
+(101,'PepGuardiola',12,'2025-01-04'),
+(104,'Joao10',1,'2025-03-03'),
+(102,'Pakete7',2,'2025-02-25');
     
 INSERT INTO COMPONENT (NAMECOMP,TYPEC,CODBRAND,PRICECOMP) VALUES 
 ("Asus GT710","Graphics",15,81.99),
