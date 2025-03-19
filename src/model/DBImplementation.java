@@ -109,8 +109,8 @@ public class DBImplementation implements MediaMartaDAO {
             ResultSet resultado = stmt.executeQuery();
 
             // If there is any result, the user exists
-            if (resultado.next()) {
-                admin = true;
+            if (resultado.next() && resultado.getString(1).equals("Admin")) {
+            	admin = true;
             }
             resultado.close();
             stmt.close();
