@@ -1,15 +1,10 @@
 package windows;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import javax.swing.*;
+import javax.swing.border.*;
 
 import controller.LoginController;
-import model.User;
 
 // CREATE NEW USER WINDOW 
 // Go to->(MenuWindow)

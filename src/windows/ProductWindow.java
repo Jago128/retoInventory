@@ -1,21 +1,10 @@
 package windows;
 
-import java.awt.BorderLayout;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.Map;
+import java.awt.*;
+import java.util.*;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
+import javax.swing.*;
+import javax.swing.border.*;
 
 import controller.LoginController;
 import model.User;
@@ -23,7 +12,7 @@ import model.User;
 // SHOW PRODUCT WINDOW  
 // Go to->(CheckOutWindow, NewItemWindow, VerificationWindow)
 // Back to->(MenuWindow)
-public class ProductWindow extends JDialog implements ActionListener{
+public class ProductWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JButton btnCerrar;

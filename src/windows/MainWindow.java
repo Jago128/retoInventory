@@ -1,26 +1,17 @@
 package windows;
 
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-
-import javax.swing.JButton;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JPasswordField;
-import javax.swing.JTextField;
-import javax.swing.SwingConstants;
-import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.border.*;
 
 import controller.LoginController;
 import model.User;
 
-import java.awt.event.ActionListener;
-
 // MAIN MENU WINDOW 
 // Go to->(MenuWindow, SignInWindow)
 // Back to->(*close*)
-public class MainWindow extends JFrame implements ActionListener{
+public class MainWindow extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;

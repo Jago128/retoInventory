@@ -1,22 +1,16 @@
 package windows;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
+import javax.swing.*;
+import javax.swing.border.*;
+import java.awt.*;
+import java.awt.event.*;
 
 import controller.LoginController;
-import model.User;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.Font;
 
 // MENU WINDOW 
 // Go to->(ProductWindow, ComponentWindow, BrandWindow, LowStockWindow)
 // Back to->(*close*)
-public class MenuWindow extends JFrame implements ActionListener{
+public class MenuWindow extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
