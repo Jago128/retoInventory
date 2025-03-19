@@ -22,6 +22,14 @@ public class User {
 		this.password = password;
 		this.typeU = typeU;
 	}
+	
+	//Declare parametrized constructor
+		public User(String codU, String password) {
+			this.codU = codU;
+			this.username = "";
+			this.password = password;
+			this.typeU = typeU.NULL;
+		}
 
 	//Declare getters and setters
 	public String getCodU() {
