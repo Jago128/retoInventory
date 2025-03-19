@@ -112,7 +112,6 @@ public class DBImplementation implements MediaMartaDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
 		return check;
 	}
 
