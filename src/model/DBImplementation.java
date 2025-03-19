@@ -115,16 +115,19 @@ public class DBImplementation implements MediaMartaDAO {
 		return check;
 	}
 
+	// Shows the products from the Database MediaMarta
 	@Override
 	public void showProd() {
 		
 	}
 
+	// Shows the products and components of each brand from the Database MediaMarta
 	@Override
 	public void showBrandsAndItsItems() {
 		
 	}
 
+	// Shows the components from the Database MediaMarta
 	@Override
 	public void showComponents() {
 		
