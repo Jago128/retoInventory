@@ -28,7 +28,7 @@ public class User {
 			this.codU = codU;
 			this.username = "";
 			this.password = password;
-			this.typeU = typeU.NULL;
+			this.typeU = TypeU.ADMIN;
 		}
 
 	//Declare getters and setters
