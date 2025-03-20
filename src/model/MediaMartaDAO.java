@@ -26,5 +26,4 @@ public interface MediaMartaDAO {
 	public void showProdsOrderedByStock();
 	
 	public boolean deleteProd(String nom);
-	
 }
