@@ -124,23 +124,42 @@ END //
 DELIMITER ;
 
 Delimiter //
-CREATE FUNCTION LowStock() RETURNS VARCHAR(50)
+CREATE PROCEDURE ShowLowStock (STOCKP int, STOCKC int)  
 BEGIN
 	DECLARE Fin BOOLEAN DEFAULT FALSE;
+    DECLARE CodProd INT;
     DECLARE NomProd VARCHAR(50);
-    DECLARE TipoP ENUM ("Mobile","Computer");
-    DECLARE PriceP DOUBLE;
     DECLARE StockP DOUBLE;
-    DECLARE CodBrand INT;
+    DECLARE CodComp INT;
     DECLARE NomComp VARCHAR(50);
-    DECLARE TipoC ENUM ("Mobile","Computer");
-    DECLARE PriceComp DOUBLE;
     DECLARE StockC INT;
-    DECLARE C CURSOR FOR SELECT REFPED, FECPED FROM PEDIDO;
+    DECLARE C CURSOR FOR SELECT P.CODPRODUCT, P.NAMEP, P.STOCKPRODUCT FROM PRODUCT P ORDER BY STOCKPRODUCT;
+    DECLARE C2 CURSOR FOR SELECT C.CODCOMPONENT, C.NAMECOMP, C.STOCKCOMPONENT FROM COMPONENT C ORDER BY STOCKCOMPONENT;
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET Fin = TRUE;
-    SELECT NAME FROM PRODUCT WHERE STOCKP >= 5;
+    OPEN C;
+		SET FIN = FALSE;
+        FETCH C INTO CodProd, NomProd, StockP;
+		WHILE FIN = FALSE DO
+			IF (StockP <= 5) THEN
+				SELECT CONCAT('Code: ', CodProd,' Product: ', NomProd,' Stock: ', StockP);
+			END IF;
+            FETCH C INTO CodProd, NomProd, StockP;
+		END WHILE;
+    CLOSE C;
+    
+    OPEN C2;
+		SET Fin = FALSE;
+		FETCH C2 INTO CodComp, NomComp, StockC;
+		WHILE FIN = FALSE DO
+			IF (StockC <= 5) THEN
+				SELECT CONCAT('Code: ', CodComp,' Product: ', NomComp,' Stock: ', StockC);
+			END IF;
+            FETCH C2 INTO CodComp, NomComp, StockC;
+		END WHILE;
+    CLOSE C2;
 END //
 Delimiter ;
+CALL ShowLowStock(2, 3);
 
 Delimiter //
 CREATE PROCEDURE DeleteProduct(NomProd VARCHAR(50))
