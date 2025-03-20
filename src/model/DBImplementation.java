@@ -30,7 +30,7 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLUSERPSW = "SELECT * FROM user WHERE coduser = ? AND psw = ?";
 	final String SQLPROD = "SELECT PROD FROM PRODUCT WHERE NAMEP = ?";
 	final String SQLTYPE = "SELECT type_u FROM user WHERE coduser = ?";
-	final String SQLINSERTUSER = "INSERT INTO user VALUES (?,?,?,Client)";
+	final String SQLINSERTUSER = "INSERT INTO user VALUES (?,?,?,'Client')";
 	
 	// SQL queries for the Views
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
