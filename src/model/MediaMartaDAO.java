@@ -15,11 +15,11 @@ public interface MediaMartaDAO {
 	
 	public Map<String, Brand> verifyBrandsAndItsItems();
 	
-	public Map<String, Component> verifyComponent();
+	public Map<String, Comp> verifyComponent();
 	
 	public boolean insertProd(Product prod);
 	
-	public boolean insertComp(Component comp);
+	public boolean insertComp(Comp comp);
 	
 	public boolean sellAndSubstract(double amount, String nom, String codUser);
 	

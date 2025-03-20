@@ -20,6 +20,8 @@ public class MenuWindow extends JFrame implements ActionListener {
 	private boolean admin;
 
 	public MenuWindow(boolean admin, LoginController controlador) {
+		this.cont=controlador;
+		
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
