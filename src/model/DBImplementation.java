@@ -23,20 +23,22 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLDELETE = "DELETE FROM PRODUCT WHERE CODPRODUCT=(SELECT CODPRODUCT FROM PRODUCT WHERE NAMEP = ?)";
 
 	//Selects
+	final String SQLSELL = "SELECT sellAndSubstract(?,?,?)";
+	
+	// SQL queries for the users
 	final String SQLUSER = "SELECT * FROM user WHERE coduser = ?";
 	final String SQLUSERPSW = "SELECT * FROM user WHERE coduser = ? AND psw = ?";
 	final String SQLPROD = "SELECT PROD FROM PRODUCT WHERE NAMEP = ?";
 	final String SQLTYPE = "SELECT type_u FROM user WHERE coduser = ?";
-	final String SQLSELL = "SELECT sellAndSubstract(?,?,?)";
-
+	final String SQLINSERTUSER = "INSERT INTO user VALUES (?,?,?,Client)";
 	
+	// SQL queries for the Views
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
 	final String SQLSELECTCOMPONENT = "SELECT * FROM component";
 	final String SQLSELECTBRAND = "SELECT * FROM brand";
 	
 	/* Queries to use as reference, to be deleted later
 	 * final String SQLINSERT = "INSERT INTO user VALUES (?,?)";
-	 * final String SQLCONSULTA = "SELECT * FROM user";
 	 * final String SQLBORRAR = "DELETE FROM user WHERE coduser=?";
 	 * final String SQLMODIFY = "UPDATE user SET psw=? WHERE coduser=?" */
 	
@@ -116,6 +118,29 @@ public class DBImplementation implements MediaMartaDAO {
 		return exists;
 	}
 
+	//Registers a new user
+	public boolean registerUser(User user) {
+		// TODO Auto-generated method stub
+		boolean register=false;
+		if (!verifyUser(user)){
+			this.openConnection();
+			try {
+				stmt = con.prepareStatement(SQLINSERTUSER);
+				stmt.setString(1, user.getCodU());
+				stmt.setString(2, user.getUsername());
+				stmt.setString(3, user.getPassword());
+				if (stmt.executeUpdate()>0) {
+					register=true;
+				}			
+	            stmt.close();
+	            con.close();
+			  } catch (SQLException e) {
+	             System.out.println("Error" + e.getMessage());
+	        }
+		}
+			return register;		
+	}
+	
 	//Verify the user type (only used once the user is verified)
 	@Override
 	public boolean verifyUserType(User user) {
