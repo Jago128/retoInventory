@@ -7,7 +7,7 @@ import javax.swing.border.*;
 // SHOW LOW STOCK WINDOW  
 // Go to->(*close*)
 // Back to->(LowStockWindow)
-public class ReestockWindow extends JDialog {
+public class RestockWindow extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
@@ -17,7 +17,7 @@ public class ReestockWindow extends JDialog {
 	 */
 	public static void main(String[] args) {
 		try {
-			ReestockWindow dialog = new ReestockWindow();
+			RestockWindow dialog = new RestockWindow();
 			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 			dialog.setVisible(true);
 		} catch (Exception e) {
@@ -28,7 +28,7 @@ public class ReestockWindow extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public ReestockWindow() {
+	public RestockWindow() {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(new BorderLayout());
 		contentPanel.setLayout(new FlowLayout());
