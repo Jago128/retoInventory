@@ -262,7 +262,7 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.setString(2, nom);
 			stmt.setString(3, codUser);
 			ResultSet rs = stmt.executeQuery();
-			//Get the errorcheck boolean to see if there was a problem or not
+			//Get the errorcheck boolean to see if there was a problem during the update or not
 			check=rs.getBoolean(1);
 			//Closes the connection
 			rs.close();
@@ -276,7 +276,7 @@ public class DBImplementation implements MediaMartaDAO {
 
 	@Override
 	public void showProdsOrderedByStock() {
-
+		
 	}
 
 	@Override
