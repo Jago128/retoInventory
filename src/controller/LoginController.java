@@ -28,28 +28,16 @@ public class LoginController {
 		return dao.verifyUserType(user);
 	}
 	
-	public Map<String, Product> showProducts() {
-		return dao.showProducts();
+	public Map<String, Product> verifyProduct() {
+		return dao.verifyProduct();
 	}
 
-	public Map<String, Brand> showBrandsAndItsItems() {
-		return dao.showBrandsAndItsItems();
+	public Map<String, Brand> verifyBrandsAndItsItems() {
+		return dao.verifyBrandsAndItsItems();
 	}
 
-	public Map<String, Component> showComponents() {
-		return dao.showComponents();
-	}
-	
-	public boolean verifyProduct(Product product) {
-		return dao.verifyProduct(product);
-	}
-	
-	public boolean verifyComponent(Component component){
-		return dao.verifyComponent(component);
-	}
-	
-	public boolean verifyBrand(Brand brand){
-		return dao.verifyBrand(brand);
+	public Map<String, Component> verifyComponent() {
+		return dao.verifyComponent();
 	}
 	
 	public boolean insertProd(Product prod) {
@@ -60,8 +48,8 @@ public class LoginController {
 		return dao.insertComp(comp);
 	}
 	
-	public boolean sellAndSubstract(double amount, String nom) {
-		return dao.sellAndSubstract(amount, nom);
+	public boolean sellAndSubstract(double amount, String nom, String codUser) {
+		return dao.sellAndSubstract(amount, nom, codUser);
 	}
 	
 	public boolean deleteProd(String nom) {

@@ -27,7 +27,7 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLUSERPSW = "SELECT * FROM user WHERE coduser = ? AND psw = ?";
 	final String SQLPROD = "SELECT PROD FROM PRODUCT WHERE NAMEP = ?";
 	final String SQLTYPE = "SELECT type_u FROM user WHERE coduser = ?";
-	final String SQLSELL = "SELECT sellAndSubstract(?,?)";
+	final String SQLSELL = "SELECT sellAndSubstract(?,?,?)";
 
 	
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
@@ -61,7 +61,8 @@ public class DBImplementation implements MediaMartaDAO {
 		}
 	}
 
-	//Verify that the user exists 
+	//Verify that the user exists
+	@Override
 	public boolean verifyUser(User user) {
 		//Open connection and declare a boolean to check if the user exists
 		boolean exists=false;
@@ -88,6 +89,7 @@ public class DBImplementation implements MediaMartaDAO {
 	}
 
 	//Verify that the user and the password exist and matches
+	@Override
 	public boolean verifyUserPassword(User user) {
 		//Open connection and declare a boolean to check if the password exists and matches
 		boolean exists=false;
@@ -115,6 +117,7 @@ public class DBImplementation implements MediaMartaDAO {
 	}
 
 	//Verify the user type (only used once the user is verified)
+	@Override
 	public boolean verifyUserType(User user) {
 		//Open connection and declare a boolean to check if the user is an admin
 		boolean admin=false;
@@ -140,22 +143,57 @@ public class DBImplementation implements MediaMartaDAO {
 		return admin;
 	}	
 	
-	//Verify that the product exists 
-	public boolean verifyProduct(Product product) {
-		return true;
+	//Verify that the product exists
+	@Override
+	public Map<String, Product> verifyProduct() {		
+		ResultSet rs = null;
+		Product product;
+		Map<String, Product> products = new TreeMap<>();
+		
+		this.openConnection();
+		try {
+			stmt = con.prepareStatement(SQLSELECTPRODUCT);
+
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				product = new Product();
+				product.setNameP(rs.getString("namep"));
+				product.setPrice(rs.getDouble("price"));
+				products.put(product.getNameP(), product);
+			}
+			rs.close();
+            stmt.close();
+            con.close();
+		} catch (SQLException e) {
+			System.out.println("Error de SQL");
+			e.printStackTrace();
+		}
+		return products;
 	}
 	
 	//Verify that the component exists 
-	public boolean verifyComponent(Component component){
-		return true;
+	@Override
+	public Map<String, Component> verifyComponent(){
+		ResultSet rs = null;
+		Component component;
+		Map<String, Component> components = new TreeMap<>();
+		
+		
+		return components;
 	}
 	
 	//Verify that the brand exists 
-	public boolean verifyBrand(Brand brand){
-		return true;
+	public Map<String, Brand> verifyBrandsAndItsItems(){
+		ResultSet rs = null;
+		Brand brand;
+		Map<String, Brand> brands = new TreeMap<>();
+		
+		
+		return brands;
 	}
 	
-	
+	//Inserts a new product
 	@Override
 	public boolean insertProd(Product prod) {
 		//Open connection and declare a boolean to check if the update is properly executed
@@ -209,22 +247,23 @@ public class DBImplementation implements MediaMartaDAO {
 		}
 		return check;
 	}
-
+	
+	//Substracts from a product's stock, essentilly selling the product to the user
 	@Override
-	public boolean sellAndSubstract(double amount, String nom) {
+	public boolean sellAndSubstract(double amount, String nom, String codUser) {
 		//Open connection and declare a boolean to check if the update is properly executed
 		boolean check=false;
 		
 		this.openConnection();
 		try {
-			//Prepares the SQL query
-			stmt = con.prepareStatement(SQLPROD);
+			//Prepares the SQL query to get the product		
+			stmt = con.prepareStatement(SQLSELL);
 			stmt.setDouble(1, amount);
 			stmt.setString(2, nom);
+			stmt.setString(3, codUser);
 			ResultSet rs = stmt.executeQuery();
-			if (rs.next()) {
-				check=true;
-			}
+			//Get the errorcheck boolean to see if there was a problem during the update or not
+			check=rs.getBoolean(1);
 			//Closes the connection
 			rs.close();
 			stmt.close();
@@ -237,7 +276,7 @@ public class DBImplementation implements MediaMartaDAO {
 
 	@Override
 	public void showProdsOrderedByStock() {
-
+		
 	}
 
 	@Override
@@ -260,26 +299,5 @@ public class DBImplementation implements MediaMartaDAO {
 			e.printStackTrace();
 		}
 		return check;
-	}
-
-	//Shows the products from the database
-	@Override
-	public Map<String, Product> showProducts() {
-
-		return null;
-	}
-
-	//Shows the products and components of each brand from the database
-	@Override
-	public Map<String, Brand> showBrandsAndItsItems() {
-		
-		return null;
-	}
-
-	//Shows the components from the database
-	@Override
-	public Map<String, Component> showComponents() {
-
-		return null;
 	}
 }
