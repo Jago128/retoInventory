@@ -61,7 +61,8 @@ public class DBImplementation implements MediaMartaDAO {
 		}
 	}
 
-	//Verify that the user exists 
+	//Verify that the user exists
+	@Override
 	public boolean verifyUser(User user) {
 		//Open connection and declare a boolean to check if the user exists
 		boolean exists=false;
@@ -88,6 +89,7 @@ public class DBImplementation implements MediaMartaDAO {
 	}
 
 	//Verify that the user and the password exist and matches
+	@Override
 	public boolean verifyUserPassword(User user) {
 		//Open connection and declare a boolean to check if the password exists and matches
 		boolean exists=false;
@@ -115,6 +117,7 @@ public class DBImplementation implements MediaMartaDAO {
 	}
 
 	//Verify the user type (only used once the user is verified)
+	@Override
 	public boolean verifyUserType(User user) {
 		//Open connection and declare a boolean to check if the user is an admin
 		boolean admin=false;
@@ -140,7 +143,8 @@ public class DBImplementation implements MediaMartaDAO {
 		return admin;
 	}	
 	
-	//Verify that the product exists 
+	//Verify that the product exists
+	@Override
 	public Map<String, Product> verifyProduct() {		
 		ResultSet rs = null;
 		Product product;
@@ -169,7 +173,7 @@ public class DBImplementation implements MediaMartaDAO {
 	}
 	
 	//Verify that the component exists 
-
+	@Override
 	public Map<String, Component> verifyComponent(){
 		ResultSet rs = null;
 		Component component;
