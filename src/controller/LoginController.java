@@ -28,7 +28,6 @@ public class LoginController {
 		return dao.verifyUserType(user);
 	}
 	
-
 	public Map<String, Product> showProducts() {
 		return dao.showProducts();
 	}
@@ -39,6 +38,18 @@ public class LoginController {
 
 	public Map<String, Component> showComponents() {
 		return dao.showComponents();
+	}
+	
+	public boolean verifyProduct(Product product) {
+		return dao.verifyProduct(product);
+	}
+	
+	public boolean verifyComponent(Component component){
+		return dao.verifyComponent(component);
+	}
+	
+	public boolean verifyBrand(Brand brand){
+		return dao.verifyBrand(brand);
 	}
 	
 	public boolean insertProd(Product prod) {

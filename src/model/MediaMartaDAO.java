@@ -11,6 +11,12 @@ public interface MediaMartaDAO {
 
 	public boolean verifyUserType(User user);
 	
+	public boolean verifyProduct(Product product);
+	
+	public boolean verifyComponent(Component component);
+	
+	public boolean verifyBrand(Brand brand);
+	
 	public boolean insertProd(Product prod);
 	
 	public boolean insertComp(Component comp);

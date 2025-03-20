@@ -52,9 +52,8 @@ public class ProductWindow extends JDialog implements ActionListener {
 		btnCerrar.addActionListener(this);	
 	}
 
-	public void cargarUsuarios() {
+	public void loadProducts() {
 		DefaultListModel<String> modelo = new DefaultListModel<String>();
-		
 		products = cont.showProducts();
 		if(!products.isEmpty()) {
 			for (Product p : products.values()){
