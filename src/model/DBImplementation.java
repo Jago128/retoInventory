@@ -22,17 +22,17 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLINSERTCOMP = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, PRICECOMP, CODBRAND) VALUES (?, ?, ?, ?)";
 	final String SQLDELETE = "DELETE FROM PRODUCT WHERE CODPRODUCT=(SELECT CODPRODUCT FROM PRODUCT WHERE NAMEP = ?)";
 
-	//-User
+	//Selects
 	final String SQLUSER = "SELECT * FROM user WHERE coduser = ?";
 	final String SQLUSERPSW = "SELECT * FROM user WHERE coduser = ? AND psw = ?";
 	final String SQLPROD = "SELECT PROD FROM PRODUCT WHERE NAMEP = ?";
-	final String SQLSELL = "SELECT sellAndSubstract(?,?)";
 	final String SQLTYPE = "SELECT type_u FROM user WHERE coduser = ?";
+	final String SQLSELL = "SELECT sellAndSubstract(?,?)";
+
 	
-	//-Show
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
-	final String SQLSELECTCOMPONENT = "SELECT * FROM product";
-	final String SQLSELECTBRAND = "SELECT * FROM product";
+	final String SQLSELECTCOMPONENT = "SELECT * FROM component";
+	final String SQLSELECTBRAND = "SELECT * FROM brand";
 	
 	/* Queries to use as reference, to be deleted later
 	 * final String SQLINSERT = "INSERT INTO user VALUES (?,?)";
@@ -246,21 +246,21 @@ public class DBImplementation implements MediaMartaDAO {
 		return check;
 	}
 
-	// Shows the products from the database
+	//Shows the products from the database
 	@Override
 	public Map<String, Product> showProducts() {
 
 		return null;
 	}
 
-	// Shows the products and components of each brand from the database
+	//Shows the products and components of each brand from the database
 	@Override
 	public Map<String, Brand> showBrandsAndItsItems() {
 		
 		return null;
 	}
 
-	// Shows the components from the database
+	//Shows the components from the database
 	@Override
 	public Map<String, Component> showComponents() {
 
