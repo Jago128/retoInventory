@@ -36,7 +36,7 @@ public class LoginController {
 		return dao.verifyBrandsAndItsItems();
 	}
 
-	public Map<String, Component> verifyComponent() {
+	public Map<String, Comp> verifyComponent() {
 		return dao.verifyComponent();
 	}
 	
@@ -44,7 +44,7 @@ public class LoginController {
 		return dao.insertProd(prod);
 	}
 	
-	public boolean insertComp(Component comp) {
+	public boolean insertComp(Comp comp) {
 		return dao.insertComp(comp);
 	}
 	

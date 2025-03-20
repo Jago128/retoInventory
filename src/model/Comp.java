@@ -1,6 +1,6 @@
 package model;
 
-public class Component {
+public class Comp {
 	//Declare variables
 	private int codC;
 	private String nameC;
@@ -10,7 +10,7 @@ public class Component {
 	
 
 	//Declare empty constructor
-	public Component() {
+	public Comp() {
 		this.codC = 0;
 		this.nameC = "";
 		this.typeC = TypeC.GRAPHICS;
@@ -19,7 +19,7 @@ public class Component {
 	}
 	
 	//Declare parametrized constructor
-	public Component(int codC, String nameC, TypeC typeC, int codBrand, double price) {
+	public Comp(int codC, String nameC, TypeC typeC, int codBrand, double price) {
 		this.codC = codC;
 		this.nameC = nameC;
 		this.typeC = typeC;

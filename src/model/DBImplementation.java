@@ -162,18 +162,37 @@ public class DBImplementation implements MediaMartaDAO {
             stmt.close();
             con.close();
 		} catch (SQLException e) {
-			System.out.println("Error de SQL");
+			System.out.println("SQL error");
 			e.printStackTrace();
 		}
 		return products;
 	}
 	
 	//Verify that the component exists 
-	public Map<String, Component>  verifyComponent(){
+	public Map<String, Comp>  verifyComponent(){
 		ResultSet rs = null;
-		Component component;
-		Map<String, Component> components = new TreeMap<>();
+		Comp component;
+		Map<String, Comp> components = new TreeMap<>();
 		
+		this.openConnection();
+		try {
+			stmt = con.prepareStatement(SQLSELECTCOMPONENT);
+
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				component = new Comp();
+				component.setNameC(rs.getString("namecomp"));
+				component.setPrice(rs.getDouble("pricecomp"));
+				components.put(component.getNameC(), component);
+			}
+			rs.close();
+            stmt.close();
+            con.close();
+		} catch (SQLException e) {
+			System.out.println("SQL error");
+			e.printStackTrace();
+		}
 		
 		return components;
 	}
@@ -218,7 +237,7 @@ public class DBImplementation implements MediaMartaDAO {
 
 	// Insert new Components to the database.
 	@Override
-	public boolean insertComp(Component comp) {
+	public boolean insertComp(Comp comp) {
 		//Open connection and declare a boolean to check if the update is properly executed
 		boolean check=false;
 
