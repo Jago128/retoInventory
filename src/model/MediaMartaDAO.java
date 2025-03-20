@@ -11,11 +11,11 @@ public interface MediaMartaDAO {
 
 	public boolean verifyUserType(User user);
 	
-	public boolean verifyProduct(Product product);
+	public Map<String, Product> verifyProduct();
 	
-	public boolean verifyComponent(Component component);
+	public Map<String, Brand> verifyBrandsAndItsItems();
 	
-	public boolean verifyBrand(Brand brand);
+	public Map<String, Component> verifyComponent();
 	
 	public boolean insertProd(Product prod);
 	
@@ -27,9 +27,4 @@ public interface MediaMartaDAO {
 	
 	public boolean deleteProd(String nom);
 	
-	public Map<String, Product> showProducts();
-	
-	public Map<String, Brand> showBrandsAndItsItems();
-	
-	public Map<String, Component> showComponents();
 }

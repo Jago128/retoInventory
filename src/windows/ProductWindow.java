@@ -42,7 +42,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 		list = new JList<String>();
 		list.setBounds(10, 64, 416, 168);
 		getContentPane().add(list);
-		cargarUsuarios();
+		loadProducts();
 		
 		btnCerrar = new JButton("CERRAR");
 		btnCerrar.setBounds(356, 242, 80, 21);
@@ -53,14 +53,14 @@ public class ProductWindow extends JDialog implements ActionListener {
 	}
 
 	public void loadProducts() {
-		DefaultListModel<String> modelo = new DefaultListModel<String>();
-		products = cont.showProducts();
+		DefaultListModel<String> model = new DefaultListModel<String>();
+		products = cont.verifyProduct();
 		if(!products.isEmpty()) {
 			for (Product p : products.values()){
-				modelo.addElement(p.getNameP());
+				model.addElement(p.getNameP());
 			}
 		}
-		list.setModel(modelo);
+		list.setModel(model);
 	}
 	
 	@Override

@@ -141,21 +141,52 @@ public class DBImplementation implements MediaMartaDAO {
 	}	
 	
 	//Verify that the product exists 
-	public boolean verifyProduct(Product product) {
+	public Map<String, Product> verifyProduct() {		
+		ResultSet rs = null;
+		Product product;
+		Map<String, Product> products = new TreeMap<>();
 		
-		return true;
+		this.openConnection();
+		try {
+			stmt = con.prepareStatement(SQLSELECTPRODUCT);
+
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				product = new Product();
+				product.setNameP(rs.getString("namep"));
+				product.setPrice(rs.getDouble("price"));
+				products.put(product.getNameP(), product);
+			}
+			rs.close();
+            stmt.close();
+            con.close();
+		} catch (SQLException e) {
+			System.out.println("Error de SQL");
+			e.printStackTrace();
+		}
+		return products;
 	}
 	
 	//Verify that the component exists 
-	public boolean verifyComponent(Component component){
+
+	public Map<String, Component> verifyComponent(){
+		ResultSet rs = null;
+		Component component;
+		Map<String, Component> components = new TreeMap<>();
 		
-		return true;
+		
+		return components;
 	}
 	
 	//Verify that the brand exists 
-	public boolean verifyBrand(Brand brand){
+	public Map<String, Brand> verifyBrandsAndItsItems(){
+		ResultSet rs = null;
+		Brand brand;
+		Map<String, Brand> brands = new TreeMap<>();
 		
-		return true;
+		
+		return brands;
 	}
 	
 	
@@ -262,26 +293,5 @@ public class DBImplementation implements MediaMartaDAO {
 			e.printStackTrace();
 		}
 		return check;
-	}
-
-	//Shows the products from the database
-	@Override
-	public Map<String, Product> showProducts() {
-
-		return null;
-	}
-
-	//Shows the products and components of each brand from the database
-	@Override
-	public Map<String, Brand> showBrandsAndItsItems() {
-		
-		return null;
-	}
-
-	//Shows the components from the database
-	@Override
-	public Map<String, Component> showComponents() {
-
-		return null;
 	}
 }
