@@ -142,16 +142,19 @@ public class DBImplementation implements MediaMartaDAO {
 	
 	//Verify that the product exists 
 	public boolean verifyProduct(Product product) {
+		
 		return true;
 	}
 	
 	//Verify that the component exists 
 	public boolean verifyComponent(Component component){
+		
 		return true;
 	}
 	
 	//Verify that the brand exists 
 	public boolean verifyBrand(Brand brand){
+		
 		return true;
 	}
 	
@@ -222,9 +225,8 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.setDouble(1, amount);
 			stmt.setString(2, nom);
 			ResultSet rs = stmt.executeQuery();
-			if (rs.next()) {
-				check=true;
-			}
+			//Get the errorcheck boolean to see if there was a problem or not
+			check=rs.getBoolean(1);
 			//Closes the connection
 			rs.close();
 			stmt.close();
