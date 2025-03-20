@@ -142,6 +142,22 @@ public class DBImplementation implements MediaMartaDAO {
 		return admin;
 	}	
 	
+	//Verify that the product exists 
+	public boolean verifyProduct(Product product) {
+		return true;
+	}
+	
+	//Verify that the component exists 
+	public boolean verifyComponent(Component component){
+		return true;
+	}
+	
+	//Verify that the brand exists 
+	public boolean verifyBrand(Brand brand){
+		return true;
+	}
+	
+	
 	@Override
 	public boolean insertProd(Product prod) {
 		//Open connection and declare a boolean to check if the update is properly executed

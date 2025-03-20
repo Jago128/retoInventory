@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import controller.LoginController;
+import model.Product;
 import model.User;
 
 // SHOW PRODUCT WINDOW  
@@ -28,7 +29,7 @@ public class ProductWindow extends JDialog implements ActionListener{
 	private static final long serialVersionUID = 1L;
 	private JButton btnCerrar;
 	private JList<String> list;
-	private Map<String, User> usuarios;
+	private Map<String, Product> products;
 	private JLabel lblTitulo;
 	private final JPanel contentPanel = new JPanel();
 	private LoginController cont;
@@ -61,13 +62,13 @@ public class ProductWindow extends JDialog implements ActionListener{
 		btnCerrar.addActionListener(this);	
 	}
 
-	public void cargarUsuarios() {
+	public void loadProducts() {
 		DefaultListModel<String> modelo = new DefaultListModel<String>();
 		
-		usuarios = cont.consultaUsuarios();
-		if(!usuarios.isEmpty()) {
-			for (Usuario u : usuarios.values()){
-				modelo.addElement(u.getNombre());
+		products = cont.verifyProduct();
+		if(!products.isEmpty()) {
+			for (Product p : products.values()){
+				modelo.addElement(p.getNameP());
 			}
 		}
 		list.setModel(modelo);
