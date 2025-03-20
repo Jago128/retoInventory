@@ -24,6 +24,14 @@ public class User {
 	}
 	
 	//Declare parametrized constructor
+			public User(String codU, String username, String password) {
+				this.codU = codU;
+				this.username = "";
+				this.password = password;
+				this.typeU = TypeU.ADMIN;
+			}
+	
+	//Declare parametrized constructor
 		public User(String codU, String password) {
 			this.codU = codU;
 			this.username = "";

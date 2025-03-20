@@ -16,6 +16,7 @@ public class LoginController {
 	}
 	
 	//Set up methods for usage
+	// User related methods
 	public boolean verifyUser(User user) {
 		return dao.verifyUser(user);
 	}
@@ -28,6 +29,10 @@ public class LoginController {
 		return dao.verifyUserType(user);
 	}
 	
+	public boolean registerUser(User user) {
+		return dao.registerUser(user);
+	}
+	// Product, Comp and Brand methods
 	public Map<String, Product> verifyProduct() {
 		return dao.verifyProduct();
 	}
