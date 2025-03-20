@@ -5,7 +5,6 @@ import java.awt.event.*;
 import java.util.*;
 
 import javax.swing.*;
-import javax.swing.border.*;
 
 import controller.LoginController;
 import model.Product;
@@ -21,7 +20,6 @@ public class ProductWindow extends JDialog implements ActionListener {
 	private JList<String> list;
 	private Map<String, Product> products;
 	private JLabel lblTitulo;
-	private final JPanel contentPanel = new JPanel();
 	private LoginController cont;
 	private boolean admin;
 

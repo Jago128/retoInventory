@@ -89,14 +89,13 @@ public class MainWindow extends JFrame implements ActionListener {
 	public boolean verifyUserType(User user, boolean admin) {
 		if(cont.verifyUserType(user)) { // If is admin it will be true
 			admin=true;
-		}else { // If its not it will be false
+		} else { // If its not it will be false
 			admin=false;
 		}
 		return admin;
 	}
 	
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub	
 		boolean admin=false;
 		
 		if (e.getSource()==btnClose) {
@@ -110,7 +109,7 @@ public class MainWindow extends JFrame implements ActionListener {
 				MenuWindow menu=new  MenuWindow(admin, cont); // The admin variable is sent to show or not certain option in the next windows
 				menu.setVisible(true);
 				dispose();
-			}else {
+			} else {
 				lblMesageUp.setText("User not found.");
 				lblMessageDown.setText("To register go to Log-In.");
 			}

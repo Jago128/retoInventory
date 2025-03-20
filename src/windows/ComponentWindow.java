@@ -22,7 +22,6 @@ public class ComponentWindow extends JDialog implements ActionListener {
 	private JList<String> list;
 	private Map<String, Comp> components;
 	private JLabel lblTitulo;
-	private final JPanel contentPanel = new JPanel();
 	private LoginController cont;
 	private boolean admin;
 
@@ -56,7 +55,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 	public void loadComponents() {
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		components = cont.verifyComponent();
-		if(!components.isEmpty()) {
+		if (!components.isEmpty()) {
 			for (Comp c : components.values()){
 				model.addElement(c.getNameC());
 			}
