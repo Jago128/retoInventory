@@ -7,6 +7,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import controller.LoginController;
+import model.Product;
 import model.User;
 
 // SHOW PRODUCT WINDOW  
@@ -17,7 +18,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JButton btnCerrar;
 	private JList<String> list;
-	private Map<String, User> usuarios;
+	private Map<String, Product> products;
 	private JLabel lblTitulo;
 	private final JPanel contentPanel = new JPanel();
 	private LoginController cont;
@@ -27,11 +28,11 @@ public class ProductWindow extends JDialog implements ActionListener {
 		super(parent,true); //Recibe la ventana padra para bloquearla y que no se pueda modificar
 		this.cont=cont;
 
-		setTitle("MOSTRAR USUARIOS");
+		setTitle("PRODUCTS");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
 
-		lblTitulo = new JLabel("Lista de Usuarios");
+		lblTitulo = new JLabel("The products in our shop");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		lblTitulo.setBounds(68, 11, 313, 43);
@@ -53,10 +54,10 @@ public class ProductWindow extends JDialog implements ActionListener {
 	public void cargarUsuarios() {
 		DefaultListModel<String> modelo = new DefaultListModel<String>();
 		
-		usuarios = cont.consultaUsuarios();
-		if(!usuarios.isEmpty()) {
-			for (Usuario u : usuarios.values()){
-				modelo.addElement(u.getNombre());
+		products = cont.showProducts();
+		if(!products.isEmpty()) {
+			for (Product p : products.values()){
+				modelo.addElement(p.getNameP());
 			}
 		}
 		list.setModel(modelo);

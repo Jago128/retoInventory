@@ -1,5 +1,7 @@
 package controller;
 
+import java.util.Map;
+
 import model.*;
 import windows.MainWindow;
 
@@ -24,6 +26,19 @@ public class LoginController {
 	
 	public boolean verifyUserType(User user) {
 		return dao.verifyUserType(user);
+	}
+	
+
+	public Map<String, Product> showProducts() {
+		return dao.showProducts();
+	}
+
+	public Map<String, Brand> showBrandsAndItsItems() {
+		return dao.showBrandsAndItsItems();
+	}
+
+	public Map<String, Component> showComponents() {
+		return dao.showComponents();
 	}
 	
 	public boolean insertProd(Product prod) {

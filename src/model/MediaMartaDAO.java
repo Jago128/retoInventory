@@ -1,5 +1,7 @@
 package model;
 
+import java.util.Map;
+
 public interface MediaMartaDAO {
 	
 	//Prepare methods to be inherited by DBImplementation
@@ -19,9 +21,9 @@ public interface MediaMartaDAO {
 	
 	public boolean deleteProd(String nom);
 	
-	public void showProd();
+	public Map<String, Product> showProducts();
 	
-	public void showBrandsAndItsItems();
+	public Map<String, Brand> showBrandsAndItsItems();
 	
-	public void showComponents();
+	public Map<String, Component> showComponents();
 }

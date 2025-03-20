@@ -28,9 +28,7 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLPROD = "SELECT PROD FROM PRODUCT WHERE NAMEP = ?";
 	final String SQLSELL = "SELECT sellAndSubstract(?,?)";
 	final String SQLTYPE = "SELECT type_u FROM user WHERE coduser = ?";
-
-
-
+	
 	//-Show
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
 	final String SQLSELECTCOMPONENT = "SELECT * FROM product";
@@ -250,19 +248,22 @@ public class DBImplementation implements MediaMartaDAO {
 
 	// Shows the products from the database
 	@Override
-	public void showProd() {
+	public Map<String, Product> showProducts() {
 
+		return null;
 	}
 
 	// Shows the products and components of each brand from the database
 	@Override
-	public void showBrandsAndItsItems() {
-
+	public Map<String, Brand> showBrandsAndItsItems() {
+		
+		return null;
 	}
 
 	// Shows the components from the database
 	@Override
-	public void showComponents() {
+	public Map<String, Component> showComponents() {
 
+		return null;
 	}
 }
