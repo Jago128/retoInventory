@@ -286,7 +286,7 @@ public class DBImplementation implements MediaMartaDAO {
 	
 	//Substracts from a product's stock, essentilly selling the product to the user
 	@Override
-	public boolean sellAndSubstract(double amount, String nom, String codUser) {
+	public boolean sellAndSubstract(String codUser, String nomProd, int amount) {
 		//Open connection and declare a boolean to check if the update is properly executed
 		boolean check=false;
 		
@@ -294,9 +294,9 @@ public class DBImplementation implements MediaMartaDAO {
 		try {
 			//Prepares the SQL query to get the product		
 			stmt = con.prepareStatement(SQLSELL);
-			stmt.setDouble(1, amount);
-			stmt.setString(2, nom);
-			stmt.setString(3, codUser);
+			stmt.setString(1, codUser);
+			stmt.setString(2, nomProd);
+			stmt.setInt(3, amount);
 			ResultSet rs = stmt.executeQuery();
 			//Get the errorcheck boolean to see if there was a problem during the update or not
 			check=rs.getBoolean(1);
