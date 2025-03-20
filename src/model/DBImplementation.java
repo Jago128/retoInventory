@@ -220,8 +220,8 @@ public class DBImplementation implements MediaMartaDAO {
 		
 		this.openConnection();
 		try {
-			//Prepares the SQL query
-			stmt = con.prepareStatement(SQLPROD);
+			//Prepares the SQL query to get the product		
+			stmt = con.prepareStatement(SQLSELL);
 			stmt.setDouble(1, amount);
 			stmt.setString(2, nom);
 			ResultSet rs = stmt.executeQuery();
