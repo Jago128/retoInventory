@@ -82,11 +82,11 @@ INSERT INTO CONTAIN VALUES
 (3,5);
 
 Delimiter //    
-CREATE PROCEDURE InsertProduct(NAMEP VARCHAR(50), TYPEP ENUM ("Mobile","Computer"), PRICE DOUBLE, STOCKPRODUCT DOUBLE, CODBRAND INT)
+CREATE PROCEDURE InsertProduct (NAMEP VARCHAR(50), TYPEP ENUM ("Mobile","Computer"), PRICE DOUBLE, STOCKPRODUCT INT, CODBRAND INT)
 BEGIN 
 INSERT INTO Product (NAMEP,TYPEP,PRICE,STOCKPRODUCT,CODBRAND) VALUES
 (NAMEP,TYPEP,PRICE,STOCKPRODUCT,CODBRAND);
-SELECT 'Producto añadido' AS Mensaje;        
+SELECT 'Producto añadido' AS Mensaje;
 END //
 Delimiter ;
 
@@ -139,13 +139,14 @@ BEGIN
 	SELECT CODPRODUCT INTO CodigoProd FROM PRODUCT WHERE NAMEP = NomProd;
 
     IF !ENCONTRADO THEN
-		SELECT CONCAT('El producto ', NomProd,' no se ha encontrado.');
+		SELECT CONCAT('The product ', NomProd,' has not been found.');
     ELSE 
-		SELECT CONCAT('Producto ', NomProd,' se ha borrado correctamente.');
-		DELETE FROM PRODUCTO WHERE CODPRODUCT = CodigoProd;
-    END IF;
+		SELECT CONCAT('The product ', NomProd,' has been deleted correctly.');
+		DELETE FROM PRODUCT WHERE CODPRODUCT = CodigoProd;
+    END IF;        
 END //
 Delimiter ;
+
 
 Delimiter //
 CREATE PROCEDURE ShowProducts()
@@ -154,10 +155,10 @@ BEGIN
     DECLARE NomProd VARCHAR(50);
     DECLARE TipoP ENUM ("Mobile","Computer");
     DECLARE PriceP DOUBLE;
-    DECLARE StockP DOUBLE;
+    DECLARE StockP INT;
     DECLARE CodBrand INT;
-    DECLARE C CURSOR FOR SELECT NAMEP,TYPEP,PRICE,STOCK,CODBRAND FROM PRODUCT;
-    DECLARE CONTINUE HANDLER FOR NOT FOUND SET FIN = TRUE;    
+    DECLARE C CURSOR FOR SELECT NAMEP,TYPEP,PRICE,STOCK,CODBRAND FROM PRODUCT; 	
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET FIN = TRUE;
     OPEN C;
 	FETCH C INTO NomProd,TipoP,PriceP,StockP,CodBrand; 
 	WHILE !FIN DO
@@ -175,14 +176,15 @@ BEGIN
     DECLARE NomComp VARCHAR(50);
     DECLARE TipoC ENUM ("Mobile","Computer");
     DECLARE CodBrand INT;
-    DECLARE PriceComp DOUBLE;
-    DECLARE C CURSOR FOR SELECT NAMECOMP,TYPEC,CODBRAND,PRICECOMP FROM COMPONENT;
-    DECLARE CONTINUE HANDLER FOR NOT FOUND SET FIN = TRUE;    
+    DECLARE Stock INT;
+    DECLARE PriceComp DOUBLE;	
+    DECLARE C CURSOR FOR SELECT NAMECOMP,TYPEC,CODBRAND,STOCKCOMPONENT,PRICECOMP FROM COMPONENT; 	
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET FIN = TRUE;
     OPEN C;
-	FETCH C INTO NomComp,TipoC,CodBrand,PriceComp; 
+	FETCH C INTO NomComp,TipoC,CodBrand,Stock,PriceComp; 
 	WHILE !FIN DO
-		SELECT CONCAT ('Name: ', NomComp, ' Type: ', TipoC,' CodeBrand: ', CodBrand,' Price: ', PriceComp) "Datos pedidos"; 
-		Fetch c into NomComp,TipoC,CodBrand,PriceComp;  
+		SELECT CONCAT ('Name: ', NomComp, ' Type: ', TipoC,' CodeBrand: ', CodBrand,' Stock: ' Stock,' Price: ', PriceComp) "Datos pedidos"; 
+		FETCH C INTO NomComp,TipoC,CodBrand,Stock,PriceComp; 
     END WHILE; 
     CLOSE C; 
 END //
