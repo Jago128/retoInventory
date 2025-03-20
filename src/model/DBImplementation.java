@@ -27,7 +27,7 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLUSERPSW = "SELECT * FROM user WHERE coduser = ? AND psw = ?";
 	final String SQLPROD = "SELECT PROD FROM PRODUCT WHERE NAMEP = ?";
 	final String SQLTYPE = "SELECT type_u FROM user WHERE coduser = ?";
-	final String SQLSELL = "SELECT sellAndSubstract(?,?)";
+	final String SQLSELL = "SELECT sellAndSubstract(?,?,?)";
 
 	
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
@@ -193,7 +193,7 @@ public class DBImplementation implements MediaMartaDAO {
 		return brands;
 	}
 	
-	
+	//Inserts a new product
 	@Override
 	public boolean insertProd(Product prod) {
 		//Open connection and declare a boolean to check if the update is properly executed
@@ -247,9 +247,10 @@ public class DBImplementation implements MediaMartaDAO {
 		}
 		return check;
 	}
-
+	
+	//Substracts from a product's stock, essentilly selling the product to the user
 	@Override
-	public boolean sellAndSubstract(double amount, String nom) {
+	public boolean sellAndSubstract(double amount, String nom, String codUser) {
 		//Open connection and declare a boolean to check if the update is properly executed
 		boolean check=false;
 		
@@ -259,6 +260,7 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt = con.prepareStatement(SQLSELL);
 			stmt.setDouble(1, amount);
 			stmt.setString(2, nom);
+			stmt.setString(3, codUser);
 			ResultSet rs = stmt.executeQuery();
 			//Get the errorcheck boolean to see if there was a problem or not
 			check=rs.getBoolean(1);

@@ -21,7 +21,7 @@ public interface MediaMartaDAO {
 	
 	public boolean insertComp(Component comp);
 	
-	public boolean sellAndSubstract(double amount, String nom);
+	public boolean sellAndSubstract(double amount, String nom, String codUser);
 	
 	public void showProdsOrderedByStock();
 	
