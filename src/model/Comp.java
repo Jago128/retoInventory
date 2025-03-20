@@ -69,7 +69,6 @@ public class Comp {
 		this.price = price;
 	}
 
-
 	//Declare toString
 	@Override
 	public String toString() {
