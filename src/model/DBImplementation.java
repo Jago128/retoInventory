@@ -174,7 +174,7 @@ public class DBImplementation implements MediaMartaDAO {
 	
 	//Verify that the component exists 
 	@Override
-	public Map<String, Comp>  verifyComponent(){
+	public Map<String, Comp> verifyComponent(){
 		ResultSet rs = null;
 		Comp component;
 		Map<String, Comp> components = new TreeMap<>();
@@ -207,8 +207,25 @@ public class DBImplementation implements MediaMartaDAO {
 		ResultSet rs = null;
 		Brand brand;
 		Map<String, Brand> brands = new TreeMap<>();
-		
-		
+		try {
+			//Prepares the SQL query
+			stmt = con.prepareStatement(SQLSELECTBRAND);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				brand = new Brand();
+				brand.setNameB("NAMEBRAND");
+				brands.put(brand.getNameB(), brand);
+			}
+			stmt.close();
+			
+			
+			
+			//Closes the connection
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		return brands;
 	}
 	
