@@ -251,14 +251,16 @@ public class DBImplementation implements MediaMartaDAO {
 	
 	@Override
 	public Map<String, Product> showProductsBrand() {
-		 
-		return null;
+		Map<String, Product> brandProds = new TreeMap<>();
+		
+		return brandProds;
 	}
 
 	@Override
 	public Map<String, Comp> showComponentsBrand() {
+		Map<String, Comp> brandComps = new TreeMap<>();
 		
-		return null;
+		return brandComps;
 	}
 	
 	//Inserts a new product
