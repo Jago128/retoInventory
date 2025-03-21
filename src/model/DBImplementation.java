@@ -23,19 +23,22 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLDELETE = "DELETE FROM PRODUCT WHERE CODPRODUCT=(SELECT CODPRODUCT FROM PRODUCT WHERE NAMEP = ?)";
 
 	//Selects
-	final String SQLSELL = "SELECT sellAndSubstract(?,?,?)";
 	
+	
+	//User related stuff
 	final String SQLUSER = "SELECT * FROM user WHERE coduser = ?";
 	final String SQLUSERPSW = "SELECT * FROM user WHERE coduser = ? AND psw = ?";
 	final String SQLPROD = "SELECT PROD FROM PRODUCT WHERE NAMEP = ?";
 	final String SQLTYPE = "SELECT type_u FROM user WHERE coduser = ?";
 	final String SQLINSERTUSER = "INSERT INTO user VALUES (?,?,?,'Client')";
-	
+
+	//Product, Component, and Brand related stuff
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
 	final String SQLSELECTCOMPONENT = "SELECT * FROM component";
 	final String SQLSELECTBRAND = "SELECT * FROM brand";
 	final String SQLSELECTPRODUCTBRAND = "SELECT * FROM product WHERE CODBRAND=(SELECT CODBRAND FROM BRAND WHERE NAMEBRAND=?)";
 	final String SQLSELECTCOMPONENTBRAND = "SELECT * FROM component WHERE CODBRAND=(SELECT CODBRAND FROM BRAND WHERE NAMEBRAND=?)";
+	final String SQLSELL = "SELECT sellAndSubstract(?,?,?)";
 	
 	//Declare implementation constructor
 	public DBImplementation() {
@@ -46,6 +49,7 @@ public class DBImplementation implements MediaMartaDAO {
 		this.passwordBD = this.configFile.getString("DBPass");
 	}
 
+	//Method to open a new connection
 	private void openConnection() {
 		try {
 			//Try opening the connection
@@ -56,6 +60,28 @@ public class DBImplementation implements MediaMartaDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+
+	//Registers a new user
+	public boolean registerUser(User user) {
+		boolean register=false;
+		if (!verifyUser(user)){
+			this.openConnection();
+			try {
+				stmt = con.prepareStatement(SQLINSERTUSER);
+				stmt.setString(1, user.getCodU());
+				stmt.setString(2, user.getUsername());
+				stmt.setString(3, user.getPassword());
+				if (stmt.executeUpdate()>0) {
+					register=true;
+				}			
+				stmt.close();
+				con.close();
+			} catch (SQLException e) {
+				System.out.println("Error" + e.getMessage());
+			}
+		}
+		return register;		
 	}
 
 	//Verify that the user exists
@@ -113,28 +139,6 @@ public class DBImplementation implements MediaMartaDAO {
 		return exists;
 	}
 
-	//Registers a new user
-	public boolean registerUser(User user) {
-		boolean register=false;
-		if (!verifyUser(user)){
-			this.openConnection();
-			try {
-				stmt = con.prepareStatement(SQLINSERTUSER);
-				stmt.setString(1, user.getCodU());
-				stmt.setString(2, user.getUsername());
-				stmt.setString(3, user.getPassword());
-				if (stmt.executeUpdate()>0) {
-					register=true;
-				}			
-	            stmt.close();
-	            con.close();
-			  } catch (SQLException e) {
-	             System.out.println("Error" + e.getMessage());
-	        }
-		}
-			return register;		
-	}
-	
 	//Verify the user type (only used once the user is verified)
 	@Override
 	public boolean verifyUserType(User user) {
@@ -150,8 +154,8 @@ public class DBImplementation implements MediaMartaDAO {
 			ResultSet rs = stmt.executeQuery();
 			//If there is any result, the user exists, and they are an admin
 			if (rs.next() && rs.getString(1).equals("Admin")) {
-            	admin = true;
-            }
+				admin = true;
+			}
 			//Closes the connection
 			rs.close();
 			stmt.close();
@@ -161,139 +165,7 @@ public class DBImplementation implements MediaMartaDAO {
 		}
 		return admin;
 	}	
-	
-	//Verify that the product exists
-	@Override
-	public Map<String, Product> verifyProduct() {		
-		ResultSet rs = null;
-		Product product;
-		Map<String, Product> products = new TreeMap<>();
-		
-		this.openConnection();
-		try {
-			stmt = con.prepareStatement(SQLSELECTPRODUCT);
-			rs = stmt.executeQuery();
-			while (rs.next()) {
-				product = new Product();
-				product.setNameP(rs.getString("namep"));
-				product.setPrice(rs.getDouble("price"));
-				products.put(product.getNameP(), product);
-			}
-			rs.close();
-            stmt.close();
-            con.close();
-		} catch (SQLException e) {
-			System.out.println("SQL error");
-			e.printStackTrace();
-		}
-		return products;
-	}
-	
-	//Verify that the component exists 
-	@Override
-	public Map<String, Comp> verifyComponent(){
-		ResultSet rs = null;
-		Comp component;
-		Map<String, Comp> components = new TreeMap<>();
-		
-		this.openConnection();
-		try {
-			stmt = con.prepareStatement(SQLSELECTCOMPONENT);
-			rs = stmt.executeQuery();
-			while (rs.next()) {
-				component = new Comp();
-				component.setNameC(rs.getString("namecomp"));
-				component.setPrice(rs.getDouble("pricecomp"));
-				components.put(component.getNameC(), component);
-			}
-			rs.close();
-            stmt.close();
-            con.close();
-		} catch (SQLException e) {
-			System.out.println("SQL error");
-			e.printStackTrace();
-		}
-		return components;
-	}
-	
-	//Verify that the brand exists 
-	public Map<String, Brand> verifyBrands(){
-		ResultSet rs = null;
-		Brand brand;
-		Map<String, Brand> brands = new TreeMap<>();
-		try {
-			//Prepares the SQL query
-			stmt = con.prepareStatement(SQLSELECTBRAND);
-			rs = stmt.executeQuery();
-			while (rs.next()) {
-				brand = new Brand();
-				brand.setCodB(rs.getInt("CODBRAND"));
-				brand.setNameB("NAMEBRAND");
-				brands.put(brand.getNameB(), brand);
-			}
-			//Closes the connection
-			stmt.close();
-			con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return brands;
-	}
-	
-	@Override
-	public Map<String, Product> showProductsBrand(String brand) {
-		Map<String, Product> brandProds = new TreeMap<>();
-		ResultSet rs = null;
-		Product product;
-		
-		this.openConnection();
-		try {
-			stmt = con.prepareStatement(SQLSELECTPRODUCTBRAND);
-			stmt.setString(1, brand);
-			rs = stmt.executeQuery();
-			while (rs.next()) {
-				product = new Product();
-				product.setNameP(rs.getString("namep"));
-				product.setPrice(rs.getDouble("price"));
-				brandProds.put(product.getNameP(), product);
-			}
-			rs.close();
-            stmt.close();
-            con.close();
-		} catch (SQLException e) {
-			System.out.println("SQL error");
-			e.printStackTrace();
-		}
-		return brandProds;
-	}
 
-	@Override
-	public Map<String, Comp> showComponentsBrand(String brand) {
-		Map<String, Comp> brandComps = new TreeMap<>();
-		ResultSet rs = null;
-		Comp component;
-		
-		this.openConnection();
-		try {
-			stmt = con.prepareStatement(SQLSELECTCOMPONENTBRAND);
-			stmt.setString(1, brand);
-			rs = stmt.executeQuery();
-			while (rs.next()) {
-				component = new Comp();
-				component.setNameC(rs.getString("namecomp"));
-				component.setPrice(rs.getDouble("pricecomp"));
-				brandComps.put(component.getNameC(), component);
-			}
-			rs.close();
-            stmt.close();
-            con.close();
-		} catch (SQLException e) {
-			System.out.println("SQL error");
-			e.printStackTrace();
-		}
-		return brandComps;
-	}
-	
 	//Inserts a new product
 	@Override
 	public boolean insertProd(Product prod) {
@@ -322,7 +194,91 @@ public class DBImplementation implements MediaMartaDAO {
 		return check;
 	}
 
-	// Insert new Components to the database.
+	//Verify that the product exists, and show them
+	@Override
+	public Map<String, Product> verifyProduct() {
+		ResultSet rs = null;
+		Product product;
+		Map<String, Product> products = new TreeMap<>();
+
+		this.openConnection();
+		try {
+			stmt = con.prepareStatement(SQLSELECTPRODUCT);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				product = new Product();
+				product.setNameP(rs.getString("namep"));
+				product.setPrice(rs.getDouble("price"));
+				products.put(product.getNameP(), product);
+			}
+			rs.close();
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("SQL error");
+			e.printStackTrace();
+		}
+		return products;
+	}
+
+	//Delete a product
+	@Override
+	public boolean deleteProd(String nom) {
+		//Open connection and declare a boolean to check if the update is properly executed
+		boolean check=false;
+		this.openConnection();
+		try {
+			//Prepares the SQL query
+			stmt=con.prepareStatement(SQLDELETE);
+			stmt.setString(1, nom);
+			//Executes the SQL query. If the delete is executed correctly, check becomes true
+			if (stmt.executeUpdate()>0) {
+				check=true;
+			}
+			//Closes the connection
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return check;
+	}
+
+	//Shows products with a stock of 5 or less, ordered by stock
+	@Override
+	public Map<Integer, Product> showProdsOrderedByStock() {
+
+		return null;
+	}
+	
+	//Substracts from a product's stock, essentilly selling the product to the user, and makes a new entry in Purchase
+	@Override
+	public boolean sellAndSubstract(String codUser, String nomProd, int amount) {
+		//Open connection and declare a boolean to check if the update is properly executed
+		boolean check=false;
+
+		this.openConnection();
+		try {
+			//Prepares the SQL query to get the product		
+			stmt = con.prepareStatement(SQLSELL);
+			stmt.setString(1, codUser);
+			stmt.setString(2, nomProd);
+			stmt.setInt(3, amount);
+			ResultSet rs = stmt.executeQuery();
+			if (!rs.getBoolean(1)) {
+				check=true;
+			}
+			//Closes the connection
+			rs.close();
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return check;
+	}
+
+	//Inserts a new component into the database
 	@Override
 	public boolean insertComp(Comp comp) {
 		//Open connection and declare a boolean to check if the update is properly executed
@@ -348,58 +304,55 @@ public class DBImplementation implements MediaMartaDAO {
 		}
 		return check;
 	}
-	
-	//Substracts from a product's stock, essentilly selling the product to the user
+
+	//Verify that the component exists, and show them
 	@Override
-	public boolean sellAndSubstract(String codUser, String nomProd, int amount) {
-		//Open connection and declare a boolean to check if the update is properly executed
-		boolean check=false;
-		
+	public Map<String, Comp> verifyComponent() {
+		ResultSet rs = null;
+		Comp component;
+		Map<String, Comp> components = new TreeMap<>();
+
 		this.openConnection();
 		try {
-			//Prepares the SQL query to get the product		
-			stmt = con.prepareStatement(SQLSELL);
-			stmt.setString(1, codUser);
-			stmt.setString(2, nomProd);
-			stmt.setInt(3, amount);
-			ResultSet rs = stmt.executeQuery();
-			if (!rs.getBoolean(1)) {
-				check=true;
+			stmt = con.prepareStatement(SQLSELECTCOMPONENT);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				component = new Comp();
+				component.setNameC(rs.getString("namecomp"));
+				component.setPrice(rs.getDouble("pricecomp"));
+				components.put(component.getNameC(), component);
 			}
-			//Closes the connection
 			rs.close();
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
+			System.out.println("SQL error");
 			e.printStackTrace();
 		}
-		return check;
+		return components;
 	}
 
+	//Shows components with a stock of 5 or less, ordered by stock
 	@Override
-	public Map <Integer,Product> showProdsAndCompsOrderedByStock() {
+	public Map<Integer, Comp> showCompsOrderedByStock() {
+
+		return null;
+	}
+	
+	//Verify that the brand exists, and prepare a map to use later
+	public Map<String, Brand> verifyBrands() {
+		ResultSet rs = null;
 		Brand brand;
-		
-		int stockProd,stockComp;
-		
-		
-		
-		
-		return brands;
-	}
-
-	@Override
-	public boolean deleteProd(String nom) {
-		//Open connection and declare a boolean to check if the update is properly executed
-		boolean check=false;
-		this.openConnection();
+		Map<String, Brand> brands = new TreeMap<>();
 		try {
 			//Prepares the SQL query
-			stmt=con.prepareStatement(SQLDELETE);
-			stmt.setString(1, nom);
-			//Executes the SQL query. If the delete is executed correctly, check becomes true
-			if (stmt.executeUpdate()>0) {
-				check=true;
+			stmt = con.prepareStatement(SQLSELECTBRAND);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				brand = new Brand();
+				brand.setCodB(rs.getInt("CODBRAND"));
+				brand.setNameB("NAMEBRAND");
+				brands.put(brand.getNameB(), brand);
 			}
 			//Closes the connection
 			stmt.close();
@@ -407,6 +360,62 @@ public class DBImplementation implements MediaMartaDAO {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return check;
+		return brands;
+	}
+	
+	//Show products of a brand
+	@Override
+	public Map<String, Product> showProductsBrand(String brand) {
+		Map<String, Product> brandProds = new TreeMap<>();
+		ResultSet rs = null;
+		Product product;
+
+		this.openConnection();
+		try {
+			stmt = con.prepareStatement(SQLSELECTPRODUCTBRAND);
+			stmt.setString(1, brand);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				product = new Product();
+				product.setNameP(rs.getString("namep"));
+				product.setPrice(rs.getDouble("price"));
+				brandProds.put(product.getNameP(), product);
+			}
+			rs.close();
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("SQL error");
+			e.printStackTrace();
+		}
+		return brandProds;
+	}
+	
+	//Show components of a brand
+	@Override
+	public Map<String, Comp> showComponentsBrand(String brand) {
+		Map<String, Comp> brandComps = new TreeMap<>();
+		ResultSet rs = null;
+		Comp component;
+
+		this.openConnection();
+		try {
+			stmt = con.prepareStatement(SQLSELECTCOMPONENTBRAND);
+			stmt.setString(1, brand);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				component = new Comp();
+				component.setNameC(rs.getString("namecomp"));
+				component.setPrice(rs.getDouble("pricecomp"));
+				brandComps.put(component.getNameC(), component);
+			}
+			rs.close();
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("SQL error");
+			e.printStackTrace();
+		}
+		return brandComps;
 	}
 }
