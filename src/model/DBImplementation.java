@@ -36,13 +36,8 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
 	final String SQLSELECTCOMPONENT = "SELECT * FROM component";
 	final String SQLSELECTBRAND = "SELECT * FROM brand";
-	final String SQLSELECTPRODUCTBRAND = "SELECT * FROM product WHERE CODBRAND=()";
-	final String SQLSELECTCOMPONENTBRAND = "SELECT * FROM component";
-	
-	/* Queries to use as reference, to be deleted later
-	 * final String SQLINSERT = "INSERT INTO user VALUES (?,?)";
-	 * final String SQLBORRAR = "DELETE FROM user WHERE coduser=?";
-	 * final String SQLMODIFY = "UPDATE user SET psw=? WHERE coduser=?" */
+	final String SQLSELECTPRODUCTBRAND = "SELECT * FROM product WHERE CODBRAND=(SELECT CODBRAND FROM BRAND WHERE NAMEBRAND=?)";
+	final String SQLSELECTCOMPONENTBRAND = "SELECT * FROM component WHERE CODBRAND=(SELECT CODBRAND FROM BRAND WHERE NAMEBRAND=?)";
 	
 	//Declare implementation constructor
 	public DBImplementation() {
@@ -252,15 +247,35 @@ public class DBImplementation implements MediaMartaDAO {
 	}
 	
 	@Override
-	public Map<String, Product> showProductsBrand() {
+	public Map<String, Product> showProductsBrand(Map<String, Brand> brands) {
+		ResultSet rs = null;
+		Product product;
+		this.openConnection();
 		Map<String, Product> brandProds = new TreeMap<>();
-		
+		try {
+			stmt = con.prepareStatement(SQLSELECTPRODUCT);
+
+			rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				product = new Product();
+				product.setNameP(rs.getString("namep"));
+				product.setPrice(rs.getDouble("price"));
+				brandProds.put(product.getNameP(), product);
+			}
+			rs.close();
+            stmt.close();
+            con.close();
+		} catch (SQLException e) {
+			System.out.println("SQL error");
+			e.printStackTrace();
+		}
 		
 		return brandProds;
 	}
 
 	@Override
-	public Map<String, Comp> showComponentsBrand() {
+	public Map<String, Comp> showComponentsBrand(Map<String, Brand> brands) {
 		Map<String, Comp> brandComps = new TreeMap<>();
 		
 		return brandComps;

@@ -22,9 +22,9 @@ public interface MediaMartaDAO {
 	
 	public Map<String, Brand> verifyBrands();
 	
-	public Map<String, Product> showProductsBrand();
+	public Map<String, Product> showProductsBrand(Map<String, Brand> brands);
 	
-	public Map<String, Comp> showComponentsBrand();
+	public Map<String, Comp> showComponentsBrand(Map<String, Brand> brands);
 		
 	public boolean insertProd(Product prod);
 	
