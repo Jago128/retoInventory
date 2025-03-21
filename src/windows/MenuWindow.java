@@ -37,11 +37,11 @@ public class MenuWindow extends JFrame implements ActionListener {
 		JLabel lblWelcomeTo = new JLabel("Welcome to");
 		lblWelcomeTo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWelcomeTo.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblWelcomeTo.setBounds(5, 10, 461, 19);
+		lblWelcomeTo.setBounds(5, 27, 461, 19);
 		contentPane.add(lblWelcomeTo);
 
 		JLabel lblMediaMarta = new JLabel("MediaMarta");
-		lblMediaMarta.setBounds(5, 20, 461, 46);
+		lblMediaMarta.setBounds(5, 37, 461, 46);
 		lblMediaMarta.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMediaMarta.setFont(new Font("Times New Roman", Font.PLAIN, 25));
 		contentPane.setLayout(null);
@@ -86,6 +86,7 @@ public class MenuWindow extends JFrame implements ActionListener {
 		contentPane.add(btnClose);	
 
 		//Adding action listener
+		btnLogOut.addActionListener(this);
 		btnProducts.addActionListener(this);
 		btnComponents.addActionListener(this);
 		btnBrands.addActionListener(this);
@@ -96,8 +97,8 @@ public class MenuWindow extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// Logs-Out and moves back to the Main Window	
 		if (e.getSource()==btnLogOut) {
-			MainWindow main=new  MainWindow(cont);
-			main.setVisible(true);
+			MainWindow frame = new MainWindow(cont);
+			frame.setVisible(true);
 			this.dispose();
 		}
 		// Closes the window	
