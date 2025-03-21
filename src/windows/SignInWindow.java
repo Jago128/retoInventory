@@ -5,11 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.*;
-import javax.swing.border.*;
 
 import controller.LoginController;
 import model.User;
-
 
 // CREATE NEW USER WINDOW 
 // Go to->(MenuWindow)
@@ -19,7 +17,7 @@ public class SignInWindow extends JDialog implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private LoginController cont;
 	private JLabel lblTitulo;
-	private JButton btnClose,btnSubmit;
+	private JButton btnClose, btnSubmit;
 	private JTextField textUserCod, textName;
 	private JPasswordField password;
 	private JPasswordField passwordConfirmation;
@@ -27,7 +25,7 @@ public class SignInWindow extends JDialog implements ActionListener {
 	private boolean admin;
 
 	public SignInWindow(boolean admin, LoginController cont) {
-		this.cont=cont;
+		this.cont = cont;
 
 		setTitle("REGISTER NEW USER");
 		setBounds(100, 100, 450, 300);
@@ -91,48 +89,48 @@ public class SignInWindow extends JDialog implements ActionListener {
 		btnClose = new JButton("CLOSE");
 		btnClose.setBounds(356, 242, 80, 21);
 		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		getContentPane ().add(btnClose);
-
+		getContentPane().add(btnClose);
 
 		btnSubmit.addActionListener(this);
 		btnClose.addActionListener(this);
 
 	}
 
-	public boolean verifyPassword (String password, String passwordConf) {
+	public boolean verifyPassword(String password, String passwordConf) {
 		boolean correcta;
 
-		if(password.equals(passwordConf)) {
-			correcta=true;
-		}else {
-			correcta=false;
-		}	
+		if (password.equals(passwordConf)) {
+			correcta = true;
+		} else {
+			correcta = false;
+		}
 		return correcta;
 	}
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource()==btnClose) {
+		if (e.getSource() == btnClose) {
 			this.dispose();
 		}
-		if (e.getSource()==btnSubmit) {
-			User user = new User (textUserCod.getText(), textName.getText(), new String(password.getPassword()));
-			if (!cont.verifyUser(user)) { //Comprueba que el usuario exista
+		if (e.getSource() == btnSubmit) {
+			User user = new User(textUserCod.getText(), textName.getText(), new String(password.getPassword()));
+			if (!cont.verifyUser(user)) { // Comprueba que el usuario exista
 				textUserCod.setBackground(new Color(255, 255, 255));
-				if(verifyPassword(new String(password.getPassword()), new String(passwordConfirmation.getPassword()))) { //Comprueba que la contraseña nueva sea igual en ambos campos
+				if (verifyPassword(new String(password.getPassword()),
+						new String(passwordConfirmation.getPassword()))) { // Comprueba que la contraseña nueva sea igual en ambos campos
 					passwordConfirmation.setBackground(new Color(255, 255, 255));
-					user.setPassword(new String(password.getPassword())); //Cambia la contraseña del usuario
-					cont.registerUser(user); //Lo pasa a la base de datos
+					user.setPassword(new String(password.getPassword())); // Cambia la contraseña del usuario
+					cont.registerUser(user); // Lo pasa a la base de datos
 					JOptionPane.showMessageDialog(null, "User registered correctly");
-					MenuWindow menu=new  MenuWindow(admin, cont); // The admin variable is sent to show or not certain option in the next windows
+					MenuWindow menu = new MenuWindow(admin, cont); // The admin variable is sent to show or not certain options in the next windows
 					menu.setVisible(true);
 					this.dispose();
-				}else {
+				} else {
 					lblMensaje.setText("The password must be equal in both parts");
 					password.setBackground(new Color(250, 128, 114));
 					passwordConfirmation.setBackground(new Color(250, 128, 114));
 				}
-			}else {
+			} else {
 				lblMensaje.setText("User with that code already exists");
 				textUserCod.setBackground(new Color(250, 128, 114));
 			}

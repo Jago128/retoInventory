@@ -1,7 +1,7 @@
 package model;
 
 public class Comp {
-	//Declare variables
+	// Declare variables
 	private int codC;
 	private String nameC;
 	private TypeC typeC;
@@ -9,8 +9,7 @@ public class Comp {
 	private int stock;
 	private double price;
 
-
-	//Declare empty constructor
+	// Declare empty constructor
 	public Comp() {
 		this.codC = 0;
 		this.nameC = "";
@@ -20,7 +19,7 @@ public class Comp {
 		this.price = 0;
 	}
 
-	//Declare parametrized constructor
+	// Declare parametrized constructor
 	public Comp(int codC, String nameC, TypeC typeC, int codBrand, int stock, double price) {
 		this.codC = codC;
 		this.nameC = nameC;
@@ -30,7 +29,7 @@ public class Comp {
 		this.price = price;
 	}
 
-	//Declare getters and setters
+	// Declare getters and setters
 	public int getCodC() {
 		return codC;
 	}
@@ -78,10 +77,11 @@ public class Comp {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
-	//Declare toString
+
+	// Declare toString
 	@Override
 	public String toString() {
-		return "Comp [codC=" + codC + ", nameC=" + nameC + ", typeC=" + typeC + ", codBrand=" + codBrand + ", stock=" + stock + ", price=" + price + "]";
+		return "Comp [codC=" + codC + ", nameC=" + nameC + ", typeC=" + typeC + ", codBrand=" + codBrand + ", stock="
+				+ stock + ", price=" + price + "]";
 	}
 }

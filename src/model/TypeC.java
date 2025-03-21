@@ -1,6 +1,6 @@
 package model;
 
 public enum TypeC {
-	//Declare enum choices
+	// Declare enum choices
 	GRAPHICS, RAM, PROCESSOR
 }

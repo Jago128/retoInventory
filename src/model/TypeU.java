@@ -1,6 +1,6 @@
 package model;
 
 public enum TypeU {
-	//Declare enum choices
+	// Declare enum choices
 	CLIENT, ADMIN, NULL
 }

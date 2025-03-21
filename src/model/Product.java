@@ -1,15 +1,15 @@
 package model;
 
 public class Product {
-	//Declare variables
+	// Declare variables
 	private int codP;
 	private String nameP;
 	private TypeP typeP;
 	private double price;
 	private int stock;
 	private int codBrand;
-	
-	//Declare empty constructor
+
+	// Declare empty constructor
 	public Product() {
 		this.codP = 0;
 		this.nameP = "";
@@ -18,8 +18,8 @@ public class Product {
 		this.stock = 0;
 		this.codBrand = 0;
 	}
-	
-	//Declare parametrized constructor
+
+	// Declare parametrized constructor
 	public Product(int codP, String nameP, TypeP typeP, double price, int stock, int codBrand) {
 		this.codP = codP;
 		this.nameP = nameP;
@@ -29,7 +29,7 @@ public class Product {
 		this.codBrand = codBrand;
 	}
 
-	//Declare getters and setters
+	// Declare getters and setters
 	public int getCodP() {
 		return codP;
 	}
@@ -78,9 +78,10 @@ public class Product {
 		this.codBrand = codBrand;
 	}
 
-	//Declare toString
+	// Declare toString
 	@Override
 	public String toString() {
-		return "Product [codP=" + codP + ", nameP=" + nameP + ", typeP=" + typeP + ", price=" + price + ", stock=" + stock + ", codBrand=" + codBrand + "]";
+		return "Product [codP=" + codP + ", nameP=" + nameP + ", typeP=" + typeP + ", price=" + price + ", stock="
+				+ stock + ", codBrand=" + codBrand + "]";
 	}
 }

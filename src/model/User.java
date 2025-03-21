@@ -1,45 +1,45 @@
 package model;
 
 public class User {
-	//Declare variables
+	// Declare variables
 	private String codU;
 	private String username;
 	private String password;
 	private TypeU typeU;
-	
-	//Declare empty constructor
+
+	// Declare empty constructor
 	public User() {
 		this.codU = "";
 		this.username = "";
 		this.password = "";
 		this.typeU = TypeU.CLIENT;
 	}
-	
-	//Declare parametrized constructor
+
+	// Declare parametrized constructor
 	public User(String codU, String username, String password, TypeU typeU) {
 		this.codU = codU;
 		this.username = username;
 		this.password = password;
 		this.typeU = typeU;
 	}
-	
-	//Declare parametrized constructor
-			public User(String codU, String username, String password) {
-				this.codU = codU;
-				this.username = "";
-				this.password = password;
-				this.typeU = TypeU.ADMIN;
-			}
-	
-	//Declare parametrized constructor
-		public User(String codU, String password) {
-			this.codU = codU;
-			this.username = "";
-			this.password = password;
-			this.typeU = TypeU.ADMIN;
-		}
 
-	//Declare getters and setters
+	// Declare parametrized constructor
+	public User(String codU, String username, String password) {
+		this.codU = codU;
+		this.username = "";
+		this.password = password;
+		this.typeU = TypeU.ADMIN;
+	}
+
+	// Declare parametrized constructor
+	public User(String codU, String password) {
+		this.codU = codU;
+		this.username = "";
+		this.password = password;
+		this.typeU = TypeU.ADMIN;
+	}
+
+	// Declare getters and setters
 	public String getCodU() {
 		return codU;
 	}
@@ -72,7 +72,7 @@ public class User {
 		this.typeU = typeU;
 	}
 
-	//Declare toString
+	// Declare toString
 	@Override
 	public String toString() {
 		return "User [codU=" + codU + ", username=" + username + ", password=" + password + ", typeU=" + typeU + "]";

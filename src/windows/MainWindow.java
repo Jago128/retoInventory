@@ -22,19 +22,19 @@ public class MainWindow extends JFrame implements ActionListener {
 	private LoginController cont;
 	private User user;
 
-	public MainWindow(LoginController controlador) {		
-		this.cont=controlador;		
+	public MainWindow(LoginController controlador) {
+		this.cont = controlador;
 
-		//Window
+		// Window
 		setTitle("LOGIN");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);		
+		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
-		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));		
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 
-		//Titles
+		// Titles
 		JLabel lblUser = new JLabel("USER");
 		lblUser.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		lblUser.setBounds(40, 83, 177, 33);
@@ -45,7 +45,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		lblPassword.setBounds(40, 134, 177, 33);
 		contentPane.add(lblPassword);
 
-		//Text fields
+		// Text fields
 		textCodU = new JTextField();
 		textCodU.setBounds(227, 85, 168, 33);
 		contentPane.add(textCodU);
@@ -55,7 +55,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		passwordPsw.setBounds(227, 136, 168, 33);
 		contentPane.add(passwordPsw);
 
-		//Messages
+		// Messages
 		lblMesageUp = new JLabel("");
 		lblMesageUp.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		lblMesageUp.setHorizontalAlignment(SwingConstants.CENTER);
@@ -68,7 +68,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		lblMessageDown.setBounds(10, 40, 416, 33);
 		contentPane.add(lblMessageDown);
 
-		//Buttons
+		// Buttons
 		btnLogIn = new JButton("LOG-IN");
 		btnLogIn.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		btnLogIn.setBounds(40, 203, 111, 33);
@@ -84,7 +84,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		btnClose.setBounds(369, 246, 67, 21);
 		contentPane.add(btnClose);
 
-		//Adding action listener
+		// Adding action listener
 		btnLogIn.addActionListener(this);
 		btnSignIn.addActionListener(this);
 		btnClose.addActionListener(this);
@@ -92,28 +92,28 @@ public class MainWindow extends JFrame implements ActionListener {
 
 	// Verifies the type of the user
 	public boolean verifyUserType(User user, boolean admin) {
-		if(cont.verifyUserType(user)) { // If is admin it will be true
-			admin=true;
+		if (cont.verifyUserType(user)) { // If is admin it will be true
+			admin = true;
 		} else { // If its not it will be false
-			admin=false;
+			admin = false;
 		}
 		return admin;
 	}
 
-	//Action performer
+	// Action performer
 	public void actionPerformed(ActionEvent e) {
-		boolean admin=false;
-		//Closes the window
-		if (e.getSource()==btnClose) {
+		boolean admin = false;
+		// Closes the window
+		if (e.getSource() == btnClose) {
 			this.dispose();
 		}
-		//Verifies if the user exist to log in
-		if (e.getSource()==btnLogIn) {
-			User user = new User (textCodU.getText(),new String(passwordPsw.getPassword()));
+		// Verifies if the user exist to log in
+		if (e.getSource() == btnLogIn) {
+			User user = new User(textCodU.getText(), new String(passwordPsw.getPassword()));
 			if (cont.verifyUserPassword(user)) {
-				lblMesageUp.setText("Welcome "+textCodU.getText());
-				admin=verifyUserType(user, admin);
-				MenuWindow menu=new  MenuWindow(admin, cont); // The admin variable is sent to show or not certain option in the next windows
+				lblMesageUp.setText("Welcome " + textCodU.getText());
+				admin = verifyUserType(user, admin);
+				MenuWindow menu = new MenuWindow(admin, cont); // The admin variable is sent to show or not certain option in the next windows
 				menu.setVisible(true);
 				dispose();
 			} else {
@@ -121,9 +121,9 @@ public class MainWindow extends JFrame implements ActionListener {
 				lblMessageDown.setText("To register go to Log-In.");
 			}
 		}
-		//Opens a new window to log-in
-		if (e.getSource()==btnSignIn) {
-			SignInWindow signIn=new  SignInWindow(admin, cont);
+		// Opens a new window to log-in
+		if (e.getSource() == btnSignIn) {
+			SignInWindow signIn = new SignInWindow(admin, cont);
 			signIn.setVisible(true);
 			dispose();
 		}

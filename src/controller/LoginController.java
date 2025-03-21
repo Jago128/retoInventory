@@ -6,16 +6,16 @@ import model.*;
 import windows.MainWindow;
 
 public class LoginController {
-	//Prepare the DB Implementation
-	MediaMartaDAO dao=new DBImplementation();
+	// Prepare the DB Implementation
+	MediaMartaDAO dao = new DBImplementation();
 
 	public void visualizarPantalla() {
-		//Create the Login Frame
+		// Create the Login Frame
 		MainWindow frame = new MainWindow(this);
 		frame.setVisible(true);
 	}
 
-	//Set up methods for usage
+	// Set up methods for usage
 
 	// User related methods
 	public boolean registerUser(User user) {
@@ -38,7 +38,7 @@ public class LoginController {
 	public boolean insertProd(Product prod) {
 		return dao.insertProd(prod);
 	}
-	
+
 	public Map<String, Product> verifyProduct() {
 		return dao.verifyProduct();
 	}
@@ -46,11 +46,11 @@ public class LoginController {
 	public boolean deleteProd(String nom) {
 		return dao.deleteProd(nom);
 	}
-	
+
 	public boolean sellAndSubstract(String codUser, String nomProd, int amount) {
 		return dao.sellAndSubstract(codUser, nomProd, amount);
 	}
-	
+
 	public boolean insertComp(Comp comp) {
 		return dao.insertComp(comp);
 	}
@@ -58,12 +58,12 @@ public class LoginController {
 	public Map<String, Comp> verifyComponent() {
 		return dao.verifyComponent();
 	}
-	
-	public Map<Integer,Product> showProdsOrderedByStock() {
+
+	public Map<Integer, Product> showProdsOrderedByStock() {
 		return dao.showProdsOrderedByStock();
 	}
-	
-	public Map<Integer,Comp> showCompsOrderedByStock() {
+
+	public Map<Integer, Comp> showCompsOrderedByStock() {
 		return dao.showCompsOrderedByStock();
 	}
 
