@@ -36,11 +36,18 @@ public class LoginController {
 	public Map<String, Product> verifyProduct() {
 		return dao.verifyProduct();
 	}
-
+	
+	public Map<String, Product> showProductsBrand() {
+		return dao.showProductsBrand();
+	}
+	
+	public Map<String, Comp> showComponentsBrand() {
+		return dao.showComponentsBrand();
+	}
+	
 	public Map<String, Brand> verifyBrands() {
 		return dao.verifyBrands();
 	}
-
 	public Map<String, Comp> verifyComponent() {
 		return dao.verifyComponent();
 	}

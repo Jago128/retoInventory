@@ -21,6 +21,10 @@ public interface MediaMartaDAO {
 	public Map<String, Comp> verifyComponent();
 	
 	public Map<String, Brand> verifyBrands();
+	
+	public Map<String, Product> showProductsBrand();
+	
+	public Map<String, Comp> showComponentsBrand();
 		
 	public boolean insertProd(Product prod);
 	

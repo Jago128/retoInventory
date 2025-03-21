@@ -249,6 +249,18 @@ public class DBImplementation implements MediaMartaDAO {
 		return brands;
 	}
 	
+	@Override
+	public Map<String, Product> showProductsBrand() {
+		 
+		return null;
+	}
+
+	@Override
+	public Map<String, Comp> showComponentsBrand() {
+		
+		return null;
+	}
+	
 	//Inserts a new product
 	@Override
 	public boolean insertProd(Product prod) {
