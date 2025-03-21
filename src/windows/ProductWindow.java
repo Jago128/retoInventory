@@ -7,8 +7,7 @@ import java.util.*;
 import javax.swing.*;
 
 import controller.LoginController;
-import model.Product;
-import model.User;
+import model.*;
 
 // SHOW PRODUCT WINDOW  
 // Go to->(CheckOutWindow, NewItemWindow, VerificationWindow)
@@ -37,18 +36,18 @@ public class ProductWindow extends JDialog implements ActionListener {
 		lblMediaMarta = new JLabel("MediaMarta");
 		lblMediaMarta.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMediaMarta.setFont(new Font("Times New Roman", Font.PLAIN, 25));
-		lblMediaMarta.setBounds(5, 8, 461, 46);
+		lblMediaMarta.setBounds(10, 24, 461, 46);
 		getContentPane().add(lblMediaMarta);
 
 		lblProducts = new JLabel("PRODUCTS");
 		lblProducts.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProducts.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblProducts.setBounds(5, 42, 461, 19);
+		lblProducts.setBounds(10, 58, 461, 19);
 		getContentPane().add(lblProducts);
 
 		// List
 		list = new JList<String>();
-		list.setBounds(10, 64, 446, 446);
+		list.setBounds(10, 104, 446, 406);
 		getContentPane().add(list);
 		loadProductsList();
 
@@ -86,6 +85,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 		getContentPane().add(btnClose);
 
 		// Adding action listener
+		btnLogOut.addActionListener(this);
 		btnBuy.addActionListener(this);
 		btnRemove.addActionListener(this);
 		btnClose.addActionListener(this);
