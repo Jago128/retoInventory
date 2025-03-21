@@ -7,8 +7,7 @@ import java.util.*;
 import javax.swing.*;
 
 import controller.LoginController;
-import model.Product;
-import model.User;
+import model.*;
 
 // SHOW PRODUCT WINDOW  
 // Go to->(CheckOutWindow, NewItemWindow, VerificationWindow)
