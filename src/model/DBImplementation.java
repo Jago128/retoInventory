@@ -168,8 +168,7 @@ public class DBImplementation implements MediaMartaDAO {
 	// Inserts a new product
 	@Override
 	public boolean insertProd(Product prod) {
-		// Open connection and declare a boolean to check if the update is properly
-		// executed
+		// Open connection and declare a boolean to check if the update is properly executed
 		boolean check = false;
 		this.openConnection();
 
@@ -181,8 +180,7 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.setDouble(3, prod.getPrice());
 			stmt.setInt(4, prod.getStock());
 			stmt.setInt(5, prod.getCodBrand());
-			// Executes the SQL query. If the insert is executed correctly, check becomes
-			// true
+			// Executes the SQL query. If the insert is executed correctly, check becomes true
 			if (stmt.executeUpdate() > 0) {
 				check = true;
 			}
@@ -225,16 +223,14 @@ public class DBImplementation implements MediaMartaDAO {
 	// Delete a product
 	@Override
 	public boolean deleteProd(String nom) {
-		// Open connection and declare a boolean to check if the update is properly
-		// executed
+		// Open connection and declare a boolean to check if the update is properly executed
 		boolean check = false;
 		this.openConnection();
 		try {
 			// Prepares the SQL query
 			stmt = con.prepareStatement(SQLDELETE);
 			stmt.setString(1, nom);
-			// Executes the SQL query. If the delete is executed correctly, check becomes
-			// true
+			// Executes the SQL query. If the delete is executed correctly, check becomes true
 			if (stmt.executeUpdate() > 0) {
 				check = true;
 			}
@@ -254,12 +250,10 @@ public class DBImplementation implements MediaMartaDAO {
 		return null;
 	}
 
-	// Substracts from a product's stock, essentilly selling the product to the
-	// user, and makes a new entry in Purchase
+	// Substracts from a product's stock, essentilly selling the product to the user, and makes a new entry in Purchase
 	@Override
 	public boolean sellAndSubstract(String codUser, String nomProd, int amount) {
-		// Open connection and declare a boolean to check if the update is properly
-		// executed
+		// Open connection and declare a boolean to check if the update is properly executed
 		boolean check = false;
 
 		this.openConnection();
@@ -286,8 +280,7 @@ public class DBImplementation implements MediaMartaDAO {
 	// Inserts a new component into the database
 	@Override
 	public boolean insertComp(Comp comp) {
-		// Open connection and declare a boolean to check if the update is properly
-		// executed
+		// Open connection and declare a boolean to check if the update is properly executed
 		boolean check = false;
 
 		this.openConnection();
@@ -298,8 +291,7 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.setObject(2, comp.getTypeC());
 			stmt.setDouble(3, comp.getPrice());
 			stmt.setInt(4, comp.getCodBrand());
-			// Executes the SQL query. If the insert is executed correctly, check becomes
-			// true
+			// Executes the SQL query. If the insert is executed correctly, check becomes true
 			if (stmt.executeUpdate() > 0) {
 				check = true;
 			}
