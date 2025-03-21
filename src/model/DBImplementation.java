@@ -120,7 +120,6 @@ public class DBImplementation implements MediaMartaDAO {
 
 	//Registers a new user
 	public boolean registerUser(User user) {
-		// TODO Auto-generated method stub
 		boolean register=false;
 		if (!verifyUser(user)){
 			this.openConnection();
