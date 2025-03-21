@@ -115,7 +115,7 @@ public class MainWindow extends JFrame implements ActionListener {
 			}
 		}
 		if (e.getSource()==btnSignIn) {
-			SignInWindow signIn=new  SignInWindow(this, cont);
+			SignInWindow signIn=new  SignInWindow(admin, cont);
 			signIn.setVisible(true);
 			dispose();
 		}

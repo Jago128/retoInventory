@@ -24,9 +24,9 @@ public class SignInWindow extends JDialog implements ActionListener {
 	private JPasswordField password;
 	private JPasswordField passwordConfirmation;
 	private JLabel lblMensaje;
+	private boolean admin;
 
-	public SignInWindow(JFrame parent, LoginController cont) {
-		super(parent,true); 
+	public SignInWindow(boolean admin, LoginController cont) {
 		this.cont=cont;
 
 		setTitle("REGISTER NEW USER");
@@ -123,7 +123,10 @@ public class SignInWindow extends JDialog implements ActionListener {
 					passwordConfirmation.setBackground(new Color(255, 255, 255));
 					user.setPassword(new String(password.getPassword())); //Cambia la contraseña del usuario
 					cont.registerUser(user); //Lo pasa a la base de datos
-					lblMensaje.setText("User "+user.getCodU()+" registered correctly");
+					JOptionPane.showMessageDialog(null, "User registered correctly");
+					MenuWindow menu=new  MenuWindow(admin, cont); // The admin variable is sent to show or not certain option in the next windows
+					menu.setVisible(true);
+					this.dispose();
 				}else {
 					lblMensaje.setText("The password must be equal in both parts");
 					password.setBackground(new Color(250, 128, 114));

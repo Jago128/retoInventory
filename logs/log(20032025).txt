@@ -1,0 +1,567 @@
+commit a38f1c6c1051fb28ff8a25a661ac03423fda3f04
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Thu Mar 20 11:58:05 2025 +0100
+
+    Merge remote-tracking branch 'origin/SQLQueriesCheck' into main
+
+commit c2f5beb3fdce8058a409b7301b455917f5828fcb
+Merge: 7e911b1 985a615
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Thu Mar 20 11:54:32 2025 +0100
+
+    Merge remote-tracking branch 'origin/SQLQueriesCheck' into main
+
+commit 985a615f8cbc6243007c04345e78fbc77871bff9
+Author: MedievAlex <alexirazola@gmail.com>
+Date:   Thu Mar 20 11:52:21 2025 +0100
+
+    Log in and User modifications. Needs revision.
+
+commit 7e911b1884eebf8b3a1450dc907e03b7c65c1344
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Thu Mar 20 11:52:15 2025 +0100
+
+    e
+
+commit 914e1c784acd2a28e26ed13b1fddd0c9083cdb31
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Thu Mar 20 11:47:55 2025 +0100
+
+    Fixes
+
+commit 0d1f970648b88eaa787000cae1ff580fcbf02fab
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Thu Mar 20 11:43:30 2025 +0100
+
+    Fixed sellAndSubstract
+
+commit 7786d7505559e97aa7f67ebd4fd97ca709b46634
+Merge: 13bdcf1 62c8096
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Thu Mar 20 10:55:16 2025 +0100
+
+    Merge branch 'main' of https://github.com/Jago128/retoInventory into main
+
+commit 13bdcf16019a265c0db1b9e71f1ae08cfe97d399
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Thu Mar 20 10:54:57 2025 +0100
+
+    e
+
+commit 62c809682c763e7b3f06dfea14aaf8c5847b28dd
+Author: Enchufe0 <sabatelvictor96@gmail.com>
+Date:   Thu Mar 20 10:47:02 2025 +0100
+
+    Update RETO PGR,BD,EDE,IT.sql
+    
+    Metodo ShowLowStock hecho. Hay que mirarlo porque no enseña todos a la vez.
+
+commit 546260494ffcebc816114104cfd67910ae9d87d3
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Thu Mar 20 10:32:23 2025 +0100
+
+    Removed some unnecessary stuff
+
+commit 2288dbfa9740b2865cb8e15b8ae90c2226141a4b
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Thu Mar 20 10:27:49 2025 +0100
+
+    e^3
+
+commit 41ad78ae519e20af93d2537fd5b14f96aa353f9a
+Merge: f115931 9884b01
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Thu Mar 20 10:24:42 2025 +0100
+
+    Merge remote-tracking branch 'origin/loadMethods' into main
+
+commit 9884b014e5828e4cc59e1a94035ad97e608bfcf3
+Author: MedievAlex <alexirazola@gmail.com>
+Date:   Thu Mar 20 10:22:45 2025 +0100
+
+    Fixed and renamed class Component and finished Product and Comp methods.
+
+commit f115931c64a93b7bde7874c93f2dfff0244677ab
+Merge: a9d69b9 71dc491
+Author: Xabitxu <xabiergalbin@gmail.com>
+Date:   Thu Mar 20 10:18:45 2025 +0100
+
+    Merge branch 'main' of https://github.com/Jago128/retoInventory into
+    main
+
+commit a9d69b9ea2b1d7a09d60ecf2d7088aa76858af72
+Author: Xabitxu <xabiergalbin@gmail.com>
+Date:   Thu Mar 20 10:17:30 2025 +0100
+
+    ssdc
+
+commit 71dc4914ead686e1b26acf5ed30f99b262163066
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Thu Mar 20 10:14:27 2025 +0100
+
+    e^2
+
+commit b4fcc7c8cef7bec1005a55eedc3b0d8facc55bfe
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Thu Mar 20 10:13:10 2025 +0100
+
+    e
+
+commit 3b08d835067f1e9ddff6d0a15fcd90a7163b27f4
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Thu Mar 20 10:09:54 2025 +0100
+
+    Renamed ReestockWindow to RestockWindow
+
+commit 61a9e665929705663112a8f6116432d75542dda7
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Thu Mar 20 10:08:31 2025 +0100
+
+    sellAndSubstract now adds a row to purchase.
+
+commit 450ee4a7ab545ad892c0167735b2ab72cd025eb8
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Thu Mar 20 10:00:21 2025 +0100
+
+    e
+
+commit afecd5a02ea609389a66be032e546bc91d0a7329
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Thu Mar 20 09:59:21 2025 +0100
+
+    Fixed Overrides
+
+commit a24d881a6abec825b92690e3bedfd5c2899bf025
+Merge: 36689b5 c2bf2c4
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Thu Mar 20 09:58:02 2025 +0100
+
+    Merge remote-tracking branch 'origin/loadMethods' into main
+
+commit 36689b5c8a30e022a9da839a5c2460430b2e8389
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Thu Mar 20 09:56:32 2025 +0100
+
+    Fixed an oopsie on sellAndSubstract
+
+commit c2bf2c4701e8e97e4ef20f73f41b5eacc2597a02
+Author: MedievAlex <alexirazola@gmail.com>
+Date:   Thu Mar 20 09:56:27 2025 +0100
+
+    Fixed the declaration of the Product, Component and Brand.
+
+commit ddbd87aa9cb4e25dd953adcc6aa1a4e3e828ab9d
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Thu Mar 20 09:49:04 2025 +0100
+
+    Errorcheck on sellAndSubstract
+
+commit 99c6c406bfee5b58b7e01cf5e3e1fcc6f323c40e
+Merge: a6dbbdb f7f13a2
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Thu Mar 20 09:30:51 2025 +0100
+
+    Merge remote-tracking branch 'origin/productWindow' into main
+
+commit a6dbbdbded410d4d7d4f6f80a9e243dd5839d3f0
+Merge: e4543d4 2c8893c
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Thu Mar 20 09:29:00 2025 +0100
+
+    Merge remote-tracking branch 'origin/Xabi' into main
+
+commit f7f13a288cdd2182acc0622f74e2584168430a28
+Author: MedievAlex <alexirazola@gmail.com>
+Date:   Thu Mar 20 09:24:18 2025 +0100
+
+    Added not implemented methods for Products, Components and Brands.
+
+commit e4543d471d37b077efac5fbfa3a8742115f9f128
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Thu Mar 20 09:23:38 2025 +0100
+
+    Added missing methods on the .sql
+
+commit 2c8893c65c0c7b00ef1c5cadb2ddacefd0a1d015
+Author: Xabitxu <xabiergalbin@gmail.com>
+Date:   Thu Mar 20 09:19:22 2025 +0100
+
+    xabu
+
+commit ef562985100ac41ea30b2f836a194f7c57e6b3d2
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Thu Mar 20 09:17:23 2025 +0100
+
+    spacingn't
+
+commit df8922693ade594ecc1746143c685c557f910be9
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Thu Mar 20 09:06:40 2025 +0100
+
+    Merge remote-tracking branch 'origin/showWindowsAndMethods' into main
+
+commit e225a1c9f8170892c6facdde84e8e5d38d90ea45
+Merge: 362cbb3 4a8cec9
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Thu Mar 20 09:05:49 2025 +0100
+
+    Merge remote-tracking branch 'origin/showWindowsAndMethods' into main
+
+commit 4a8cec95f3249655c7986683502c280412cc8b58
+Author: MedievAlex <alexirazola@gmail.com>
+Date:   Wed Mar 19 13:30:05 2025 +0100
+
+    Updated show methods. Still unfinished.
+
+commit 362cbb33c57d33d8340e50bc80386261a341ef53
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Wed Mar 19 13:23:31 2025 +0100
+
+    Import ordering moment on MenuWindow
+
+commit 9af41f5c01fcadba81c4f53593c844457f7c304d
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Wed Mar 19 13:22:28 2025 +0100
+
+    Dealt with with compacting imports by using asterisks.
+
+commit 1793d62e6d2de7f082e73ceb44213368acf47203
+Merge: 86e4c73 2e3db49
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Wed Mar 19 13:14:34 2025 +0100
+
+    Merge remote-tracking branch 'origin/loginMethods' into main
+
+commit 86e4c73aff7177fc9ca5ee5070cdda5f304c3cbc
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Wed Mar 19 13:12:03 2025 +0100
+
+    e
+
+commit 61fb5ddf42d6f43538ef22f082d1b1627771f427
+Merge: c53d38f 12d924e
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Wed Mar 19 13:09:50 2025 +0100
+
+    Merge branch 'main' of https://github.com/Jago128/retoInventory into
+    main
+
+commit 2e3db499a980ea531d27767530e327508f582477
+Author: MedievAlex <alexirazola@gmail.com>
+Date:   Wed Mar 19 13:07:26 2025 +0100
+
+    Modified some windows and started the show SQL Strings.
+
+commit c53d38f5137d8b0c50febded04ddfdb28998a13a
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Wed Mar 19 12:58:55 2025 +0100
+
+    Finished Sell and Substract and instert component (about time)
+
+commit 23cc25ac848495ee884f9d6cef46d6a890bbc341
+Author: MedievAlex <alexirazola@gmail.com>
+Date:   Wed Mar 19 12:52:42 2025 +0100
+
+    Updated the login methods and started with the views.
+
+commit 12d924e410bba963ceaa7d74400e0a80a4a55644
+Author: Enchufe0 <sabatelvictor96@gmail.com>
+Date:   Wed Mar 19 12:30:16 2025 +0100
+
+    Update RETO PGR,BD,EDE,IT.sql
+    
+    Los metodos todos bien con sus respectivos stocks corrgidos. más las tablas y inserts perfectamente funcinales
+
+commit 5f932916a264899f827b456f0aa2a34d0e167ce8
+Author: MedievAlex <AlexIrazola@gmail.com>
+Date:   Wed Mar 19 12:26:42 2025 +0100
+
+    Update RETO PGR,BD,EDE,IT.sql
+    
+    Fixed and added STOCKCOMPONENT to the COMPONENT table.
+
+commit f15ddb4ffe957b2bbc4074b65bb0f65efd3e40de
+Author: MedievAlex <AlexIrazola@gmail.com>
+Date:   Wed Mar 19 12:14:32 2025 +0100
+
+    Update RETO PGR,BD,EDE,IT.sql
+    
+    Fixed the database creation deleting some duplications.
+
+commit 90f00c3d428c2070cea5c484be2e476bbf5c2c1e
+Merge: c05808e e10de9e
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Wed Mar 19 10:54:38 2025 +0100
+
+    Merge remote-tracking branch 'origin/loginMethods' into main
+
+commit c05808ef42de5137a7c70ee7241333c34ddda3a9
+Merge: c605722 0ae6cbc
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Wed Mar 19 10:53:45 2025 +0100
+
+    Merge remote-tracking branch 'origin/Xabi' into main
+
+commit 0ae6cbcdff547f37921efdb06b0b7256afe7cc47
+Author: Xabitxu <xabiergalbin@gmail.com>
+Date:   Wed Mar 19 10:49:18 2025 +0100
+
+    e
+
+commit c6057229c0c9f392a38fea82819b1b8e34ad5b05
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Wed Mar 19 10:48:14 2025 +0100
+
+    Re-added InsertComponents
+
+commit 20f2ac7c5cc24fc81afb70baaeae7121a912c9b4
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Wed Mar 19 10:45:36 2025 +0100
+
+    e
+
+commit 9464058f83166d7fe7785cebfcab13e1e8df13e4
+Merge: 1ca19c0 9b16bf4
+Author: Xabitxu <xabiergalbin@gmail.com>
+Date:   Wed Mar 19 10:43:17 2025 +0100
+
+    Merge branch 'Xabi' into main
+
+commit e10de9efc94f3f885f348b4935a9e63e205ffff0
+Author: MedievAlex <alexirazola@gmail.com>
+Date:   Wed Mar 19 10:38:05 2025 +0100
+
+    Updated the windows of MainWindow and SignIn.
+
+commit 9b16bf485c45962a5da73b7fb7eaced36804cd2b
+Author: Xabitxu <xabiergalbin@gmail.com>
+Date:   Wed Mar 19 10:37:02 2025 +0100
+
+    Xbito
+
+commit 1ca19c0cb9e539ea6c2f560800cc7dca836b14c3
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Wed Mar 19 10:32:34 2025 +0100
+
+    Updated comments
+
+commit 5c01410ef050f73fcc2b6703d3f6886b25bcd208
+Merge: 30b2adc 133913b
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Wed Mar 19 10:11:42 2025 +0100
+
+    Merge remote-tracking branch 'origin/loginMethods' into main
+
+commit 133913b4eb083a4c00c7f2110dc061ab438a80b0
+Author: MedievAlex <alexirazola@gmail.com>
+Date:   Wed Mar 19 10:06:18 2025 +0100
+
+    Added new methods (verifyUser, verifyUserPassword, verifyUserType) to
+    DBImplementation, LoginController and MediaMartaDAO. Modifying and
+    adding SQL sentences.
+
+commit 30b2adcc7719f6b8be0a685f7edc93190130ce2b
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Wed Mar 19 09:51:22 2025 +0100
+
+    deleteProd done.
+
+commit d9b6d063ca9beaf267ec2e7d0f3d0c9088d9e4cd
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Wed Mar 19 09:42:02 2025 +0100
+
+    codU changed to String
+
+commit f9ff0533ca9235d84fb8730262bacccfa8b64ee6
+Merge: 59bd9b9 20f9f9d
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Wed Mar 19 09:14:43 2025 +0100
+
+    Merge remote-tracking branch 'origin/showMethods' into main
+
+commit 59bd9b9a0a146b29efd059aa1fa0d7d87bded97d
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Wed Mar 19 09:14:35 2025 +0100
+
+    e
+
+commit 48db26247e1ca719b9bad88708a36f94ab1a2949
+Merge: bec99d5 3812d0f
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Wed Mar 19 09:13:48 2025 +0100
+
+    Merge remote-tracking branch 'origin/Xabi' into main
+
+commit bec99d594c78be9d08c410f3586616dd92db083f
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Wed Mar 19 09:09:47 2025 +0100
+
+    e
+
+commit 24e2c9769f08b87e91dc8d1ff1a60c468a6d202b
+Merge: 0887865 32d4e5d
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Tue Mar 18 14:21:48 2025 +0100
+
+    Merge remote-tracking branch 'origin/InsertsMethods' into main
+
+commit 0887865caaf4459010a755d3b20e5d748baaeeb9
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Tue Mar 18 14:15:56 2025 +0100
+
+    e
+
+commit 32d4e5d82a4f6d25cbcbbed925bb84f9005147a5
+Author: Enchufe0 <sabatelvictor96@gmail.com>
+Date:   Tue Mar 18 14:15:39 2025 +0100
+
+    Insert creados
+
+commit 93df321670c0c24bd52d2f7c45ebe2fd29c50060
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Tue Mar 18 14:07:36 2025 +0100
+
+    e
+
+commit 3812d0f43fcba0470e5881dbfc13b5af0bd11b56
+Author: Xabitxu <xabiergalbin@gmail.com>
+Date:   Tue Mar 18 14:06:05 2025 +0100
+
+    Xabi sql actualizado
+
+commit 3e1b6a5854f7203ad9d8b54db5864a9a200e6fd6
+Author: Xabitxu <xabiergalbin@gmail.com>
+Date:   Tue Mar 18 13:40:42 2025 +0100
+
+    Xabi
+
+commit 20f9f9d509ce73ab04aa6da0b181a9d2c48e7870
+Author: MedievAlex <alexirazola@gmail.com>
+Date:   Tue Mar 18 10:50:58 2025 +0100
+
+    Commented on the methods that I will work (showProd,
+    showBrandsAndItsItems, showComponents).
+
+commit a4e4abc7a3d96234dc0c47ddf84537cf09ed3c69
+Author: Enchufe0 <sabatelvictor96@gmail.com>
+Date:   Tue Mar 18 10:50:56 2025 +0100
+
+    Comments In the DBImplementation refering to the inserts
+
+commit 175cebd9d432cb378f40078ccaf6612ed0a5f01a
+Author: Xabitxu <148783076+Xabitxu@users.noreply.github.com>
+Date:   Tue Mar 18 10:50:27 2025 +0100
+
+    Add files via upload
+    
+    Archivo.sql
+
+commit 6fcc7348c0e57c90bdd3570fa8ede1c4cf93d8b1
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Tue Mar 18 10:44:38 2025 +0100
+
+    e
+
+commit b9037643fe263c15c88ec06ff26cc558fc906991
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Tue Mar 18 10:40:40 2025 +0100
+
+    e
+
+commit 13f96f1fe49b160743826d3292f8d866a4ab1f42
+Merge: 2173785 15690a8
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Tue Mar 18 10:38:31 2025 +0100
+
+    Merge remote-tracking branch 'origin/windows' into main
+
+commit 15690a86a35ba40046e41bc094061bbdd1e4b1f4
+Author: MedievAlex <alexirazola@gmail.com>
+Date:   Tue Mar 18 10:37:10 2025 +0100
+
+    Added comments to all Windows and created NewItemWindow.
+
+commit 21737859972ba16c27f532b29b713b04307dac45
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Tue Mar 18 10:37:00 2025 +0100
+
+    e
+
+commit acfed8c44b3d88eb6a9fba9781fdbaaaeb10596f
+Author: Enchufe0 <sabatelvictor96@gmail.com>
+Date:   Tue Mar 18 10:32:40 2025 +0100
+
+    w
+
+commit 605a2ecb9618e07ea4db1e198d7a18d82c5b3cfc
+Merge: 6094719 be9511a
+Author: Enchufe0 <sabatelvictor96@gmail.com>
+Date:   Tue Mar 18 10:31:54 2025 +0100
+
+    Merge branch 'Victor' into main
+
+commit 6094719a48c48f49d6a42ddbb8374be501b62b39
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Tue Mar 18 10:18:54 2025 +0100
+
+    Comments on DBImplementation
+
+commit c054568122a3021bb4f63a8ea16013d716cfc874
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Tue Mar 18 10:15:10 2025 +0100
+
+    Added comments (excluding DBImplementation), and fixed classConfig
+
+commit be9511a8e4d2cbf32983a3dce5cbe16c0dbee11c
+Author: Enchufe0 <sabatelvictor96@gmail.com>
+Date:   Tue Mar 18 09:56:50 2025 +0100
+
+    Price añadido
+
+commit 566f41b3a4781d16c71321a399e86f6854f0d851
+Author: MedievAlex <alexirazola@gmail.com>
+Date:   Tue Mar 18 09:55:53 2025 +0100
+
+    Added Windows and modified the main.
+
+commit 86cff7b2313a608f54903084bbeb079170e34f0f
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Tue Mar 18 09:41:10 2025 +0100
+
+    Price added to component
+
+commit 5f2d0034c5737154dc1df9a2112b58732f592237
+Author: Enchufe0 <sabatelvictor96@gmail.com>
+Date:   Tue Mar 18 09:39:30 2025 +0100
+
+    e
+
+commit 4124010a0e698927860040813cd3c055e373954e
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Tue Mar 18 09:29:53 2025 +0100
+
+    e
+
+commit 3972111a1d43bc846be3ed54354e36a068fcc0ad
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Tue Mar 18 09:24:05 2025 +0100
+
+    Main done, windows not ready, DB stuff not ready.
+
+commit 4546a4586735c92fd39cc85db6fa41659d930111
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Tue Mar 18 09:21:12 2025 +0100
+
+    e
+
+commit 2294e0efb67d1c237be23059f033684a8fcbca2d
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Tue Mar 18 09:20:45 2025 +0100
+
+    Classes created. DB stuff not ready.
+
+commit d416600ae11de8e6bf7e70a4189deb3ec5f1d436
+Author: Jago128 <jagobaetxegarai@gmail.com>
+Date:   Mon Mar 17 14:21:18 2025 +0100
+
+    Create Repo
