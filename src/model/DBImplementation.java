@@ -25,14 +25,12 @@ public class DBImplementation implements MediaMartaDAO {
 	//Selects
 	final String SQLSELL = "SELECT sellAndSubstract(?,?,?)";
 	
-	// SQL queries for the users
 	final String SQLUSER = "SELECT * FROM user WHERE coduser = ?";
 	final String SQLUSERPSW = "SELECT * FROM user WHERE coduser = ? AND psw = ?";
 	final String SQLPROD = "SELECT PROD FROM PRODUCT WHERE NAMEP = ?";
 	final String SQLTYPE = "SELECT type_u FROM user WHERE coduser = ?";
 	final String SQLINSERTUSER = "INSERT INTO user VALUES (?,?,?,'Client')";
 	
-	// SQL queries for the Views
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
 	final String SQLSELECTCOMPONENT = "SELECT * FROM component";
 	final String SQLSELECTBRAND = "SELECT * FROM brand";
@@ -244,10 +242,11 @@ public class DBImplementation implements MediaMartaDAO {
 	
 	@Override
 	public Map<String, Product> showProductsBrand(String brand) {
+		Map<String, Product> brandProds = new TreeMap<>();
 		ResultSet rs = null;
 		Product product;
+		
 		this.openConnection();
-		Map<String, Product> brandProds = new TreeMap<>();
 		try {
 			stmt = con.prepareStatement(SQLSELECTPRODUCTBRAND);
 			stmt.setString(1, brand);
@@ -265,7 +264,6 @@ public class DBImplementation implements MediaMartaDAO {
 			System.out.println("SQL error");
 			e.printStackTrace();
 		}
-		
 		return brandProds;
 	}
 
