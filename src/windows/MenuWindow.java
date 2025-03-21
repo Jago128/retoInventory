@@ -7,6 +7,8 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import controller.LoginController;
+import javax.swing.GroupLayout.Alignment;
+import javax.swing.LayoutStyle.ComponentPlacement;
 
 // MENU WINDOW 
 // Go to->(ProductWindow, ComponentWindow, BrandWindow, LowStockWindow)
@@ -15,59 +17,89 @@ public class MenuWindow extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
-	private JButton btnProducts, btnComponents, btnBrands, btnCheckStock, btnClose;
+	private JButton btnLogOut, btnProducts, btnComponents, btnBrands, btnCheckStock, btnClose;
 	private LoginController cont;
 	private boolean admin;
 
 	public MenuWindow(boolean admin, LoginController controlador) {
 		this.cont=controlador;
-		
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		this.admin=admin;
+
+		//Window
+		setTitle("MEDIAMARTA: Welcome");
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
+		setBounds(100, 100, 480, 636);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
-
 		setContentPane(contentPane);
+
+		//Titles
+		JLabel lblWelcomeTo = new JLabel("Welcome to");
+		lblWelcomeTo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWelcomeTo.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		lblWelcomeTo.setBounds(5, 10, 461, 19);
+		contentPane.add(lblWelcomeTo);
+
+		JLabel lblMediaMarta = new JLabel("MediaMarta");
+		lblMediaMarta.setBounds(5, 20, 461, 46);
+		lblMediaMarta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMediaMarta.setFont(new Font("Times New Roman", Font.PLAIN, 25));
 		contentPane.setLayout(null);
+		contentPane.add(lblMediaMarta);
+
+		//Buttons
+		btnLogOut = new JButton("Log-Out");
+		btnLogOut.setBackground(new Color(240, 240, 240));
+		btnLogOut.setFont(new Font("Times New Roman", Font.PLAIN, 10));
+		btnLogOut.setBounds(385, 8, 81, 21);
+		contentPane.add(btnLogOut);
 
 		btnProducts = new JButton("PRODUCTS");
+		btnProducts.setBounds(5, 104, 461, 35);
 		btnProducts.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		btnProducts.setBounds(10, 71, 416, 35);
 		contentPane.add(btnProducts);
 
 		btnComponents = new JButton("COMPONENTS");
+		btnComponents.setBounds(5, 231, 461, 35);
 		btnComponents.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		btnComponents.setBounds(10, 115, 416, 35);
 		contentPane.add(btnComponents);
 
 		btnBrands = new JButton("BRANDS");
+		btnBrands.setBounds(5, 363, 461, 35);
 		btnBrands.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		btnBrands.setBounds(10, 160, 416, 35);
 		contentPane.add(btnBrands);
 
 		btnCheckStock = new JButton("CHECK STOCK");
+		btnCheckStock.setBounds(134, 554, 196, 35);
 		btnCheckStock.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		btnCheckStock.setBounds(117, 205, 196, 35);
-		contentPane.add(btnCheckStock);
 		if(admin) { // In case the user is admin the button will be visible
 			btnCheckStock.setVisible(true);
 		}
 		else { // If not the user will not have this option visible
 			btnCheckStock.setVisible(false);
 		}
+		contentPane.add(btnCheckStock);
 
 		btnClose = new JButton("CLOSE");
+		btnClose.setBounds(399, 578, 67, 21);
 		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		btnClose.setBounds(369, 246, 67, 21);
-		contentPane.add(btnClose);
+		contentPane.add(btnClose);	
 
+		//Adding action listener
 		btnProducts.addActionListener(this);
 		btnComponents.addActionListener(this);
 		btnBrands.addActionListener(this);
 		btnClose.addActionListener(this);
 	}
 
+	//Action performer
 	public void actionPerformed(ActionEvent e) {
+		// Logs-Out and moves back to the Main Window	
+		if (e.getSource()==btnLogOut) {
+			MainWindow main=new  MainWindow(cont);
+			main.setVisible(true);
+			this.dispose();
+		}
 		// Closes the window	
 		if (e.getSource()==btnClose) {
 			this.dispose();
