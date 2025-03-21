@@ -36,6 +36,8 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
 	final String SQLSELECTCOMPONENT = "SELECT * FROM component";
 	final String SQLSELECTBRAND = "SELECT * FROM brand";
+	final String SQLSELECTPRODUCTBRAND = "SELECT * FROM product WHERE CODBRAND=()";
+	final String SQLSELECTCOMPONENTBRAND = "SELECT * FROM component";
 	
 	/* Queries to use as reference, to be deleted later
 	 * final String SQLINSERT = "INSERT INTO user VALUES (?,?)";
@@ -252,6 +254,7 @@ public class DBImplementation implements MediaMartaDAO {
 	@Override
 	public Map<String, Product> showProductsBrand() {
 		Map<String, Product> brandProds = new TreeMap<>();
+		
 		
 		return brandProds;
 	}
