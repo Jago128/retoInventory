@@ -362,8 +362,12 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.setString(1, codUser);
 			stmt.setString(2, nomProd);
 			stmt.setInt(3, amount);
-			stmt.executeQuery();
+			ResultSet rs = stmt.executeQuery();
+			if (!rs.getBoolean(1)) {
+				check=true;
+			}
 			//Closes the connection
+			rs.close();
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
