@@ -318,11 +318,8 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.setString(1, codUser);
 			stmt.setString(2, nomProd);
 			stmt.setInt(3, amount);
-			ResultSet rs = stmt.executeQuery();
-			//Get the errorcheck boolean to see if there was a problem during the update or not
-			check=rs.getBoolean(1);
+			stmt.executeQuery();
 			//Closes the connection
-			rs.close();
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {

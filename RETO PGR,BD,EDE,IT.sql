@@ -100,17 +100,15 @@ END //
 Delimiter ;
 
 DELIMITER //
-CREATE FUNCTION sellAndSubstract(CODUSER VARCHAR(20), NAMEPROD VARCHAR(50), AMOUNT INT) RETURNS BOOLEAN
+CREATE PROCEDURE sellAndSubstract(CODUSER VARCHAR(20), NAMEPROD VARCHAR(50), AMOUNT INT)
 BEGIN
 	DECLARE CURRENTSTOCK INT DEFAULT 0;
     DECLARE CODPROD INT;
     DECLARE CURRENTDATE DATE;
-    DECLARE ERRORCHECK BOOLEAN DEFAULT TRUE;
-    # Incorrect integer value error check
-	DECLARE CONTINUE HANDLER FOR SQLSTATE "01366" SET ERRORCHECK = FALSE;
+    
     SET CODPROD:=(SELECT CODPRODUCT FROM PRODUCT WHERE NAMEP=NAMEPROD);
 	SET CURRENTSTOCK:=((SELECT STOCKPRODUCT FROM PRODUCT WHERE CODPRODUCT=CODPROD)-AMOUNT);
-	IF !ERRORCHECK THEN
+	IF NOT ERRORCHECK THEN
 		SELECT "El parametro introducido es incorrecto." AS ErrorMessage;
         ELSE
         UPDATE PRODUCT SET STOCKPRODUCT=CURRENTSTOCK WHERE CODPRODUCT=CODPROD;
@@ -118,7 +116,6 @@ BEGIN
     SET CURRENTDATE:=(SELECT CURDATE());
     INSERT INTO PURCHASE VALUES 
 	(CODPROD,CODUSER,AMOUNT,CURRENTDATE);
-	RETURN ERRORCHECK;
 END //
 DELIMITER ;
 
@@ -173,8 +170,8 @@ BEGIN
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET ENCONTRADO = FALSE;
 	SELECT CODPRODUCT INTO CodigoProd FROM PRODUCT WHERE NAMEP = NomProd;
 
-    IF !ENCONTRADO THEN
-		SELECT CONCAT('The product ', NomProd,' has not been found.');
+    IF NOT ENCONTRADO THEN
+		SELECT CONCAT('The product ', NomProd,' could not be found.');
     ELSE 
 		SELECT CONCAT('The product ', NomProd,' has been deleted correctly.');
 		DELETE FROM PRODUCT WHERE CODPRODUCT = CodigoProd;
@@ -196,7 +193,7 @@ BEGIN
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET FIN = TRUE;
     OPEN C;
 	FETCH C INTO NomProd,TipoP,PriceP,StockP,CodBrand; 
-	WHILE !FIN DO
+	WHILE NOT FIN DO
 		SELECT CONCAT ('Name: ', NomProd, ' Type: ', TipoP,' Price: ', PriceP,' Stock: ', StockP,' CodeBrand: ', CodBrand) "Datos pedidos"; 
 		Fetch c into NomProd,TipoP,PriceP,StockP,CodBrand; 
     END WHILE; 
@@ -217,7 +214,7 @@ BEGIN
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET FIN = TRUE;
     OPEN C;
 	FETCH C INTO NomComp,TipoC,CodBrand,Stock,PriceComp; 
-	WHILE !FIN DO
+	WHILE NOT FIN DO
 		SELECT CONCAT ('Name: ', NomComp, ' Type: ', TipoC,' CodeBrand: ', CodBrand,' Stock: ' Stock,' Price: ', PriceComp) "Datos pedidos"; 
 		FETCH C INTO NomComp,TipoC,CodBrand,Stock,PriceComp; 
     END WHILE; 
@@ -257,11 +254,10 @@ BEGIN
 
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET fin = TRUE;
 
-    
     -- Mostrar productos
     OPEN cur_prod;
     FETCH cur_prod INTO prodName, prodType, prodPrice, prodStock;
-    WHILE !fin DO
+    WHILE NOT fin DO
         SELECT CONCAT('Brand: ', brandName, ' | Product: ', prodName, ' | Type: ', prodType,
                       ' | Price: ', prodPrice, ' | Stock: ', prodStock) AS Product_Info;
         FETCH cur_prod INTO prodName, prodType, prodPrice, prodStock;
@@ -273,7 +269,7 @@ BEGIN
     -- Mostrar componentes
     OPEN cur_comp;
     FETCH cur_comp INTO compName, compType, compPrice, compStock;
-    WHILE !fin DO
+    WHILE NOT fin DO
         SELECT CONCAT('Brand: ', brandName, ' | Component: ', compName, ' | Type: ', compType,
                       ' | Price: ', compPrice, ' | Stock: ', compStock) AS Component_Info;
         FETCH cur_comp INTO compName, compType, compPrice, compStock;
