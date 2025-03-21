@@ -123,7 +123,7 @@ END //
 DELIMITER ;
 
 Delimiter //
-CREATE PROCEDURE ShowLowStock ()  
+CREATE PROCEDURE ShowLowStock()  
 BEGIN
     DECLARE Fin BOOLEAN DEFAULT FALSE;
     DECLARE CodProd INT;
@@ -213,7 +213,7 @@ BEGIN
     OPEN C;
 	FETCH C INTO NomComp,TipoC,CodBrand,Stock,PriceComp; 
 	WHILE !FIN DO
-		SELECT CONCAT ('Name: ', NomComp, ' Type: ', TipoC,' CodeBrand: ', CodBrand,' Stock: ' Stock,' Price: ', PriceComp) "Datos pedidos"; 
+		SELECT CONCAT ('Name: ', NomComp, ' Type: ', TipoC,' CodeBrand: ', CodBrand,' Stock: ', Stock,' Price: ', PriceComp) "Datos pedidos"; 
 		FETCH C INTO NomComp,TipoC,CodBrand,Stock,PriceComp; 
     END WHILE; 
     CLOSE C; 
