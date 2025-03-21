@@ -202,16 +202,16 @@ BEGIN
 	DECLARE Fin BOOLEAN DEFAULT FALSE;
     DECLARE NomComp VARCHAR(50);
     DECLARE TipoC ENUM ("Mobile","Computer");
-    DECLARE CodBrand INT;
+    DECLARE CBrand INT;
     DECLARE Stock INT;
     DECLARE PriceComp DOUBLE;	
     DECLARE C CURSOR FOR SELECT NAMECOMP,TYPEC,CODBRAND,STOCKCOMPONENT,PRICECOMP FROM COMPONENT; 	
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET FIN = TRUE;
     OPEN C;
-	FETCH C INTO NomComp,TipoC,CodBrand,Stock,PriceComp; 
+	FETCH C INTO NomComp,TipoC,CBrand,Stock,PriceComp; 
 	WHILE NOT FIN DO
-		SELECT CONCAT ('Name: ', NomComp, ' Type: ', TipoC,' CodeBrand: ', CodBrand,' Stock: ' Stock,' Price: ', PriceComp) "Datos pedidos"; 
-		FETCH C INTO NomComp,TipoC,CodBrand,Stock,PriceComp; 
+		SELECT CONCAT ('Name: ', NomComp, ' Type: ', TipoC,' CodeBrand: ', CBrand,' Stock: ', Stock,' Price: ', PriceComp)  "Datos pedidos";
+		FETCH C INTO NomComp,TipoC,CBrand,Stock,PriceComp; 
     END WHILE; 
     CLOSE C; 
 END //
