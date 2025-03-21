@@ -37,8 +37,8 @@ public class LoginController {
 		return dao.verifyProduct();
 	}
 
-	public Map<String, Brand> verifyBrandsAndItsItems() {
-		return dao.verifyBrandsAndItsItems();
+	public Map<String, Brand> verifyBrands() {
+		return dao.verifyBrands();
 	}
 
 	public Map<String, Comp> verifyComponent() {

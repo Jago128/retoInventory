@@ -222,12 +222,11 @@ public class DBImplementation implements MediaMartaDAO {
 			System.out.println("SQL error");
 			e.printStackTrace();
 		}
-		
 		return components;
 	}
 	
 	//Verify that the brand exists 
-	public Map<String, Brand> verifyBrandsAndItsItems(){
+	public Map<String, Brand> verifyBrands(){
 		ResultSet rs = null;
 		Brand brand;
 		Map<String, Brand> brands = new TreeMap<>();
