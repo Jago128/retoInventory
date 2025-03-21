@@ -275,15 +275,30 @@ Delimiter ;
 
 
 Delimiter //
-CREATE FUNCTION GetStockOfAProduct (NAMEP VARCHAR(50))
+CREATE FUNCTION GetStockOfAProduct (NomProd VARCHAR(50))
 RETURNS INT
 DETERMINISTIC
 BEGIN 
 	DECLARE PStock INT DEFAULT 0;
-    DECLARE NomProd VARCHAR(50);
     SELECT STOCKPRODUCT INTO PStock FROM PRODUCT WHERE NAMEP = NomProd;
     RETURN PStock;
 END //
 Delimiter ;
 SELECT GetStockOfAProduct('Iphone X') AS StockProduct;
 DROP FUNCTION GetStockOfAProduct;
+
+
+Delimiter //
+CREATE FUNCTION GetTotalValueOfAProduct (NomProd VARCHAR(50))
+RETURNS INT
+DETERMINISTIC
+BEGIN 
+	DECLARE TotalValue INT DEFAULT 0;
+    
+    SELECT STOCKPRODUCT * PRICE INTO TotalValue FROM PRODUCT WHERE NAMEP = NomProd;
+    RETURN TotalValue;
+END //
+Delimiter ;
+SELECT GetTotalValueOfAProduct('Iphone X') AS StockProduct;
+DROP FUNCTION GetStockOfAProduct;
+Delimiter ;
