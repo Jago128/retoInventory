@@ -5,6 +5,7 @@ import java.util.Map;
 public interface MediaMartaDAO {
 	
 	//Prepare methods to be inherited by DBImplementation
+	
 	// User related methods
 	public boolean verifyUser(User user);
 	
