@@ -37,12 +37,12 @@ public class LoginController {
 		return dao.verifyProduct();
 	}
 	
-	public Map<String, Product> showProductsBrand(Map<String, Brand> brands) {
-		return dao.showProductsBrand(brands);
+	public Map<String, Product> showProductsBrand(String brand) {
+		return dao.showProductsBrand(brand);
 	}
 	
-	public Map<String, Comp> showComponentsBrand(Map<String, Brand> brands) {
-		return dao.showComponentsBrand(brands);
+	public Map<String, Comp> showComponentsBrand(String brand) {
+		return dao.showComponentsBrand(brand);
 	}
 	
 	public Map<String, Brand> verifyBrands() {

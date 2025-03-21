@@ -174,9 +174,7 @@ public class DBImplementation implements MediaMartaDAO {
 		this.openConnection();
 		try {
 			stmt = con.prepareStatement(SQLSELECTPRODUCT);
-
 			rs = stmt.executeQuery();
-
 			while (rs.next()) {
 				product = new Product();
 				product.setNameP(rs.getString("namep"));
@@ -203,9 +201,7 @@ public class DBImplementation implements MediaMartaDAO {
 		this.openConnection();
 		try {
 			stmt = con.prepareStatement(SQLSELECTCOMPONENT);
-
 			rs = stmt.executeQuery();
-
 			while (rs.next()) {
 				component = new Comp();
 				component.setNameC(rs.getString("namecomp"));
@@ -247,16 +243,15 @@ public class DBImplementation implements MediaMartaDAO {
 	}
 	
 	@Override
-	public Map<String, Product> showProductsBrand(Map<String, Brand> brands) {
+	public Map<String, Product> showProductsBrand(String brand) {
 		ResultSet rs = null;
 		Product product;
 		this.openConnection();
 		Map<String, Product> brandProds = new TreeMap<>();
 		try {
-			stmt = con.prepareStatement(SQLSELECTPRODUCT);
-
+			stmt = con.prepareStatement(SQLSELECTPRODUCTBRAND);
+			stmt.setString(1, brand);
 			rs = stmt.executeQuery();
-
 			while (rs.next()) {
 				product = new Product();
 				product.setNameP(rs.getString("namep"));
@@ -275,9 +270,29 @@ public class DBImplementation implements MediaMartaDAO {
 	}
 
 	@Override
-	public Map<String, Comp> showComponentsBrand(Map<String, Brand> brands) {
+	public Map<String, Comp> showComponentsBrand(String brand) {
 		Map<String, Comp> brandComps = new TreeMap<>();
+		ResultSet rs = null;
+		Comp component;
 		
+		this.openConnection();
+		try {
+			stmt = con.prepareStatement(SQLSELECTCOMPONENTBRAND);
+			stmt.setString(1, brand);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				component = new Comp();
+				component.setNameC(rs.getString("namecomp"));
+				component.setPrice(rs.getDouble("pricecomp"));
+				brandComps.put(component.getNameC(), component);
+			}
+			rs.close();
+            stmt.close();
+            con.close();
+		} catch (SQLException e) {
+			System.out.println("SQL error");
+			e.printStackTrace();
+		}
 		return brandComps;
 	}
 	
