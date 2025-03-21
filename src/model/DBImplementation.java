@@ -345,8 +345,15 @@ public class DBImplementation implements MediaMartaDAO {
 	}
 
 	@Override
-	public void showProdsOrderedByStock() {
+	public Map <Integer,Product> showProdsAndCompsOrderedByStock() {
+		Brand brand;
 		
+		int stockProd,stockComp;
+		
+		
+		
+		
+		return brands;
 	}
 
 	@Override

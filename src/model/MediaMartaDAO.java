@@ -32,7 +32,7 @@ public interface MediaMartaDAO {
 	
 	public boolean sellAndSubstract(String codUser, String nomProd, int amount);
 	
-	public void showProdsOrderedByStock();
+	public void showProdsAndCompsOrderedByStock();
 	
 	public boolean deleteProd(String nom);
 }
