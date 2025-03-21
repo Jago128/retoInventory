@@ -51,7 +51,6 @@ public class BrandWindow extends JDialog implements ActionListener {
 		list = new JList<String>();
 		list.setBounds(10, 238, 446, 274);
 		getContentPane().add(list);
-		loadBrands();
 
 		//Buttons
 		btnLogOut = new JButton("Log-Out");
