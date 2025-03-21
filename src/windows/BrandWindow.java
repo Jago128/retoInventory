@@ -99,6 +99,8 @@ public class BrandWindow extends JDialog implements ActionListener {
 		if (e.getSource() == btnLogOut) {
 			MainWindow main = new MainWindow(cont);
 			main.setVisible(true);
+			JFrame parent = (JFrame)this.getParent();
+			parent.dispose();
 			this.dispose();
 		}
 	}
