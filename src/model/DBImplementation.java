@@ -236,6 +236,7 @@ public class DBImplementation implements MediaMartaDAO {
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				brand = new Brand();
+				brand.setCodB(rs.getInt("CODBRAND"));
 				brand.setNameB("NAMEBRAND");
 				brands.put(brand.getNameB(), brand);
 			}
