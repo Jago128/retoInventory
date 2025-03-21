@@ -270,3 +270,18 @@ BEGIN
     CLOSE cur_comp;
 END //
 Delimiter ;
+
+
+Delimiter //
+CREATE FUNCTION GetStockOfAProduct (NAMEP VARCHAR(50))
+RETURNS INT
+DETERMINISTIC
+BEGIN 
+	DECLARE PStock INT DEFAULT 0;
+    DECLARE NomProd VARCHAR(50);
+    SELECT STOCKPRODUCT INTO PStock FROM PRODUCT WHERE NAMEP = NomProd;
+    RETURN PStock;
+END //
+Delimiter ;
+SELECT GetStockOfAProduct('Iphone X') AS StockProduct;
+DROP FUNCTION GetStockOfAProduct;
