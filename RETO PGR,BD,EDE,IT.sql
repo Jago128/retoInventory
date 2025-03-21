@@ -168,7 +168,7 @@ BEGIN
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET ENCONTRADO = FALSE;
 	SELECT CODPRODUCT INTO CodigoProd FROM PRODUCT WHERE NAMEP = NomProd;
 
-    IF !ENCONTRADO THEN
+    IF NOT ENCONTRADO THEN
 		SELECT CONCAT('The product ', NomProd,' has not been found.');
     ELSE 
 		SELECT CONCAT('The product ', NomProd,' has been deleted correctly.');
@@ -191,7 +191,7 @@ BEGIN
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET FIN = TRUE;
     OPEN C;
 	FETCH C INTO NomProd,TipoP,PriceP,StockP,CodBrand; 
-	WHILE !FIN DO
+	WHILE NOT FIN DO
 		SELECT CONCAT ('Name: ', NomProd, ' Type: ', TipoP,' Price: ', PriceP,' Stock: ', StockP,' CodeBrand: ', CodBrand) "Datos pedidos"; 
 		Fetch c into NomProd,TipoP,PriceP,StockP,CodBrand; 
     END WHILE; 
@@ -205,28 +205,73 @@ BEGIN
 	DECLARE Fin BOOLEAN DEFAULT FALSE;
     DECLARE NomComp VARCHAR(50);
     DECLARE TipoC ENUM ("Mobile","Computer");
-    DECLARE CodBrand INT;
+    DECLARE CBrand INT;
     DECLARE Stock INT;
     DECLARE PriceComp DOUBLE;	
     DECLARE C CURSOR FOR SELECT NAMECOMP,TYPEC,CODBRAND,STOCKCOMPONENT,PRICECOMP FROM COMPONENT; 	
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET FIN = TRUE;
     OPEN C;
-	FETCH C INTO NomComp,TipoC,CodBrand,Stock,PriceComp; 
-	WHILE !FIN DO
-		SELECT CONCAT ('Name: ', NomComp, ' Type: ', TipoC,' CodeBrand: ', CodBrand,' Stock: ' Stock,' Price: ', PriceComp) "Datos pedidos"; 
-		FETCH C INTO NomComp,TipoC,CodBrand,Stock,PriceComp; 
+	FETCH C INTO NomComp,TipoC,CBrand,Stock,PriceComp; 
+	WHILE NOT FIN DO
+		SELECT CONCAT ('Name: ', NomComp, ' Type: ', TipoC,' CodeBrand: ', CBrand,' Stock: ', Stock,' Price: ', PriceComp)  "Datos pedidos";
+		FETCH C INTO NomComp,TipoC,CBrand,Stock,PriceComp; 
     END WHILE; 
     CLOSE C; 
 END //
 Delimiter ;
 
 Delimiter //
-CREATE PROCEDURE showBrands()
+CREATE PROCEDURE ShowProdsAndCompsOfAParticularBrand(brandName VARCHAR(15))
 BEGIN
-    SELECT B.NAMEBRAND,P.NAMEP,P.TYPEP,P.PRICE,P.STOCKPRODUCT FROM PRODUCT P
-    JOIN BRAND B ON P.CODBRAND = B.CODBRAND;
+    -- Variables para productos
+    DECLARE fin BOOLEAN DEFAULT FALSE;
+    DECLARE prodName VARCHAR(50);
+    DECLARE prodType ENUM('Mobile', 'Computer');
+    DECLARE prodPrice DOUBLE;
+    DECLARE prodStock INT;
 
-    SELECT B.NAMEBRAND,C.NAMECOMP,C.TYPEC,C.PRICECOMP,C.STOCKCOMPONENT FROM COMPONENT C
-    JOIN BRAND B ON C.CODBRAND = B.CODBRAND;
+    -- Variables para componentes
+    DECLARE compName VARCHAR(50);
+    DECLARE compType ENUM('Graphics', 'RAM', 'Processor');
+    DECLARE compPrice DOUBLE;
+    DECLARE compStock INT;
+
+    -- Cursor para productos de una marca específica
+    DECLARE cur_prod CURSOR FOR
+        SELECT P.NAMEP, P.TYPEP, P.PRICE, P.STOCKPRODUCT
+        FROM PRODUCT P
+        JOIN BRAND B ON P.CODBRAND = B.CODBRAND
+        WHERE B.NAMEBRAND = brandName;
+
+    -- Cursor para componentes de una marca específica
+    DECLARE cur_comp CURSOR FOR
+        SELECT C.NAMECOMP, C.TYPEC, C.PRICECOMP, C.STOCKCOMPONENT
+        FROM COMPONENT C
+        JOIN BRAND B ON C.CODBRAND = B.CODBRAND
+        WHERE B.NAMEBRAND = brandName;
+
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET fin = TRUE;
+    
+    -- Mostrar productos
+    OPEN cur_prod;
+    FETCH cur_prod INTO prodName, prodType, prodPrice, prodStock;
+    WHILE NOT fin DO
+        SELECT CONCAT('Brand: ', brandName, ' | Product: ', prodName, ' | Type: ', prodType,
+                      ' | Price: ', prodPrice, ' | Stock: ', prodStock) AS Product_Info;
+        FETCH cur_prod INTO prodName, prodType, prodPrice, prodStock;
+    END WHILE;
+    CLOSE cur_prod;
+
+	SET fin = FALSE;
+
+    -- Mostrar componentes
+    OPEN cur_comp;
+    FETCH cur_comp INTO compName, compType, compPrice, compStock;
+    WHILE NOT fin DO
+        SELECT CONCAT('Brand: ', brandName, ' | Component: ', compName, ' | Type: ', compType,
+                      ' | Price: ', compPrice, ' | Stock: ', compStock) AS Component_Info;
+        FETCH cur_comp INTO compName, compType, compPrice, compStock;
+    END WHILE;
+    CLOSE cur_comp;
 END //
 Delimiter ;
