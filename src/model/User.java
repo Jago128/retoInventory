@@ -12,6 +12,22 @@ public class User {
 		this.codU = "";
 		this.username = "";
 		this.password = "";
+		this.typeU = TypeU.NULL;
+	}
+
+	// Declare parametrized constructor
+	public User(String codU, String password) {
+		this.codU = codU;
+		this.username = "";
+		this.password = password;
+		this.typeU = TypeU.CLIENT;
+	}
+
+	// Declare parametrized constructor
+	public User(String codU, String username, String password) {
+		this.codU = codU;
+		this.username = "";
+		this.password = password;
 		this.typeU = TypeU.CLIENT;
 	}
 
@@ -21,22 +37,6 @@ public class User {
 		this.username = username;
 		this.password = password;
 		this.typeU = typeU;
-	}
-
-	// Declare parametrized constructor
-	public User(String codU, String username, String password) {
-		this.codU = codU;
-		this.username = "";
-		this.password = password;
-		this.typeU = TypeU.ADMIN;
-	}
-
-	// Declare parametrized constructor
-	public User(String codU, String password) {
-		this.codU = codU;
-		this.username = "";
-		this.password = password;
-		this.typeU = TypeU.ADMIN;
 	}
 
 	// Declare getters and setters

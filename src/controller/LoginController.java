@@ -35,6 +35,11 @@ public class LoginController {
 	}
 
 	// Product, Comp and Brand methods
+	public boolean sellAndSubstract(String codUser, String nomProd, double amount) {
+		return dao.sellAndSubstract(codUser, nomProd, amount);
+	}
+
+	// PRODUCTS
 	public boolean insertProd(Product prod) {
 		return dao.insertProd(prod);
 	}
@@ -43,14 +48,19 @@ public class LoginController {
 		return dao.verifyProduct();
 	}
 
+	public Product obtainProductNamePrice(String name) {
+		return dao.obtainProductNamePrice(name);
+	}
+
 	public boolean deleteProd(String nom) {
 		return dao.deleteProd(nom);
 	}
 
-	public boolean sellAndSubstract(String codUser, String nomProd, int amount) {
-		return dao.sellAndSubstract(codUser, nomProd, amount);
+	public Map<Integer, Product> showProdsOrderedByStock() {
+		return dao.showProdsOrderedByStock();
 	}
 
+	// COMPONENTS
 	public boolean insertComp(Comp comp) {
 		return dao.insertComp(comp);
 	}
@@ -59,14 +69,19 @@ public class LoginController {
 		return dao.verifyComponent();
 	}
 
-	public Map<Integer, Product> showProdsOrderedByStock() {
-		return dao.showProdsOrderedByStock();
+	public Comp obtainComponentNamePrice(String name) {
+		return dao.obtainComponentNamePrice(name);
+	}
+
+	public boolean deleteComp(String nom) {
+		return dao.deleteComp(nom);
 	}
 
 	public Map<Integer, Comp> showCompsOrderedByStock() {
 		return dao.showCompsOrderedByStock();
 	}
 
+	// BRANDS
 	public Map<String, Brand> verifyBrands() {
 		return dao.verifyBrands();
 	}
@@ -78,4 +93,5 @@ public class LoginController {
 	public Map<String, Comp> showComponentsBrand(String brand) {
 		return dao.showComponentsBrand(brand);
 	}
+
 }

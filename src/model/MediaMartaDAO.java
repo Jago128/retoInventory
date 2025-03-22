@@ -16,25 +16,35 @@ public interface MediaMartaDAO {
 	public boolean verifyUserType(User user);
 
 	// Product, Comp and Brand methods
+	public boolean sellAndSubstract(String codUser, String nomProd, double amount);
+	
+	// PRODUCTS
 	public boolean insertProd(Product prod);
 
 	public Map<String, Product> verifyProduct();
+	
+	public Product obtainProductNamePrice(String name);
 
 	public boolean deleteProd(String nom);
-
-	public boolean sellAndSubstract(String codUser, String nomProd, int amount);
-
+	
 	public Map<Integer, Product> showProdsOrderedByStock();
-
+	
+	// COMPONENTS
 	public boolean insertComp(Comp comp);
 
 	public Map<String, Comp> verifyComponent();
+	
+	public Comp obtainComponentNamePrice(String name);
+	
+	public boolean deleteComp(String nom);
 
 	public Map<Integer, Comp> showCompsOrderedByStock();
-
+		
+	// BRANDS
 	public Map<String, Brand> verifyBrands();
 
 	public Map<String, Product> showProductsBrand(String brand);
 
 	public Map<String, Comp> showComponentsBrand(String brand);
+
 }

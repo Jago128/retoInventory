@@ -17,26 +17,32 @@ public class DBImplementation implements MediaMartaDAO {
 	private String passwordBD;
 
 	// SQL queries for the methods in Java
-	final String SQLINSERTPROD = "INSERT INTO PRODUCT (NAMEP, TYPEP, PRICE, STOCK, CODBRAND) VALUES (?, ?, ?, ?, ?)";
-	final String SQLINSERTCOMP = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, PRICECOMP, CODBRAND) VALUES (?, ?, ?, ?)";
-	final String SQLDELETE = "DELETE FROM PRODUCT WHERE CODPRODUCT=(SELECT CODPRODUCT FROM PRODUCT WHERE NAMEP = ?)";
-
-	// Selects
-
 	// User related stuff
 	final String SQLUSER = "SELECT * FROM user WHERE coduser = ?";
-	final String SQLUSERPSW = "SELECT * FROM user WHERE coduser = ? AND psw = ?";
-	final String SQLPROD = "SELECT PROD FROM PRODUCT WHERE NAMEP = ?";
+	final String SQLUSERPSW = "SELECT * FROM user WHERE coduser = ? AND psw = ?";	
 	final String SQLTYPE = "SELECT type_u FROM user WHERE coduser = ?";
 	final String SQLINSERTUSER = "INSERT INTO user VALUES (?,?,?,'Client')";
 
 	// Product, Component, and Brand related stuff
+	final String SQLSELL = "SELECT sellAndSubstract(?,?,?)";
+	// PRODUCT
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
+	final String SQLINSERTPROD = "INSERT INTO PRODUCT (NAMEP, TYPEP, PRICE, STOCK, CODBRAND) VALUES (?, ?, ?, ?, ?)";
+	final String SQLDELETEPROD = "DELETE FROM PRODUCT WHERE CODPRODUCT=(SELECT CODPRODUCT FROM PRODUCT WHERE NAMEP = ?)";	
+	final String SQLSELECTPRODUCTNAMEPRICE = "SELECT nameP, price FROM product WHERE nameP = ?";
+	final String SQLPROD = "SELECT PROD FROM PRODUCT WHERE NAMEP = ?";
+
+	// COMPONENT
 	final String SQLSELECTCOMPONENT = "SELECT * FROM component";
+	final String SQLINSERTCOMP = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, PRICECOMP, CODBRAND) VALUES (?, ?, ?, ?)";	
+	final String SQLDELETECOMP = "DELETE FROM component WHERE codComponent=(SELECT codComponent FROM component WHERE nameComp = ?)";	
+	final String SQLSELECTCOMPONENTNAMEPRICE = "SELECT nameComp, priceComp FROM product WHERE nameComp = ?";
+
+	// BRAND
 	final String SQLSELECTBRAND = "SELECT * FROM brand";
 	final String SQLSELECTPRODUCTBRAND = "SELECT * FROM product WHERE CODBRAND=(SELECT CODBRAND FROM BRAND WHERE NAMEBRAND=?)";
 	final String SQLSELECTCOMPONENTBRAND = "SELECT * FROM component WHERE CODBRAND=(SELECT CODBRAND FROM BRAND WHERE NAMEBRAND=?)";
-	final String SQLSELL = "SELECT sellAndSubstract(?,?,?)";
+
 
 	// Declare implementation constructor
 	public DBImplementation() {
@@ -174,7 +180,7 @@ public class DBImplementation implements MediaMartaDAO {
 
 		try {
 			// Prepares the SQL query
-			stmt = con.prepareStatement(SQLINSERTCOMP);
+			stmt = con.prepareStatement(SQLINSERTPROD);
 			stmt.setString(1, prod.getNameP());
 			stmt.setObject(2, prod.getTypeP());
 			stmt.setDouble(3, prod.getPrice());
@@ -220,6 +226,28 @@ public class DBImplementation implements MediaMartaDAO {
 		return products;
 	}
 
+	// Obtain choosed product's name and price
+	public Product obtainProductNamePrice(String name) {
+		ResultSet rs = null;
+		Product product = new Product();
+
+		this.openConnection();
+		try {
+			stmt = con.prepareStatement(SQLSELECTPRODUCTNAMEPRICE);
+			stmt.setString(1, name);
+			rs = stmt.executeQuery();
+			product.setNameP(rs.getString("nameP"));
+			product.setPrice(rs.getDouble("price"));
+			rs.close();
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("SQL error");
+			e.printStackTrace();
+		}
+		return product;
+	}
+
 	// Delete a product
 	@Override
 	public boolean deleteProd(String nom) {
@@ -228,7 +256,7 @@ public class DBImplementation implements MediaMartaDAO {
 		this.openConnection();
 		try {
 			// Prepares the SQL query
-			stmt = con.prepareStatement(SQLDELETE);
+			stmt = con.prepareStatement(SQLDELETEPROD);
 			stmt.setString(1, nom);
 			// Executes the SQL query. If the delete is executed correctly, check becomes true
 			if (stmt.executeUpdate() > 0) {
@@ -250,9 +278,10 @@ public class DBImplementation implements MediaMartaDAO {
 		return null;
 	}
 
+	// THIS METHOD DOESN'T WORK BECAUSE IT MUST BE VALID FOR BOTH PRODUCTS AND COMPONENTS
 	// Substracts from a product's stock, essentilly selling the product to the user, and makes a new entry in Purchase
 	@Override
-	public boolean sellAndSubstract(String codUser, String nomProd, int amount) {
+	public boolean sellAndSubstract(String codUser, String nomProd, double amount) { 
 		// Open connection and declare a boolean to check if the update is properly executed
 		boolean check = false;
 
@@ -262,7 +291,7 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt = con.prepareStatement(SQLSELL);
 			stmt.setString(1, codUser);
 			stmt.setString(2, nomProd);
-			stmt.setInt(3, amount);
+			stmt.setDouble(3, amount);
 			ResultSet rs = stmt.executeQuery();
 			if (!rs.getBoolean(1)) {
 				check = true;
@@ -286,7 +315,7 @@ public class DBImplementation implements MediaMartaDAO {
 		this.openConnection();
 		try {
 			// Prepares the SQL query
-			stmt = con.prepareStatement(SQLINSERTPROD);
+			stmt = con.prepareStatement(SQLINSERTCOMP);
 			stmt.setString(1, comp.getNameC());
 			stmt.setObject(2, comp.getTypeC());
 			stmt.setDouble(3, comp.getPrice());
@@ -330,6 +359,51 @@ public class DBImplementation implements MediaMartaDAO {
 		}
 		return components;
 	}
+
+	// Obtain choosed component's name and price
+	public Comp obtainComponentNamePrice(String name) {
+		ResultSet rs = null;
+		Comp component = new Comp();
+
+		this.openConnection();
+		try {
+			stmt = con.prepareStatement(SQLSELECTCOMPONENTNAMEPRICE);
+			stmt.setString(1, name);
+			rs = stmt.executeQuery();
+			component.setNameC(rs.getString("nameComp"));
+			component.setPrice(rs.getDouble("priceComp"));
+			rs.close();
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("SQL error");
+			e.printStackTrace();
+		}
+		return component;
+	}
+
+	// Delete a product
+	@Override
+	public boolean deleteComp(String nom) {
+		// Open connection and declare a boolean to check if the update is properly executed
+		boolean check = false;
+		this.openConnection();
+		try {
+			// Prepares the SQL query
+			stmt = con.prepareStatement(SQLDELETECOMP);
+			stmt.setString(1, nom);
+			// Executes the SQL query. If the delete is executed correctly, check becomes true
+			if (stmt.executeUpdate() > 0) {
+				check = true;
+			}
+			// Closes the connection
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return check;
+	}	
 
 	// Shows components with a stock of 5 or less, ordered by stock
 	@Override

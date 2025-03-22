@@ -3,9 +3,7 @@ package windows;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
 import javax.swing.*;
-
 import controller.LoginController;
 import model.User;
 
@@ -16,21 +14,20 @@ public class SignInWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private LoginController cont;
-	private JLabel lblTitulo;
-	private JButton btnClose, btnSubmit;
+	private JLabel lblTitulo, lblMensaje;
 	private JTextField textUserCod, textName;
-	private JPasswordField password;
-	private JPasswordField passwordConfirmation;
-	private JLabel lblMensaje;
-	private boolean admin;
+	private JPasswordField password, passwordConfirmation;	
+	private JButton btnClose, btnSubmit;
 
-	public SignInWindow(boolean admin, LoginController cont) {
+	public SignInWindow(LoginController cont) {
 		this.cont = cont;
 
+		// Window
 		setTitle("REGISTER NEW USER");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
 
+		// Titles
 		lblTitulo = new JLabel("Register");
 		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitulo.setFont(new Font("Times New Roman", Font.PLAIN, 20));
@@ -57,6 +54,13 @@ public class SignInWindow extends JDialog implements ActionListener {
 		lblConfirmarContrasea.setBounds(66, 150, 147, 19);
 		getContentPane().add(lblConfirmarContrasea);
 
+		lblMensaje = new JLabel("");
+		lblMensaje.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMensaje.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		lblMensaje.setBounds(66, 179, 313, 34);
+		getContentPane().add(lblMensaje);
+
+		// Text fields
 		textUserCod = new JTextField();
 		textUserCod.setColumns(10);
 		textUserCod.setBounds(213, 62, 166, 19);
@@ -75,27 +79,23 @@ public class SignInWindow extends JDialog implements ActionListener {
 		passwordConfirmation.setBounds(213, 150, 166, 19);
 		getContentPane().add(passwordConfirmation);
 
-		lblMensaje = new JLabel("");
-		lblMensaje.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMensaje.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblMensaje.setBounds(66, 179, 313, 34);
-		getContentPane().add(lblMensaje);
-
+		// Buttons
 		btnSubmit = new JButton("SUBMIT");
 		btnSubmit.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		btnSubmit.setBounds(135, 219, 147, 34);
 		getContentPane().add(btnSubmit);
 
 		btnClose = new JButton("CLOSE");
-		btnClose.setBounds(356, 242, 80, 21);
+		btnClose.setBounds(5, 5, 80, 21);
 		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		getContentPane().add(btnClose);
 
+		// Adding action listener
 		btnSubmit.addActionListener(this);
 		btnClose.addActionListener(this);
-
 	}
 
+	// Verifying the password is equal in both text fields
 	public boolean verifyPassword(String password, String passwordConf) {
 		boolean correcta;
 
@@ -107,22 +107,24 @@ public class SignInWindow extends JDialog implements ActionListener {
 		return correcta;
 	}
 
+	// Action performer
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		// Closes the window
 		if (e.getSource() == btnClose) {
 			this.dispose();
 		}
+		// Verifies the text fields and creates the user
 		if (e.getSource() == btnSubmit) {
-			User user = new User(textUserCod.getText(), textName.getText(), new String(password.getPassword()));
-			if (!cont.verifyUser(user)) { // Comprueba que el usuario exista
+			User user = new User(textUserCod.getText(), textName.getText()); // Creates a user
+			if (!cont.verifyUser(user)) { // Verifies if a user with the same name exists
 				textUserCod.setBackground(new Color(255, 255, 255));
-				if (verifyPassword(new String(password.getPassword()),
-						new String(passwordConfirmation.getPassword()))) { // Comprueba que la contraseña nueva sea igual en ambos campos
+				if (verifyPassword(new String(password.getPassword()), new String(passwordConfirmation.getPassword()))) { // Verifies if the password is equal in both text fields
 					passwordConfirmation.setBackground(new Color(255, 255, 255));
-					user.setPassword(new String(password.getPassword())); // Cambia la contraseña del usuario
-					cont.registerUser(user); // Lo pasa a la base de datos
+					user.setPassword(new String(password.getPassword())); // Modifies the password					 
+					cont.registerUser(user); // Registers the user
 					JOptionPane.showMessageDialog(null, "User registered correctly");
-					MenuWindow menu = new MenuWindow(admin, cont); // The admin variable is sent to show or not certain options in the next windows
+					MenuWindow menu = new MenuWindow(user, cont);
 					menu.setVisible(true);
 					this.dispose();
 				} else {

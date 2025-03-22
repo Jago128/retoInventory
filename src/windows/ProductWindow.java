@@ -11,7 +11,7 @@ import model.*;
 
 // SHOW PRODUCT WINDOW  
 // Go to->(CheckOutWindow, NewItemWindow, VerificationWindow)
-// Back to->(MenuWindow)
+// Back to->(MainWindow, MenuWindow)
 public class ProductWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -20,19 +20,19 @@ public class ProductWindow extends JDialog implements ActionListener {
 	private JButton btnLogOut, btnBuy, btnRemove,btnClose;
 	private JList<String> list;
 	private Map<String, Product> products;	
-	private boolean admin;
+	private User user;
 
-	public ProductWindow(JFrame parent, boolean admin, LoginController cont) {
-		super(parent,true); //Blocks the father window
-		this.cont=cont;
-		this.admin=admin;
+	public ProductWindow(JFrame parent, LoginController cont, User user) {
+		super(parent,true); // Blocks the father window
+		this.cont = cont;
+		this.user = user;
 
-		//Window
+		// Window
 		setTitle("MEDIAMARTA: Products");
 		setBounds(100, 100, 480, 636);
 		getContentPane().setLayout(null);
 
-		//Titles
+		// Titles
 		lblMediaMarta = new JLabel("MediaMarta");
 		lblMediaMarta.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMediaMarta.setFont(new Font("Times New Roman", Font.PLAIN, 25));
@@ -45,55 +45,59 @@ public class ProductWindow extends JDialog implements ActionListener {
 		lblProducts.setBounds(10, 58, 461, 19);
 		getContentPane().add(lblProducts);
 
-		//List
+		// Labels
+		JLabel lblCodUser = new JLabel(user.getCodU());
+		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		lblCodUser.setBounds(375, 27, 81, 19);
+		getContentPane().add(lblCodUser);
+
+		// List
 		list = new JList<String>();
 		list.setBounds(10, 104, 446, 406);
 		getContentPane().add(list);
 		loadProductsList();
 
-		//Buttons
+		// Buttons
 		btnLogOut = new JButton("Log-Out");
 		btnLogOut.setBackground(new Color(240, 240, 240));
 		btnLogOut.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		btnLogOut.setBounds(385, 8, 81, 21);
+		btnLogOut.setBounds(375, 5, 81, 21);
 		getContentPane().add(btnLogOut);
 
 		btnBuy = new JButton("BUY");
 		btnBuy.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		btnBuy.setBounds(10, 533, 196, 35);
-		if(admin) {
-			// If not the user will not have this option visible
-			btnBuy.setVisible(false);
-		}
-		else { // In case the user is admin the button will be visible
+		if (user.getTypeU()==TypeU.CLIENT) { // In case the user is client the button will be visible
 			btnBuy.setVisible(true);
+		} else { // The admin will not have this option visible
+			btnBuy.setVisible(false);
 		}
 		getContentPane().add(btnBuy);
 
 		btnRemove = new JButton("REMOVE");
 		btnRemove.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		btnRemove.setBounds(260, 533, 196, 35);
-		if(admin) { // In case the user is admin the button will be visible
+		if (user.getTypeU()==TypeU.ADMIN) { // In case the user is admin the button will be visible
 			btnRemove.setVisible(true);
-		}
-		else { // If not the user will not have this option visible
+		} else { // The client will not have this option visible
 			btnRemove.setVisible(false);
 		}
 		getContentPane().add(btnRemove);
 
 		btnClose = new JButton("CLOSE");
-		btnClose.setBounds(399, 578, 67, 21);
+		btnClose.setBounds(5, 5, 80, 21);
 		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		getContentPane ().add(btnClose);
 
-		//Adding action listener
+		// Adding action listener
 		btnLogOut.addActionListener(this);
 		btnBuy.addActionListener(this);
 		btnRemove.addActionListener(this);
 		btnClose.addActionListener(this);	
 	}
 
-	//Loads the products to the list
+	// Loads the products to the list
 	public void loadProductsList() {
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		products = cont.verifyProduct();
@@ -104,29 +108,39 @@ public class ProductWindow extends JDialog implements ActionListener {
 		}
 		list.setModel(model);
 	}
-
-	//Action performer
+	
+	// Obtains the name and price of the selected product
+	public Product obtainNamePrice() {
+		Product product = new Product();
+		product=cont.obtainProductNamePrice(list.getSelectedValue());
+		return product;
+	}
+	
+	// Action performer
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// Logs-Out and moves back to the Main Window	
 		if (e.getSource()==btnLogOut) {
 			MainWindow frame = new MainWindow(cont);
 			frame.setVisible(true);
-			JFrame parent = (JFrame)this.getParent();
-			parent.dispose();
+			JFrame parent = (JFrame)this.getParent(); // Obtains the parent window
+			parent.dispose(); // Closes the parent window
 			this.dispose();
-		}
-		//Closes the window
+		}		
+		// Closes the window
 		if (e.getSource()==btnClose) {
 			this.dispose();
 		}
-		//
+		// Opens the window for the Check out
 		if (e.getSource()==btnBuy) {
-			this.dispose();
+			CheckOutWindow checkOut = new CheckOutWindow(this, cont, user, obtainNamePrice().getNameP(), obtainNamePrice().getPrice());
+			checkOut.setVisible(true);
 		}
-		//
+		// Opens the window to delete
 		if (e.getSource()==btnRemove) {
-			this.dispose();
+			boolean type = true;  // true = Product | false = Component
+			VerificationWindow checkOut = new VerificationWindow(this, cont, obtainNamePrice().getNameP(), type);
+			checkOut.setVisible(true);
 		}
 	}
 }

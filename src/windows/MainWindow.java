@@ -6,6 +6,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import controller.LoginController;
+import model.TypeU;
 import model.User;
 
 // MAIN MENU WINDOW 
@@ -20,7 +21,6 @@ public class MainWindow extends JFrame implements ActionListener {
 	private JButton btnLogIn, btnSignIn, btnClose;
 	private JLabel lblMesageUp, lblMessageDown;
 	private LoginController cont;
-	private User user;
 
 	public MainWindow(LoginController controlador) {
 		this.cont = controlador;
@@ -81,7 +81,7 @@ public class MainWindow extends JFrame implements ActionListener {
 
 		btnClose = new JButton("CLOSE");
 		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		btnClose.setBounds(369, 246, 67, 21);
+		btnClose.setBounds(5, 5, 80, 21); 
 		contentPane.add(btnClose);
 
 		// Adding action listener
@@ -112,8 +112,12 @@ public class MainWindow extends JFrame implements ActionListener {
 			User user = new User(textCodU.getText(), new String(passwordPsw.getPassword()));
 			if (cont.verifyUserPassword(user)) {
 				lblMesageUp.setText("Welcome " + textCodU.getText());
-				admin = verifyUserType(user, admin);
-				MenuWindow menu = new MenuWindow(admin, cont); // The admin variable is sent to show or not certain option in the next windows
+				if(verifyUserType(user, admin)) {
+					user.setTypeU(TypeU.ADMIN);
+				}else {
+					user.setTypeU(TypeU.CLIENT);
+				}
+				MenuWindow menu = new MenuWindow(user, cont); // The admin variable is sent to show or not certain option in the next windows
 				menu.setVisible(true);
 				dispose();
 			} else {
@@ -123,7 +127,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		}
 		// Opens a new window to log-in
 		if (e.getSource() == btnSignIn) {
-			SignInWindow signIn = new SignInWindow(admin, cont);
+			SignInWindow signIn = new SignInWindow(cont);
 			signIn.setVisible(true);
 			dispose();
 		}

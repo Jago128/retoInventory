@@ -78,6 +78,11 @@ public class Product {
 		this.codBrand = codBrand;
 	}
 
+	//Method to show name and price
+	public String nameAndPrice() {
+		return nameP + price + "€";
+	}
+	
 	// Declare toString
 	@Override
 	public String toString() {

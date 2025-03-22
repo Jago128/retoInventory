@@ -78,6 +78,11 @@ public class Comp {
 		this.price = price;
 	}
 
+	//Method to show name and price
+	public String nameAndPrice() {
+		return nameC + price + "€";
+	}
+	
 	// Declare toString
 	@Override
 	public String toString() {
