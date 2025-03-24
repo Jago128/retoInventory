@@ -225,14 +225,17 @@ BEGIN
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET ENCONTRADO = FALSE;
     
 	SELECT CODPRODUCT INTO CodigoProd FROM PRODUCT WHERE NAMEP = NomProd;
+
     IF NOT ENCONTRADO THEN
-		SELECT CONCAT('The product ', NomProd,' could not be found.');
+		SELECT CONCAT('The product ', NomProd,' could not be found.') AS DELETE_PRODUCT;
     ELSE 
-		SELECT CONCAT('The product ', NomProd,' has been deleted correctly.');
+		SELECT CONCAT('The product ', NomProd,' has been deleted correctly.') AS DELETE_PRODUCT;
 		DELETE FROM PRODUCT WHERE CODPRODUCT = CodigoProd;
     END IF;        
 END //
 Delimiter ;
+CALL deleteProduct('Iphone X');
+
 
 Delimiter //
 CREATE PROCEDURE showProducts()
@@ -355,3 +358,5 @@ BEGIN
     RETURN TotalValue;
 END //
 Delimiter ;
+DELETE FROM PRODUCT WHERE CODPRODUCT=(SELECT CODPRODUCT FROM PRODUCT WHERE NAMEP = 'Iphone X');
+CALL deleteProduct('HUAWEI Pura 70 Pro');

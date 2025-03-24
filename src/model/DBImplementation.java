@@ -30,7 +30,7 @@ public class DBImplementation implements MediaMartaDAO {
 	// PRODUCT
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
 	final String SQLINSERTPROD = "INSERT INTO PRODUCT (NAMEP, TYPEP, PRICE, STOCK, CODBRAND) VALUES (?, ?, ?, ?, ?)";
-	final String SQLDELETEPROD = "DELETE FROM PRODUCT WHERE CODPRODUCT=(SELECT CODPRODUCT FROM PRODUCT WHERE NAMEP = ?)";	
+	final String SQLDELETEPROD = "CALL deleteProduct(?)";	
 	final String SQLSELECTPRODUCTNAMEPRICE = "SELECT nameP, price FROM product WHERE nameP = ?";
 	final String SQLPROD = "SELECT PROD FROM PRODUCT WHERE NAMEP = ?";
 
@@ -237,10 +237,8 @@ public class DBImplementation implements MediaMartaDAO {
 		try {
 			stmt = con.prepareStatement(SQLSELECTPRODUCTNAMEPRICE);
 			stmt.setString(1, name);
-			System.out.println("query de obtein productNamePrice " +stmt);
 			rs = stmt.executeQuery();
 			if (rs.next()) {
-				System.out.println("post query productNamePrice "+rs.getString("namep"));
 				product.setNameP(rs.getString("namep"));
 				product.setPrice(rs.getDouble("price"));
 			}			
@@ -258,6 +256,7 @@ public class DBImplementation implements MediaMartaDAO {
 	@Override
 	public boolean deleteProd(String nom) {
 		// Open connection and declare a boolean to check if the update is properly executed
+		ResultSet rs = null;
 		boolean check = false;
 		this.openConnection();
 		try {
@@ -265,7 +264,8 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt = con.prepareStatement(SQLDELETEPROD);
 			stmt.setString(1, nom);
 			// Executes the SQL query. If the delete is executed correctly, check becomes true
-			if (stmt.executeUpdate() > 0) {
+			rs = stmt.executeQuery();
+			if (rs.next()) {
 				check = true;
 			}
 			// Closes the connection

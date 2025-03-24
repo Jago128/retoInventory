@@ -140,7 +140,6 @@ public class ProductWindow extends JDialog implements ActionListener {
 		// Opens the window to delete
 		if (e.getSource()==btnRemove) {
 			boolean type = true;  // true = Product | false = Component
-			System.out.println("Get name desde la ventana productWindow "+obtainNamePrice().getNameP());
 			VerificationWindow checkOut = new VerificationWindow(this, cont, obtainNamePrice().getNameP(), type);
 			checkOut.setVisible(true);
 		}
