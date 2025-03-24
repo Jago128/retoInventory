@@ -1,18 +1,13 @@
 package windows;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.Map;
 
 import javax.swing.*;
 
 import controller.LoginController;
-import model.Brand;
-import model.Comp;
-import model.Product;
-import model.TypeU;
-import model.User;
+import model.*;
 
 // SHOW BY BRAND WINDOW  
 // Go to->(CheckOutWindow, NewItemWindow, VerificationWindow)

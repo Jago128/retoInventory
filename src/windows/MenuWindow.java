@@ -6,8 +6,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import controller.LoginController;
-import model.TypeU;
-import model.User;
+import model.*;
 
 // MENU WINDOW 
 // Go to->(ProductWindow, ComponentWindow, BrandWindow, LowStockWindow)

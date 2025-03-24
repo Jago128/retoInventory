@@ -1,10 +1,8 @@
 package windows;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.ChangeListener;
 
 import controller.LoginController;
 import model.User;
@@ -23,7 +21,7 @@ public class CheckOutWindow extends JDialog implements ActionListener {
 	private String name;
 	private int price;
 	private boolean type; // true = Product | false = Component
-		
+
 	public CheckOutWindow(JDialog parent, LoginController cont, User user, String name, double price, boolean type) {
 		super(parent, true); // Blocks the father window
 		this.cont = cont;
@@ -41,9 +39,9 @@ public class CheckOutWindow extends JDialog implements ActionListener {
 		spinner = new JSpinner(sm);
 		spinner.setBounds(214, 111, 187, 34);
 		getContentPane().add(spinner);
-		spinner.setValue(1);	
+		spinner.setValue(1);
 		// NEEDS TO BE ADDED AN LISTENER FOR WHEN THE VALUES CHANGE
-		
+
 		// Titles
 		JLabel item = new JLabel("Item");
 		item.setHorizontalAlignment(SwingConstants.CENTER);
@@ -82,7 +80,7 @@ public class CheckOutWindow extends JDialog implements ActionListener {
 		lblPrice.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		lblPrice.setBounds(214, 156, 187, 34);
 		getContentPane().add(lblPrice);
-		
+
 		// Buttons
 		btnSubmit = new JButton("SUBMIT");
 		btnSubmit.setFont(new Font("Times New Roman", Font.PLAIN, 15));
@@ -98,25 +96,25 @@ public class CheckOutWindow extends JDialog implements ActionListener {
 		btnSubmit.addActionListener(this);
 		btnClose.addActionListener(this);
 	}
-	
+
 	// Calculate price
 	public double calcPrice(double price) {
 		double total;
-		total=price*(int)spinner.getValue();
-		
+		total = price * (int) spinner.getValue();
+
 		return total;
 	}
-	
+
 	// Action performer
 	@Override
-	public void actionPerformed(ActionEvent e) {				
+	public void actionPerformed(ActionEvent e) {
 		// Closes the window
-		if (e.getSource()==btnClose) {
+		if (e.getSource() == btnClose) {
 			this.dispose();
 		}
-		// 
-		if (e.getSource()==btnSubmit) {			
-			cont.sellAndSubstract(user.getCodU(), name, (int)spinner.getValue(), calcPrice(price), type);
+		//
+		if (e.getSource() == btnSubmit) {
+			cont.sellAndSubstract(user.getCodU(), name, (int) spinner.getValue(), calcPrice(price), type);
 			ContinueWindow next = new ContinueWindow(this, cont, user.getCodU());
 			next.setVisible(true);
 		}

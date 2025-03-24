@@ -6,8 +6,7 @@ import javax.swing.*;
 import javax.swing.border.*;
 
 import controller.LoginController;
-import model.TypeU;
-import model.User;
+import model.*;
 
 // MAIN MENU WINDOW 
 // Go to->(MenuWindow, SignInWindow)
