@@ -17,6 +17,7 @@ public class DBImplementation implements MediaMartaDAO {
 	private String passwordBD;
 
 	// SQL queries for the methods in Java
+	
 	// User related stuff
 	final String SQLUSER = "SELECT * FROM user WHERE coduser = ?";
 	final String SQLUSERPSW = "SELECT * FROM user WHERE coduser = ? AND psw = ?";	
@@ -36,7 +37,7 @@ public class DBImplementation implements MediaMartaDAO {
 	// COMPONENT
 	final String SQLSELECTCOMPONENT = "SELECT * FROM component";
 	final String SQLINSERTCOMP = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, PRICECOMP, CODBRAND) VALUES (?, ?, ?, ?)";	
-	final String SQLDELETECOMP = "CALL DeleteComp(?)";	
+	final String SQLDELETECOMP = "CALL deleteComp(?)";	
 	final String SQLSELECTCOMPONENTNAMEPRICE = "SELECT nameComp, priceComp FROM component WHERE nameComp = ?";
 
 	// BRAND

@@ -178,7 +178,7 @@ END //
 Delimiter ;
 
 Delimiter //
-CREATE FUNCTION GetTotalValueOfAProduct (NomProd VARCHAR(50))
+CREATE FUNCTION getTotalValueOfAProduct (NomProd VARCHAR(50))
 RETURNS INT
 DETERMINISTIC
 BEGIN 
@@ -239,7 +239,7 @@ END //
 Delimiter ;
 
 Delimiter //
-CREATE PROCEDURE ShowProdsAndCompsOfAParticularBrand(brandName VARCHAR(15))
+CREATE PROCEDURE showProdsAndCompsOfAParticularBrand(brandName VARCHAR(15))
 BEGIN
     DECLARE fin BOOLEAN DEFAULT FALSE;
     DECLARE prodName VARCHAR(50);
@@ -283,7 +283,7 @@ END //
 Delimiter ;
 
 Delimiter //
-CREATE PROCEDURE ShowLowStock()  
+CREATE PROCEDURE showLowStock()  
 BEGIN
     DECLARE Fin BOOLEAN DEFAULT FALSE;
     DECLARE CodProd INT;
