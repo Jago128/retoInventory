@@ -433,10 +433,11 @@ public class DBImplementation implements MediaMartaDAO {
 			while (rs.next()) {
 				brand = new Brand();
 				brand.setCodB(rs.getInt("CODBRAND"));
-				brand.setNameB("NAMEBRAND");
+				brand.setNameB(rs.getString("NAMEBRAND"));
 				brands.put(brand.getNameB(), brand);
 			}
 			// Closes the connection
+			rs.close();
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {

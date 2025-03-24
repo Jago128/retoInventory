@@ -1,6 +1,7 @@
 package windows;
 
 import java.awt.*;
+
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Map;
@@ -32,7 +33,7 @@ public class BrandWindow extends JDialog implements ActionListener {
 	public BrandWindow(JFrame parent, LoginController cont, User user) {
 		super(parent, true); // Blocks the father window
 		this.cont = cont;
-
+	
 		// Window
 		setTitle("MEDIAMARTA: Brands");
 		setBounds(100, 100, 480, 636);
@@ -111,8 +112,8 @@ public class BrandWindow extends JDialog implements ActionListener {
 			for (Brand b : brands.values()){
 				comboBoxBrands.addItem(b.getNameB());
 			}
-		}
-		comboBoxBrands.setSelectedIndex(-1);
+			comboBoxBrands.setSelectedIndex(-1);
+		}		
 	}
 
 	// Loads the products to the list
@@ -153,6 +154,7 @@ public class BrandWindow extends JDialog implements ActionListener {
 		// Closes the window
 		if (e.getSource()==btnClose) {
 			this.dispose();
-		}
+		} 		
+		
 	}
 }
