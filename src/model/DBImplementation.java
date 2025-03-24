@@ -173,6 +173,8 @@ public class DBImplementation implements MediaMartaDAO {
 	}
 
 	// Substracts from a item's stock, essentilly selling the product to the user, and makes a new entry in Purchase
+	
+	//Redo for Java
 	@Override
 	public String sellAndSubstract(String codUser, String nomItem, int amount, double price, boolean type) { 
 		// Open connection and declare a boolean to check if the update is properly executed
@@ -458,7 +460,7 @@ public class DBImplementation implements MediaMartaDAO {
 			while (rs.next()) {
 				brand = new Brand();
 				brand.setCodB(rs.getInt("CODBRAND"));
-				brand.setNameB("NAMEBRAND");
+				brand.setNameB(rs.getString("NAMEBRAND"));
 				brands.put(brand.getNameB(), brand);
 			}
 			// Closes the connection
