@@ -132,16 +132,24 @@ public class ProductWindow extends JDialog implements ActionListener {
 			this.dispose();
 		}
 		// Opens the window for the Check out
-		if (e.getSource()==btnBuy) {
-			boolean type = true;  // true = Product | false = Component
-			CheckOutWindow checkOut = new CheckOutWindow(this, cont, user, obtainNamePrice().getNameP(), obtainNamePrice().getPrice(), type);
-			checkOut.setVisible(true);
+		if (e.getSource() == btnBuy) {
+			if(!list.isSelectionEmpty()) { // If there is an item selected it will do the action
+				boolean type = true;  // true = Product | false = Component
+				CheckOutWindow checkOut = new CheckOutWindow(this, cont, user, obtainNamePrice().getNameP(), obtainNamePrice().getPrice(), type);
+				checkOut.setVisible(true);
+			} else {
+				JOptionPane.showMessageDialog(null, "[ERROR] Select an item to buy");
+			}
 		}
 		// Opens the window to delete
 		if (e.getSource()==btnRemove) {
-			boolean type = true;  // true = Product | false = Component
-			VerificationWindow checkOut = new VerificationWindow(this, cont, obtainNamePrice().getNameP(), type);
-			checkOut.setVisible(true);
+			if(!list.isSelectionEmpty()) { // If there is an item selected it will do the action
+				boolean type = true;  // true = Product | false = Component
+				VerificationWindow checkOut = new VerificationWindow(this, cont, obtainNamePrice().getNameP(), type);
+				checkOut.setVisible(true);
+			} else {
+				JOptionPane.showMessageDialog(null, "[ERROR] Select an item to delete");
+			}
 		}
 	}
 }

@@ -52,7 +52,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		lblCodUser.setBounds(375, 27, 81, 19);
 		getContentPane().add(lblCodUser);
-		
+
 		// List
 		list = new JList<String>();
 		list.setBounds(10, 104, 446, 406);
@@ -111,12 +111,12 @@ public class ComponentWindow extends JDialog implements ActionListener {
 	}
 
 	// Obtains the name and price of the selected component
-		public Comp obtainNamePrice() {
-			Comp component = new Comp();
-			component=cont.obtainComponentNamePrice(list.getSelectedValue());
-			return component;
-		}
-	
+	public Comp obtainNamePrice() {
+		Comp component = new Comp();
+		component=cont.obtainComponentNamePrice(list.getSelectedValue());
+		return component;
+	}
+
 	// Action performer
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -134,15 +134,23 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		}
 		// Opens the window for the Check out
 		if (e.getSource() == btnBuy) {
-			boolean type = false;  // true = Product | false = Component
-			CheckOutWindow checkOut = new CheckOutWindow(this, cont, user, obtainNamePrice().getNameC(), obtainNamePrice().getPrice(), type);
-			checkOut.setVisible(true);
+			if(!list.isSelectionEmpty()) { // If there is an item selected it will do the action
+				boolean type = false;  // true = Product | false = Component
+				CheckOutWindow checkOut = new CheckOutWindow(this, cont, user, obtainNamePrice().getNameC(), obtainNamePrice().getPrice(), type);
+				checkOut.setVisible(true);
+			} else {
+				JOptionPane.showMessageDialog(null, "[ERROR] Select an item to buy");
+			}
 		}
-		//
+		// Opens the window to delete
 		if (e.getSource()==btnRemove) {
-			boolean type = false;  // true = Product | false = Component
-			VerificationWindow checkOut = new VerificationWindow(this, cont, obtainNamePrice().getNameC(), type);
-			checkOut.setVisible(true);
+			if(!list.isSelectionEmpty()) { // If there is an item selected it will do the action
+				boolean type = false;  // true = Product | false = Component
+				VerificationWindow checkOut = new VerificationWindow(this, cont, obtainNamePrice().getNameC(), type);
+				checkOut.setVisible(true);
+			} else {
+				JOptionPane.showMessageDialog(null, "[ERROR] Select an item to delete");
+			}
 		}
 	}
 }

@@ -1,55 +1,101 @@
 package windows;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 import javax.swing.*;
 import javax.swing.border.*;
+
+import controller.LoginController;
+import model.User;
 
 // SHOW LOW STOCK WINDOW  
 // Go to->(*close*)
 // Back to->(LowStockWindow)
-public class RestockWindow extends JDialog {
+public class RestockWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
-	private final JPanel contentPanel = new JPanel();
+	private LoginController cont;
+	private JLabel lblItemName;
+	private JButton btnClose, btnSubmit;
+	private JSpinner spinner;
+	private User user;
+	private String name;
+	private int price;
+	private boolean type; // true = Product | false = Component
+	
+	public RestockWindow(JDialog parent, LoginController cont, User user, String name, double price, boolean type) {
+		super(parent, true); // Blocks the father window
+		this.cont = cont;
+		this.type = type; // true = Product | false = Component
 
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		try {
-			RestockWindow dialog = new RestockWindow();
-			dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-			dialog.setVisible(true);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
-	/**
-	 * Create the dialog.
-	 */
-	public RestockWindow() {
+		// Window
+		setTitle("MEDIAMARTA: Restock Item");
 		setBounds(100, 100, 450, 300);
-		getContentPane().setLayout(new BorderLayout());
-		contentPanel.setLayout(new FlowLayout());
-		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
-		{
-			JPanel buttonPane = new JPanel();
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.SOUTH);
-			{
-				JButton okButton = new JButton("OK");
-				okButton.setActionCommand("OK");
-				buttonPane.add(okButton);
-				getRootPane().setDefaultButton(okButton);
-			}
-			{
-				JButton cancelButton = new JButton("Cancel");
-				cancelButton.setActionCommand("Cancel");
-				buttonPane.add(cancelButton);
-			}
+		getContentPane().setLayout(null);
+
+		// Spinner (Numeric value)
+		// It needs to be created before because the labels need the value of it
+		SpinnerModel sm = new SpinnerNumberModel(1, 1, 10, 1); // Default, Min, Max, Increment
+		spinner = new JSpinner(sm);
+		spinner.setBounds(214, 111, 187, 34);
+		getContentPane().add(spinner);
+		spinner.setValue(1);	
+		
+		// Titles
+		JLabel item = new JLabel("Item");
+		item.setHorizontalAlignment(SwingConstants.CENTER);
+		item.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		item.setBounds(25, 66, 187, 34);
+		getContentPane().add(item);
+
+		JLabel quantity = new JLabel("Quantity");
+		quantity.setHorizontalAlignment(SwingConstants.CENTER);
+		quantity.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		quantity.setBounds(214, 66, 187, 34);
+		getContentPane().add(quantity);
+
+		// Labels
+		JLabel lblCodUser = new JLabel(user.getCodU());
+		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		lblCodUser.setBounds(345, 5, 81, 19);
+		getContentPane().add(lblCodUser);
+
+		lblItemName = new JLabel(name);
+		lblItemName.setBackground(new Color(255, 255, 255));
+		lblItemName.setHorizontalAlignment(SwingConstants.CENTER);
+		lblItemName.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		lblItemName.setBounds(25, 111, 187, 34);
+		getContentPane().add(lblItemName);
+		
+		// Buttons
+		btnSubmit = new JButton("SUBMIT");
+		btnSubmit.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		btnSubmit.setBounds(135, 219, 147, 34);
+		getContentPane().add(btnSubmit);
+
+		btnClose = new JButton("CLOSE");
+		btnClose.setBounds(5, 5, 80, 21);
+		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
+		getContentPane().add(btnClose);
+
+		// Adding action listener
+		btnSubmit.addActionListener(this);
+		btnClose.addActionListener(this);
+	}
+	
+	// Action performer
+	@Override
+	public void actionPerformed(ActionEvent e) {				
+		// Closes the window
+		if (e.getSource()==btnClose) {
+			this.dispose();
+		}
+		// 
+		if (e.getSource()==btnSubmit) {
+			// Call restock method
 		}
 	}
-
 }
