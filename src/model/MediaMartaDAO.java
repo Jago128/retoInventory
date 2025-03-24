@@ -16,7 +16,7 @@ public interface MediaMartaDAO {
 	public boolean verifyUserType(User user);
 
 	// Product, Comp and Brand methods
-	public String sellAndSubstract(String codUser, String nomProd, int amount, double price, boolean comp);
+	public boolean sellAndSubstract(String codUser, String nomProd, int amount, double price, boolean comp);
 	
 	// PRODUCTS
 	public boolean insertProd(Product prod);

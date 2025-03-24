@@ -1,6 +1,7 @@
 package model;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.*;
 
 public class DBImplementation implements MediaMartaDAO {
@@ -25,7 +26,9 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLINSERTUSER = "INSERT INTO user VALUES (?,?,?,'Client')";
 
 	// Product, Component, and Brand related stuff
-	final String SQLSELL = "SELECT sellAndSubstract(?,?,?,?,?)";
+	final String SQLSELL = "SELECT CODPRODUCT, STOCKPRODUCT FROM PRODUCT WHERE NAMEP=?";
+	final String SQLSELLUPDATE = "UPDATE PRODUCT SET STOCKPRODUCT=? WHERE CODPRODUCT=?";
+	final String SQLSELLINSERT = "INSERT INTO PURCHASE VALUES (?,?,?,?,?);";
 	
 	// PRODUCT
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
@@ -176,27 +179,45 @@ public class DBImplementation implements MediaMartaDAO {
 	
 	//Redo for Java
 	@Override
-	public String sellAndSubstract(String codUser, String nomItem, int amount, double price, boolean type) { 
+	public boolean sellAndSubstract(String codUser, String nomItem, int amount, double price, boolean type) { 
 		// Open connection and declare a boolean to check if the update is properly executed
-		String check = null;
+		boolean check = false;
+		int codItem, stock;
 
 		this.openConnection();
 		try {
 			// Prepares the SQL query to get the product
 			stmt = con.prepareStatement(SQLSELL);
-			stmt.setString(1, codUser);
-			stmt.setString(2, nomItem);
-			stmt.setInt(3, amount);
-			stmt.setDouble(4, price);
-			stmt.setBoolean(5, type); // true = Product | false = Component
+			stmt.setString(1, nomItem);
 			ResultSet rs = stmt.executeQuery();
-			check = rs.getString(1);
-			// Closes the connection
+			codItem = rs.getInt("CODPRODUCT");
+			stock = rs.getInt("STOCKPRODUCT");
+			// Closes the first statement
+			rs.close();
+			stmt.close();
+			stock = stock-amount;
+			stmt = con.prepareStatement(SQLSELLUPDATE);
+			stmt.setInt(1, stock);
+			stmt.setInt(2, codItem);
+			if (stmt.executeUpdate()>0) {
+				check=true;
+			}
+			// Closes the second statement
+			stmt.close();
+			stmt = con.prepareStatement(SQLSELLINSERT);
+			stmt.setInt(1, codItem);
+			stmt.setString(2, codUser);
+			stmt.setInt(3, stock);
+			stmt.setDouble(4, price);
+			//Date goes here
+			rs = stmt.executeQuery();
+			// Closes the first statement
 			rs.close();
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
+			check=false;
 		}
 		return check;
 	}	

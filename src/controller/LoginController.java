@@ -35,7 +35,7 @@ public class LoginController {
 	}
 
 	// Product, Comp and Brand methods
-	public String sellAndSubstract(String codUser, String nomProd, int amount, double price, boolean comp) {
+	public boolean sellAndSubstract(String codUser, String nomProd, int amount, double price, boolean comp) {
 		return dao.sellAndSubstract(codUser, nomProd, amount, price, comp);
 	}
 
