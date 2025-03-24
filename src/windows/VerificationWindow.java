@@ -23,7 +23,7 @@ public class VerificationWindow extends JDialog implements ActionListener {
 	private boolean type; // true = Product | false = Component
 
 	public VerificationWindow(JDialog parent, LoginController cont, String name, boolean type) {
-		super(parent,true); // Blocks the father window
+		super(parent, true); // Blocks the father window
 		this.cont = cont;
 		this.name = name;
 		this.type = type;
@@ -39,7 +39,7 @@ public class VerificationWindow extends JDialog implements ActionListener {
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setBounds(10, 32, 416, 37);
 		getContentPane().add(lblTitle);
-		
+
 		// Messages
 		lblMensaje = new JLabel("");
 		lblMensaje.setForeground(new Color(0, 0, 0));
@@ -54,27 +54,27 @@ public class VerificationWindow extends JDialog implements ActionListener {
 		textVerification.setBounds(85, 80, 259, 61);
 		getContentPane().add(textVerification);
 		textVerification.setColumns(10);
-				
+
 		// Buttons
 		btnSubmit = new JButton("SUBMIT");
 		btnSubmit.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		btnSubmit.setBounds(157, 152, 117, 37);
 		getContentPane().add(btnSubmit);
-		
+
 		btnClose = new JButton("CLOSE");
 		btnClose.setBounds(5, 5, 80, 21);
 		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		getContentPane().add(btnClose);
-		
+
 		// Adding action listener
 		btnSubmit.addActionListener(this);
 		btnClose.addActionListener(this);
 	}
 
 	// Generates a random code from 1 to 4 numbers
-	public int generateCode() {				
-		Random random = new Random();		
-		cod = random.nextInt(9999-0+1)+0;	
+	public int generateCode() {
+		Random random = new Random();
+		cod = random.nextInt(9999 - 0 + 1) + 0;
 		return cod;
 	}
 
@@ -83,19 +83,19 @@ public class VerificationWindow extends JDialog implements ActionListener {
 		boolean correct;
 		String codString = Integer.toString(cod);
 
-		if(ver.equals(codString)) {
-			correct=true;
-		}else {
-			correct=false;
+		if (ver.equals(codString)) {
+			correct = true;
+		} else {
+			correct = false;
 		}
 		return correct;
 	}
 
 	// Based on the type deletes a Product or a Component
 	public void deletion(LoginController cont, String name, boolean type) {
-		if(type) { // true = Product | false = Component
+		if (type) { // true = Product | false = Component
 			cont.deleteProd(name);
-		}else {
+		} else {
 			cont.deleteComp(name);
 		}
 	}
@@ -103,12 +103,12 @@ public class VerificationWindow extends JDialog implements ActionListener {
 	// Action performer
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		if (e.getSource()==btnClose) {
+		if (e.getSource() == btnClose) {
 			this.dispose();
 		}
 		String ver;
-		ver=textVerification.getText();
-		if (e.getSource()==btnSubmit && verifyCode(cod, ver)) {			
+		ver = textVerification.getText();
+		if (e.getSource() == btnSubmit && verifyCode(cod, ver)) {
 			deletion(cont, name, type);
 			this.dispose();
 		} else {
