@@ -358,3 +358,21 @@ BEGIN
     RETURN TotalValue;
 END //
 Delimiter ;
+
+Delimiter //
+CREATE PROCEDURE deleteComp(NomComp VARCHAR(50))
+BEGIN
+	DECLARE CodigoComp INT;
+    DECLARE ENCONTRADO BOOLEAN DEFAULT TRUE;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET ENCONTRADO = FALSE;
+    
+	SELECT CODCOMPONENT INTO CodigoComp FROM COMPONENT WHERE NAMECOMP = NomComp;
+
+    IF NOT ENCONTRADO THEN
+		SELECT CONCAT('The component ', NomComp,' could not be found.') AS DELETE_PRODUCT;
+    ELSE 
+		SELECT CONCAT('The component ', NomComp,' has been deleted correctly.') AS DELETE_PRODUCT;
+		DELETE FROM COMPONENT WHERE CODCOMPONENT = CodigoComp;
+    END IF;        
+END //
+Delimiter ;
