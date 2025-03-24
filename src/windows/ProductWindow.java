@@ -133,7 +133,8 @@ public class ProductWindow extends JDialog implements ActionListener {
 		}
 		// Opens the window for the Check out
 		if (e.getSource()==btnBuy) {
-			CheckOutWindow checkOut = new CheckOutWindow(this, cont, user, obtainNamePrice().getNameP(), obtainNamePrice().getPrice());
+			boolean type = true;  // true = Product | false = Component
+			CheckOutWindow checkOut = new CheckOutWindow(this, cont, user, obtainNamePrice().getNameP(), obtainNamePrice().getPrice(), type);
 			checkOut.setVisible(true);
 		}
 		// Opens the window to delete
