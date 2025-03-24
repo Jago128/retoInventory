@@ -21,7 +21,7 @@ public class CheckOutWindow extends JDialog implements ActionListener {
 	private String name;
 	private int price;
 		
-	public CheckOutWindow(JDialog parent, LoginController cont, User user, String name, double price) {
+	public CheckOutWindow(JDialog parent, LoginController cont, User user, String name, int price) {
 		super(parent, true); // Blocks the father window
 		this.cont = cont;
 
@@ -91,9 +91,9 @@ public class CheckOutWindow extends JDialog implements ActionListener {
 	}
 	
 	// Calculate price
-	public double calcPrice(double price) {
-		double total;
-		total=price*(double)spinner.getValue();
+	public int calcPrice(int price) {
+		int total;
+		total=price*(int)spinner.getValue();
 		
 		return total;
 	}

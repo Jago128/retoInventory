@@ -25,6 +25,7 @@ public class DBImplementation implements MediaMartaDAO {
 
 	// Product, Component, and Brand related stuff
 	final String SQLSELL = "SELECT sellAndSubstract(?,?,?)";
+	
 	// PRODUCT
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
 	final String SQLINSERTPROD = "INSERT INTO PRODUCT (NAMEP, TYPEP, PRICE, STOCK, CODBRAND) VALUES (?, ?, ?, ?, ?)";
@@ -87,6 +88,7 @@ public class DBImplementation implements MediaMartaDAO {
 		}
 		return register;
 	}
+	
 
 	// Verify that the user exists
 	@Override
@@ -118,8 +120,7 @@ public class DBImplementation implements MediaMartaDAO {
 	// Verify that the user and the password exist and matches
 	@Override
 	public boolean verifyUserPassword(User user) {
-		// Open connection and declare a boolean to check if the password exists and
-		// matches
+		// Open connection and declare a boolean to check if the password exists and matches
 		boolean exists = false;
 		this.openConnection();
 
@@ -226,7 +227,7 @@ public class DBImplementation implements MediaMartaDAO {
 		return products;
 	}
 
-	// Obtain choosed product's name and price
+	// Obtain a product's name and price, based on the name of the product provided
 	public Product obtainProductNamePrice(String name) {
 		ResultSet rs = null;
 		Product product = new Product();
@@ -279,9 +280,10 @@ public class DBImplementation implements MediaMartaDAO {
 	}
 
 	// THIS METHOD DOESN'T WORK BECAUSE IT MUST BE VALID FOR BOTH PRODUCTS AND COMPONENTS
+	
 	// Substracts from a product's stock, essentilly selling the product to the user, and makes a new entry in Purchase
 	@Override
-	public boolean sellAndSubstract(String codUser, String nomProd, double amount) { 
+	public boolean sellAndSubstract(String codUser, String nomProd, int amount) { 
 		// Open connection and declare a boolean to check if the update is properly executed
 		boolean check = false;
 
@@ -291,7 +293,7 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt = con.prepareStatement(SQLSELL);
 			stmt.setString(1, codUser);
 			stmt.setString(2, nomProd);
-			stmt.setDouble(3, amount);
+			stmt.setInt(3, amount);
 			ResultSet rs = stmt.executeQuery();
 			if (!rs.getBoolean(1)) {
 				check = true;
