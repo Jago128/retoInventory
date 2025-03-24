@@ -21,7 +21,7 @@ public class CheckOutWindow extends JDialog implements ActionListener {
 	private String name;
 	private int price;
 		
-	public CheckOutWindow(JDialog parent, LoginController cont, User user, String name, int price) {
+	public CheckOutWindow(JDialog parent, LoginController cont, User user, String name, double price) {
 		super(parent, true); // Blocks the father window
 		this.cont = cont;
 
@@ -91,9 +91,9 @@ public class CheckOutWindow extends JDialog implements ActionListener {
 	}
 	
 	// Calculate price
-	public int calcPrice(int price) {
-		int total;
-		total=price*(int)spinner.getValue();
+	public double calcPrice(double price) {
+		double total;
+		total=price*(double)spinner.getValue();
 		
 		return total;
 	}
@@ -106,6 +106,7 @@ public class CheckOutWindow extends JDialog implements ActionListener {
 			this.dispose();
 		}
 		// THIS METHOD MUST BE FIXED TO BE COMPATIBLE WITH BOTH PRODUCTS AND COMPONENTS
+		//Jago's note: you put the wrong parameter on sellAndSubstract, silly! It's product amount!
 		if (e.getSource()==btnSubmit) {
 			cont.sellAndSubstract(user.getCodU(), name, calcPrice(price));
 		}
