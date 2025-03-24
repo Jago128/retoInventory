@@ -20,10 +20,12 @@ public class CheckOutWindow extends JDialog implements ActionListener {
 	private User user;
 	private String name;
 	private int price;
+	private boolean type; // true = Product | false = Component
 		
-	public CheckOutWindow(JDialog parent, LoginController cont, User user, String name, double price) {
+	public CheckOutWindow(JDialog parent, LoginController cont, User user, String name, double price, boolean type) {
 		super(parent, true); // Blocks the father window
 		this.cont = cont;
+		this.type = type; // true = Product | false = Component
 
 		// Window
 		setTitle("CHECK-OUT");
@@ -107,7 +109,7 @@ public class CheckOutWindow extends JDialog implements ActionListener {
 		}
 
 		if (e.getSource()==btnSubmit) {
-			cont.sellAndSubstract(user.getCodU(), name, spinner.getValue(), calcPrice(price));
+			cont.sellAndSubstract(user.getCodU(), name, (int)spinner.getValue(), calcPrice(price), type);
 		}
 	}
 }
