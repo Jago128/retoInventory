@@ -105,10 +105,9 @@ public class CheckOutWindow extends JDialog implements ActionListener {
 		if (e.getSource()==btnClose) {
 			this.dispose();
 		}
-		// THIS METHOD MUST BE FIXED TO BE COMPATIBLE WITH BOTH PRODUCTS AND COMPONENTS
-		//Jago's note: you put the wrong parameter on sellAndSubstract, silly! It's product amount!
+		//Jago's note: Due to various issues, the parameter MUST be amount, which is int.
 		if (e.getSource()==btnSubmit) {
-			cont.sellAndSubstract(user.getCodU(), name, calcPrice(price));
+			cont.sellAndSubstractProduct(user.getCodU(), name, calcPrice(price));
 		}
 	}
 }

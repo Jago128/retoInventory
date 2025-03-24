@@ -24,7 +24,8 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLINSERTUSER = "INSERT INTO user VALUES (?,?,?,'Client')";
 
 	// Product, Component, and Brand related stuff
-	final String SQLSELL = "SELECT sellAndSubstract(?,?,?)";
+	final String SQLSELLPROD = "SELECT sellAndSubstractProduct(?,?,?)";
+	final String SQLSELLCOMP = "SELECT sellAndSubstractComponent(?,?,?)";
 	
 	// PRODUCT
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
@@ -282,26 +283,22 @@ public class DBImplementation implements MediaMartaDAO {
 
 		return null;
 	}
-
-	// THIS METHOD DOESN'T WORK BECAUSE IT MUST BE VALID FOR BOTH PRODUCTS AND COMPONENTS
 	
 	// Substracts from a product's stock, essentilly selling the product to the user, and makes a new entry in Purchase
 	@Override
-	public boolean sellAndSubstract(String codUser, String nomProd, int amount) { 
+	public String sellAndSubstractProduct(String codUser, String nomProd, int amount) { 
 		// Open connection and declare a boolean to check if the update is properly executed
-		boolean check = false;
+		String check = null;
 
 		this.openConnection();
 		try {
 			// Prepares the SQL query to get the product
-			stmt = con.prepareStatement(SQLSELL);
+			stmt = con.prepareStatement(SQLSELLPROD);
 			stmt.setString(1, codUser);
 			stmt.setString(2, nomProd);
 			stmt.setInt(3, amount);
 			ResultSet rs = stmt.executeQuery();
-			if (!rs.getBoolean(1)) {
-				check = true;
-			}
+			check = rs.getString(1);
 			// Closes the connection
 			rs.close();
 			stmt.close();
@@ -409,7 +406,32 @@ public class DBImplementation implements MediaMartaDAO {
 			e.printStackTrace();
 		}
 		return check;
-	}	
+	}
+	
+	// Substracts from a component's stock, essentilly selling the component to the user
+		@Override
+		public String sellAndSubstractComponent(String codUser, String nomProd, int amount) { 
+			// Open connection and declare a boolean to check if the update is properly executed
+			String check = null;
+
+			this.openConnection();
+			try {
+				// Prepares the SQL query to get the product
+				stmt = con.prepareStatement(SQLSELLCOMP);
+				stmt.setString(1, codUser);
+				stmt.setString(2, nomProd);
+				stmt.setInt(3, amount);
+				ResultSet rs = stmt.executeQuery();
+				check = rs.getString(1);
+				// Closes the connection
+				rs.close();
+				stmt.close();
+				con.close();
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+			return check;
+		}
 
 	// Shows components with a stock of 5 or less, ordered by stock
 	@Override
