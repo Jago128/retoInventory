@@ -55,20 +55,20 @@ public class BrandWindow extends JDialog implements ActionListener {
 		
 		// ComboBox & List		
 		comboBoxBrands = new JComboBox <String>();
+		comboBoxBrands.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		comboBoxBrands.setBounds(10, 110, 446, 29);
-		getContentPane().add(comboBoxBrands);
-		comboBoxBrands.setSelectedIndex(-1);
-		loadBrandsComboBox();
+		getContentPane().add(comboBoxBrands);		
+		loadBrandsComboBox();		
 
 		list = new JList<String>();
 		list.setBounds(10, 167, 446, 343);
 		getContentPane().add(list);
 		if (comboBoxBrands.getSelectedIndex()>-1) { // It will refresh and fill the list with items of the brand selected in the ComboBox
-			comboBoxBrands.removeAllItems();
+			list.removeAll();
 			loadProductsList();
 			loadComponentsList();
 		}else { // The list will be empty while there is nothing selected in the ComboBox
-			comboBoxBrands.removeAllItems();
+			list.removeAll();
 		}		
 
 		// Buttons
@@ -105,6 +105,7 @@ public class BrandWindow extends JDialog implements ActionListener {
 		if(!brands.isEmpty()) {
 			for (Brand b : brands.values()){
 				comboBoxBrands.addItem(b.getNameB());
+				System.out.print(b.getNameB()+"\n");
 			}
 			comboBoxBrands.setSelectedIndex(-1);
 		}		
