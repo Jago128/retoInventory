@@ -29,6 +29,7 @@ public class DBImplementation implements MediaMartaDAO {
 	
 	// PRODUCT
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
+	final String SQLSELECTPRODUCTSTOCK = "SELECT * FROM product WHERE STOCKPRODUCT<=5 ORDER BY STOCKPRODUCT";
 	final String SQLINSERTPROD = "INSERT INTO PRODUCT (NAMEP, TYPEP, PRICE, STOCK, CODBRAND) VALUES (?, ?, ?, ?, ?)";
 	final String SQLDELETEPROD = "CALL deleteProduct(?)";	
 	final String SQLSELECTPRODUCTNAMEPRICE = "SELECT nameP, price FROM product WHERE nameP = ?";
@@ -305,8 +306,32 @@ public class DBImplementation implements MediaMartaDAO {
 	// Shows products with a stock of 5 or less, ordered by stock
 	@Override
 	public Map<Integer, Product> showProdsOrderedByStock() {
-
-		return null;
+		Map<Integer, Product> prods = new TreeMap<>();
+		ResultSet rs = null;
+		Product product;
+		this.openConnection();
+		try {
+			// Prepares the SQL query
+			stmt = con.prepareStatement(SQLSELECTPRODUCTSTOCK);
+			// Executes the SQL query. If the delete is executed correctly, check becomes true
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				product = new Product();
+				product.setNameP(rs.getString("NAMEP"));
+				product.setTypeP(TypeP.valueOf(rs.getString("TYPEP")));
+				product.setPrice(rs.getDouble("PRICE"));
+				product.setStock(rs.getInt("STOCKPRODUCT"));
+				product.setCodBrand(rs.getInt("CODBRAND"));
+				prods.put(product.getStock(), product);
+			}
+			// Closes the connection
+			rs.close();
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return prods;
 	}
 
 	// Inserts a new component into the database

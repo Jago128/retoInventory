@@ -162,7 +162,7 @@ BEGIN
     END IF;        
 END //
 Delimiter ;
-CALL deleteProduct('Iphone X');
+
 
 Delimiter //
 CREATE FUNCTION getStockOfAProduct(NomProd VARCHAR(50))
@@ -376,3 +376,5 @@ BEGIN
     RETURN MESSAGE;
 END //
 DELIMITER ;
+
+SELECT * FROM product WHERE STOCKPRODUCT<=5 ORDER BY STOCKPRODUCT;
