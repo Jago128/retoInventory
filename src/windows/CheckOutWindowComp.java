@@ -107,7 +107,7 @@ public class CheckOutWindowComp extends JDialog implements ActionListener {
 		}
 		//Jago's note: The method was split.
 		if (e.getSource()==btnSubmit) {
-			cont.sellAndSubstractProduct(user.getCodU(), name, /*amount goes here*/, calcPrice(price));
+			cont.sellAndSubstractComponent(user.getCodU(), name, /*amount goes here*/, calcPrice(price));
 		}
 	}
 }
