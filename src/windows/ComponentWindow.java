@@ -134,7 +134,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		}
 		// Opens the window for the Check out
 		if (e.getSource() == btnBuy) {
-			boolean type = true;  // true = Product | false = Component
+			boolean type = false;  // true = Product | false = Component
 			CheckOutWindow checkOut = new CheckOutWindow(this, cont, user, obtainNamePrice().getNameC(), obtainNamePrice().getPrice(), type);
 			checkOut.setVisible(true);
 		}
