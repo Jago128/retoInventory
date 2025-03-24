@@ -24,8 +24,7 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLINSERTUSER = "INSERT INTO user VALUES (?,?,?,'Client')";
 
 	// Product, Component, and Brand related stuff
-	final String SQLSELLPROD = "SELECT sellAndSubstractProduct(?,?,?,?)";
-	final String SQLSELLCOMP = "SELECT sellAndSubstractComponent(?,?,?)";
+	final String SQLSELL = "SELECT sellAndSubstract(?,?,?,?,?)";
 	
 	// PRODUCT
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
@@ -173,16 +172,16 @@ public class DBImplementation implements MediaMartaDAO {
 
 	// Substracts from a item's stock, essentilly selling the product to the user, and makes a new entry in Purchase
 	@Override
-	public String sellAndSubstract(String codUser, String nomProd, int amount, double price, boolean type) { 
+	public String sellAndSubstract(String codUser, String nomItem, int amount, double price, boolean type) { 
 		// Open connection and declare a boolean to check if the update is properly executed
 		String check = null;
 
 		this.openConnection();
 		try {
 			// Prepares the SQL query to get the product
-			stmt = con.prepareStatement(SQLSELLPROD);
+			stmt = con.prepareStatement(SQLSELL);
 			stmt.setString(1, codUser);
-			stmt.setString(2, nomProd);
+			stmt.setString(2, nomItem);
 			stmt.setInt(3, amount);
 			stmt.setDouble(4, price);
 			stmt.setBoolean(5, type); // true = Product | false = Component

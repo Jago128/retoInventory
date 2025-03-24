@@ -19,6 +19,7 @@ public class ContinueWindow extends JDialog implements ActionListener {
 	private LoginController cont;
 	private JLabel lblTitle;
 	private JButton btnYes, btnNo;
+	private String name;
 	
 	public ContinueWindow(JDialog parent, LoginController cont, String name) {
 		super(parent, true); // Blocks the father window
