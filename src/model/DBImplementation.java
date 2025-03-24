@@ -24,7 +24,7 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLINSERTUSER = "INSERT INTO user VALUES (?,?,?,'Client')";
 
 	// Product, Component, and Brand related stuff
-	final String SQLSELLPROD = "SELECT sellAndSubstractProduct(?,?,?)";
+	final String SQLSELLPROD = "SELECT sellAndSubstractProduct(?,?,?,?)";
 	final String SQLSELLCOMP = "SELECT sellAndSubstractComponent(?,?,?)";
 	
 	// PRODUCT
@@ -286,7 +286,7 @@ public class DBImplementation implements MediaMartaDAO {
 	
 	// Substracts from a product's stock, essentilly selling the product to the user, and makes a new entry in Purchase
 	@Override
-	public String sellAndSubstractProduct(String codUser, String nomProd, int amount) { 
+	public String sellAndSubstractProduct(String codUser, String nomProd, int amount, double price) { 
 		// Open connection and declare a boolean to check if the update is properly executed
 		String check = null;
 
@@ -410,7 +410,7 @@ public class DBImplementation implements MediaMartaDAO {
 	
 	// Substracts from a component's stock, essentilly selling the component to the user
 		@Override
-		public String sellAndSubstractComponent(String codUser, String nomProd, int amount) { 
+		public String sellAndSubstractComponent(String codUser, String nomProd, int amount, double price) { 
 			// Open connection and declare a boolean to check if the update is properly executed
 			String check = null;
 

@@ -10,7 +10,7 @@ import model.User;
 // CHECK OUT WINDOW 
 // Go to->(*close*)
 // Back to->(ProductWindow, ComponentWindow, BrandWindow)
-public class CheckOutWindow extends JDialog implements ActionListener {
+public class CheckOutWindowProd extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private LoginController cont;
@@ -21,7 +21,7 @@ public class CheckOutWindow extends JDialog implements ActionListener {
 	private String name;
 	private int price;
 		
-	public CheckOutWindow(JDialog parent, LoginController cont, User user, String name, double price) {
+	public CheckOutWindowProd(JDialog parent, LoginController cont, User user, String name, double price) {
 		super(parent, true); // Blocks the father window
 		this.cont = cont;
 
@@ -105,9 +105,9 @@ public class CheckOutWindow extends JDialog implements ActionListener {
 		if (e.getSource()==btnClose) {
 			this.dispose();
 		}
-		//Jago's note: Due to various issues, the parameter MUST be amount, which is int.
+		//Jago's note: The method was split.
 		if (e.getSource()==btnSubmit) {
-			cont.sellAndSubstractProduct(user.getCodU(), name, calcPrice(price));
+			cont.sellAndSubstractProduct(user.getCodU(), name, /*amount goes here*/, calcPrice(price));
 		}
 	}
 }

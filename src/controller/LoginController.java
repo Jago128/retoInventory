@@ -35,8 +35,8 @@ public class LoginController {
 	}
 
 	// Product, Comp and Brand methods
-	public String sellAndSubstractProduct(String codUser, String nomProd, int amount) {
-		return dao.sellAndSubstractProduct(codUser, nomProd, amount);
+	public String sellAndSubstractProduct(String codUser, String nomProd, int amount, double price) {
+		return dao.sellAndSubstractProduct(codUser, nomProd, amount, price);
 	}
 
 	// PRODUCTS
@@ -76,7 +76,11 @@ public class LoginController {
 	public boolean deleteComp(String nom) {
 		return dao.deleteComp(nom);
 	}
-
+	
+	public String sellAndSubstractComponent(String codUser, String nomProd, int amount, double price) {
+		return dao.sellAndSubstractComponent(codUser, nomProd, amount, price);
+	}
+	
 	public Map<Integer, Comp> showCompsOrderedByStock() {
 		return dao.showCompsOrderedByStock();
 	}
