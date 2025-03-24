@@ -315,3 +315,6 @@ BEGIN
     RETURN TotalValue;
 END //
 Delimiter ;
+
+SELECT nameP, price FROM product WHERE nameP = 'Iphone X';
+DELETE FROM PRODUCT WHERE NAMEP = 'Iphone X';

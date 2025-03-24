@@ -235,9 +235,13 @@ public class DBImplementation implements MediaMartaDAO {
 		try {
 			stmt = con.prepareStatement(SQLSELECTPRODUCTNAMEPRICE);
 			stmt.setString(1, name);
+			System.out.println("query de obtein productNamePrice " +stmt);
 			rs = stmt.executeQuery();
-			product.setNameP(rs.getString("nameP"));
-			product.setPrice(rs.getDouble("price"));
+			if (rs.next()) {
+				System.out.println("post query productNamePrice "+rs.getString("namep"));
+				product.setNameP(rs.getString("namep"));
+				product.setPrice(rs.getDouble("price"));
+			}			
 			rs.close();
 			stmt.close();
 			con.close();
@@ -417,6 +421,7 @@ public class DBImplementation implements MediaMartaDAO {
 		ResultSet rs = null;
 		Brand brand;
 		Map<String, Brand> brands = new TreeMap<>();
+		this.openConnection();
 		try {
 			// Prepares the SQL query
 			stmt = con.prepareStatement(SQLSELECTBRAND);
