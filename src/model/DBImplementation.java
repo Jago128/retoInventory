@@ -286,7 +286,7 @@ public class DBImplementation implements MediaMartaDAO {
 	
 	// Substracts from a product's stock, essentilly selling the product to the user, and makes a new entry in Purchase
 	@Override
-	public String sellAndSubstractProduct(String codUser, String nomProd, int amount, double price) { 
+	public String sellAndSubstract(String codUser, String nomProd, int amount, double price, boolean comp) { 
 		// Open connection and declare a boolean to check if the update is properly executed
 		String check = null;
 
@@ -297,6 +297,8 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.setString(1, codUser);
 			stmt.setString(2, nomProd);
 			stmt.setInt(3, amount);
+			stmt.setDouble(4, price);
+			stmt.setBoolean(5, comp);
 			ResultSet rs = stmt.executeQuery();
 			check = rs.getString(1);
 			// Closes the connection
@@ -407,31 +409,6 @@ public class DBImplementation implements MediaMartaDAO {
 		}
 		return check;
 	}
-	
-	// Substracts from a component's stock, essentilly selling the component to the user
-		@Override
-		public String sellAndSubstractComponent(String codUser, String nomProd, int amount, double price) { 
-			// Open connection and declare a boolean to check if the update is properly executed
-			String check = null;
-
-			this.openConnection();
-			try {
-				// Prepares the SQL query to get the product
-				stmt = con.prepareStatement(SQLSELLCOMP);
-				stmt.setString(1, codUser);
-				stmt.setString(2, nomProd);
-				stmt.setInt(3, amount);
-				ResultSet rs = stmt.executeQuery();
-				check = rs.getString(1);
-				// Closes the connection
-				rs.close();
-				stmt.close();
-				con.close();
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
-			return check;
-		}
 
 	// Shows components with a stock of 5 or less, ordered by stock
 	@Override
