@@ -37,7 +37,7 @@ public class DBImplementation implements MediaMartaDAO {
 	// COMPONENT
 	final String SQLSELECTCOMPONENT = "SELECT * FROM component";
 	final String SQLINSERTCOMP = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, PRICECOMP, CODBRAND) VALUES (?, ?, ?, ?)";	
-	final String SQLDELETECOMP = "DELETE FROM component WHERE codComponent=(SELECT codComponent FROM component WHERE nameComp = ?)";	
+	final String SQLDELETECOMP = "CALL DeleteComp(?)";	
 	final String SQLSELECTCOMPONENTNAMEPRICE = "SELECT nameComp, priceComp FROM component WHERE nameComp = ?";
 
 	// BRAND
@@ -391,6 +391,7 @@ public class DBImplementation implements MediaMartaDAO {
 	@Override
 	public boolean deleteComp(String nom) {
 		// Open connection and declare a boolean to check if the update is properly executed
+		ResultSet rs = null;
 		boolean check = false;
 		this.openConnection();
 		try {
@@ -398,10 +399,12 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt = con.prepareStatement(SQLDELETECOMP);
 			stmt.setString(1, nom);
 			// Executes the SQL query. If the delete is executed correctly, check becomes true
-			if (stmt.executeUpdate() > 0) {
+			rs = stmt.executeQuery();
+			if (rs.next()) {
 				check = true;
 			}
 			// Closes the connection
+			rs.close();
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
