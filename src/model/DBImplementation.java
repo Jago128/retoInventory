@@ -464,6 +464,7 @@ public class DBImplementation implements MediaMartaDAO {
 				brands.put(brand.getNameB(), brand);
 			}
 			// Closes the connection
+			rs.close();
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
