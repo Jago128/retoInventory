@@ -15,7 +15,7 @@ public class User {
 		this.typeU = TypeU.NULL;
 	}
 
-	// Declare parametrized constructor
+	// Declare parametrized constructors
 	public User(String codU, String password) {
 		this.codU = codU;
 		this.username = "";
@@ -23,7 +23,6 @@ public class User {
 		this.typeU = TypeU.CLIENT;
 	}
 
-	// Declare parametrized constructor
 	public User(String codU, String username, String password) {
 		this.codU = codU;
 		this.username = "";
@@ -31,7 +30,6 @@ public class User {
 		this.typeU = TypeU.CLIENT;
 	}
 
-	// Declare parametrized constructor
 	public User(String codU, String username, String password, TypeU typeU) {
 		this.codU = codU;
 		this.username = username;

@@ -19,7 +19,16 @@ public class Comp {
 		this.price = 0;
 	}
 
-	// Declare parametrized constructor
+	// Declare parametrized constructors
+	public Comp(String nameC, TypeC typeC, int codBrand, int stock, double price) {
+		this.codC = 0;
+		this.nameC = nameC;
+		this.typeC = typeC;
+		this.codBrand = codBrand;
+		this.stock = stock;
+		this.price = price;
+	}
+	
 	public Comp(int codC, String nameC, TypeC typeC, int codBrand, int stock, double price) {
 		this.codC = codC;
 		this.nameC = nameC;

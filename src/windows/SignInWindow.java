@@ -33,25 +33,25 @@ public class SignInWindow extends JDialog implements ActionListener {
 		lblTitulo.setBounds(10, 10, 416, 43);
 		getContentPane().add(lblTitulo);
 
-		JLabel lblNewLabel = new JLabel("USERNAME");
-		lblNewLabel.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		lblNewLabel.setBounds(66, 63, 147, 19);
-		getContentPane().add(lblNewLabel);
+		JLabel lblUsername = new JLabel("USERNAME");
+		lblUsername.setFont(new Font("Times New Roman", Font.PLAIN, 10));
+		lblUsername.setBounds(66, 63, 147, 19);
+		getContentPane().add(lblUsername);
 
-		JLabel Contarseña = new JLabel("NAME");
-		Contarseña.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		Contarseña.setBounds(66, 93, 147, 19);
-		getContentPane().add(Contarseña);
+		JLabel lblName = new JLabel("NAME");
+		lblName.setFont(new Font("Times New Roman", Font.PLAIN, 10));
+		lblName.setBounds(66, 93, 147, 19);
+		getContentPane().add(lblName);
 
-		JLabel lblNuevaContrasea = new JLabel("PASSWORD");
-		lblNuevaContrasea.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		lblNuevaContrasea.setBounds(66, 121, 147, 19);
-		getContentPane().add(lblNuevaContrasea);
+		JLabel lblPassword = new JLabel("PASSWORD");
+		lblPassword.setFont(new Font("Times New Roman", Font.PLAIN, 10));
+		lblPassword.setBounds(66, 121, 147, 19);
+		getContentPane().add(lblPassword);
 
-		JLabel lblConfirmarContrasea = new JLabel("CONFIRM PASSWORD");
-		lblConfirmarContrasea.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		lblConfirmarContrasea.setBounds(66, 150, 147, 19);
-		getContentPane().add(lblConfirmarContrasea);
+		JLabel lblPasswordConf = new JLabel("CONFIRM PASSWORD");
+		lblPasswordConf.setFont(new Font("Times New Roman", Font.PLAIN, 10));
+		lblPasswordConf.setBounds(66, 150, 147, 19);
+		getContentPane().add(lblPasswordConf);
 
 		lblMensaje = new JLabel("");
 		lblMensaje.setHorizontalAlignment(SwingConstants.CENTER);

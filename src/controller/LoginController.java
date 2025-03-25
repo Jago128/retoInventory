@@ -94,4 +94,7 @@ public class LoginController {
 		return dao.showComponentsBrand(brand);
 	}
 
+	public int getBrandCode(String brandName) {
+		return dao.getBrandCode(brandName);
+	}
 }

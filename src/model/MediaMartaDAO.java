@@ -46,5 +46,7 @@ public interface MediaMartaDAO {
 	public Map<String, Product> showProductsBrand(String brand);
 
 	public Map<String, Comp> showComponentsBrand(String brand);
+	
+	public int getBrandCode(String brandName);
 
 }

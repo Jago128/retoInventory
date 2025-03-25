@@ -39,7 +39,6 @@ public class CheckOutWindow extends JDialog implements ActionListener {
 		spinner = new JSpinner(sm);
 		spinner.setBounds(214, 111, 187, 34);
 		getContentPane().add(spinner);
-		spinner.setValue(1);
 		// NEEDS TO BE ADDED AN LISTENER FOR WHEN THE VALUES CHANGE
 
 		// Titles

@@ -19,7 +19,16 @@ public class Product {
 		this.codBrand = 0;
 	}
 
-	// Declare parametrized constructor
+	// Declare parametrized constructors
+	public Product(String nameP, TypeP typeP, double price, int stock, int codBrand) {
+		this.codP = 0;
+		this.nameP = nameP;
+		this.typeP = typeP;
+		this.price = price;
+		this.stock = stock;
+		this.codBrand = codBrand;
+	}
+	
 	public Product(int codP, String nameP, TypeP typeP, double price, int stock, int codBrand) {
 		this.codP = codP;
 		this.nameP = nameP;

@@ -42,7 +42,7 @@ public class DBImplementation implements MediaMartaDAO {
 	// COMPONENT
 	final String SQLSELECTCOMPONENT = "SELECT * FROM component";
 	final String SQLSELECTCOMPSTOCK = "SELECT * FROM component WHERE STOCKCOMPONENT<=5 ORDER BY STOCKCOMPONENT";
-	final String SQLINSERTCOMP = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, PRICECOMP, CODBRAND) VALUES (?, ?, ?, ?)";
+	final String SQLINSERTCOMP = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, STOCKCOMPONENT, PRICECOMP, CODBRAND) VALUES (?, ?, ?, ?, ?)";
 	final String SQLDELETECOMP = "CALL deleteComp(?)";
 	final String SQLSELECTCOMPONENTNAMEPRICE = "SELECT nameComp, priceComp FROM component WHERE nameComp = ?";
 
@@ -178,7 +178,7 @@ public class DBImplementation implements MediaMartaDAO {
 		return admin;
 	}
 
-	// Inserts a new product
+	// [Inserts a new product]
 	@Override
 	public boolean insertProd(Product prod) {
 		// Open connection and declare a boolean to check if the update is properly executed
@@ -326,8 +326,9 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt = con.prepareStatement(SQLINSERTCOMP);
 			stmt.setString(1, comp.getNameC());
 			stmt.setObject(2, comp.getTypeC());
-			stmt.setDouble(3, comp.getPrice());
-			stmt.setInt(4, comp.getCodBrand());
+			stmt.setInt(3, comp.getStock());
+			stmt.setDouble(4, comp.getPrice());
+			stmt.setInt(5, comp.getCodBrand());
 			// Executes the SQL query. If the insert is executed correctly, check becomes true
 			if (stmt.executeUpdate() > 0) {
 				check = true;
@@ -604,5 +605,12 @@ public class DBImplementation implements MediaMartaDAO {
 			e.printStackTrace();
 		}
 		return brandComps;
+	}
+	
+	// GET SELECTED'S BRAND CODE
+	public int getBrandCode(String brandName) {
+		int brandCode = 0;
+		
+		return brandCode;
 	}
 }
