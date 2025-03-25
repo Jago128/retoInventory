@@ -17,7 +17,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private LoginController cont;
 	private JLabel lblMediaMarta, lblProducts;
-	private JButton btnLogOut, btnBuy, btnRemove, btnClose;
+	private JButton btnLogOut, btnBuy, btnAddStock, btnRemove, btnClose;
 	private JList<String> list;
 	private Map<String, Comp> components;
 	private User user;
@@ -68,21 +68,16 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		btnBuy = new JButton("BUY");
 		btnBuy.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		btnBuy.setBounds(10, 533, 196, 35);
-		if (user.getTypeU()==TypeU.CLIENT) { // In case the user is client the button will be visible
-			btnBuy.setVisible(true);
-		} else { // The admin will not have this option visible
-			btnBuy.setVisible(false);
-		}
 		getContentPane().add(btnBuy);
+
+		btnAddStock = new JButton("ADD STOCK");
+		btnAddStock.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		btnAddStock.setBounds(10, 533, 196, 35);
+		getContentPane().add(btnAddStock);
 
 		btnRemove = new JButton("REMOVE");
 		btnRemove.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		btnRemove.setBounds(260, 533, 196, 35);
-		if (user.getTypeU()==TypeU.ADMIN) { // In case the user is admin the button will be visible
-			btnRemove.setVisible(true);
-		} else { // The client will not have this option visible
-			btnRemove.setVisible(false);
-		}
 		getContentPane().add(btnRemove);
 
 		btnClose = new JButton("CLOSE");
@@ -90,9 +85,21 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		getContentPane().add(btnClose);
 
+		// Buttons visibility
+		if (user.getTypeU()==TypeU.ADMIN) { // In case the user is an admin these buttons will be visible
+			btnBuy.setVisible(false);
+			btnAddStock.setVisible(true);
+			btnRemove.setVisible(true);			
+		} else {  // In case the user is a client these buttons will be visible
+			btnBuy.setVisible(true);
+			btnAddStock.setVisible(false);
+			btnRemove.setVisible(false);
+		}
+
 		// Adding action listener
 		btnLogOut.addActionListener(this);
 		btnBuy.addActionListener(this);
+		btnAddStock.addActionListener(this);
 		btnRemove.addActionListener(this);
 		btnClose.addActionListener(this);
 	}
@@ -139,6 +146,16 @@ public class ComponentWindow extends JDialog implements ActionListener {
 				checkOut.setVisible(true);
 			} else {
 				JOptionPane.showMessageDialog(null, "[ERROR] Select an item to buy");
+			}
+		}
+		// Opens the window to add stock to the selected Component
+		if (e.getSource()==btnAddStock) {
+			if(!list.isSelectionEmpty()) { // If there is an item selected it will do the action
+				boolean type = false;  // true = Product | false = Component
+				// RestockWindow restock = new RestockWindow(this, cont, obtainNamePrice().getNameC(), type);
+				//restock.setVisible(true);
+			} else {
+				JOptionPane.showMessageDialog(null, "[ERROR] Select an item to restock");
 			}
 		}
 		// Opens the window to delete
