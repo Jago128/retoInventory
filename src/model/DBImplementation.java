@@ -1,7 +1,6 @@
 package model;
 
 import java.sql.*;
-import java.time.LocalDate;
 import java.util.*;
 
 public class DBImplementation implements MediaMartaDAO {
@@ -18,7 +17,7 @@ public class DBImplementation implements MediaMartaDAO {
 	private String passwordBD;
 
 	// SQL queries for the methods in Java
-	
+
 	// User related stuff
 	final String SQLUSER = "SELECT * FROM user WHERE coduser = ?";
 	final String SQLUSERPSW = "SELECT * FROM user WHERE coduser = ? AND psw = ?";	
@@ -29,7 +28,9 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLSELL = "SELECT CODPRODUCT, STOCKPRODUCT FROM PRODUCT WHERE NAMEP=?";
 	final String SQLSELLUPDATE = "UPDATE PRODUCT SET STOCKPRODUCT=? WHERE CODPRODUCT=?";
 	final String SQLSELLINSERT = "INSERT INTO PURCHASE VALUES (?,?,?,?,?);";
-	
+	final String SQLSELLCOMP = "SELECT CODCOMPONENT, STOCKCOMPONENT FROM COMPONENT WHERE NAMECOMP=?";
+	final String SQLSELLUPDATECOMP = "UPDATE COMPONENT SET STOCKCOMPONENT=? WHERE CODCOMPONENT=?";
+
 	// PRODUCT
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
 	final String SQLSELECTPRODUCTSTOCK = "SELECT * FROM product WHERE STOCKPRODUCT<=5 ORDER BY STOCKPRODUCT";
@@ -40,6 +41,7 @@ public class DBImplementation implements MediaMartaDAO {
 
 	// COMPONENT
 	final String SQLSELECTCOMPONENT = "SELECT * FROM component";
+	final String SQLSELECTCOMPSTOCK = "SELECT * FROM component WHERE STOCKCOMPONENT<=5 ORDER BY STOCKCOMPONENT";
 	final String SQLINSERTCOMP = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, PRICECOMP, CODBRAND) VALUES (?, ?, ?, ?)";	
 	final String SQLDELETECOMP = "CALL deleteComp(?)";	
 	final String SQLSELECTCOMPONENTNAMEPRICE = "SELECT nameComp, priceComp FROM component WHERE nameComp = ?";
@@ -72,6 +74,7 @@ public class DBImplementation implements MediaMartaDAO {
 	}
 
 	// [Registers a new user]
+	@Override
 	public boolean registerUser(User user) {
 		boolean register = false;
 		if (!verifyUser(user)) {
@@ -92,7 +95,7 @@ public class DBImplementation implements MediaMartaDAO {
 		}
 		return register;
 	}
-	
+
 	// [Verify that the user exists]
 	@Override
 	public boolean verifyUser(User user) {
@@ -175,53 +178,8 @@ public class DBImplementation implements MediaMartaDAO {
 		return admin;
 	}
 
-	// Substracts from a item's stock, essentilly selling the product to the user, and makes a new entry in Purchase
-	
-	//Redo for Java
-	@Override
-	public boolean sellAndSubstract(String codUser, String nomItem, int amount, double price, boolean type) { 
-		// Open connection and declare a boolean to check if the update is properly executed
-		boolean check = false;
-		int codItem, stock;
 
-		this.openConnection();
-		try {
-			// Prepares the SQL query to get the product
-			stmt = con.prepareStatement(SQLSELL);
-			stmt.setString(1, nomItem);
-			ResultSet rs = stmt.executeQuery();
-			codItem = rs.getInt("CODPRODUCT");
-			stock = rs.getInt("STOCKPRODUCT");
-			// Closes the first statement
-			rs.close();
-			stmt.close();
-			stock = stock-amount;
-			stmt = con.prepareStatement(SQLSELLUPDATE);
-			stmt.setInt(1, stock);
-			stmt.setInt(2, codItem);
-			if (stmt.executeUpdate()>0) {
-				check=true;
-			}
-			// Closes the second statement
-			stmt.close();
-			stmt = con.prepareStatement(SQLSELLINSERT);
-			stmt.setInt(1, codItem);
-			stmt.setString(2, codUser);
-			stmt.setInt(3, stock);
-			stmt.setDouble(4, price);
-			//Date goes here
-			rs = stmt.executeQuery();
-			// Closes the first statement
-			rs.close();
-			stmt.close();
-			con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			check=false;
-		}
-		return check;
-	}	
-	
+
 	// Inserts a new product
 	@Override
 	public boolean insertProd(Product prod) {
@@ -278,6 +236,7 @@ public class DBImplementation implements MediaMartaDAO {
 	}
 
 	// [Obtain a product's name and price, based on the name of the product provided]
+	@Override
 	public Product obtainProductNamePrice(String name) {
 		ResultSet rs = null;
 		Product product = new Product();
@@ -412,6 +371,7 @@ public class DBImplementation implements MediaMartaDAO {
 	}
 
 	// [Obtain choosed component's name and price]
+	@Override
 	public Comp obtainComponentNamePrice(String name) {
 		ResultSet rs = null;
 		Comp component = new Comp();
@@ -434,7 +394,7 @@ public class DBImplementation implements MediaMartaDAO {
 		}
 		return component;
 	}
-	
+
 	// Delete a product
 	@Override
 	public boolean deleteComp(String nom) {
@@ -464,11 +424,109 @@ public class DBImplementation implements MediaMartaDAO {
 	// Shows components with a stock of 5 or less, ordered by stock
 	@Override
 	public Map<Integer, Comp> showCompsOrderedByStock() {
+		Map<Integer, Comp> comps = new TreeMap<>();
+		ResultSet rs = null;
+		Comp comp;
+		this.openConnection();
+		try {
+			// Prepares the SQL query
+			stmt = con.prepareStatement(SQLSELECTCOMPSTOCK);
+			// Executes the SQL query. If the delete is executed correctly, check becomes true
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				comp = new Comp();
+				comp.setNameC(rs.getString("NAMECOMP"));
+				comp.setTypeC(TypeC.valueOf(rs.getString("TYPEC")));
+				comp.setPrice(rs.getDouble("PRICECOMP"));
+				comp.setStock(rs.getInt("STOCKCOMPONENT"));
+				comp.setCodBrand(rs.getInt("CODBRAND"));
+				comps.put(comp.getStock(), comp);
+			}
+			// Closes the connection
+			rs.close();
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return comps;
+	}
 
-		return null;
+	// Substracts from a item's stock, essentilly selling the product to the user, and makes a new entry in Purchase
+	@Override
+	public boolean sellAndSubstract(String codUser, String nomItem, int amount, double price, boolean type) { 
+		// Open connection and declare a boolean to check if the update is properly executed
+		boolean check = false;
+		int codItem, stock;
+
+		this.openConnection();
+		try {
+			if (type) {
+				// Prepares the SQL query to get the product
+				stmt = con.prepareStatement(SQLSELL);
+				stmt.setString(1, nomItem);
+				ResultSet rs = stmt.executeQuery();
+				codItem = rs.getInt("CODPRODUCT");
+				stock = rs.getInt("STOCKPRODUCT");
+				if (rs.next()) {
+					check=true;
+				}
+				// Closes the first statement
+				rs.close();
+				stmt.close();
+				stock = stock-amount;
+				stmt = con.prepareStatement(SQLSELLUPDATE);
+				stmt.setInt(1, stock);
+				stmt.setInt(2, codItem);
+				if (stmt.executeUpdate()>0) {
+					check=true;
+				}
+				// Closes the second statement
+				stmt.close();
+				java.util.Date dates = new java.util.Date();
+				java.sql.Date mySQLDate = new java.sql.Date(dates.getTime());
+				stmt = con.prepareStatement(SQLSELLINSERT);
+				stmt.setInt(1, codItem);
+				stmt.setString(2, codUser);
+				stmt.setInt(3, stock);
+				stmt.setDouble(4, price);
+				stmt.setDate(5, mySQLDate);
+				if (stmt.executeUpdate()>0) {
+					check=true;
+				}
+				// Closes the third statement
+				stmt.close();
+			} else {
+				stmt = con.prepareStatement(SQLSELLCOMP);
+				stmt.setString(1, nomItem);
+				ResultSet rs = stmt.executeQuery();
+				codItem = rs.getInt("CODPRODUCT");
+				stock = rs.getInt("STOCKPRODUCT");
+				if (rs.next()) {
+					check=true;
+				}
+				// Closes the first statement
+				rs.close();
+				stmt.close();
+				stock = stock-amount;
+				stmt = con.prepareStatement(SQLSELLUPDATECOMP);
+				stmt.setInt(1, stock);
+				stmt.setInt(2, codItem);
+				if (stmt.executeUpdate()>0) {
+					check=true;
+				}
+			}
+			// Closes the connectikon
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+			check=false;
+		}
+		return check;
 	}
 
 	// Verify that the brand exists, and prepare a map to use later
+	@Override
 	public Map<String, Brand> verifyBrands() {
 		ResultSet rs = null;
 		Brand brand;
