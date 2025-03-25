@@ -85,7 +85,7 @@ INSERT INTO PRODUCT (NAMEP,TYPEP,PRICE,STOCKPRODUCT,CODBRAND) VALUES
 ("Iphone X","Mobile",500,150,1),
 ("Samsung Galaxy Book 4","Computer",399,70,2),
 ("Lenovo IdeaPad Slim 3","Computer",700,300,3),
-("Samsung Galaxy S24","Mobile",550,244,2),
+("Samsung Galaxy S24","Mobile",550,4,2),
 ("HUAWEI Pura 70 Pro","Mobile",1000,700,4);
 
 INSERT INTO PURCHASE VALUES 
@@ -245,6 +245,7 @@ BEGIN
     DECLARE prodType ENUM('Mobile', 'Computer');
     DECLARE prodPrice DOUBLE;
     DECLARE prodStock INT;
+	DECLARE brandExists INT DEFAULT 0;
     
     DECLARE compName VARCHAR(50);
     DECLARE compType ENUM('Graphics', 'RAM', 'Processor');
@@ -262,6 +263,14 @@ BEGIN
         JOIN BRAND B ON C.CODBRAND = B.CODBRAND
         WHERE B.NAMEBRAND = brandName;
 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET fin = TRUE;
+    
+    SELECT COUNT(*) INTO brandExists FROM BRAND WHERE NAMEBRAND = brandName;
+    
+    IF brandExists = 0 THEN
+        SELECT CONCAT('No items were found for brand: ', brandName) AS Message;
+        
+	ELSE
+    
     OPEN cur_prod;
     FETCH cur_prod INTO prodName, prodType, prodPrice, prodStock;
     WHILE NOT fin DO
@@ -278,8 +287,11 @@ BEGIN
         FETCH cur_comp INTO compName, compType, compPrice, compStock;
     END WHILE;
     CLOSE cur_comp;
+    END IF ;
 END //
-Delimiter ;
+DELIMITER ;
+CALL showProdsAndCompsOfAParticularBrand("Nokia");
+DROP PROCEDURE showProdsAndCompsOfAParticularBrand;
 
 Delimiter //
 CREATE PROCEDURE showLowStock()  
@@ -300,7 +312,7 @@ BEGIN
         FETCH C INTO CodProd, NomProd, StockP;
 		WHILE FIN = FALSE DO
 			IF (StockP <= 5) THEN
-				SELECT CONCAT('Code: ', CodProd,' Product: ', NomProd,' Stock: ', StockP);
+				SELECT CONCAT('Code: ', CodProd,' Product: ', NomProd,' Stock: ', StockP) AS PRODUCTS;
 			END IF;
             FETCH C INTO CodProd, NomProd, StockP;
 		END WHILE;
@@ -311,13 +323,14 @@ BEGIN
 		FETCH C2 INTO CodComp, NomComp, StockC;
 		WHILE FIN = FALSE DO
 			IF (StockC <= 5) THEN
-				SELECT CONCAT('Code: ', CodComp,' Component: ', NomComp,' Stock: ', StockC);
+				SELECT CONCAT('Code: ', CodComp,' Component: ', NomComp,' Stock: ', StockC) AS COMPONENTS;
 			END IF;
             FETCH C2 INTO CodComp, NomComp, StockC;
 		END WHILE;
     CLOSE C2;
 END //
 Delimiter ;
+CALL showLowStock();
 
 Delimiter //
 CREATE FUNCTION getPrice(Nom VARCHAR(50)) RETURNS DOUBLE
