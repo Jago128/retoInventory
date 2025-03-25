@@ -20,7 +20,7 @@ public class DBImplementation implements MediaMartaDAO {
 
 	// User related stuff
 	final String SQLUSER = "SELECT * FROM user WHERE coduser = ?";
-	final String SQLUSERPSW = "SELECT * FROM user WHERE coduser = ? AND psw = ?";	
+	final String SQLUSERPSW = "SELECT * FROM user WHERE coduser = ? AND psw = ?";
 	final String SQLTYPE = "SELECT type_u FROM user WHERE coduser = ?";
 	final String SQLINSERTUSER = "INSERT INTO user VALUES (?,?,?,'Client')";
 
@@ -35,15 +35,15 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
 	final String SQLSELECTPRODUCTSTOCK = "SELECT * FROM product WHERE STOCKPRODUCT<=5 ORDER BY STOCKPRODUCT";
 	final String SQLINSERTPROD = "INSERT INTO PRODUCT (NAMEP, TYPEP, PRICE, STOCK, CODBRAND) VALUES (?, ?, ?, ?, ?)";
-	final String SQLDELETEPROD = "CALL deleteProduct(?)";	
+	final String SQLDELETEPROD = "CALL deleteProduct(?)";
 	final String SQLSELECTPRODUCTNAMEPRICE = "SELECT nameP, price FROM product WHERE nameP = ?";
 	final String SQLPROD = "SELECT PROD FROM PRODUCT WHERE NAMEP = ?";
 
 	// COMPONENT
 	final String SQLSELECTCOMPONENT = "SELECT * FROM component";
 	final String SQLSELECTCOMPSTOCK = "SELECT * FROM component WHERE STOCKCOMPONENT<=5 ORDER BY STOCKCOMPONENT";
-	final String SQLINSERTCOMP = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, PRICECOMP, CODBRAND) VALUES (?, ?, ?, ?)";	
-	final String SQLDELETECOMP = "CALL deleteComp(?)";	
+	final String SQLINSERTCOMP = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, PRICECOMP, CODBRAND) VALUES (?, ?, ?, ?)";
+	final String SQLDELETECOMP = "CALL deleteComp(?)";
 	final String SQLSELECTCOMPONENTNAMEPRICE = "SELECT nameComp, priceComp FROM component WHERE nameComp = ?";
 
 	// BRAND
@@ -178,8 +178,6 @@ public class DBImplementation implements MediaMartaDAO {
 		return admin;
 	}
 
-
-
 	// Inserts a new product
 	@Override
 	public boolean insertProd(Product prod) {
@@ -249,7 +247,7 @@ public class DBImplementation implements MediaMartaDAO {
 			if (rs.next()) {
 				product.setNameP(rs.getString("namep"));
 				product.setPrice(rs.getDouble("price"));
-			}			
+			}
 			rs.close();
 			stmt.close();
 			con.close();
@@ -384,7 +382,7 @@ public class DBImplementation implements MediaMartaDAO {
 			if (rs.next()) {
 				component.setNameC(rs.getString("nameComp"));
 				component.setPrice(rs.getDouble("priceComp"));
-			}			
+			}
 			rs.close();
 			stmt.close();
 			con.close();
@@ -454,7 +452,7 @@ public class DBImplementation implements MediaMartaDAO {
 
 	// Substracts from a item's stock, essentilly selling the product to the user, and makes a new entry in Purchase
 	@Override
-	public boolean sellAndSubstract(String codUser, String nomItem, int amount, double price, boolean type) { 
+	public boolean sellAndSubstract(String codUser, String nomItem, int amount, double price, boolean type) {
 		// Open connection and declare a boolean to check if the update is properly executed
 		boolean check = false;
 		int codItem, stock;
@@ -469,17 +467,17 @@ public class DBImplementation implements MediaMartaDAO {
 				codItem = rs.getInt("CODPRODUCT");
 				stock = rs.getInt("STOCKPRODUCT");
 				if (rs.next()) {
-					check=true;
+					check = true;
 				}
 				// Closes the first statement
 				rs.close();
 				stmt.close();
-				stock = stock-amount;
+				stock = stock - amount;
 				stmt = con.prepareStatement(SQLSELLUPDATE);
 				stmt.setInt(1, stock);
 				stmt.setInt(2, codItem);
-				if (stmt.executeUpdate()>0) {
-					check=true;
+				if (stmt.executeUpdate() > 0) {
+					check = true;
 				}
 				// Closes the second statement
 				stmt.close();
@@ -491,8 +489,8 @@ public class DBImplementation implements MediaMartaDAO {
 				stmt.setInt(3, stock);
 				stmt.setDouble(4, price);
 				stmt.setDate(5, mySQLDate);
-				if (stmt.executeUpdate()>0) {
-					check=true;
+				if (stmt.executeUpdate() > 0) {
+					check = true;
 				}
 				// Closes the third statement
 				stmt.close();
@@ -503,24 +501,24 @@ public class DBImplementation implements MediaMartaDAO {
 				codItem = rs.getInt("CODPRODUCT");
 				stock = rs.getInt("STOCKPRODUCT");
 				if (rs.next()) {
-					check=true;
+					check = true;
 				}
 				// Closes the first statement
 				rs.close();
 				stmt.close();
-				stock = stock-amount;
+				stock = stock - amount;
 				stmt = con.prepareStatement(SQLSELLUPDATECOMP);
 				stmt.setInt(1, stock);
 				stmt.setInt(2, codItem);
-				if (stmt.executeUpdate()>0) {
-					check=true;
+				if (stmt.executeUpdate() > 0) {
+					check = true;
 				}
 			}
 			// Closes the connectikon
 			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			check=false;
+			check = false;
 		}
 		return check;
 	}
