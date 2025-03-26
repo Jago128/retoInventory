@@ -152,8 +152,8 @@ public class BrandWindow extends JDialog implements ActionListener {
 		if (e.getSource()==btnBuy) {
 			if(!list.isSelectionEmpty()) { // If there is an item selected it will do the action
 				if (true) { // true = Product | false = Component
-					CheckOutWindow checkOut = new CheckOutWindow(this, cont, user, obtainNamePrice().getNameP(), obtainNamePrice().getPrice(), type);
-					checkOut.setVisible(true);
+					//CheckOutWindow checkOut = new CheckOutWindow(this, cont, user, obtainNamePrice().getNameP(), obtainNamePrice().getPrice(), type);
+					//checkOut.setVisible(true);
 				}
 			} else {
 				JOptionPane.showMessageDialog(null, "[ERROR] Select an item to buy");

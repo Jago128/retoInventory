@@ -34,7 +34,7 @@ public class DBImplementation implements MediaMartaDAO {
 	// PRODUCT
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
 	final String SQLSELECTPRODUCTSTOCK = "SELECT * FROM product WHERE STOCKPRODUCT<=5 ORDER BY STOCKPRODUCT";
-	final String SQLINSERTPROD = "INSERT INTO PRODUCT (NAMEP, TYPEP, PRICE, STOCK, CODBRAND) VALUES (?, ?, ?, ?, ?)";
+	final String SQLINSERTPROD = "INSERT INTO PRODUCT (NAMEP, TYPEP, PRICE, STOCKPRODUCT, CODBRAND) VALUES (?, ?, ?, ?, ?)";
 	final String SQLDELETEPROD = "CALL deleteProduct(?)";
 	final String SQLSELECTPRODUCTNAMEPRICE = "SELECT nameP, price FROM product WHERE nameP = ?";
 	final String SQLPROD = "SELECT PROD FROM PRODUCT WHERE NAMEP = ?";
@@ -48,7 +48,7 @@ public class DBImplementation implements MediaMartaDAO {
 
 	// BRAND
 	final String SQLSELECTBRAND = "SELECT * FROM brand";
-	final String SQLSELECTBRANDCODE = "SLECT CODBRAND FROM BRANDS WHERE NAMEBRAND = ?";
+	final String SQLSELECTBRANDCODE = "SELECT CODBRAND FROM BRAND WHERE NAMEBRAND = ?";
 	final String SQLSELECTPRODUCTBRAND = "SELECT * FROM product WHERE CODBRAND=(SELECT CODBRAND FROM BRAND WHERE NAMEBRAND=?)";
 	final String SQLSELECTCOMPONENTBRAND = "SELECT * FROM component WHERE CODBRAND=(SELECT CODBRAND FROM BRAND WHERE NAMEBRAND=?)";
 
@@ -190,7 +190,11 @@ public class DBImplementation implements MediaMartaDAO {
 			// Prepares the SQL query
 			stmt = con.prepareStatement(SQLINSERTPROD);
 			stmt.setString(1, prod.getNameP());
-			stmt.setObject(2, prod.getTypeP());
+			if(prod.getTypeP()==TypeP.MOBILE) {
+				stmt.setString(2, "Mobile");
+			} else {
+				stmt.setString(2, "Computer");
+			}			
 			stmt.setDouble(3, prod.getPrice());
 			stmt.setInt(4, prod.getStock());
 			stmt.setInt(5, prod.getCodBrand());
@@ -326,7 +330,13 @@ public class DBImplementation implements MediaMartaDAO {
 			// Prepares the SQL query
 			stmt = con.prepareStatement(SQLINSERTCOMP);
 			stmt.setString(1, comp.getNameC());
-			stmt.setObject(2, comp.getTypeC());
+			if(comp.getTypeC()==TypeC.GRAPHICS) {
+				stmt.setString(2, "Graphics");
+			} else if (comp.getTypeC()==TypeC.RAM){
+				stmt.setString(2, "RAM");
+			} else if (comp.getTypeC()==TypeC.PROCESSOR){
+				stmt.setString(2, "Processor");
+			}		
 			stmt.setInt(3, comp.getStock());
 			stmt.setDouble(4, comp.getPrice());
 			stmt.setInt(5, comp.getCodBrand());
@@ -610,13 +620,18 @@ public class DBImplementation implements MediaMartaDAO {
 	
 	// GET SELECTED'S BRAND CODE
 	public int getBrandCode(String brandName) {
+		ResultSet rs = null;
 		int brandCode = 0;
 		
 		this.openConnection();
 		try {
 			stmt = con.prepareStatement(SQLSELECTBRANDCODE);
-			stmt.setInt(1, brandCode);
-			
+			stmt.setString(1, brandName);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				brandCode = rs.getInt("CODBRAND");				
+			}
+			rs.close();
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {

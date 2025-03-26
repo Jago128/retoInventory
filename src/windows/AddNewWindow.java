@@ -163,16 +163,13 @@ public class AddNewWindow extends JDialog implements ActionListener {
 		btnClose.addActionListener(this);
 	}
 
-	// Verifying the type true = Product | false = Component | null = Brand
+	// Verifying the type true = Product | false = Component
 	public String verifyType(boolean type) {
 		if (type) {
 			return "Product";
 		}
-		else if (!type) {
-			return "Component";
-		}
 		else {
-			return "Brand";
+			return "Component";
 		}
 	}
 
@@ -222,7 +219,7 @@ public class AddNewWindow extends JDialog implements ActionListener {
 			if (rdbtnA.isSelected()) {
 				componentType = TypeC.GRAPHICS;
 			}
-			if (rdbtnC.isSelected()) {
+			if (rdbtnB.isSelected()) {
 				componentType = TypeC.RAM;
 			}
 			if (rdbtnC.isSelected()) {
@@ -244,7 +241,8 @@ public class AddNewWindow extends JDialog implements ActionListener {
 	
 	// Gets the Brand code
 		public int setBrandCode() {	
-			String brandName = ((Brand) comboBoxBrands.getSelectedItem()).getNameB();
+			String brandName = (String)comboBoxBrands.getSelectedItem();
+			System.out.print(brandName);
 			return cont.getBrandCode(brandName);
 		}
 
