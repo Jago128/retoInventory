@@ -1,21 +1,12 @@
 package windows;
 
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 import java.util.Map;
 
 import javax.swing.*;
 import controller.LoginController;
-import model.Brand;
-import model.Comp;
-import model.Product;
-import model.TypeC;
-import model.TypeP;
-import model.TypeU;
-import model.User;
-import javax.swing.GroupLayout.Alignment;
-import javax.swing.LayoutStyle.ComponentPlacement;
+import model.*;
 
 // ADD NEW ITEM WINDOW 
 // Go to->(*close*)
