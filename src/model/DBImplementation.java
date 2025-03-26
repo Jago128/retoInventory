@@ -48,6 +48,7 @@ public class DBImplementation implements MediaMartaDAO {
 
 	// BRAND
 	final String SQLSELECTBRAND = "SELECT * FROM brand";
+	final String SQLSELECTBRANDCODE = "SLECT CODBRAND FROM BRANDS WHERE NAMEBRAND = ?";
 	final String SQLSELECTPRODUCTBRAND = "SELECT * FROM product WHERE CODBRAND=(SELECT CODBRAND FROM BRAND WHERE NAMEBRAND=?)";
 	final String SQLSELECTCOMPONENTBRAND = "SELECT * FROM component WHERE CODBRAND=(SELECT CODBRAND FROM BRAND WHERE NAMEBRAND=?)";
 
@@ -610,6 +611,18 @@ public class DBImplementation implements MediaMartaDAO {
 	// GET SELECTED'S BRAND CODE
 	public int getBrandCode(String brandName) {
 		int brandCode = 0;
+		
+		this.openConnection();
+		try {
+			stmt = con.prepareStatement(SQLSELECTBRANDCODE);
+			stmt.setInt(1, brandCode);
+			
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("SQL error");
+			e.printStackTrace();
+		}	
 		
 		return brandCode;
 	}
