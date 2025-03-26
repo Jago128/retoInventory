@@ -23,11 +23,13 @@ public class BrandWindow extends JDialog implements ActionListener {
 	private Map<String, Brand> brands;
 	private Map<String, Product> products;
 	private Map<String, Comp> components;
+	private User user;
 
 	public BrandWindow(JFrame parent, LoginController cont, User user) {
 		super(parent, true); // Blocks the father window
-		this.cont = cont;		
-	
+		this.cont = cont;
+		this.user = user;
+
 		// Window
 		setTitle("MEDIAMARTA: Brands");
 		setBounds(100, 100, 480, 636);
@@ -52,7 +54,7 @@ public class BrandWindow extends JDialog implements ActionListener {
 		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		lblCodUser.setBounds(375, 27, 81, 19);
 		getContentPane().add(lblCodUser);
-		
+
 		// ComboBox & List		
 		comboBoxBrands = new JComboBox <String>();
 		comboBoxBrands.setFont(new Font("Times New Roman", Font.PLAIN, 15));
@@ -109,19 +111,15 @@ public class BrandWindow extends JDialog implements ActionListener {
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		products = cont.showProductsBrand((String)comboBoxBrands.getSelectedItem()); //HERE
 		components = cont.showComponentsBrand((String)comboBoxBrands.getSelectedItem()); //HERE
-		
+
 		if(!products.isEmpty()) {
 			for (Product p : products.values()){
 				model.addElement(p.getNameP());
-				System.out.print("List: "+model+"\n");
-				System.out.print("Variable: "+p.getNameP()+"\n");
 			}
 		}		
 		if (!components.isEmpty()) {
 			for (Comp c : components.values()) {
 				model.addElement(c.getNameC());
-				System.out.print("List: "+model+"\n");
-				System.out.print("Variable: "+c.getNameC()+"\n");
 			}
 		}
 		list.setModel(model);
@@ -150,5 +148,16 @@ public class BrandWindow extends JDialog implements ActionListener {
 				list.removeAll();
 			}
 		}
+		// Opens the window for the Check out
+		if (e.getSource()==btnBuy) {
+			if(!list.isSelectionEmpty()) { // If there is an item selected it will do the action
+				if (true) { // true = Product | false = Component
+					CheckOutWindow checkOut = new CheckOutWindow(this, cont, user, obtainNamePrice().getNameP(), obtainNamePrice().getPrice(), type);
+					checkOut.setVisible(true);
+				}
+			} else {
+				JOptionPane.showMessageDialog(null, "[ERROR] Select an item to buy");
+			}
+		} 
 	}
 }

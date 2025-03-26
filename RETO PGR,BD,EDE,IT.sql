@@ -86,6 +86,7 @@ INSERT INTO PRODUCT (NAMEP,TYPEP,PRICE,STOCKPRODUCT,CODBRAND) VALUES
 ("Samsung Galaxy Book 4","Computer",399,70,2),
 ("Lenovo IdeaPad Slim 3","Computer",700,300,3),
 ("Samsung Galaxy S24","Mobile",550,4,2),
+("ASUS ExpertBook","Computer",700,300,5),
 ("HUAWEI Pura 70 Pro","Mobile",1000,700,4);
 
 INSERT INTO PURCHASE VALUES 
