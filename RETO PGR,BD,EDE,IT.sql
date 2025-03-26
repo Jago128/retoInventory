@@ -95,7 +95,7 @@ INSERT INTO PURCHASE VALUES
 (2,'Pakete7',2, 1100,'2025-02-25');
 
 INSERT INTO COMPONENT (NAMECOMP,TYPEC,CODBRAND,STOCKCOMPONENT,PRICECOMP) VALUES 
-("Asus GT710","Graphics",5,4,81.99),
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ("Asus GT710","Graphics",5,4,81.99),
 ("Intel Core i5-13400","Processor",6,5,170),
 ("ESC 4000 G4X","RAM",5,10,110.99),
 ("OFFTEK 8GB","RAM",5,12,30),
@@ -129,14 +129,6 @@ BEGIN
 INSERT INTO Product (NAMECOMP,TYPEC,CODBRAND, STOCKCOMPONENT, PRICECOMP) VALUES
 (NAMECOMP,TYPEC,CODBRAND, STOCKCOMPONENT, PRICECOMP);
 SELECT 'Componente añadido' AS Mensaje;
-END //
-Delimiter ;
-
-Delimiter //
-CREATE PROCEDURE SignIn (UCOD VARCHAR(20), UNAME VARCHAR(30), UPSW VARCHAR(15))
-BEGIN
-	INSERT INTO USER (CODUSER, USERNAME, PSW, TYPE_U) VALUES(UCOD, UNAME, UPSW, "Client");
-    SELECT 'Usuario añadido' AS Mensaje;
 END //
 Delimiter ;
 
@@ -264,52 +256,83 @@ BEGIN
 END //
 
 DELIMITER //
-CREATE FUNCTION sellAndSubstract(CODUSER VARCHAR(20), NAMEPROD VARCHAR(50), AMOUNT INT, TOTALPRICE DOUBLE, PROD BOOLEAN) RETURNS VARCHAR(255)
+CREATE FUNCTION sellAndSubstract(CODUSER VARCHAR(20), NAMEPROD VARCHAR(50), QUANTITY INT, TOTALPRICE DOUBLE, PROD BOOLEAN) RETURNS VARCHAR(255)
 READS SQL DATA
 BEGIN
-	DECLARE CURRENTSTOCK INT DEFAULT 0;
+    DECLARE CURRENTSTOCK INT DEFAULT 0;
     DECLARE STOCKCHECK INT DEFAULT 0;
     DECLARE CODPROD INT;
     DECLARE CODCOMP INT;
     DECLARE CURRENTDATE DATE;
     DECLARE ERROR BOOLEAN DEFAULT FALSE;
-	DECLARE MESSAGE VARCHAR(255) DEFAULT NULL;
-    DECLARE CONTINUE HANDLER FOR NOT FOUND SET ERROR=TRUE;
+    DECLARE MESSAGE VARCHAR(255) DEFAULT NULL;
     
+    -- Manejo de error si no se encuentra el producto o componente
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET ERROR = TRUE;
+
     IF PROD THEN
-		SET CODPROD:=(SELECT CODPRODUCT FROM PRODUCT WHERE NAMEP=NAMEPROD);
-		SET CURRENTSTOCK:=((SELECT STOCKPRODUCT FROM PRODUCT WHERE CODPRODUCT=CODPROD)-AMOUNT);
-		SET STOCKCHECK:=(SELECT STOCKPRODUCT FROM PRODUCT WHERE CODPRODUCT=CODPROD);
-		IF CURRENTSTOCK<STOCKCHECK THEN
-			SET MESSAGE = "ERROR, the amount of the product you want to buy exceeds the product's total stock.";
-			SET ERROR=TRUE;
-		END IF;
-		
-		IF ERROR=FALSE THEN
-				UPDATE PRODUCT SET STOCKPRODUCT=CURRENTSTOCK WHERE CODPRODUCT=CODPROD;
-				SET CURRENTDATE:=(SELECT CURDATE());
-				INSERT INTO PURCHASE VALUES 
-				(CODPROD,CODUSER,AMOUNT,PRICE,CURRENTDATE);
-				SET MESSAGE = "The stock of the product purchased was updated correctly.";
-		END IF;
-	ELSE
-		SET CODCOMP:=(SELECT CODCOMPONENT FROM COMPONENT WHERE NAMECOMP=NAMEC);
-		SET STOCKCHECK:=(SELECT STOCKCOMPONENT FROM COMPONENT WHERE CODCOMPONENT=CODCOMP);
-		SET CURRENTSTOCK:=((SELECT STOCKCOMPONENT FROM COMPONENT WHERE CODCOMPONENT=CODCOMP)-AMOUNT);
-		IF CURRENTSTOCK<STOCKCHECK AND NOT ERROR THEN
-			SET MESSAGE = "ERROR, the amount of the component you want to buy exceeds the component's total stock.";
-			SET ERROR=TRUE;
-		END IF;
-			
-		IF ERROR=FALSE THEN
-			UPDATE COMPONENT SET STOCKCOMPONENT=CURRENTSTOCK WHERE CODCOMPONENT=CODCOMP;
-			SET MESSAGE = "The stock of the component purchased was updated correctly.";
-		END IF;
+        -- Buscar el código del producto
+        SET CODPROD := (SELECT CODPRODUCT FROM PRODUCT WHERE TRIM(NAMEP) = TRIM(NAMEPROD) LIMIT 1);
+
+        -- Si el producto no existe, devolver error
+        IF CODPROD IS NULL THEN
+            SET MESSAGE = "ERROR: Product not found.";
+            SET ERROR = TRUE;
+        END IF;
+
+        -- Obtener stock actual
+        IF ERROR = FALSE THEN
+            SET STOCKCHECK := (SELECT STOCKPRODUCT FROM PRODUCT WHERE CODPRODUCT = CODPROD);
+            SET CURRENTSTOCK := STOCKCHECK - QUANTITY;
+            
+            -- Verificar si hay suficiente stock
+            IF CURRENTSTOCK < 0 THEN
+                SET MESSAGE = "ERROR: Not enough stock available.";
+                SET ERROR = TRUE;
+            END IF;
+        END IF;
+
+        -- Si no hay error, actualizar stock e insertar compra
+        IF ERROR = FALSE THEN
+            UPDATE PRODUCT SET STOCKPRODUCT = CURRENTSTOCK WHERE CODPRODUCT = CODPROD;
+            SET CURRENTDATE = CURDATE();
+            INSERT INTO PURCHASE VALUES (CODPROD, CODUSER, QUANTITY, TOTALPRICE, CURRENTDATE);
+            SET MESSAGE = "Purchase successful, stock updated.";
+        END IF;
+    ELSE
+        -- Manejo de componentes
+        SET CODCOMP := (SELECT CODCOMPONENT FROM COMPONENT WHERE TRIM(NAMECOMP) = TRIM(NAMEPROD) LIMIT 1);
+        
+        -- Si el componente no existe, devolver error
+        IF CODCOMP IS NULL THEN
+            SET MESSAGE = "ERROR: Component not found.";
+            SET ERROR = TRUE;
+        END IF;
+
+        -- Obtener stock actual
+        IF ERROR = FALSE THEN
+            SET STOCKCHECK := (SELECT STOCKCOMPONENT FROM COMPONENT WHERE CODCOMPONENT = CODCOMP);
+            SET CURRENTSTOCK := STOCKCHECK - QUANTITY;
+            
+            -- Verificar si hay suficiente stock
+            IF CURRENTSTOCK < 0 THEN
+                SET MESSAGE = "ERROR: Not enough component stock.";
+                SET ERROR = TRUE;
+            END IF;
+        END IF;
+
+        -- Si no hay error, actualizar stock
+        IF ERROR = FALSE THEN
+            UPDATE COMPONENT SET STOCKCOMPONENT = CURRENTSTOCK WHERE CODCOMPONENT = CODCOMP;
+            SET MESSAGE = "Component purchase successful, stock updated.";
+        END IF;
     END IF;
+    
     RETURN MESSAGE;
 END //
 DELIMITER ;
-
+SELECT sellAndSubstract(4321,'Iphone X',5,700,TRUE);
+DROP FUNCTION sellAndSubstract;
 Delimiter //
 CREATE PROCEDURE showProdsAndCompsOfAParticularBrand(brandName VARCHAR(15))
 BEGIN

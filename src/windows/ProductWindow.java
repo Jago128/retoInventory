@@ -151,8 +151,8 @@ public class ProductWindow extends JDialog implements ActionListener {
 		// Opens the window to add a new product
 		if (e.getSource()==btnAddNew) {			
 			boolean type = true;  // true = Product | false = Component
-			// AddNewWindow addNew = new AddNewWindow(this, cont, obtainNamePrice().getNameC(), type);
-			// addNew.setVisible(true);
+			 AddNewWindow addNew = new AddNewWindow(this, cont, obtainNamePrice().getNameP(), type);
+			 addNew.setVisible(true);
 		}
 		// Opens the window to delete
 		if (e.getSource()==btnRemove) {
