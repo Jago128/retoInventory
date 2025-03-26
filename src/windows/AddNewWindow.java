@@ -30,7 +30,7 @@ public class AddNewWindow extends JDialog implements ActionListener {
 	//SQLINSERTPROD = "INSERT INTO PRODUCT (NAMEP, TYPEP, PRICE, STOCK, CODBRAND) VALUES (?, ?, ?, ?, ?)";
 	//SQLINSERTCOMP = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, STOCKCOMPONENT, PRICECOMP, CODBRAND) VALUES (?, ?, ?, ?)";
 
-	public AddNewWindow(JDialog parent, LoginController cont, String name, boolean type) {
+	public AddNewWindow(JDialog parent, LoginController cont, User user, String name, boolean type) {
 		super(parent, true); // Blocks the father window
 		this.cont = cont;
 		this.cont = cont;
@@ -79,6 +79,12 @@ public class AddNewWindow extends JDialog implements ActionListener {
 		getContentPane().add(lblMessage);
 
 		// Text Fields
+		JLabel lblCodUser = new JLabel(user.getCodU());
+		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		lblCodUser.setBounds(375, 27, 81, 19);
+		getContentPane().add(lblCodUser);
+		
 		textName = new JTextField();
 		textName.setBounds(231, 68, 225, 29);
 		textName.setColumns(10);

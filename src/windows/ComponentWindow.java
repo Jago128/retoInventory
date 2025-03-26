@@ -151,8 +151,8 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		// Opens the window to add a new component
 		if (e.getSource()==btnAddNew) {			
 			boolean type = false;  // true = Product | false = Component
-			// AddNewWindow addNew = new AddNewWindow(this, cont, obtainNamePrice().getNameC(), type);
-			// addNew.setVisible(true);
+			AddNewWindow addNew = new AddNewWindow(this, cont, user, obtainNamePrice().getNameC(), type);
+			addNew.setVisible(true);
 		}
 		// Opens the window to delete
 		if (e.getSource()==btnRemove) {
