@@ -14,8 +14,10 @@ public class VerificationWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private LoginController cont;
-	private JLabel lblTitle, lblMensaje;
-	private JButton btnClose, btnSubmit;
+	private JLabel lblTitle;
+	private JLabel lblMensaje;
+	private JButton btnClose;
+	private JButton btnSubmit;
 	private JTextField textVerification;
 	private int cod;
 	private String name;
