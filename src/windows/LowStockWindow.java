@@ -51,5 +51,5 @@ public class LowStockWindow extends JDialog {
 		list = new JList<String>();
 		list.setBounds(10, 87, 446, 423);
 		getContentPane().add(list);
-		
 	}
+}
