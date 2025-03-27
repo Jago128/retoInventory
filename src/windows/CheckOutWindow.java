@@ -5,13 +5,12 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
 import controller.LoginController;
 import model.User;
 
 // CHECK OUT WINDOW 
 // Go to->(*close*)
-// Back to->(ProductWindow, ComponentWindow, BrandWindow)
+// Back to->(ProductWindow/ComponentWindow/BrandWindow)
 public class CheckOutWindow extends JDialog implements ActionListener, ChangeListener {
 
 	private static final long serialVersionUID = 1L;
@@ -23,6 +22,8 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 	private String name;
 	private double price;
 	private boolean type; // true = Product | false = Component
+
+	/*****[WINDOW CREATION]**************************************************************************************************/
 
 	public CheckOutWindow(JDialog parent, LoginController cont, User user, String name, double price, boolean type) {
 		super(parent, true); // Blocks the father window
@@ -99,10 +100,29 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 		btnClose.addActionListener(this);
 	}
 
+	/*****[METHODS]*********************************************************************************************************/
+
 	// Calculate price
-	public double calcPrice() {	
+	public double calcPrice() {	// Calculates the subtotal basing on the price of the product and the spinner's value
 		return price * (int) spinner.getValue();
 	}
+
+	// Refresh parent window list
+	public void refreshParentList() {
+		JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
+		if(parent instanceof ProductWindow){ // Checks the parent window type
+			ProductWindow productWindow = (ProductWindow)parent; // Cast it to its type to be able to use it's methods
+			productWindow.loadProductsList(); // Calls the parent method to reload the list
+		} else if (parent instanceof ComponentWindow){ 
+			ComponentWindow productWindow = (ComponentWindow)parent;
+			productWindow.loadComponents(); 
+		} else if (parent instanceof BrandWindow){ 
+			BrandWindow productWindow = (BrandWindow)parent;
+			productWindow.loadList(); 
+		}		
+	}
+
+	/*****[ACTION PERFORMER & CHANGE LISTENER]*******************************************************************************/
 
 	// Action performer
 	@Override
@@ -111,11 +131,12 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 		if (e.getSource() == btnClose) {
 			this.dispose();
 		}
-		//
+		// Calls the method that ejecutes the action on the DataBase
 		if (e.getSource() == btnSubmit) {
 			cont.sellAndSubstract(user.getCodU(), name, (int) spinner.getValue(), calcPrice(), type);
-			ContinueWindow next = new ContinueWindow(this, cont, user.getCodU());
+			ContinueWindow next = new ContinueWindow(this, cont, user, user.getCodU(), type);
 			next.setVisible(true);
+			refreshParentList();
 		}
 	}
 

@@ -2,12 +2,10 @@ package windows;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Map;
-
-import javax.swing.*;
-
-import controller.LoginController;
 import model.*;
+import javax.swing.*;
+import controller.LoginController;
+import java.util.Map;
 
 // SHOW LOW STOCK WINDOW  
 // Go to->(ReestockWindow)
@@ -22,6 +20,8 @@ public class LowStockWindow extends JDialog implements ActionListener {
 	private Map<String, Product> products;
 	private Map<String, Comp> components;
 	private User user;
+
+	/*****[WINDOW CREATION]**************************************************************************************************/
 
 	public LowStockWindow(JFrame parent, LoginController cont, User user) {
 		super(parent, true); // Blocks the father window
@@ -82,6 +82,7 @@ public class LowStockWindow extends JDialog implements ActionListener {
 		btnClose.addActionListener(this);
 	}
 
+	/*****[METHODS]*********************************************************************************************************/
 
 	// Loads the list
 	public void loadList() {	
@@ -102,7 +103,8 @@ public class LowStockWindow extends JDialog implements ActionListener {
 		list.setModel(model);
 	}	
 
-	// Action performer
+	/*****[ACTION PERFORMER]**************************************************************************************************/
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// Logs-Out and moves back to the Main Window

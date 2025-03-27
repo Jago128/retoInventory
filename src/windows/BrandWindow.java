@@ -2,15 +2,13 @@ package windows;
 
 import java.awt.*;
 import java.awt.event.*;
+import javax.swing.*;
+import model.*;
+import controller.LoginController;
 import java.util.Map;
 
-import javax.swing.*;
-
-import controller.LoginController;
-import model.*;
-
 // SHOW BY BRAND WINDOW  
-// Go to->(CheckOutWindow, NewItemWindow, VerificationWindow)
+// Go to->(CheckOutWindow, VerificationWindow)
 // Back to->(MainWindow, MenuWindow)
 public class BrandWindow extends JDialog implements ActionListener {
 
@@ -24,6 +22,8 @@ public class BrandWindow extends JDialog implements ActionListener {
 	private Map<String, Product> products;
 	private Map<String, Comp> components;
 	private User user;
+
+	/*****[WINDOW CREATION]**************************************************************************************************/
 
 	public BrandWindow(JFrame parent, LoginController cont, User user) {
 		super(parent, true); // Blocks the father window
@@ -110,6 +110,8 @@ public class BrandWindow extends JDialog implements ActionListener {
 		btnClose.addActionListener(this);
 	}
 
+	/*****[METHODS]*********************************************************************************************************/
+
 	// Loads the brands to the combo box
 	public void loadBrandsComboBox() {		
 		brands = cont.verifyBrands();
@@ -185,7 +187,8 @@ public class BrandWindow extends JDialog implements ActionListener {
 		return price;
 	}
 
-	// Action performer
+	/*****[ACTION PERFORMER]**************************************************************************************************/
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// Logs-Out and moves back to the Main Window
@@ -199,7 +202,8 @@ public class BrandWindow extends JDialog implements ActionListener {
 		// Closes the window
 		if (e.getSource()==btnClose) {
 			this.dispose();
-		} 		
+		}
+		// Refreshes the Products and components from the list
 		if(e.getSource()==comboBoxBrands) {
 			if (comboBoxBrands.getSelectedIndex()>-1) { // It will refresh and fill the list with items of the brand selected in the ComboBox
 				list.removeAll();			
@@ -221,8 +225,8 @@ public class BrandWindow extends JDialog implements ActionListener {
 		if (e.getSource()==btnRemove) {
 			if(!list.isSelectionEmpty()) { // If there is an item selected it will do the action
 				boolean type = false;  // true = Product | false = Component
-				//VerificationWindow checkOut = new VerificationWindow(this, cont, obtainNamePrice().getNameC(), type);
-				//checkOut.setVisible(true);
+				VerificationWindow checkOut = new VerificationWindow(this, cont, obtainName(), type);
+				checkOut.setVisible(true);
 			} else {
 				JOptionPane.showMessageDialog(null, "[ERROR] Select an item to delete");
 			}

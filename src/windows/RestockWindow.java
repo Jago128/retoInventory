@@ -2,9 +2,7 @@ package windows;
 
 import java.awt.*;
 import java.awt.event.*;
-
 import javax.swing.*;
-
 import controller.LoginController;
 import model.User;
 
@@ -23,6 +21,8 @@ public class RestockWindow extends JDialog implements ActionListener {
 	private int price;
 	private boolean type; // true = Product | false = Component
 	
+	/*****[WINDOW CREATION]**************************************************************************************************/
+
 	public RestockWindow(JDialog parent, LoginController cont, User user, String name, double price, boolean type) {
 		super(parent, true); // Blocks the father window
 		this.cont = cont;
@@ -84,7 +84,12 @@ public class RestockWindow extends JDialog implements ActionListener {
 		btnClose.addActionListener(this);
 	}
 	
-	// Action performer
+	/*****[METHODS]*********************************************************************************************************/
+
+	
+	
+	/*****[ACTION PERFORMER]**************************************************************************************************/
+
 	@Override
 	public void actionPerformed(ActionEvent e) {				
 		// Closes the window

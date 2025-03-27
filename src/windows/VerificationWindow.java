@@ -2,14 +2,13 @@ package windows;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Random;
 import javax.swing.*;
-
 import controller.LoginController;
+import java.util.Random;
 
 // VERIFICATION WINDOW  
 // Go to->(*close*)
-// Back to->(CheckOutWindow, NewItemWindow, VerificationWindow)
+// Back to->(ProductWindow/ComponentWindow/BrandWindow)
 public class VerificationWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -22,6 +21,8 @@ public class VerificationWindow extends JDialog implements ActionListener {
 	private int cod;
 	private String name;
 	private boolean type; // true = Product | false = Component
+
+	/*****[WINDOW CREATION]**************************************************************************************************/
 
 	public VerificationWindow(JDialog parent, LoginController cont, String name, boolean type) {
 		super(parent, true); // Blocks the father window
@@ -72,6 +73,8 @@ public class VerificationWindow extends JDialog implements ActionListener {
 		btnClose.addActionListener(this);
 	}
 
+	/*****[METHODS]*********************************************************************************************************/
+
 	// Generates a random code from 1 to 4 numbers
 	public int generateCode() {
 		Random random = new Random();
@@ -101,7 +104,23 @@ public class VerificationWindow extends JDialog implements ActionListener {
 		}
 	}
 
-	// Action performer
+	// Refresh parent window list
+	public void refreshParentList() {
+		JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
+		if(parent instanceof ProductWindow){ // Checks the parent window type
+			ProductWindow productWindow = (ProductWindow)parent; // Cast it to its type to be able to use it's methods
+			productWindow.loadProductsList(); // Calls the parent method to reload the list
+		} else if (parent instanceof ComponentWindow){ 
+			ComponentWindow productWindow = (ComponentWindow)parent;
+			productWindow.loadComponents(); 
+		} else if (parent instanceof BrandWindow){ 
+			BrandWindow productWindow = (BrandWindow)parent;
+			productWindow.loadList(); 
+		}		
+	}
+
+	/*****[ACTION PERFORMER]**************************************************************************************************/
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == btnClose) {
@@ -111,17 +130,18 @@ public class VerificationWindow extends JDialog implements ActionListener {
 		ver = textVerification.getText();
 		if (e.getSource() == btnSubmit && verifyCode(cod, ver)) {
 			deletion(cont, name, type);			
-			JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
+			/*JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
 			if(parent instanceof ProductWindow){ // Checks which type its
 				ProductWindow productWindow = (ProductWindow)parent;
-				productWindow.loadProductsList(); // Calls the prarent method to reload the list
+				productWindow.loadProductsList(); // Calls the parent method to reload the list
 			} else if (parent instanceof ComponentWindow){
 				ComponentWindow productWindow = (ComponentWindow)parent;
-				productWindow.loadComponents(); // Calls the prarent method to reload the list
+				productWindow.loadComponents(); // Calls the parent method to reload the list
 			} else if (parent instanceof BrandWindow){
 				BrandWindow productWindow = (BrandWindow)parent;
-				productWindow.loadList(); // Calls the prarent method to reload the list
-			}							
+				productWindow.loadList(); // Calls the parent method to reload the list
+			}*/
+			refreshParentList();
 			this.dispose();
 		} else {
 			lblMensaje.setText("Incorrect code");

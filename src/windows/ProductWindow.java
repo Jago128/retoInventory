@@ -3,11 +3,9 @@ package windows;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
-
-import javax.swing.*;
-
-import controller.LoginController;
 import model.*;
+import javax.swing.*;
+import controller.LoginController;
 
 // SHOW PRODUCT WINDOW  
 // Go to->(CheckOutWindow, NewItemWindow, VerificationWindow)
@@ -21,6 +19,8 @@ public class ProductWindow extends JDialog implements ActionListener {
 	private JList<String> list;
 	private Map<String, Product> products;	
 	private User user;
+
+	/*****[WINDOW CREATION]**************************************************************************************************/
 
 	public ProductWindow(JFrame parent, LoginController cont, User user) {
 		super(parent,true); // Blocks the father window
@@ -104,6 +104,8 @@ public class ProductWindow extends JDialog implements ActionListener {
 		btnClose.addActionListener(this);	
 	}
 
+	/*****[METHODS]*********************************************************************************************************/
+
 	// Loads the products to the list
 	public void loadProductsList() {
 		list.removeAll();
@@ -123,8 +125,9 @@ public class ProductWindow extends JDialog implements ActionListener {
 		product=cont.obtainProductNamePrice(list.getSelectedValue());
 		return product;
 	}
-	
-	// Action performer
+
+	/*****[ACTION PERFORMER]**************************************************************************************************/
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// Logs-Out and moves back to the Main Window	

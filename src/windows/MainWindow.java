@@ -4,9 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
-
-import controller.LoginController;
 import model.*;
+import controller.LoginController;
 
 // MAIN MENU WINDOW 
 // Go to->(MenuWindow, SignInWindow)
@@ -21,8 +20,10 @@ public class MainWindow extends JFrame implements ActionListener {
 	private JLabel lblMesageUp, lblMessageDown;
 	private LoginController cont;
 
-	public MainWindow(LoginController controlador) {
-		this.cont = controlador;
+	/*****[WINDOW CREATION]**************************************************************************************************/
+
+	public MainWindow(LoginController cont) {
+		this.cont = cont;
 
 		// Window
 		setTitle("LOGIN");
@@ -89,6 +90,8 @@ public class MainWindow extends JFrame implements ActionListener {
 		btnClose.addActionListener(this);
 	}
 
+	/*****[METHODS]*********************************************************************************************************/
+	
 	// Verifies the type of the user
 	public boolean verifyUserType(User user, boolean admin) {
 		if (cont.verifyUserType(user)) { // If is admin it will be true
@@ -99,7 +102,8 @@ public class MainWindow extends JFrame implements ActionListener {
 		return admin;
 	}
 
-	// Action performer
+	/*****[ACTION PERFORMER]**************************************************************************************************/	
+
 	public void actionPerformed(ActionEvent e) {
 		boolean admin = false;
 		// Closes the window
@@ -124,7 +128,7 @@ public class MainWindow extends JFrame implements ActionListener {
 				lblMessageDown.setText("To register go to Log-In.");
 			}
 		}
-		// Opens a new window to log-in
+		// Opens a new window to log-in for the new user to register
 		if (e.getSource() == btnSignIn) {
 			SignInWindow signIn = new SignInWindow(cont);
 			signIn.setVisible(true);

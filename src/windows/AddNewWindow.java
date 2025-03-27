@@ -2,15 +2,14 @@ package windows;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Map;
-
+import model.*;
 import javax.swing.*;
 import controller.LoginController;
-import model.*;
+import java.util.Map;
 
 // ADD NEW ITEM WINDOW 
 // Go to->(*close*)
-// Back to->(ProductWindow, ComponentWindow, BrandWindow)
+// Back to->(ProductWindow/ComponentWindow/BrandWindow)
 public class AddNewWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -25,6 +24,8 @@ public class AddNewWindow extends JDialog implements ActionListener {
 	private boolean type; // true = Product | false = Component
 	private TypeP productType;
 	private TypeC componentType;
+
+	/*****[WINDOW CREATION]**************************************************************************************************/
 
 	public AddNewWindow(JDialog parent, LoginController cont, User user, String name, boolean type) {
 		super(parent, true); // Blocks the father window
@@ -160,6 +161,8 @@ public class AddNewWindow extends JDialog implements ActionListener {
 		btnClose.addActionListener(this);
 	}
 
+	/*****[METHODS]*********************************************************************************************************/
+
 	// Verifying the type true = Product | false = Component
 	public String verifyType(boolean type) {
 		if (type) {
@@ -247,7 +250,23 @@ public class AddNewWindow extends JDialog implements ActionListener {
 		return cont.getBrandCode(brandName);
 	}
 
-	// Action performer
+	// Refresh parent window list
+	public void refreshParentList() {
+		JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
+		if(parent instanceof ProductWindow){ // Checks the parent window type
+			ProductWindow productWindow = (ProductWindow)parent; // Cast it to its type to be able to use it's methods
+			productWindow.loadProductsList(); // Calls the parent method to reload the list
+		} else if (parent instanceof ComponentWindow){ 
+			ComponentWindow productWindow = (ComponentWindow)parent;
+			productWindow.loadComponents(); 
+		} else if (parent instanceof BrandWindow){ 
+			BrandWindow productWindow = (BrandWindow)parent;
+			productWindow.loadList(); 
+		}		
+	}
+
+	/*****[ACTION PERFORMER]**************************************************************************************************/
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// Closes the window
@@ -262,7 +281,7 @@ public class AddNewWindow extends JDialog implements ActionListener {
 					Product product = new Product(textName.getText(), productType, (double)spinnerPrice.getValue(), (int)spinnerQuantity.getValue(), setBrandCode());
 					cont.insertProd(product);
 					JOptionPane.showMessageDialog(null, "Product "+product.getNameP()+" with price "+product.getPrice()+"€ added with "+product.getStock()+" units of stock succesfully");
-					JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
+					/*JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
 					if(parent instanceof ProductWindow){
 						ProductWindow productWindow = (ProductWindow)parent;
 						productWindow.loadProductsList();
@@ -272,23 +291,25 @@ public class AddNewWindow extends JDialog implements ActionListener {
 					} else if (parent instanceof BrandWindow){
 						BrandWindow productWindow = (BrandWindow)parent;
 						productWindow.loadList();
-					}	
+					}*/
+					refreshParentList();
 					this.dispose();
 				} else {
 					Comp component = new Comp(textName.getText(), componentType, setBrandCode(), (int)spinnerQuantity.getValue(), (double)spinnerPrice.getValue()); // String nameC, TypeC typeC, int codBrand, int stock, double price
 					cont.insertComp(component);
 					JOptionPane.showMessageDialog(null, "Component "+component.getNameC()+" with price "+component.getPrice()+"€ added with "+component.getStock()+" units of stock succesfully");
-					JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
+					/*JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
 					if(parent instanceof ProductWindow){ // Checks which type its
 						ProductWindow productWindow = (ProductWindow)parent;
-						productWindow.loadProductsList(); // Calls the prarent method to reload the list
+						productWindow.loadProductsList(); // Calls the parent method to reload the list
 					} else if (parent instanceof ComponentWindow){
 						ComponentWindow productWindow = (ComponentWindow)parent;
-						productWindow.loadComponents(); // Calls the prarent method to reload the list
+						productWindow.loadComponents(); // Calls the parent method to reload the list
 					} else if (parent instanceof BrandWindow){
 						BrandWindow productWindow = (BrandWindow)parent;
-						productWindow.loadList(); // Calls the prarent method to reload the list
-					}	
+						productWindow.loadList(); // Calls the parent method to reload the list
+					}*/	
+					refreshParentList();
 					this.dispose();
 				}
 			} else {

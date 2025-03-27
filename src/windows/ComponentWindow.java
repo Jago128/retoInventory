@@ -2,12 +2,10 @@ package windows;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Map;
-
-import javax.swing.*;
-
-import controller.LoginController;
 import model.*;
+import javax.swing.*;
+import controller.LoginController;
+import java.util.Map;
 
 // SHOW COMPONENT WINDOW  
 // Go to->(CheckOutWindow, NewItemWindow, VerificationWindow)
@@ -21,6 +19,8 @@ public class ComponentWindow extends JDialog implements ActionListener {
 	private JList<String> list;
 	private Map<String, Comp> components;
 	private User user;
+
+	/*****[WINDOW CREATION]**************************************************************************************************/
 
 	public ComponentWindow(JFrame parent, LoginController cont, User user) {
 		super(parent, true); // Blocks the father window
@@ -104,6 +104,8 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		btnClose.addActionListener(this);
 	}
 
+	/*****[METHODS]*********************************************************************************************************/
+
 	// Loads the components to the list
 	public void loadComponents() {
 		list.removeAll();
@@ -124,7 +126,8 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		return component;
 	}
 
-	// Action performer
+	/*****[ACTION PERFORMER]**************************************************************************************************/
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// Logs-Out and moves back to the Main Window

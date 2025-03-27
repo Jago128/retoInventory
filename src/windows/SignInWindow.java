@@ -18,6 +18,8 @@ public class SignInWindow extends JDialog implements ActionListener {
 	private JPasswordField password, passwordConfirmation;	
 	private JButton btnClose, btnSubmit;
 
+	/*****[WINDOW CREATION]**************************************************************************************************/
+	
 	public SignInWindow(LoginController cont) {
 		this.cont = cont;
 
@@ -94,6 +96,8 @@ public class SignInWindow extends JDialog implements ActionListener {
 		btnClose.addActionListener(this);
 	}
 
+	/*****[METHODS]*********************************************************************************************************/	
+	
 	// Verifying the password is equal in both text fields
 	public boolean verifyPassword(String password, String passwordConf) {
 		boolean correcta;
@@ -106,7 +110,8 @@ public class SignInWindow extends JDialog implements ActionListener {
 		return correcta;
 	}
 
-	// Action performer
+	/*****[ACTION PERFORMER]**************************************************************************************************/
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// Closes the window

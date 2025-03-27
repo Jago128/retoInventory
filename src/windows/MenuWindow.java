@@ -4,9 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
-
-import controller.LoginController;
 import model.*;
+import controller.LoginController;
 
 // MENU WINDOW 
 // Go to->(ProductWindow, ComponentWindow, BrandWindow, LowStockWindow)
@@ -18,6 +17,8 @@ public class MenuWindow extends JFrame implements ActionListener {
 	private LoginController cont;
 	private JButton btnLogOut, btnProducts, btnComponents, btnBrands, btnCheckStock, btnClose;
 	private User user;
+
+	/*****[WINDOW CREATION]**************************************************************************************************/
 
 	public MenuWindow(User user, LoginController controlador) {
 		this.cont = controlador;
@@ -98,7 +99,8 @@ public class MenuWindow extends JFrame implements ActionListener {
 		btnClose.addActionListener(this);
 	}
 
-	// Action performer
+	/*****[ACTION PERFORMER]**************************************************************************************************/
+
 	public void actionPerformed(ActionEvent e) {
 		// Logs-Out and moves back to the Main Window
 		if (e.getSource() == btnLogOut) {
@@ -126,7 +128,7 @@ public class MenuWindow extends JFrame implements ActionListener {
 			brand.setVisible(true);
 		}
 		// Opens the window of the low stock window (only visible with admin users)
-		if (e.getSource() == btnCheckStock) {
+		if (e.getSource() == btnCheckStock) { // The admin variable is sent to show or not certain option in the next windows
 			LowStockWindow lowStock = new LowStockWindow(this, cont, user);
 			lowStock.setVisible(true);
 		}
