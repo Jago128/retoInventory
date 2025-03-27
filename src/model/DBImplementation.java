@@ -40,15 +40,10 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLINSERTCOMP = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, STOCKCOMPONENT, PRICECOMP, CODBRAND) VALUES (?,?,?,?,?)";
 	final String SQLDELETECOMP = "CALL deleteComp(?)";
 	final String SQLSELECTCOMPONENTNAMEPRICE = "SELECT nameComp, priceComp FROM component WHERE nameComp = ?";
-	
+
 	// Product and Component related stuff
-	final String SQLSELL = "SELECT CODPRODUCT, STOCKPRODUCT FROM PRODUCT WHERE NAMEP=?";
-	final String SQLSELLUPDATE = "UPDATE PRODUCT SET STOCKPRODUCT=? WHERE CODPRODUCT=?";
-	final String SQLSELLINSERT = "INSERT INTO PURCHASE (CODPRODUCT,CODUSER,QUANTITY,TOTALPRICE,DATEP) VALUES (?,?,?,?,?)";
-	final String SQLBUY = "SELECT CODCOMPONENT, STOCKCOMPONENT FROM COMPONENT WHERE NAMECOMP=?";
-	final String SQLBUYUPDATE = "UPDATE COMPONENT SET STOCKCOMPONENT=? WHERE CODCOMPONENT=?";
-	final String SQLBUYINSERT = "INSERT INTO BUY (CODCOMPONENT,CODUSER,QUANTITY,TOTALPRICE,DATEP) VALUES (?,?,?,?,?)";
-	
+	final String SQLSELL = "SELECT sellAndSubstract(?,?,?,?,?)";
+
 	// BRAND
 	final String SQLSELECTBRAND = "SELECT * FROM brand";
 	final String SQLSELECTBRANDCODE = "SELECT CODBRAND FROM BRAND WHERE NAMEBRAND = ?";
@@ -470,89 +465,24 @@ public class DBImplementation implements MediaMartaDAO {
 	public boolean sellAndSubstract(String codUser, String nomItem, int amount, double price, boolean type) {
 		// Open connection and declare a boolean to check if the update is properly executed
 		boolean check = false;
-		int codItem, stock;
 
 		this.openConnection();
 		try {
-			if (type) {
-				// Prepares the SQL query to get the product
-				stmt = con.prepareStatement(SQLSELL);
-				stmt.setString(1, nomItem);
-				ResultSet rs = stmt.executeQuery();
-				codItem = rs.getInt("CODPRODUCT");
-				stock = rs.getInt("STOCKPRODUCT");
-				if (rs.next()) {
-					check = true;
-				}
-				// Closes the first statement
-				rs.close();
-				stmt.close();
-				
-				stock = stock - amount;
-				stmt = con.prepareStatement(SQLSELLUPDATE);
-				stmt.setInt(1, stock);
-				stmt.setInt(2, codItem);
-				if (stmt.executeUpdate()>0) {
-					check = true;
-				}
-				// Closes the second statement
-				stmt.close();
-				
-				java.util.Date dates = new java.util.Date();
-				java.sql.Date mySQLDate = new java.sql.Date(dates.getTime());
-				stmt = con.prepareStatement(SQLSELLINSERT);
-				stmt.setInt(1, codItem);
-				stmt.setString(2, codUser);
-				stmt.setInt(3, stock);
-				stmt.setDouble(4, price);
-				stmt.setDate(5, mySQLDate);
-				if (stmt.executeUpdate()>0) {
-					check = true;
-				}
-				// Closes the third statement
-				stmt.close();
-			} else {
-				stmt = con.prepareStatement(SQLBUY);
-				stmt.setString(1, nomItem);
-				ResultSet rs = stmt.executeQuery();
-				codItem = rs.getInt("CODPRODUCT");
-				stock = rs.getInt("STOCKPRODUCT");
-				if (rs.next()) {
-					check = true;
-				}
-				// Closes the first statement
-				rs.close();
-				stmt.close();
-				
-				stock = stock - amount;
-				stmt = con.prepareStatement(SQLBUYUPDATE);
-				stmt.setInt(1, stock);
-				stmt.setInt(2, codItem);
-				if (stmt.executeUpdate()>0) {
-					check = true;
-				}
-				// Closes the second statement
-				stmt.close();
-				
-				java.util.Date dates = new java.util.Date();
-				java.sql.Date mySQLDate = new java.sql.Date(dates.getTime());
-				stmt = con.prepareStatement(SQLBUYINSERT);
-				stmt.setInt(1, codItem);
-				stmt.setString(2, codUser);
-				stmt.setInt(3, stock);
-				stmt.setDouble(4, price);
-				stmt.setDate(5, mySQLDate);
-				if (stmt.executeUpdate()>0) {
-					check = true;
-				}
-				// Closes the third statement
-				stmt.close();
+			// Prepares the SQL query
+			stmt = con.prepareStatement(SQLSELL);
+			stmt.setString(1, codUser);
+			stmt.setString(2, nomItem);
+			stmt.setInt(3, amount);
+			stmt.setDouble(4, price);
+			stmt.setBoolean(5, check);
+			ResultSet rs = stmt.executeQuery();
+			if (rs.getString(1).equals("Purchase successful, product stock updated.")||rs.getString(1).equals("Purchase successful, component stock updated.")) {
+				check=true;
 			}
-			// Closes the connection
+			stmt.close();
 			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
-			check = false;
 		}
 		return check;
 	}

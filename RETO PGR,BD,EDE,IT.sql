@@ -283,7 +283,7 @@ BEGIN
             UPDATE PRODUCT SET STOCKPRODUCT = CURRENTSTOCK WHERE CODPRODUCT = CODPROD;
             SET CURRENTDATE = CURDATE();
             INSERT INTO PURCHASE (CODPRODUCT,CODUSER,QUANTITY,TOTALPRICE,DATEP) VALUES (CODPROD, CODUSER, QUANTITY, TOTALPRICE, CURRENTDATE);
-            SET MESSAGE = "Purchase successful, stock updated.";
+            SET MESSAGE = "Purchase successful, product stock updated.";
         END IF;
     ELSE
         -- Manejo de componentes
@@ -312,7 +312,7 @@ BEGIN
             UPDATE COMPONENT SET STOCKCOMPONENT = CURRENTSTOCK WHERE CODCOMPONENT = CODCOMP;
             SET CURRENTDATE = CURDATE();
             INSERT INTO BUY (CODCOMPONENT,CODUSER,QUANTITY,TOTALPRICE,DATEB) VALUES (CODCOMP, CODUSER, QUANTITY, TOTALPRICE, CURRENTDATE);
-            SET MESSAGE = "Component purchase successful, stock updated.";
+            SET MESSAGE = "Purchase successful, component stock updated.";
         END IF;
     END IF;
     
