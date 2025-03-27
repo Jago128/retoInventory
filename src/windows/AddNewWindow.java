@@ -25,7 +25,7 @@ public class AddNewWindow extends JDialog implements ActionListener {
 	private boolean type;  // true = Product | false = Component
 	private TypeP productType;
 	private TypeC componentType;
-	
+
 
 	//SQLINSERTPROD = "INSERT INTO PRODUCT (NAMEP, TYPEP, PRICE, STOCK, CODBRAND) VALUES (?, ?, ?, ?, ?)";
 	//SQLINSERTCOMP = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, STOCKCOMPONENT, PRICECOMP, CODBRAND) VALUES (?, ?, ?, ?)";
@@ -74,8 +74,9 @@ public class AddNewWindow extends JDialog implements ActionListener {
 		getContentPane().add(lblBrand);
 
 		lblMessage = new JLabel("");
+		lblMessage.setForeground(Color.RED);
 		lblMessage.setBounds(10, 313, 446, 34);
-		lblMessage.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		lblMessage.setFont(new Font("Times New Roman", Font.PLAIN, 14));
 		getContentPane().add(lblMessage);
 
 		// Text Fields
@@ -84,12 +85,12 @@ public class AddNewWindow extends JDialog implements ActionListener {
 		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		lblCodUser.setBounds(375, 27, 81, 19);
 		getContentPane().add(lblCodUser);
-		
+
 		textName = new JTextField();
 		textName.setBounds(231, 68, 225, 29);
 		textName.setColumns(10);
 		getContentPane().add(textName);
-		
+
 		// Radio Buttons
 		rdbtnA = new JRadioButton("");
 		rdbtnA.setFont(new Font("Times New Roman", Font.ITALIC, 12));
@@ -191,6 +192,8 @@ public class AddNewWindow extends JDialog implements ActionListener {
 			lblName.setForeground(Color.RED);
 			return false;
 		} else {
+			lblName.setText(" NAME:");
+			lblName.setForeground(Color.BLACK);
 			return true;
 		}
 	}
@@ -198,6 +201,8 @@ public class AddNewWindow extends JDialog implements ActionListener {
 	// Verifies the Type field
 	public boolean verifyCredentialsType() {			
 		if (rdbtnA.isSelected() || rdbtnB.isSelected() || rdbtnC.isSelected()) {						
+			lblType.setText(" TYPE:");
+			lblType.setForeground(Color.BLACK);
 			return true;
 		} else {
 			lblType.setText("*TYPE:");
@@ -235,16 +240,18 @@ public class AddNewWindow extends JDialog implements ActionListener {
 			lblBrand.setForeground(Color.RED);
 			return false;
 		} else {
+			lblBrand.setText(" BRAND:");
+			lblBrand.setForeground(Color.BLACK);
 			return true;
 		}
 	}
-	
+
 	// Gets the Brand code
-		public int setBrandCode() {	
-			String brandName = (String)comboBoxBrands.getSelectedItem();
-			System.out.print(brandName);
-			return cont.getBrandCode(brandName);
-		}
+	public int setBrandCode() {	
+		String brandName = (String)comboBoxBrands.getSelectedItem();
+		System.out.print(brandName);
+		return cont.getBrandCode(brandName);
+	}
 
 	// Action performer
 	@Override
@@ -260,36 +267,17 @@ public class AddNewWindow extends JDialog implements ActionListener {
 				if(type) { // If all fields are filled depending on the choices will create the Product or Component to add it to the database
 					Product product = new Product(textName.getText(), productType, (double)spinnerPrice.getValue(), (int)spinnerQuantity.getValue(), setBrandCode());
 					cont.insertProd(product);
+					JOptionPane.showMessageDialog(null, "Component "+product.getNameP()+" added with "+product.getStock()+" units of stock");					
+					this.dispose();
 				} else {					
 					Comp component = new Comp(textName.getText(), componentType, setBrandCode(), (int)spinnerQuantity.getValue(), (double)spinnerPrice.getValue()); //String nameC, TypeC typeC, int codBrand, int stock, double price
 					cont.insertComp(component);
+					JOptionPane.showMessageDialog(null, "Component "+component.getNameC()+" added with "+component.getStock()+" units of stock");					
+					this.dispose();
 				}
 			} else {
 				lblMessage.setText("Required parameters must be filled to submit");
 			}
 		}
-
-		/*if (e.getSource() == btnSubmit) { // Verifies all the text fields are filled
-			if (textName==null || textName.getText().equals("") || comboBoxBrands.getSelectedIndex()==-1) {
-				lblMessage.setText("Required parameters must be filled to submit");
-				if(textName==null || textName.equals("")) {
-					lblName.setText("*NAME:");
-					lblName.setForeground(Color.RED);
-				}	
-				if(comboBoxBrands.getSelectedIndex()==-1) {
-					lblBrand.setText("*BRAND:");
-					lblBrand.setForeground(Color.RED);
-				}
-			} else { // If all fields are filled depending on the choices will create the Product or Component to add it to the database
-				setType();
-				if(type) { // If all fields are filled depending on the choices will create the Product or Component to add it to the database
-					Product product = new Product(textName.getText(), productType, (double)spinnerPrice.getValue(), (int)spinnerQuantity.getValue(), setBrandCode());
-					cont.insertProd(product);
-				} else {					
-					Comp component = new Comp(textName.getText(), componentType, setBrandCode(), (int)spinnerQuantity.getValue(), (double)spinnerPrice.getValue()); //String nameC, TypeC typeC, int codBrand, int stock, double price
-					cont.insertComp(component);
-				}
-			}
-		}*/
 	}
 }
