@@ -63,7 +63,7 @@ public class BrandWindow extends JDialog implements ActionListener {
 		loadBrandsComboBox();		
 
 		list = new JList<String>();
-		list.setBounds(5, 150, 446, 343);
+		list.setBounds(10, 156, 446, 354);
 		getContentPane().add(list);		
 
 		// Buttons
