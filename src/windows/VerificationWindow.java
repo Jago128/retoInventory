@@ -111,6 +111,13 @@ public class VerificationWindow extends JDialog implements ActionListener {
 		ver = textVerification.getText();
 		if (e.getSource() == btnSubmit && verifyCode(cod, ver)) {
 			deletion(cont, name, type);
+			
+			JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
+			if(parent instanceof ProductWindow){
+				ProductWindow productWindow = (ProductWindow)parent;
+				productWindow.loadProductsList();
+			}				
+			
 			this.dispose();
 		} else {
 			lblMensaje.setText("Incorrect code");

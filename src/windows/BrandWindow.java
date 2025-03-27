@@ -122,7 +122,8 @@ public class BrandWindow extends JDialog implements ActionListener {
 	}
 
 	// Loads the list
-	public void loadList() {	
+	public void loadList() {
+		list.removeAll();
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		products = cont.showProductsBrand((String)comboBoxBrands.getSelectedItem()); 
 		components = cont.showComponentsBrand((String)comboBoxBrands.getSelectedItem()); 
