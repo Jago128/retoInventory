@@ -5,7 +5,7 @@ CREATE TABLE USER (
     CODUSER VARCHAR(20) PRIMARY KEY,
     USERNAME VARCHAR(30),
     PSW VARCHAR(15),
-    TYPE_U ENUM('Client', 'Admin')
+    TYPE_U ENUM('Client', 'Admin' )
 );
 
 CREATE TABLE BRAND (
@@ -52,15 +52,18 @@ CREATE TABLE COMPONENT (
         ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-CREATE TABLE CONTAIN (
-    CODPRODUCT INT,
+CREATE TABLE BUY (
+    CODBUY INT AUTO_INCREMENT PRIMARY KEY,
     CODCOMPONENT INT,
-    PRIMARY KEY (CODPRODUCT , CODCOMPONENT),
-    FOREIGN KEY (CODPRODUCT)
-        REFERENCES PRODUCT (CODPRODUCT)
-        ON UPDATE CASCADE ON DELETE CASCADE,
+    CODUSER VARCHAR(20),
+    QUANTITY INT,
+    TOTALPRICE DOUBLE,
+    DATEB DATE,
     FOREIGN KEY (CODCOMPONENT)
         REFERENCES COMPONENT (CODCOMPONENT)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (CODUSER)
+        REFERENCES USER (CODUSER)
         ON UPDATE CASCADE ON DELETE CASCADE
 );
 
@@ -96,16 +99,18 @@ INSERT INTO PURCHASE (CODPRODUCT,CODUSER,QUANTITY,TOTALPRICE,DATEP) VALUES
 (4,'Pakete7',2, 1100,'2025-02-25');
 
 INSERT INTO COMPONENT (NAMECOMP,TYPEC,CODBRAND,STOCKCOMPONENT,PRICECOMP) VALUES 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ("Asus GT710","Graphics",5,4,81.99),
-("Intel Core i5-13400","Processor",6,5,170),
+("Asus GT710","Graphics",5,10,81.99),
+("Intel Core i5-13400","Processor",6,15,170),
 ("ESC 4000 G4X","RAM",5,10,110.99),
 ("OFFTEK 8GB","RAM",5,12,30),
-("ASUS Dual RTX 4060 TI","Graphics",5,3,81.99),
+("ASUS Dual RTX 4060 TI","Graphics",5,7,81.99),
 ("Ultra 9 285K","Processor",6,4,665);
 
-INSERT INTO CONTAIN VALUES 
-(4,2),
-(3,5);
+INSERT INTO BUY (CODCOMPONENT,CODUSER,QUANTITY,TOTALPRICE,DATEB) VALUES
+(5,'Xabitxu',5, 409.95,'2025-02-20'),
+(4,'Jago128',2, 60,'2025-01-04'),
+(1,'BoliBick',1, 81.99,'2025-03-03'),
+(2,'PepGuardiola',9, 1530,'2025-02-25');
 
 Delimiter //
 CREATE PROCEDURE signIn (UCOD VARCHAR(20), UNAME VARCHAR(30), UPSW VARCHAR(15))
@@ -312,7 +317,9 @@ BEGIN
     RETURN MESSAGE;
 END //
 DELIMITER ;
-
+SELECT sellAndSubstract('BoliBick','Asus GT710',2,81.99,FALSE);
+SELECT * FROM BUY;
+DROP FUNCTION sellAndSubstract;
 Delimiter //
 CREATE PROCEDURE showLowStock()  
 BEGIN
