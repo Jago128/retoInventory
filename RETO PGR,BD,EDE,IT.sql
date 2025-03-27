@@ -5,7 +5,7 @@ CREATE TABLE USER (
     CODUSER VARCHAR(20) PRIMARY KEY,
     USERNAME VARCHAR(30),
     PSW VARCHAR(15),
-    TYPE_U ENUM('Client', 'Admin')
+    TYPE_U ENUM('Client', 'Admin' )
 );
 
 CREATE TABLE BRAND (
@@ -52,15 +52,18 @@ CREATE TABLE COMPONENT (
         ON UPDATE CASCADE ON DELETE CASCADE
 );
 
-CREATE TABLE CONTAIN (
-    CODPRODUCT INT,
+CREATE TABLE BUY (
+    CODBUY INT AUTO_INCREMENT PRIMARY KEY,
     CODCOMPONENT INT,
-    PRIMARY KEY (CODPRODUCT , CODCOMPONENT),
-    FOREIGN KEY (CODPRODUCT)
-        REFERENCES PRODUCT (CODPRODUCT)
-        ON UPDATE CASCADE ON DELETE CASCADE,
+    CODUSER VARCHAR(20),
+    QUANTITY INT,
+    TOTALPRICE DOUBLE,
+    DATEB DATE,
     FOREIGN KEY (CODCOMPONENT)
         REFERENCES COMPONENT (CODCOMPONENT)
+        ON UPDATE CASCADE ON DELETE CASCADE,
+    FOREIGN KEY (CODUSER)
+        REFERENCES USER (CODUSER)
         ON UPDATE CASCADE ON DELETE CASCADE
 );
 
@@ -96,16 +99,18 @@ INSERT INTO PURCHASE (CODPRODUCT,CODUSER,QUANTITY,TOTALPRICE,DATEP) VALUES
 (4,'Pakete7',2, 1100,'2025-02-25');
 
 INSERT INTO COMPONENT (NAMECOMP,TYPEC,CODBRAND,STOCKCOMPONENT,PRICECOMP) VALUES 
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ("Asus GT710","Graphics",5,4,81.99),
+("Asus GT710","Graphics",5,4,81.99),
 ("Intel Core i5-13400","Processor",6,5,170),
 ("ESC 4000 G4X","RAM",5,10,110.99),
 ("OFFTEK 8GB","RAM",5,12,30),
 ("ASUS Dual RTX 4060 TI","Graphics",5,3,81.99),
 ("Ultra 9 285K","Processor",6,4,665);
 
-INSERT INTO CONTAIN VALUES 
-(4,2),
-(3,5);
+INSERT INTO BUY (CODCOMPONENT,CODUSER,QUANTITY,TOTALPRICE,DATEP) VALUES
+(5,'Xabitxu',5, 409.95,'2025-02-20'),
+(4,'Jago128',2, 60,'2025-01-04'),
+(1,'BoliBick',1, 81.99,'2025-03-03'),
+(2,'PepGuardiola',9, 1530,'2025-02-25');
 
 Delimiter //
 CREATE PROCEDURE signIn (UCOD VARCHAR(20), UNAME VARCHAR(30), UPSW VARCHAR(15))
@@ -255,7 +260,7 @@ BEGIN
     
 	SET TOTALPRICE = PRICE * QUANTITY;
     IF PROD THEN
-        SET CODPROD := (SELECT CODPRODUCT FROM PRODUCT WHERE TRIM(NAMEP) = TRIM(NAME_I) LIMIT 1);
+        SET CODPROD:=(SELECT CODPRODUCT FROM PRODUCT WHERE TRIM(NAMEP) = TRIM(NAME_I) LIMIT 1);
 
         IF CODPROD IS NULL THEN
             SET MESSAGE = "ERROR: Product not found.";
@@ -263,8 +268,8 @@ BEGIN
         END IF;
 
         IF ERROR = FALSE THEN
-            SET STOCKCHECK := (SELECT STOCKPRODUCT FROM PRODUCT WHERE CODPRODUCT = CODPROD);
-            SET CURRENTSTOCK := STOCKCHECK - QUANTITY;
+            SET STOCKCHECK:=(SELECT STOCKPRODUCT FROM PRODUCT WHERE CODPRODUCT = CODPROD);
+            SET CURRENTSTOCK:=STOCKCHECK - QUANTITY;
             
             -- Verificar si hay suficiente stock
             IF CURRENTSTOCK < 0 THEN
@@ -282,7 +287,7 @@ BEGIN
         END IF;
     ELSE
         -- Manejo de componentes
-        SET CODCOMP := (SELECT CODCOMPONENT FROM COMPONENT WHERE TRIM(NAMECOMP) = TRIM(NAME_I) LIMIT 1);
+        SET CODCOMP:=(SELECT CODCOMPONENT FROM COMPONENT WHERE TRIM(NAMECOMP) = TRIM(NAME_I) LIMIT 1);
         
         -- Si el componente no existe, devolver error
         IF CODCOMP IS NULL THEN
@@ -292,8 +297,8 @@ BEGIN
 
         -- Obtener stock actual
         IF ERROR = FALSE THEN
-            SET STOCKCHECK := (SELECT STOCKCOMPONENT FROM COMPONENT WHERE CODCOMPONENT = CODCOMP);
-            SET CURRENTSTOCK := STOCKCHECK - QUANTITY;
+            SET STOCKCHECK:=(SELECT STOCKCOMPONENT FROM COMPONENT WHERE CODCOMPONENT = CODCOMP);
+            SET CURRENTSTOCK:=STOCKCHECK - QUANTITY;
             
             -- Verificar si hay suficiente stock
             IF CURRENTSTOCK < 0 THEN
@@ -305,6 +310,8 @@ BEGIN
         -- Si no hay error, actualizar stock
         IF ERROR = FALSE THEN
             UPDATE COMPONENT SET STOCKCOMPONENT = CURRENTSTOCK WHERE CODCOMPONENT = CODCOMP;
+            SET CURRENTDATE = CURDATE();
+            INSERT INTO BUY (CODCOMPONENT,CODUSER,QUANTITY,TOTALPRICE,DATEP) VALUES (CODCOMP, CODUSER, QUANTITY, TOTALPRICE, CURRENTDATE);
             SET MESSAGE = "Component purchase successful, stock updated.";
         END IF;
     END IF;
