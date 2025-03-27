@@ -279,15 +279,15 @@ public class AddNewWindow extends JDialog implements ActionListener {
 					cont.insertComp(component);
 					JOptionPane.showMessageDialog(null, "Component "+component.getNameC()+" with price "+component.getPrice()+"€ added with "+component.getStock()+" units of stock succesfully");
 					JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
-					if(parent instanceof ProductWindow){
+					if(parent instanceof ProductWindow){ // Checks which type its
 						ProductWindow productWindow = (ProductWindow)parent;
-						productWindow.loadProductsList();
+						productWindow.loadProductsList(); // Calls the prarent method to reload the list
 					} else if (parent instanceof ComponentWindow){
 						ComponentWindow productWindow = (ComponentWindow)parent;
-						productWindow.loadComponents();
+						productWindow.loadComponents(); // Calls the prarent method to reload the list
 					} else if (parent instanceof BrandWindow){
 						BrandWindow productWindow = (BrandWindow)parent;
-						productWindow.loadList();
+						productWindow.loadList(); // Calls the prarent method to reload the list
 					}	
 					this.dispose();
 				}

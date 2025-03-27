@@ -112,15 +112,15 @@ public class VerificationWindow extends JDialog implements ActionListener {
 		if (e.getSource() == btnSubmit && verifyCode(cod, ver)) {
 			deletion(cont, name, type);			
 			JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
-			if(parent instanceof ProductWindow){
+			if(parent instanceof ProductWindow){ // Checks which type its
 				ProductWindow productWindow = (ProductWindow)parent;
-				productWindow.loadProductsList();
+				productWindow.loadProductsList(); // Calls the prarent method to reload the list
 			} else if (parent instanceof ComponentWindow){
 				ComponentWindow productWindow = (ComponentWindow)parent;
-				productWindow.loadComponents();
+				productWindow.loadComponents(); // Calls the prarent method to reload the list
 			} else if (parent instanceof BrandWindow){
 				BrandWindow productWindow = (BrandWindow)parent;
-				productWindow.loadList();
+				productWindow.loadList(); // Calls the prarent method to reload the list
 			}							
 			this.dispose();
 		} else {
