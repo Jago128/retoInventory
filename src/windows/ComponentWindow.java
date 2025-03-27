@@ -106,6 +106,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 
 	// Loads the components to the list
 	public void loadComponents() {
+		list.removeAll();
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		components = cont.verifyComponent();
 		if (!components.isEmpty()) {

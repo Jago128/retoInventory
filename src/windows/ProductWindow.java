@@ -106,6 +106,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 
 	// Loads the products to the list
 	public void loadProductsList() {
+		list.removeAll();
 		DefaultListModel<String> model = new DefaultListModel<String>();
 		products = cont.verifyProduct();
 		if(!products.isEmpty()) {
