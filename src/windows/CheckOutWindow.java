@@ -119,6 +119,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 		}
 	}
 
+	// Change listener
 	@Override
 	public void stateChanged(ChangeEvent e) {
 		// Closes the window
