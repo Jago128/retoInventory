@@ -1,6 +1,8 @@
 package windows;
 
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.Map;
 
 import javax.swing.*;
@@ -15,20 +17,22 @@ import model.User;
 // SHOW LOW STOCK WINDOW  
 // Go to->(ReestockWindow)
 // Back to->(CheckOutWindow, NewItemWindow, VerificationWindow)
-public class LowStockWindow extends JDialog {
+public class LowStockWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private LoginController cont;
 	private JLabel lblMediaMarta, lblLowStock;
-	private JButton btnLogOut, btnBuy, btnClose;
-	private JComboBox <String> comboBoxBrands;
+	private JButton btnLogOut, btnRestock, btnClose;
 	private JList<String> list;
-	private Map<String, Brand> brands;
 	private Map<String, Product> products;
 	private Map<String, Comp> components;
 	private User user;
 
-	public LowStockWindow(JFrame parent, LoginController controlador) {
+	public LowStockWindow(JFrame parent, LoginController cont, User user) {
+		super(parent, true); // Blocks the father window
+		this.cont = cont;
+		this.user = user;
+
 		// Window
 		setTitle("MEDIAMARTA: Low Stock Items");
 		setBounds(100, 100, 480, 636);
@@ -47,9 +51,80 @@ public class LowStockWindow extends JDialog {
 		lblLowStock.setBounds(10, 58, 461, 19);
 		getContentPane().add(lblLowStock);
 
+		// Labels
+		JLabel lblCodUser = new JLabel(user.getCodU());
+		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		lblCodUser.setBounds(375, 27, 81, 19);
+		getContentPane().add(lblCodUser);
+
 		// List
 		list = new JList<String>();
-		list.setBounds(10, 87, 446, 423);
+		list.setBounds(10, 94, 446, 416);
 		getContentPane().add(list);
-		
+		loadList();
+
+		// Buttons
+		btnLogOut = new JButton("Log-Out");
+		btnLogOut.setBackground(new Color(240, 240, 240));
+		btnLogOut.setFont(new Font("Times New Roman", Font.PLAIN, 10));
+		btnLogOut.setBounds(375, 5, 81, 21);
+		getContentPane().add(btnLogOut);
+
+		btnRestock = new JButton("RESTOCK");
+		btnRestock.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		btnRestock.setBounds(137, 533, 196, 35);
+		getContentPane().add(btnRestock);
+
+		btnClose = new JButton("CLOSE");
+		btnClose.setBounds(5, 5, 80, 21);
+		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
+		getContentPane().add(btnClose);	
+
+		// Adding action listener
+		btnLogOut.addActionListener(this);
+		btnRestock.addActionListener(this);
+		btnClose.addActionListener(this);
 	}
+
+	// Loads the list
+	public void loadList() {	
+		DefaultListModel<String> model = new DefaultListModel<String>();
+		products = cont.verifyProduct(); // Needs to be a method that shows only products with low stock
+		components = cont.verifyComponent(); // Needs to be a method that shows only products with low stock
+
+		if(!products.isEmpty()) {
+			for (Product p : products.values()){
+				model.addElement(p.getNameP());
+			}
+		}		
+		if (!components.isEmpty()) {
+			for (Comp c : components.values()) {
+				model.addElement(c.getNameC());
+			}
+		}
+		list.setModel(model);
+	}	
+
+	// Action performer
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// Logs-Out and moves back to the Main Window
+		if (e.getSource() == btnLogOut) {
+			MainWindow main = new MainWindow(cont);
+			main.setVisible(true);
+			JFrame parent = (JFrame)this.getParent(); // Obtains the parent window
+			parent.dispose(); // Closes the parent window
+			this.dispose();
+		}
+		// Closes the window
+		if (e.getSource()==btnClose) {
+			this.dispose();
+		} 
+		// Closes the window
+		if (e.getSource()==btnRestock) {
+			// RestockWindow restock = new RestockWindow(this, cont, user, name, price, type);
+			// restock.setVisible(true);
+		} 
+	}
+}

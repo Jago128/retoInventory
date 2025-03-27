@@ -127,7 +127,7 @@ public class MenuWindow extends JFrame implements ActionListener {
 		}
 		// Opens the window of the low stock window (only visible with admin users)
 		if (e.getSource() == btnCheckStock) {
-			LowStockWindow lowStock = new LowStockWindow(this, cont);
+			LowStockWindow lowStock = new LowStockWindow(this, cont, user);
 			lowStock.setVisible(true);
 		}
 	}
