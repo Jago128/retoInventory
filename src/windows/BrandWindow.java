@@ -17,7 +17,7 @@ public class BrandWindow extends JDialog implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private LoginController cont;
 	private JLabel lblMediaMarta, lblBrands;
-	private JButton btnLogOut, btnBuy, btnClose;
+	private JButton btnLogOut, btnBuy, btnRemove, btnClose;
 	private JComboBox <String> comboBoxBrands;
 	private JList<String> list;
 	private Map<String, Brand> brands;
@@ -83,15 +83,30 @@ public class BrandWindow extends JDialog implements ActionListener {
 		}
 		getContentPane().add(btnBuy);
 
+		btnRemove = new JButton("REMOVE");
+		btnRemove.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		btnRemove.setBounds(260, 533, 196, 35);
+		getContentPane().add(btnRemove);
+
 		btnClose = new JButton("CLOSE");
 		btnClose.setBounds(5, 5, 80, 21);
 		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		getContentPane().add(btnClose);		
 
+		// Buttons visibility
+		if (user.getTypeU()==TypeU.ADMIN) { // In case the user is an admin these buttons will be visible
+			btnBuy.setVisible(false);					
+			btnRemove.setVisible(true);			
+		} else {  // In case the user is a client these buttons will be visible
+			btnBuy.setVisible(true);
+			btnRemove.setVisible(false);
+		}
+
 		// Adding action listener
 		comboBoxBrands.addActionListener(this);
 		btnLogOut.addActionListener(this);
 		btnBuy.addActionListener(this);
+		btnRemove.addActionListener(this);
 		btnClose.addActionListener(this);
 	}
 
@@ -139,7 +154,7 @@ public class BrandWindow extends JDialog implements ActionListener {
 	// Obtains the name of the selected product or component
 	public String obtainName() {
 		String name;
-		
+
 		if(verifyType()) {
 			Product product = new Product();
 			product=cont.obtainProductNamePrice(list.getSelectedValue());
@@ -155,7 +170,7 @@ public class BrandWindow extends JDialog implements ActionListener {
 	// Obtains the price of the selected product or component
 	public double obtainPrice() {
 		double price;
-		
+
 		if(verifyType()) {
 			Product product = new Product();
 			product=cont.obtainProductNamePrice(list.getSelectedValue());
@@ -200,5 +215,15 @@ public class BrandWindow extends JDialog implements ActionListener {
 				JOptionPane.showMessageDialog(null, "[ERROR] Select an item to buy");
 			}
 		} 
+		// Opens the window to delete
+		if (e.getSource()==btnRemove) {
+			if(!list.isSelectionEmpty()) { // If there is an item selected it will do the action
+				boolean type = false;  // true = Product | false = Component
+				//VerificationWindow checkOut = new VerificationWindow(this, cont, obtainNamePrice().getNameC(), type);
+				//checkOut.setVisible(true);
+			} else {
+				JOptionPane.showMessageDialog(null, "[ERROR] Select an item to delete");
+			}
+		}
 	}
 }
