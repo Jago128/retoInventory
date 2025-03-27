@@ -26,9 +26,6 @@ public class AddNewWindow extends JDialog implements ActionListener {
 	private TypeP productType;
 	private TypeC componentType;
 
-	// SQLINSERTPROD = "INSERT INTO PRODUCT (NAMEP, TYPEP, PRICE, STOCK, CODBRAND) VALUES (?, ?, ?, ?, ?)";
-	// SQLINSERTCOMP = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, STOCKCOMPONENT, PRICECOMP, CODBRAND) VALUES (?, ?, ?, ?)";
-
 	public AddNewWindow(JDialog parent, LoginController cont, User user, String name, boolean type) {
 		super(parent, true); // Blocks the father window
 		this.cont = cont;
@@ -247,7 +244,6 @@ public class AddNewWindow extends JDialog implements ActionListener {
 	// Gets the Brand code
 	public int setBrandCode() {
 		String brandName = (String) comboBoxBrands.getSelectedItem();
-		System.out.print(brandName);
 		return cont.getBrandCode(brandName);
 	}
 
