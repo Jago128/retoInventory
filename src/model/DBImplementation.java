@@ -55,7 +55,7 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLSELECTPRODUCTBRAND = "SELECT * FROM product WHERE CODBRAND=(SELECT CODBRAND FROM BRAND WHERE NAMEBRAND=?)";
 	final String SQLSELECTCOMPONENTBRAND = "SELECT * FROM component WHERE CODBRAND=(SELECT CODBRAND FROM BRAND WHERE NAMEBRAND=?)";
 
-	// [Declare implementation constructor]
+	// Declare implementation constructor
 	public DBImplementation() {
 		this.configFile = ResourceBundle.getBundle("model.classConfig");
 		this.driverBD = this.configFile.getString("Driver");
@@ -64,7 +64,7 @@ public class DBImplementation implements MediaMartaDAO {
 		this.passwordBD = this.configFile.getString("DBPass");
 	}
 
-	// [Method to open a new connection]
+	// Method to open a new connection
 	private void openConnection() {
 		try {
 			// Try opening the connection
@@ -77,7 +77,7 @@ public class DBImplementation implements MediaMartaDAO {
 		}
 	}
 
-	// [Registers a new user]
+	// Registers a new user
 	@Override
 	public boolean registerUser(User user) {
 		boolean register = false;
@@ -88,7 +88,7 @@ public class DBImplementation implements MediaMartaDAO {
 				stmt.setString(1, user.getCodU());
 				stmt.setString(2, user.getUsername());
 				stmt.setString(3, user.getPassword());
-				if (stmt.executeUpdate() > 0) {
+				if (stmt.executeUpdate()>0) {
 					register = true;
 				}
 				stmt.close();
@@ -100,7 +100,7 @@ public class DBImplementation implements MediaMartaDAO {
 		return register;
 	}
 
-	// [Verify that the user exists]
+	// Verify that the user exists
 	@Override
 	public boolean verifyUser(User user) {
 		// Open connection and declare a boolean to check if the user exists
@@ -127,7 +127,7 @@ public class DBImplementation implements MediaMartaDAO {
 		return exists;
 	}
 
-	// [Verify that the user and the password exist and matches]
+	// Verify that the user and the password exist and matches
 	@Override
 	public boolean verifyUserPassword(User user) {
 		// Open connection and declare a boolean to check if the password exists and matches
@@ -155,7 +155,7 @@ public class DBImplementation implements MediaMartaDAO {
 		return exists;
 	}
 
-	// [Verify the user type (only used once the user is verified)]
+	// Verify the user type (only used once the user is verified)
 	@Override
 	public boolean verifyUserType(User user) {
 		// Open connection and declare a boolean to check if the user is an admin
@@ -182,7 +182,7 @@ public class DBImplementation implements MediaMartaDAO {
 		return admin;
 	}
 
-	// [Inserts a new product]
+	// Inserts a new product
 	@Override
 	public boolean insertProd(Product prod) {
 		// Open connection and declare a boolean to check if the update is properly executed
@@ -201,9 +201,8 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.setDouble(3, prod.getPrice());
 			stmt.setInt(4, prod.getStock());
 			stmt.setInt(5, prod.getCodBrand());
-			// Executes the SQL query. If the insert is executed correctly, check becomes
-			// true
-			if (stmt.executeUpdate() > 0) {
+			// Executes the SQL query. If the insert is executed correctly, check becomes true
+			if (stmt.executeUpdate()>0) {
 				check = true;
 			}
 			// Closes the connection
@@ -215,7 +214,7 @@ public class DBImplementation implements MediaMartaDAO {
 		return check;
 	}
 
-	// [Verify that the product exists, and show them]
+	// Verify that the product exists, and show them
 	@Override
 	public Map<String, Product> verifyProduct() {
 		ResultSet rs = null;
@@ -242,7 +241,7 @@ public class DBImplementation implements MediaMartaDAO {
 		return products;
 	}
 
-	// [Obtain a product's name and price, based on the name of the product provided]
+	// Obtain a product's name and price, based on the name of the product provided
 	@Override
 	public Product obtainProductNamePrice(String name) {
 		ResultSet rs = null;
@@ -345,7 +344,7 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.setDouble(4, comp.getPrice());
 			stmt.setInt(5, comp.getCodBrand());
 			// Executes the SQL query. If the insert is executed correctly, check becomes true
-			if (stmt.executeUpdate() > 0) {
+			if (stmt.executeUpdate()>0) {
 				check = true;
 			}
 			// Closes the connection
@@ -357,7 +356,7 @@ public class DBImplementation implements MediaMartaDAO {
 		return check;
 	}
 
-	// [Verify that the component exists, and show them]
+	// Verify that the component exists, and show them
 	@Override
 	public Map<String, Comp> verifyComponent() {
 		ResultSet rs = null;
@@ -384,7 +383,7 @@ public class DBImplementation implements MediaMartaDAO {
 		return components;
 	}
 
-	// [Obtain choosed component's name and price]
+	// Obtain choosed component's name and price
 	@Override
 	public Comp obtainComponentNamePrice(String name) {
 		ResultSet rs = null;
@@ -493,7 +492,7 @@ public class DBImplementation implements MediaMartaDAO {
 				stmt = con.prepareStatement(SQLSELLUPDATE);
 				stmt.setInt(1, stock);
 				stmt.setInt(2, codItem);
-				if (stmt.executeUpdate() > 0) {
+				if (stmt.executeUpdate()>0) {
 					check = true;
 				}
 				// Closes the second statement
@@ -507,7 +506,7 @@ public class DBImplementation implements MediaMartaDAO {
 				stmt.setInt(3, stock);
 				stmt.setDouble(4, price);
 				stmt.setDate(5, mySQLDate);
-				if (stmt.executeUpdate() > 0) {
+				if (stmt.executeUpdate()>0) {
 					check = true;
 				}
 				// Closes the third statement
@@ -529,7 +528,7 @@ public class DBImplementation implements MediaMartaDAO {
 				stmt = con.prepareStatement(SQLBUYUPDATE);
 				stmt.setInt(1, stock);
 				stmt.setInt(2, codItem);
-				if (stmt.executeUpdate() > 0) {
+				if (stmt.executeUpdate()>0) {
 					check = true;
 				}
 				// Closes the second statement
@@ -543,13 +542,13 @@ public class DBImplementation implements MediaMartaDAO {
 				stmt.setInt(3, stock);
 				stmt.setDouble(4, price);
 				stmt.setDate(5, mySQLDate);
-				if (stmt.executeUpdate() > 0) {
+				if (stmt.executeUpdate()>0) {
 					check = true;
 				}
 				// Closes the third statement
 				stmt.close();
 			}
-			// Closes the connectikon
+			// Closes the connection
 			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
