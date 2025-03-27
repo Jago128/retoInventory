@@ -307,7 +307,7 @@ BEGIN
             END IF;
         END IF;
 
-        -- Si no hay error, actualizar stock
+        -- Si no hay error, actualizar stock y insertar compra
         IF ERROR = FALSE THEN
             UPDATE COMPONENT SET STOCKCOMPONENT = CURRENTSTOCK WHERE CODCOMPONENT = CODCOMP;
             SET CURRENTDATE = CURDATE();
