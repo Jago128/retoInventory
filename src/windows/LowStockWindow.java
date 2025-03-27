@@ -86,8 +86,8 @@ public class LowStockWindow extends JDialog implements ActionListener {
 	// Loads the list
 	public void loadList() {	
 		DefaultListModel<String> model = new DefaultListModel<String>();
-		products = cont.showProdsOrderedByStock(); // Needs to be a method that shows only products with low stock
-		components = cont.showCompsOrderedByStock(); // Needs to be a method that shows only products with low stock
+		products = cont.showProdsOrderedByStock();
+		components = cont.showCompsOrderedByStock();
 
 		if(!products.isEmpty()) {
 			for (Product p : products.values()){
