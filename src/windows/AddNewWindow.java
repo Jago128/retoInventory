@@ -265,12 +265,12 @@ public class AddNewWindow extends JDialog implements ActionListener {
 				if (type) { // If all fields are filled depending on the choices will create the Product or Component to add it to the database
 					Product product = new Product(textName.getText(), productType, (double)spinnerPrice.getValue(), (int)spinnerQuantity.getValue(), setBrandCode());
 					cont.insertProd(product);
-					JOptionPane.showMessageDialog(null, "Component "+product.getNameP()+" added with "+product.getStock()+" units of stock");
+					JOptionPane.showMessageDialog(null, "Product "+product.getNameP()+" with price "+product.getPrice()+"€ added with "+product.getStock()+" units of stock succesfully");
 					this.dispose();
 				} else {
 					Comp component = new Comp(textName.getText(), componentType, setBrandCode(), (int)spinnerQuantity.getValue(), (double)spinnerPrice.getValue()); // String nameC, TypeC typeC, int codBrand, int stock, double price
 					cont.insertComp(component);
-					JOptionPane.showMessageDialog(null, "Component "+component.getNameC()+" added with "+component.getStock()+" units of stock");
+					JOptionPane.showMessageDialog(null, "Component "+component.getNameC()+" with price "+component.getPrice()+"€ added with "+component.getStock()+" units of stock succesfully");
 					this.dispose();
 				}
 			} else {

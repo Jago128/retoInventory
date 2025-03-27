@@ -28,7 +28,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		this.user = user;
 
 		// Window
-		setTitle("MEDIAMARTA: Products");
+		setTitle("MEDIAMARTA: Components");
 		setBounds(100, 100, 480, 636);
 		getContentPane().setLayout(null);
 
@@ -39,7 +39,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		lblMediaMarta.setBounds(10, 24, 461, 46);
 		getContentPane().add(lblMediaMarta);
 
-		lblProducts = new JLabel("PRODUCTS");
+		lblProducts = new JLabel("COMPONENTS");
 		lblProducts.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProducts.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		lblProducts.setBounds(10, 58, 461, 19);
