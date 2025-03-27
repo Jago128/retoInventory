@@ -288,7 +288,7 @@ public class DBImplementation implements MediaMartaDAO {
 		return check;
 	}
 
-	// Shows products with a stock of 5 or less, ordered by stock
+	// Shows products with a stock of 50 or less, ordered by stock
 	@Override
 	public Map<Integer, Product> showProdsOrderedByStock() {
 		Map<Integer, Product> prods = new TreeMap<>();
@@ -431,7 +431,7 @@ public class DBImplementation implements MediaMartaDAO {
 		return check;
 	}
 
-	// Shows components with a stock of 5 or less, ordered by stock
+	// Shows components with a stock of 50 or less, ordered by stock
 	@Override
 	public Map<Integer, Comp> showCompsOrderedByStock() {
 		Map<Integer, Comp> comps = new TreeMap<>();
