@@ -142,7 +142,7 @@ BEGIN
 	DECLARE CONTINUE HANDLER FOR NOT FOUND SET FIN = TRUE;
     
     OPEN C;
-	FETCH C INTO NomProd,TipoP,PriceP,StockP,CodBrand; 
+	FETCH C INTO NomProd,TipoP,PriceP,StockP,CodBrand;
 	WHILE NOT FIN DO
 		SELECT CONCAT ('Name: ', NomProd, ' Type: ', TipoP,' Price: ', PriceP,' Stock: ', StockP,' CodeBrand: ', CodBrand) "Datos pedidos"; 
 		Fetch c into NomProd,TipoP,PriceP,StockP,CodBrand; 
