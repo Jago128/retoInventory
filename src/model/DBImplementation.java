@@ -24,17 +24,12 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLTYPE = "SELECT type_u FROM user WHERE coduser = ?";
 	final String SQLINSERTUSER = "INSERT INTO user VALUES (?,?,?,'Client')";
 
-	// Product, Component, and Brand related stuff
-	final String SQLSELL = "SELECT CODPRODUCT, STOCKPRODUCT FROM PRODUCT WHERE NAMEP=?";
-	final String SQLSELLUPDATE = "UPDATE PRODUCT SET STOCKPRODUCT=? WHERE CODPRODUCT=?";
-	final String SQLSELLINSERT = "INSERT INTO PURCHASE VALUES (?,?,?,?,?);";
-	final String SQLSELLCOMP = "SELECT CODCOMPONENT, STOCKCOMPONENT FROM COMPONENT WHERE NAMECOMP=?";
-	final String SQLSELLUPDATECOMP = "UPDATE COMPONENT SET STOCKCOMPONENT=? WHERE CODCOMPONENT=?";
+
 
 	// PRODUCT
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
 	final String SQLSELECTPRODUCTSTOCK = "SELECT * FROM product WHERE STOCKPRODUCT<=50 ORDER BY STOCKPRODUCT";
-	final String SQLINSERTPROD = "INSERT INTO PRODUCT (NAMEP, TYPEP, PRICE, STOCKPRODUCT, CODBRAND) VALUES (?, ?, ?, ?, ?)";
+	final String SQLINSERTPROD = "INSERT INTO PRODUCT (NAMEP, TYPEP, PRICE, STOCKPRODUCT, CODBRAND) VALUES (?,?,?,?,?)";
 	final String SQLDELETEPROD = "CALL deleteProduct(?)";
 	final String SQLSELECTPRODUCTNAMEPRICE = "SELECT nameP, price FROM product WHERE nameP = ?";
 	final String SQLPROD = "SELECT PROD FROM PRODUCT WHERE NAMEP = ?";
@@ -42,10 +37,18 @@ public class DBImplementation implements MediaMartaDAO {
 	// COMPONENT
 	final String SQLSELECTCOMPONENT = "SELECT * FROM component";
 	final String SQLSELECTCOMPSTOCK = "SELECT * FROM component WHERE STOCKCOMPONENT<=50 ORDER BY STOCKCOMPONENT";
-	final String SQLINSERTCOMP = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, STOCKCOMPONENT, PRICECOMP, CODBRAND) VALUES (?, ?, ?, ?, ?)";
+	final String SQLINSERTCOMP = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, STOCKCOMPONENT, PRICECOMP, CODBRAND) VALUES (?,?,?,?,?)";
 	final String SQLDELETECOMP = "CALL deleteComp(?)";
 	final String SQLSELECTCOMPONENTNAMEPRICE = "SELECT nameComp, priceComp FROM component WHERE nameComp = ?";
-
+	
+	// Product and Component related stuff
+	final String SQLSELL = "SELECT CODPRODUCT, STOCKPRODUCT FROM PRODUCT WHERE NAMEP=?";
+	final String SQLSELLUPDATE = "UPDATE PRODUCT SET STOCKPRODUCT=? WHERE CODPRODUCT=?";
+	final String SQLSELLINSERT = "INSERT INTO PURCHASE (CODPRODUCT,CODUSER,QUANTITY,TOTALPRICE,DATEP) VALUES (?,?,?,?,?)";
+	final String SQLBUY = "SELECT CODCOMPONENT, STOCKCOMPONENT FROM COMPONENT WHERE NAMECOMP=?";
+	final String SQLBUYUPDATE = "UPDATE COMPONENT SET STOCKCOMPONENT=? WHERE CODCOMPONENT=?";
+	final String SQLBUYINSERT = "INSERT INTO BUY (CODCOMPONENT,CODUSER,QUANTITY,TOTALPRICE,DATEP) VALUES (?,?,?,?,?)";
+	
 	// BRAND
 	final String SQLSELECTBRAND = "SELECT * FROM brand";
 	final String SQLSELECTBRANDCODE = "SELECT CODBRAND FROM BRAND WHERE NAMEBRAND = ?";
@@ -485,6 +488,7 @@ public class DBImplementation implements MediaMartaDAO {
 				// Closes the first statement
 				rs.close();
 				stmt.close();
+				
 				stock = stock - amount;
 				stmt = con.prepareStatement(SQLSELLUPDATE);
 				stmt.setInt(1, stock);
@@ -494,6 +498,7 @@ public class DBImplementation implements MediaMartaDAO {
 				}
 				// Closes the second statement
 				stmt.close();
+				
 				java.util.Date dates = new java.util.Date();
 				java.sql.Date mySQLDate = new java.sql.Date(dates.getTime());
 				stmt = con.prepareStatement(SQLSELLINSERT);
@@ -508,7 +513,7 @@ public class DBImplementation implements MediaMartaDAO {
 				// Closes the third statement
 				stmt.close();
 			} else {
-				stmt = con.prepareStatement(SQLSELLCOMP);
+				stmt = con.prepareStatement(SQLBUY);
 				stmt.setString(1, nomItem);
 				ResultSet rs = stmt.executeQuery();
 				codItem = rs.getInt("CODPRODUCT");
@@ -519,13 +524,30 @@ public class DBImplementation implements MediaMartaDAO {
 				// Closes the first statement
 				rs.close();
 				stmt.close();
+				
 				stock = stock - amount;
-				stmt = con.prepareStatement(SQLSELLUPDATECOMP);
+				stmt = con.prepareStatement(SQLBUYUPDATE);
 				stmt.setInt(1, stock);
 				stmt.setInt(2, codItem);
 				if (stmt.executeUpdate() > 0) {
 					check = true;
 				}
+				// Closes the second statement
+				stmt.close();
+				
+				java.util.Date dates = new java.util.Date();
+				java.sql.Date mySQLDate = new java.sql.Date(dates.getTime());
+				stmt = con.prepareStatement(SQLBUYINSERT);
+				stmt.setInt(1, codItem);
+				stmt.setString(2, codUser);
+				stmt.setInt(3, stock);
+				stmt.setDouble(4, price);
+				stmt.setDate(5, mySQLDate);
+				if (stmt.executeUpdate() > 0) {
+					check = true;
+				}
+				// Closes the third statement
+				stmt.close();
 			}
 			// Closes the connectikon
 			con.close();
