@@ -63,7 +63,7 @@ public class BrandWindow extends JDialog implements ActionListener {
 		loadBrandsComboBox();		
 
 		list = new JList<String>();
-		list.setBounds(10, 167, 446, 343);
+		list.setBounds(5, 150, 446, 343);
 		getContentPane().add(list);		
 
 		// Buttons
@@ -125,6 +125,49 @@ public class BrandWindow extends JDialog implements ActionListener {
 		list.setModel(model);
 	}
 
+	// Verify the type
+	public boolean verifyType() {
+		boolean type = false;
+		if(products.containsKey((String)comboBoxBrands.getSelectedItem())) {
+			type=true;
+		} else if(components.containsKey((String)comboBoxBrands.getSelectedItem())) {
+			type=false;
+		}
+		return type;
+	}
+
+	// Obtains the name of the selected product or component
+	public String obtainName() {
+		String name;
+		
+		if(verifyType()) {
+			Product product = new Product();
+			product=cont.obtainProductNamePrice(list.getSelectedValue());
+			name=product.getNameP();
+		}else{
+			Comp component = new Comp();
+			component=cont.obtainComponentNamePrice(list.getSelectedValue());
+			name=component.getNameC();
+		}
+		return name;
+	}
+
+	// Obtains the price of the selected product or component
+	public double obtainPrice() {
+		double price;
+		
+		if(verifyType()) {
+			Product product = new Product();
+			product=cont.obtainProductNamePrice(list.getSelectedValue());
+			price=product.getPrice();
+		}else{
+			Comp component = new Comp();
+			component=cont.obtainComponentNamePrice(list.getSelectedValue());
+			price=component.getPrice();
+		}
+		return price;
+	}
+
 	// Action performer
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -151,10 +194,8 @@ public class BrandWindow extends JDialog implements ActionListener {
 		// Opens the window for the Check out
 		if (e.getSource()==btnBuy) {
 			if(!list.isSelectionEmpty()) { // If there is an item selected it will do the action
-				if (true) { // true = Product | false = Component
-					//CheckOutWindow checkOut = new CheckOutWindow(this, cont, user, obtainNamePrice().getNameP(), obtainNamePrice().getPrice(), type);
-					//checkOut.setVisible(true);
-				}
+				CheckOutWindow checkOut = new CheckOutWindow(this, cont, user, obtainName(), obtainPrice(), verifyType());
+				checkOut.setVisible(true);
 			} else {
 				JOptionPane.showMessageDialog(null, "[ERROR] Select an item to buy");
 			}
