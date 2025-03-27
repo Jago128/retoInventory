@@ -35,11 +35,11 @@ public class RestockWindow extends JDialog implements ActionListener {
 
 		// Spinner (Numeric value)
 		// It needs to be created before because the labels need the value of it
-		SpinnerModel sm = new SpinnerNumberModel(1, 1, 10, 1); // Default, Min, Max, Increment
+		SpinnerModel sm = new SpinnerNumberModel(5, 5, 5000, 5); // Default, Min, Max, Increment
 		spinner = new JSpinner(sm);
 		spinner.setBounds(214, 111, 187, 34);
 		getContentPane().add(spinner);
-		spinner.setValue(1);	
+		spinner.setValue(5);	
 		
 		// Titles
 		JLabel item = new JLabel("Item");
