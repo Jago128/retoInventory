@@ -561,6 +561,30 @@ public class DBImplementation implements MediaMartaDAO {
 		}
 		return brands;
 	}
+	
+	// GET SELECTED'S BRAND CODE
+	public int getBrandCode(String brandName) {
+		ResultSet rs = null;
+		int brandCode = 0;
+		
+		this.openConnection();
+		try {
+			stmt = con.prepareStatement(SQLSELECTBRANDCODE);
+			stmt.setString(1, brandName);
+			rs = stmt.executeQuery();
+			if (rs.next()) {
+				brandCode = rs.getInt("CODBRAND");				
+			}
+			rs.close();
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("SQL error");
+			e.printStackTrace();
+		}	
+		
+		return brandCode;
+	}
 
 	// Show products of a brand
 	@Override
@@ -617,28 +641,5 @@ public class DBImplementation implements MediaMartaDAO {
 		}
 		return brandComps;
 	}
-	
-	// GET SELECTED'S BRAND CODE
-	public int getBrandCode(String brandName) {
-		ResultSet rs = null;
-		int brandCode = 0;
-		
-		this.openConnection();
-		try {
-			stmt = con.prepareStatement(SQLSELECTBRANDCODE);
-			stmt.setString(1, brandName);
-			rs = stmt.executeQuery();
-			if (rs.next()) {
-				brandCode = rs.getInt("CODBRAND");				
-			}
-			rs.close();
-			stmt.close();
-			con.close();
-		} catch (SQLException e) {
-			System.out.println("SQL error");
-			e.printStackTrace();
-		}	
-		
-		return brandCode;
-	}
+
 }

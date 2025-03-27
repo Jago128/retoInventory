@@ -76,14 +76,19 @@ public class LoginController {
 	public boolean deleteComp(String nom) {
 		return dao.deleteComp(nom);
 	}
-	
+
 	public Map<Integer, Comp> showCompsOrderedByStock() {
 		return dao.showCompsOrderedByStock();
 	}
 
 	// BRANDS
+
 	public Map<String, Brand> verifyBrands() {
 		return dao.verifyBrands();
+	}
+	
+	public int getBrandCode(String brandName) {
+		return dao.getBrandCode(brandName);
 	}
 
 	public Map<String, Product> showProductsBrand(String brand) {
@@ -94,7 +99,5 @@ public class LoginController {
 		return dao.showComponentsBrand(brand);
 	}
 
-	public int getBrandCode(String brandName) {
-		return dao.getBrandCode(brandName);
-	}
+
 }

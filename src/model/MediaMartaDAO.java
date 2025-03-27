@@ -42,11 +42,13 @@ public interface MediaMartaDAO {
 		
 	// BRANDS
 	public Map<String, Brand> verifyBrands();
-
+	
+	public int getBrandCode(String brandName);
+	
 	public Map<String, Product> showProductsBrand(String brand);
 
 	public Map<String, Comp> showComponentsBrand(String brand);
 	
-	public int getBrandCode(String brandName);
+
 
 }
