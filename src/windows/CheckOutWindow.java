@@ -3,6 +3,8 @@ package windows;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.event.ChangeEvent;
+import javax.swing.event.ChangeListener;
 
 import controller.LoginController;
 import model.User;
@@ -10,22 +12,23 @@ import model.User;
 // CHECK OUT WINDOW 
 // Go to->(*close*)
 // Back to->(ProductWindow, ComponentWindow, BrandWindow)
-public class CheckOutWindow extends JDialog implements ActionListener {
+public class CheckOutWindow extends JDialog implements ActionListener, ChangeListener {
 
 	private static final long serialVersionUID = 1L;
 	private LoginController cont;
-	private JLabel lblItemName;
+	private JLabel lblItemName, lblPrice;
 	private JButton btnClose, btnSubmit;
 	private JSpinner spinner;
 	private User user;
 	private String name;
-	private int price;
+	private double price;
 	private boolean type; // true = Product | false = Component
 
 	public CheckOutWindow(JDialog parent, LoginController cont, User user, String name, double price, boolean type) {
 		super(parent, true); // Blocks the father window
 		this.cont = cont;
 		this.user = user;
+		this.price = price;
 		this.type = type; // true = Product | false = Component
 
 		// Window
@@ -39,7 +42,6 @@ public class CheckOutWindow extends JDialog implements ActionListener {
 		spinner = new JSpinner(sm);
 		spinner.setBounds(214, 111, 187, 34);
 		getContentPane().add(spinner);
-		// NEEDS TO BE ADDED AN LISTENER FOR WHEN THE VALUES CHANGE
 
 		// Titles
 		JLabel item = new JLabel("Item");
@@ -74,7 +76,7 @@ public class CheckOutWindow extends JDialog implements ActionListener {
 		lblItemName.setBounds(25, 111, 187, 34);
 		getContentPane().add(lblItemName);
 
-		JLabel lblPrice = new JLabel(calcPrice(price) + "€");
+		lblPrice = new JLabel(calcPrice() + "€");
 		lblPrice.setHorizontalAlignment(SwingConstants.LEFT);
 		lblPrice.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		lblPrice.setBounds(214, 156, 187, 34);
@@ -92,16 +94,14 @@ public class CheckOutWindow extends JDialog implements ActionListener {
 		getContentPane().add(btnClose);
 
 		// Adding action listener
+		spinner.addChangeListener(this);
 		btnSubmit.addActionListener(this);
 		btnClose.addActionListener(this);
 	}
 
 	// Calculate price
-	public double calcPrice(double price) {
-		double total;
-		total = price * (int) spinner.getValue();
-
-		return total;
+	public double calcPrice() {	
+		return price * (int) spinner.getValue();
 	}
 
 	// Action performer
@@ -113,9 +113,17 @@ public class CheckOutWindow extends JDialog implements ActionListener {
 		}
 		//
 		if (e.getSource() == btnSubmit) {
-			cont.sellAndSubstract(user.getCodU(), name, (int) spinner.getValue(), calcPrice(price), type);
+			cont.sellAndSubstract(user.getCodU(), name, (int) spinner.getValue(), calcPrice(), type);
 			ContinueWindow next = new ContinueWindow(this, cont, user.getCodU());
 			next.setVisible(true);
+		}
+	}
+
+	@Override
+	public void stateChanged(ChangeEvent e) {
+		// Closes the window
+		if (e.getSource() == spinner) {
+			lblPrice.setText(calcPrice() + "€");
 		}
 	}
 }
