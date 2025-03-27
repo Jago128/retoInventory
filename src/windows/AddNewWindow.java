@@ -262,11 +262,33 @@ public class AddNewWindow extends JDialog implements ActionListener {
 					Product product = new Product(textName.getText(), productType, (double)spinnerPrice.getValue(), (int)spinnerQuantity.getValue(), setBrandCode());
 					cont.insertProd(product);
 					JOptionPane.showMessageDialog(null, "Product "+product.getNameP()+" with price "+product.getPrice()+"€ added with "+product.getStock()+" units of stock succesfully");
+					JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
+					if(parent instanceof ProductWindow){
+						ProductWindow productWindow = (ProductWindow)parent;
+						productWindow.loadProductsList();
+					} else if (parent instanceof ComponentWindow){
+						ComponentWindow productWindow = (ComponentWindow)parent;
+						productWindow.loadComponents();
+					} else if (parent instanceof BrandWindow){
+						BrandWindow productWindow = (BrandWindow)parent;
+						productWindow.loadList();
+					}	
 					this.dispose();
 				} else {
 					Comp component = new Comp(textName.getText(), componentType, setBrandCode(), (int)spinnerQuantity.getValue(), (double)spinnerPrice.getValue()); // String nameC, TypeC typeC, int codBrand, int stock, double price
 					cont.insertComp(component);
 					JOptionPane.showMessageDialog(null, "Component "+component.getNameC()+" with price "+component.getPrice()+"€ added with "+component.getStock()+" units of stock succesfully");
+					JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
+					if(parent instanceof ProductWindow){
+						ProductWindow productWindow = (ProductWindow)parent;
+						productWindow.loadProductsList();
+					} else if (parent instanceof ComponentWindow){
+						ComponentWindow productWindow = (ComponentWindow)parent;
+						productWindow.loadComponents();
+					} else if (parent instanceof BrandWindow){
+						BrandWindow productWindow = (BrandWindow)parent;
+						productWindow.loadList();
+					}	
 					this.dispose();
 				}
 			} else {
