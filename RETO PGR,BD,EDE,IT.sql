@@ -319,9 +319,7 @@ BEGIN
     RETURN MESSAGE;
 END //
 DELIMITER ;
-SELECT sellAndSubstract('BoliBick','Asus GT710',2,81.99,FALSE);
-SELECT * FROM BUY;
-DROP FUNCTION sellAndSubstract;
+
 Delimiter //
 CREATE PROCEDURE showLowStock()  
 BEGIN
