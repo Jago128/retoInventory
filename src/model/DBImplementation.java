@@ -30,7 +30,7 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
 	final String SQLSELECTPRODUCTSTOCK = "SELECT * FROM product WHERE STOCKPRODUCT<=50 ORDER BY STOCKPRODUCT";
 	final String SQLINSERTPROD = "INSERT INTO PRODUCT (NAMEP, TYPEP, PRICE, STOCKPRODUCT, CODBRAND) VALUES (?,?,?,?,?)";
-	final String SQLDELETEPROD = "CALL deleteProduct(?)";
+	final String SQLDELETEPROD = "DELETE FROM PRODUCT WHERE NAMEP = ?";
 	final String SQLSELECTPRODUCTNAMEPRICE = "SELECT nameP, price FROM product WHERE nameP = ?";
 	final String SQLPROD = "SELECT PROD FROM PRODUCT WHERE NAMEP = ?";
 
@@ -38,7 +38,7 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLSELECTCOMPONENT = "SELECT * FROM component";
 	final String SQLSELECTCOMPSTOCK = "SELECT * FROM component WHERE STOCKCOMPONENT<=50 ORDER BY STOCKCOMPONENT";
 	final String SQLINSERTCOMP = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, STOCKCOMPONENT, PRICECOMP, CODBRAND) VALUES (?,?,?,?,?)";
-	final String SQLDELETECOMP = "CALL deleteComp(?)";
+	final String SQLDELETECOMP = "SELECT FROM COMPONENT WHERE NAMECOMP = ?";
 	final String SQLSELECTCOMPONENTNAMEPRICE = "SELECT nameComp, priceComp FROM component WHERE nameComp = ?";
 
 	// Product and Component related stuff
