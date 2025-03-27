@@ -86,14 +86,14 @@ INSERT INTO PRODUCT (NAMEP,TYPEP,PRICE,STOCKPRODUCT,CODBRAND) VALUES
 ("Samsung Galaxy Book 4","Computer",399,70,2),
 ("Lenovo IdeaPad Slim 3","Computer",700,300,3),
 ("Samsung Galaxy S24","Mobile",550,4,2),
-("ASUS ExpertBook","Computer",700,300,5),
+("ASUS ExpertBook","Computer",710,300,5),
 ("HUAWEI Pura 70 Pro","Mobile",1000,700,4);
 
 INSERT INTO PURCHASE VALUES 
-(5,'Pakete7',5, 5000,'2025-02-20'),
+(6,'Pakete7',5, 5000,'2025-02-20'),
 (1,'PepGuardiola',12, 6000,'2025-01-04'),
 (3,'Joao10',1, 700,'2025-03-03'),
-(2,'Pakete7',2, 1100,'2025-02-25');
+(4,'Pakete7',2, 1100,'2025-02-25');
 
 INSERT INTO COMPONENT (NAMECOMP,TYPEC,CODBRAND,STOCKCOMPONENT,PRICECOMP) VALUES 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ("Asus GT710","Graphics",5,4,81.99),

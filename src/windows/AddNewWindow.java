@@ -20,29 +20,28 @@ public class AddNewWindow extends JDialog implements ActionListener {
 	private JButton btnClose, btnSubmit;
 	private JRadioButton rdbtnA, rdbtnB, rdbtnC;
 	private JSpinner spinnerQuantity, spinnerPrice;
-	private JComboBox <String> comboBoxBrands;
+	private JComboBox<String> comboBoxBrands;
 	private Map<String, Brand> brands;
-	private boolean type;  // true = Product | false = Component
+	private boolean type; // true = Product | false = Component
 	private TypeP productType;
 	private TypeC componentType;
 
-
-	//SQLINSERTPROD = "INSERT INTO PRODUCT (NAMEP, TYPEP, PRICE, STOCK, CODBRAND) VALUES (?, ?, ?, ?, ?)";
-	//SQLINSERTCOMP = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, STOCKCOMPONENT, PRICECOMP, CODBRAND) VALUES (?, ?, ?, ?)";
+	// SQLINSERTPROD = "INSERT INTO PRODUCT (NAMEP, TYPEP, PRICE, STOCK, CODBRAND) VALUES (?, ?, ?, ?, ?)";
+	// SQLINSERTCOMP = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, STOCKCOMPONENT, PRICECOMP, CODBRAND) VALUES (?, ?, ?, ?)";
 
 	public AddNewWindow(JDialog parent, LoginController cont, User user, String name, boolean type) {
 		super(parent, true); // Blocks the father window
 		this.cont = cont;
 		this.cont = cont;
-		this.type = type;  // true = Product | false = Component
+		this.type = type; // true = Product | false = Component
 
 		// Window
-		setTitle("MEDIAMARTA: Add New "+verifyType(type));
+		setTitle("MEDIAMARTA: Add New " + verifyType(type));
 		setBounds(100, 100, 480, 442);
 		getContentPane().setLayout(null);
 
 		// Titles
-		lblTitle = new JLabel(verifyType(type)+" Information");
+		lblTitle = new JLabel(verifyType(type) + " Information");
 		lblTitle.setBounds(10, 10, 416, 43);
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setFont(new Font("Times New Roman", Font.PLAIN, 20));
@@ -118,8 +117,8 @@ public class AddNewWindow extends JDialog implements ActionListener {
 			rdbtnC.setText("Computer");
 			rdbtnA.setVisible(false);
 			rdbtnB.setVisible(true);
-			rdbtnC.setVisible(true);			
-		} else {  // In case its a Component it can have 3 types					
+			rdbtnC.setVisible(true);
+		} else { // In case its a Component it can have 3 types
 			rdbtnA.setText("Graphics");
 			rdbtnB.setText("RAM");
 			rdbtnC.setText("Processor");
@@ -128,7 +127,7 @@ public class AddNewWindow extends JDialog implements ActionListener {
 			rdbtnC.setVisible(true);
 		}
 
-		// ComboBox & Spinner			
+		// ComboBox & Spinner
 		SpinnerModel smP = new SpinnerNumberModel(1, 0.1, 9999.99, 1); // Default, Min, Max, Increment
 		spinnerPrice = new JSpinner(smP);
 		spinnerPrice.setBounds(231, 191, 225, 30);
@@ -139,10 +138,10 @@ public class AddNewWindow extends JDialog implements ActionListener {
 		spinnerQuantity.setBounds(231, 232, 225, 30);
 		getContentPane().add(spinnerQuantity);
 
-		comboBoxBrands = new JComboBox <String>();
+		comboBoxBrands = new JComboBox<String>();
 		comboBoxBrands.setBounds(231, 273, 225, 29);
 		comboBoxBrands.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		getContentPane().add(comboBoxBrands);		
+		getContentPane().add(comboBoxBrands);
 		loadBrandsComboBox();
 
 		// Buttons
@@ -154,7 +153,7 @@ public class AddNewWindow extends JDialog implements ActionListener {
 		btnClose = new JButton("CLOSE");
 		btnClose.setBounds(5, 5, 80, 21);
 		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		getContentPane().add(btnClose);		
+		getContentPane().add(btnClose);
 
 		// Adding action listener
 		rdbtnA.addActionListener(this);
@@ -168,26 +167,25 @@ public class AddNewWindow extends JDialog implements ActionListener {
 	public String verifyType(boolean type) {
 		if (type) {
 			return "Product";
-		}
-		else {
+		} else {
 			return "Component";
 		}
 	}
 
 	// Loads the brands to the combo box
-	public void loadBrandsComboBox() {		
+	public void loadBrandsComboBox() {
 		brands = cont.verifyBrands();
-		if(!brands.isEmpty()) {
-			for (Brand b : brands.values()){
-				comboBoxBrands.addItem(b.getNameB());				
+		if (!brands.isEmpty()) {
+			for (Brand b : brands.values()) {
+				comboBoxBrands.addItem(b.getNameB());
 			}
 			comboBoxBrands.setSelectedIndex(-1);
-		}		
+		}
 	}
 
 	// Verifies the Text field
-	public boolean verifyCredentialsName() {			
-		if (textName==null || textName.getText().equals("")) {			
+	public boolean verifyCredentialsName() {
+		if (textName == null || textName.getText().equals("")) {
 			lblName.setText("*NAME:");
 			lblName.setForeground(Color.RED);
 			return false;
@@ -199,8 +197,8 @@ public class AddNewWindow extends JDialog implements ActionListener {
 	}
 
 	// Verifies the Type field
-	public boolean verifyCredentialsType() {			
-		if (rdbtnA.isSelected() || rdbtnB.isSelected() || rdbtnC.isSelected()) {						
+	public boolean verifyCredentialsType() {
+		if (rdbtnA.isSelected() || rdbtnB.isSelected() || rdbtnC.isSelected()) {
 			lblType.setText(" TYPE:");
 			lblType.setForeground(Color.BLACK);
 			return true;
@@ -212,8 +210,8 @@ public class AddNewWindow extends JDialog implements ActionListener {
 	}
 
 	// Adquires the Type value
-	public void setType() {			
-		if (type) {	
+	public void setType() {
+		if (type) {
 			if (rdbtnB.isSelected()) {
 				productType = TypeP.MOBILE;
 			}
@@ -234,8 +232,8 @@ public class AddNewWindow extends JDialog implements ActionListener {
 	}
 
 	// Verifies the Brand field
-	public boolean verifyCredentialsBrand() {			
-		if (comboBoxBrands.getSelectedIndex()==-1) {			
+	public boolean verifyCredentialsBrand() {
+		if (comboBoxBrands.getSelectedIndex() == -1) {
 			lblBrand.setText("*BRAND:");
 			lblBrand.setForeground(Color.RED);
 			return false;
@@ -247,8 +245,8 @@ public class AddNewWindow extends JDialog implements ActionListener {
 	}
 
 	// Gets the Brand code
-	public int setBrandCode() {	
-		String brandName = (String)comboBoxBrands.getSelectedItem();
+	public int setBrandCode() {
+		String brandName = (String) comboBoxBrands.getSelectedItem();
 		System.out.print(brandName);
 		return cont.getBrandCode(brandName);
 	}
@@ -260,19 +258,19 @@ public class AddNewWindow extends JDialog implements ActionListener {
 		if (e.getSource() == btnClose) {
 			this.dispose();
 		}
-		// Verifies the text fields and adds the Product or Component 
+		// Verifies the text fields and adds the Product or Component
 		if (e.getSource() == btnSubmit) { // Verifies all the text fields are filled
-			if (verifyCredentialsName() && verifyCredentialsType() && verifyCredentialsBrand()) {				
+			if (verifyCredentialsName() && verifyCredentialsType() && verifyCredentialsBrand()) {
 				setType();
-				if(type) { // If all fields are filled depending on the choices will create the Product or Component to add it to the database
+				if (type) { // If all fields are filled depending on the choices will create the Product or Component to add it to the database
 					Product product = new Product(textName.getText(), productType, (double)spinnerPrice.getValue(), (int)spinnerQuantity.getValue(), setBrandCode());
 					cont.insertProd(product);
-					JOptionPane.showMessageDialog(null, "Component "+product.getNameP()+" added with "+product.getStock()+" units of stock");					
+					JOptionPane.showMessageDialog(null, "Component "+product.getNameP()+" added with "+product.getStock()+" units of stock");
 					this.dispose();
-				} else {					
-					Comp component = new Comp(textName.getText(), componentType, setBrandCode(), (int)spinnerQuantity.getValue(), (double)spinnerPrice.getValue()); //String nameC, TypeC typeC, int codBrand, int stock, double price
+				} else {
+					Comp component = new Comp(textName.getText(), componentType, setBrandCode(), (int)spinnerQuantity.getValue(), (double)spinnerPrice.getValue()); // String nameC, TypeC typeC, int codBrand, int stock, double price
 					cont.insertComp(component);
-					JOptionPane.showMessageDialog(null, "Component "+component.getNameC()+" added with "+component.getStock()+" units of stock");					
+					JOptionPane.showMessageDialog(null, "Component "+component.getNameC()+" added with "+component.getStock()+" units of stock");
 					this.dispose();
 				}
 			} else {

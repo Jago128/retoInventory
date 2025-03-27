@@ -17,7 +17,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private LoginController cont;
 	private JLabel lblMediaMarta, lblProducts;
-	private JButton btnLogOut, btnBuy, btnAddNew, btnRemove, btnClose;
+	private JButton btnLogOut, btnBuy, btnAddNew, btnRemove, btnClose, btnLowStock;
 	private JList<String> list;
 	private Map<String, Product> products;	
 	private User user;
@@ -84,6 +84,10 @@ public class ProductWindow extends JDialog implements ActionListener {
 		btnClose.setBounds(5, 5, 80, 21);
 		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		getContentPane().add(btnClose);
+		
+		btnLowStock = new JButton("[PH]");
+		btnLowStock.setBounds(190, 574, 89, 23);
+		getContentPane().add(btnLowStock);
 
 		// Buttons visibility
 		if (user.getTypeU()==TypeU.ADMIN) { // In case the user is an admin these buttons will be visible
@@ -138,7 +142,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 		if (e.getSource()==btnClose) {
 			this.dispose();
 		}
-		// Opens the window for the Check out
+		// Opens the window for the Check-out
 		if (e.getSource() == btnBuy) {
 			if(!list.isSelectionEmpty()) { // If there is an item selected it will do the action
 				boolean type = true;  // true = Product | false = Component
@@ -163,6 +167,10 @@ public class ProductWindow extends JDialog implements ActionListener {
 			} else {
 				JOptionPane.showMessageDialog(null, "[ERROR] Select an item to delete");
 			}
+		}
+		
+		if (e.getSource()==btnLowStock) {
+			
 		}
 	}
 }
