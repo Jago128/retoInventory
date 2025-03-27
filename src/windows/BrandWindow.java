@@ -143,9 +143,10 @@ public class BrandWindow extends JDialog implements ActionListener {
 	// Verify the type
 	public boolean verifyType() {
 		boolean type = false;
-		if(products.containsKey((String)comboBoxBrands.getSelectedItem())) {
+		
+		if(products.containsKey(list.getSelectedValue())) {
 			type=true;
-		} else if(components.containsKey((String)comboBoxBrands.getSelectedItem())) {
+		} else if(components.containsKey(list.getSelectedValue())) {
 			type=false;
 		}
 		return type;
