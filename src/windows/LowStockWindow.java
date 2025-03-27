@@ -19,8 +19,8 @@ public class LowStockWindow extends JDialog implements ActionListener {
 	private JLabel lblMediaMarta, lblLowStock;
 	private JButton btnLogOut, btnRestock, btnClose;
 	private JList<String> list;
-	private Map<String, Product> products;
-	private Map<String, Comp> components;
+	private Map<Integer, Product> products;
+	private Map<Integer, Comp> components;
 	private User user;
 
 	public LowStockWindow(JFrame parent, LoginController cont, User user) {
@@ -86,8 +86,8 @@ public class LowStockWindow extends JDialog implements ActionListener {
 	// Loads the list
 	public void loadList() {	
 		DefaultListModel<String> model = new DefaultListModel<String>();
-		products = cont.verifyProduct(); // Needs to be a method that shows only products with low stock
-		components = cont.verifyComponent(); // Needs to be a method that shows only products with low stock
+		products = cont.showProdsOrderedByStock(); // Needs to be a method that shows only products with low stock
+		components = cont.showCompsOrderedByStock(); // Needs to be a method that shows only products with low stock
 
 		if(!products.isEmpty()) {
 			for (Product p : products.values()){
