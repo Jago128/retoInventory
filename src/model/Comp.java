@@ -95,7 +95,6 @@ public class Comp {
 	// Declare toString
 	@Override
 	public String toString() {
-		return "Comp [codC=" + codC + ", nameC=" + nameC + ", typeC=" + typeC + ", codBrand=" + codBrand + ", stock="
-				+ stock + ", price=" + price + "]";
+		return "Comp [Code: "+codC+", Name: "+nameC+", Type: "+typeC+", Brand Code: "+codBrand+", Stock: "+stock+", Price: "+price+"]";
 	}
 }

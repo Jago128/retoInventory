@@ -190,15 +190,16 @@ public class DBImplementation implements MediaMartaDAO {
 			// Prepares the SQL query
 			stmt = con.prepareStatement(SQLINSERTPROD);
 			stmt.setString(1, prod.getNameP());
-			if(prod.getTypeP()==TypeP.MOBILE) {
+			if (prod.getTypeP() == TypeP.MOBILE) {
 				stmt.setString(2, "Mobile");
 			} else {
 				stmt.setString(2, "Computer");
-			}			
+			}
 			stmt.setDouble(3, prod.getPrice());
 			stmt.setInt(4, prod.getStock());
 			stmt.setInt(5, prod.getCodBrand());
-			// Executes the SQL query. If the insert is executed correctly, check becomes true
+			// Executes the SQL query. If the insert is executed correctly, check becomes
+			// true
 			if (stmt.executeUpdate() > 0) {
 				check = true;
 			}
@@ -330,13 +331,13 @@ public class DBImplementation implements MediaMartaDAO {
 			// Prepares the SQL query
 			stmt = con.prepareStatement(SQLINSERTCOMP);
 			stmt.setString(1, comp.getNameC());
-			if(comp.getTypeC()==TypeC.GRAPHICS) {
+			if (comp.getTypeC() == TypeC.GRAPHICS) {
 				stmt.setString(2, "Graphics");
-			} else if (comp.getTypeC()==TypeC.RAM){
+			} else if (comp.getTypeC() == TypeC.RAM) {
 				stmt.setString(2, "RAM");
-			} else if (comp.getTypeC()==TypeC.PROCESSOR){
+			} else if (comp.getTypeC() == TypeC.PROCESSOR) {
 				stmt.setString(2, "Processor");
-			}		
+			}
 			stmt.setInt(3, comp.getStock());
 			stmt.setDouble(4, comp.getPrice());
 			stmt.setInt(5, comp.getCodBrand());
@@ -561,19 +562,19 @@ public class DBImplementation implements MediaMartaDAO {
 		}
 		return brands;
 	}
-	
-	// GET SELECTED'S BRAND CODE
+
+	// Get the selected brand's code
 	public int getBrandCode(String brandName) {
 		ResultSet rs = null;
 		int brandCode = 0;
-		
+
 		this.openConnection();
 		try {
 			stmt = con.prepareStatement(SQLSELECTBRANDCODE);
 			stmt.setString(1, brandName);
 			rs = stmt.executeQuery();
 			if (rs.next()) {
-				brandCode = rs.getInt("CODBRAND");				
+				brandCode = rs.getInt("CODBRAND");
 			}
 			rs.close();
 			stmt.close();
@@ -581,8 +582,8 @@ public class DBImplementation implements MediaMartaDAO {
 		} catch (SQLException e) {
 			System.out.println("SQL error");
 			e.printStackTrace();
-		}	
-		
+		}
+
 		return brandCode;
 	}
 

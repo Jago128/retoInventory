@@ -87,7 +87,7 @@ public class Product {
 		this.codBrand = codBrand;
 	}
 
-	//Method to show name and price
+	// Method to show name and price
 	public String nameAndPrice() {
 		return nameP + price + "€";
 	}
@@ -95,7 +95,6 @@ public class Product {
 	// Declare toString
 	@Override
 	public String toString() {
-		return "Product [codP=" + codP + ", nameP=" + nameP + ", typeP=" + typeP + ", price=" + price + ", stock="
-				+ stock + ", codBrand=" + codBrand + "]";
+		return "Product [Code: "+codP+", Name: "+nameP+", Type: "+typeP+", Price: "+price+", Stock: "+stock+", Brand Code: "+codBrand+"]";
 	}
 }

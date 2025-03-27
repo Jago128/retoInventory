@@ -37,6 +37,6 @@ public class Brand {
 	// Declare toString
 	@Override
 	public String toString() {
-		return "Brand [codB=" + codB + ", nameB=" + nameB + "]";
+		return "Brand [Code: "+codB+", Name: "+nameB+"]";
 	}
 }

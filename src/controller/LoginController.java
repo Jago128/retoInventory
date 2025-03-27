@@ -34,11 +34,6 @@ public class LoginController {
 		return dao.verifyUserType(user);
 	}
 
-	// Product, Comp and Brand methods
-	public boolean sellAndSubstract(String codUser, String nomProd, int amount, double price, boolean comp) {
-		return dao.sellAndSubstract(codUser, nomProd, amount, price, comp);
-	}
-
 	// PRODUCTS
 	public boolean insertProd(Product prod) {
 		return dao.insertProd(prod);
@@ -80,9 +75,13 @@ public class LoginController {
 	public Map<String, Comp> showCompsOrderedByStock() {
 		return dao.showCompsOrderedByStock();
 	}
+	
+	// Product and Comp methods
+	public boolean sellAndSubstract(String codUser, String nomProd, int amount, double price, boolean comp) {
+		return dao.sellAndSubstract(codUser, nomProd, amount, price, comp);
+	}
 
 	// BRANDS
-
 	public Map<String, Brand> verifyBrands() {
 		return dao.verifyBrands();
 	}
@@ -98,6 +97,4 @@ public class LoginController {
 	public Map<String, Comp> showComponentsBrand(String brand) {
 		return dao.showComponentsBrand(brand);
 	}
-
-
 }

@@ -12,7 +12,7 @@ public class User {
 		this.codU = "";
 		this.username = "";
 		this.password = "";
-		this.typeU = TypeU.NULL;
+		this.typeU = TypeU.UNSET;
 	}
 
 	// Declare parametrized constructors
@@ -73,6 +73,6 @@ public class User {
 	// Declare toString
 	@Override
 	public String toString() {
-		return "User [codU=" + codU + ", username=" + username + ", password=" + password + ", typeU=" + typeU + "]";
+		return "User [Code: "+codU+", Username: "+username+", Password: "+password+", Type: "+typeU+"]";
 	}
 }
