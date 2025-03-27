@@ -86,14 +86,14 @@ INSERT INTO PRODUCT (NAMEP,TYPEP,PRICE,STOCKPRODUCT,CODBRAND) VALUES
 ("Samsung Galaxy Book 4","Computer",399,70,2),
 ("Lenovo IdeaPad Slim 3","Computer",700,300,3),
 ("Samsung Galaxy S24","Mobile",550,4,2),
-("ASUS ExpertBook","Computer",700,300,5),
+("ASUS ExpertBook","Computer",710,300,5),
 ("HUAWEI Pura 70 Pro","Mobile",1000,700,4);
 
 INSERT INTO PURCHASE VALUES 
-(5,'Pakete7',5, 5000,'2025-02-20'),
+(6,'Pakete7',5, 5000,'2025-02-20'),
 (1,'PepGuardiola',12, 6000,'2025-01-04'),
 (3,'Joao10',1, 700,'2025-03-03'),
-(2,'Pakete7',2, 1100,'2025-02-25');
+(4,'Pakete7',2, 1100,'2025-02-25');
 
 INSERT INTO COMPONENT (NAMECOMP,TYPEC,CODBRAND,STOCKCOMPONENT,PRICECOMP) VALUES 
                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ("Asus GT710","Graphics",5,4,81.99),
@@ -268,20 +268,16 @@ BEGIN
     DECLARE ERROR BOOLEAN DEFAULT FALSE;
     DECLARE MESSAGE VARCHAR(255) DEFAULT NULL;
     
-    -- Manejo de error si no se encuentra el producto o componente
     DECLARE CONTINUE HANDLER FOR NOT FOUND SET ERROR = TRUE;
 
     IF PROD THEN
-        -- Buscar el código del producto
         SET CODPROD := (SELECT CODPRODUCT FROM PRODUCT WHERE TRIM(NAMEP) = TRIM(NAMEPROD) LIMIT 1);
 
-        -- Si el producto no existe, devolver error
         IF CODPROD IS NULL THEN
             SET MESSAGE = "ERROR: Product not found.";
             SET ERROR = TRUE;
         END IF;
 
-        -- Obtener stock actual
         IF ERROR = FALSE THEN
             SET STOCKCHECK := (SELECT STOCKPRODUCT FROM PRODUCT WHERE CODPRODUCT = CODPROD);
             SET CURRENTSTOCK := STOCKCHECK - QUANTITY;
@@ -332,8 +328,10 @@ BEGIN
     RETURN MESSAGE;
 END //
 DELIMITER ;
-SELECT sellAndSubstract(4321,'Iphone X',5,700,TRUE);
+SELECT sellAndSubstract('Jago128','Iphone X',1,550,TRUE) AS PRODUCT;
 DROP FUNCTION sellAndSubstract;
+SELECT * FROM PURCHASE;
+
 Delimiter //
 CREATE PROCEDURE showProdsAndCompsOfAParticularBrand(brandName VARCHAR(15))
 BEGIN
