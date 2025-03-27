@@ -269,8 +269,7 @@ public class DBImplementation implements MediaMartaDAO {
 	// Delete a product
 	@Override
 	public boolean deleteProd(String nom) {
-		// Open connection and declare a boolean to check if the update is properly executed
-		ResultSet rs = null;
+		// Open connection and declare a boolean to check if the update is properly executed		
 		boolean check = false;
 		this.openConnection();
 		try {
@@ -278,8 +277,7 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt = con.prepareStatement(SQLDELETEPROD);
 			stmt.setString(1, nom);
 			// Executes the SQL query. If the delete is executed correctly, check becomes true
-			rs = stmt.executeQuery();
-			if (rs.next()) {
+			if (stmt.executeUpdate()>0) {
 				check = true;
 			}
 			// Closes the connection
@@ -412,7 +410,6 @@ public class DBImplementation implements MediaMartaDAO {
 	@Override
 	public boolean deleteComp(String nom) {
 		// Open connection and declare a boolean to check if the update is properly executed
-		ResultSet rs = null;
 		boolean check = false;
 		this.openConnection();
 		try {
@@ -420,12 +417,10 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt = con.prepareStatement(SQLDELETECOMP);
 			stmt.setString(1, nom);
 			// Executes the SQL query. If the delete is executed correctly, check becomes true
-			rs = stmt.executeQuery();
-			if (rs.next()) {
+			if (stmt.executeUpdate()>0) {
 				check = true;
 			}
 			// Closes the connection
-			rs.close();
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
