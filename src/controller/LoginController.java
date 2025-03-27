@@ -56,7 +56,7 @@ public class LoginController {
 		return dao.deleteProd(nom);
 	}
 
-	public Map<Integer, Product> showProdsOrderedByStock() {
+	public Map<String, Product> showProdsOrderedByStock() {
 		return dao.showProdsOrderedByStock();
 	}
 
@@ -77,7 +77,7 @@ public class LoginController {
 		return dao.deleteComp(nom);
 	}
 
-	public Map<Integer, Comp> showCompsOrderedByStock() {
+	public Map<String, Comp> showCompsOrderedByStock() {
 		return dao.showCompsOrderedByStock();
 	}
 

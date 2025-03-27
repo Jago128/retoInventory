@@ -27,7 +27,7 @@ public interface MediaMartaDAO {
 
 	public boolean deleteProd(String nom);
 	
-	public Map<Integer, Product> showProdsOrderedByStock();
+	public Map<String, Product> showProdsOrderedByStock();
 	
 	// COMPONENTS
 	public boolean insertComp(Comp comp);
@@ -38,7 +38,7 @@ public interface MediaMartaDAO {
 	
 	public boolean deleteComp(String nom);
 
-	public Map<Integer, Comp> showCompsOrderedByStock();
+	public Map<String, Comp> showCompsOrderedByStock();
 		
 	// BRANDS
 	public Map<String, Brand> verifyBrands();

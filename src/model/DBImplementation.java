@@ -290,8 +290,8 @@ public class DBImplementation implements MediaMartaDAO {
 
 	// Shows products with a stock of 50 or less, ordered by stock
 	@Override
-	public Map<Integer, Product> showProdsOrderedByStock() {
-		Map<Integer, Product> prods = new TreeMap<>();
+	public Map<String, Product> showProdsOrderedByStock() {
+		Map<String, Product> prods = new HashMap<>();
 		ResultSet rs = null;
 		Product product;
 		this.openConnection();
@@ -307,7 +307,7 @@ public class DBImplementation implements MediaMartaDAO {
 				product.setPrice(rs.getDouble("PRICE"));
 				product.setStock(rs.getInt("STOCKPRODUCT"));
 				product.setCodBrand(rs.getInt("CODBRAND"));
-				prods.put(product.getStock(), product);
+				prods.put(product.getNameP(), product);
 			}
 			// Closes the connection
 			rs.close();
@@ -433,8 +433,8 @@ public class DBImplementation implements MediaMartaDAO {
 
 	// Shows components with a stock of 50 or less, ordered by stock
 	@Override
-	public Map<Integer, Comp> showCompsOrderedByStock() {
-		Map<Integer, Comp> comps = new TreeMap<>();
+	public Map<String, Comp> showCompsOrderedByStock() {
+		Map<String, Comp> comps = new HashMap<>();
 		ResultSet rs = null;
 		Comp comp;
 		this.openConnection();
@@ -450,7 +450,7 @@ public class DBImplementation implements MediaMartaDAO {
 				comp.setPrice(rs.getDouble("PRICECOMP"));
 				comp.setStock(rs.getInt("STOCKCOMPONENT"));
 				comp.setCodBrand(rs.getInt("CODBRAND"));
-				comps.put(comp.getStock(), comp);
+				comps.put(comp.getNameC(), comp);
 			}
 			// Closes the connection
 			rs.close();
