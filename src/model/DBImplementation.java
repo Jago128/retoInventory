@@ -479,7 +479,7 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.setString(2, nomItem);
 			stmt.setInt(3, quantity);
 			stmt.setDouble(4, price);
-			stmt.setBoolean(5, check);
+			stmt.setBoolean(5, type);
 			ResultSet rs = stmt.executeQuery();
 			check=rs.getBoolean(1);
 			stmt.close();
