@@ -307,7 +307,7 @@ public class DBImplementation implements MediaMartaDAO {
 			while (rs.next()) {
 				product = new Product();
 				product.setNameP(rs.getString("NAMEP"));
-				product.setTypeP(TypeP.valueOf(rs.getString("TYPEP").toUpperCase()));
+				product.setTypeP(TypeP.valueOf(rs.getString("TYPEP").toUpperCase())); // Needs to set to UpperCase because in the database is in lowercase
 				product.setPrice(rs.getDouble("PRICE"));
 				product.setStock(rs.getInt("STOCKPRODUCT"));
 				product.setCodBrand(rs.getInt("CODBRAND"));
@@ -454,7 +454,7 @@ public class DBImplementation implements MediaMartaDAO {
 			while (rs.next()) {
 				comp = new Comp();
 				comp.setNameC(rs.getString("NAMECOMP"));
-				comp.setTypeC(TypeC.valueOf(rs.getString("TYPEC").toUpperCase()));
+				comp.setTypeC(TypeC.valueOf(rs.getString("TYPEC").toUpperCase())); // Needs to set to UpperCase because in the database is in lowercase
 				comp.setPrice(rs.getDouble("PRICECOMP"));
 				comp.setStock(rs.getInt("STOCKCOMPONENT"));
 				comp.setCodBrand(rs.getInt("CODBRAND"));
@@ -498,6 +498,7 @@ public class DBImplementation implements MediaMartaDAO {
 		return check;
 	}
 
+	// Ckecks and obtains the stock of the selected product
 	@Override
 	public int checkStock(String nomItem, boolean type) {
 		int stock = 0;
