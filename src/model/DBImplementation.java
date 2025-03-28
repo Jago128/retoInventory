@@ -44,7 +44,7 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLRESTOCKCOMPONENT = "";
 
 	// Product and Component related stuff
-	final String SQLSELL = "SELECT sellAndSubstract(?,?,?,?,?) AS SELL";
+	final String SQLSELL = "SELECT sellAndSubstract(?,?,?,?,?)";
 
 	// BRAND
 	final String SQLSELECTBRAND = "SELECT * FROM brand";
@@ -472,10 +472,8 @@ public class DBImplementation implements MediaMartaDAO {
 
 	// Substracts from a item's stock, essentilly selling the product to the user, and makes a new entry in Purchase
 	@Override
-	public boolean sellAndSubstract(String codUser, String nomItem, int amount, double price, boolean type) {
-		// Open connection and declare a boolean to check if the update is properly executed
-		boolean check = false;
-
+	public void sellAndSubstract(String codUser, String nomItem, int amount, double price, boolean type) {
+		
 		// Opens the connection
 		this.openConnection();
 		try {
@@ -486,16 +484,12 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.setInt(3, amount);
 			stmt.setDouble(4, price);
 			stmt.setBoolean(5, type);
-			ResultSet rs = stmt.executeQuery();
-			if (rs.next()) {
-				check=rs.getBoolean("SELL");
-			}
+			stmt.executeQuery();
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		return check;
 	}
 
 	// Checks the stock of a product

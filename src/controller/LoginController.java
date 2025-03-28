@@ -77,8 +77,8 @@ public class LoginController {
 	}
 	
 	// Product and Comp methods
-	public boolean sellAndSubstract(String codUser, String nomProd, int amount, double price, boolean comp) {
-		return dao.sellAndSubstract(codUser, nomProd, amount, price, comp);
+	public void sellAndSubstract(String codUser, String nomProd, int amount, double price, boolean comp) {
+		dao.sellAndSubstract(codUser, nomProd, amount, price, comp);
 	}
 	
 	public int checkStock(String nomItem, boolean type) {
