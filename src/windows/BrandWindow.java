@@ -223,8 +223,9 @@ public class BrandWindow extends JDialog implements ActionListener {
 		} 
 		// Opens the window to delete
 		if (e.getSource()==btnRemove) {
-			if (!list.isSelectionEmpty()) { // If there is an item selected it will do the action
-				boolean type = false;  // true = Product | false = Component
+			if (!list.isSelectionEmpty()) { // If there is an item selected it will do the action							
+				boolean type = verifyType(); // true = Product | false = Component
+				
 				VerificationWindow checkOut = new VerificationWindow(this, cont, obtainName(), type);
 				checkOut.setVisible(true);
 			} else {
