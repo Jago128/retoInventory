@@ -34,7 +34,7 @@ public class LoginController {
 		return dao.verifyUserType(user);
 	}
 
-	// PRODUCTS
+	// Product related methods
 	public boolean insertProd(Product prod) {
 		return dao.insertProd(prod);
 	}
@@ -55,7 +55,7 @@ public class LoginController {
 		return dao.showProdsOrderedByStock();
 	}
 
-	// COMPONENTS
+	// Component related methods
 	public boolean insertComp(Comp comp) {
 		return dao.insertComp(comp);
 	}
@@ -81,7 +81,7 @@ public class LoginController {
 		return dao.sellAndSubstract(codUser, nomProd, amount, price, comp);
 	}
 
-	// BRANDS
+	// Brand related methods
 	public Map<String, Brand> verifyBrands() {
 		return dao.verifyBrands();
 	}

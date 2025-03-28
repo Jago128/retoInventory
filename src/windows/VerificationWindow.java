@@ -22,7 +22,7 @@ public class VerificationWindow extends JDialog implements ActionListener {
 	private String name;
 	private boolean type; // true = Product | false = Component
 
-	/*****[WINDOW CREATION]**************************************************************************************************/
+	/**[WINDOW CREATION]*/
 
 	public VerificationWindow(JDialog parent, LoginController cont, String name, boolean type) {
 		super(parent, true); // Blocks the father window
@@ -73,7 +73,7 @@ public class VerificationWindow extends JDialog implements ActionListener {
 		btnClose.addActionListener(this);
 	}
 
-	/*****[METHODS]*********************************************************************************************************/
+	/**[METHODS]*/
 
 	// Generates a random code from 1 to 4 numbers
 	public int generateCode() {
@@ -107,7 +107,7 @@ public class VerificationWindow extends JDialog implements ActionListener {
 	// Refresh parent window list
 	public void refreshParentList() {
 		JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
-		if(parent instanceof ProductWindow){ // Checks the parent window type
+		if (parent instanceof ProductWindow){ // Checks the parent window type
 			ProductWindow productWindow = (ProductWindow)parent; // Cast it to its type to be able to use it's methods
 			productWindow.loadProductsList(); // Calls the parent method to reload the list
 		} else if (parent instanceof ComponentWindow){ 
@@ -119,7 +119,7 @@ public class VerificationWindow extends JDialog implements ActionListener {
 		}		
 	}
 
-	/*****[ACTION PERFORMER]**************************************************************************************************/
+	/**[ACTION PERFORMER]*/
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -131,7 +131,7 @@ public class VerificationWindow extends JDialog implements ActionListener {
 		if (e.getSource() == btnSubmit && verifyCode(cod, ver)) {
 			deletion(cont, name, type);			
 			/*JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
-			if(parent instanceof ProductWindow){ // Checks which type its
+			if (parent instanceof ProductWindow){ // Checks which type its
 				ProductWindow productWindow = (ProductWindow)parent;
 				productWindow.loadProductsList(); // Calls the parent method to reload the list
 			} else if (parent instanceof ComponentWindow){

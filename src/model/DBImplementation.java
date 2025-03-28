@@ -24,8 +24,6 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLTYPE = "SELECT type_u FROM user WHERE coduser = ?";
 	final String SQLINSERTUSER = "INSERT INTO user VALUES (?,?,?,'Client')";
 
-
-
 	// PRODUCT
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
 	final String SQLSELECTPRODUCTSTOCK = "SELECT * FROM product WHERE STOCKPRODUCT<=50 ORDER BY STOCKPRODUCT";
@@ -62,7 +60,7 @@ public class DBImplementation implements MediaMartaDAO {
 	// Method to open a new connection
 	private void openConnection() {
 		try {
-			// Try opening the connection
+			// Tries to open the connection
 			con = DriverManager.getConnection(urlBD, this.userBD, this.passwordBD);
 		} catch (SQLException e) {
 			System.out.println("Error when attempting to open the DB.");
@@ -95,10 +93,10 @@ public class DBImplementation implements MediaMartaDAO {
 		return register;
 	}
 
-	// Verify that the user exists
+	// Verifies that the user exists
 	@Override
 	public boolean verifyUser(User user) {
-		// Open connection and declare a boolean to check if the user exists
+		// Opens the connection
 		boolean exists = false;
 		this.openConnection();
 
@@ -122,10 +120,10 @@ public class DBImplementation implements MediaMartaDAO {
 		return exists;
 	}
 
-	// Verify that the user and the password exist and matches
+	// Verifies that the user and the password exist and matches
 	@Override
 	public boolean verifyUserPassword(User user) {
-		// Open connection and declare a boolean to check if the password exists and matches
+		// Opens the connection
 		boolean exists = false;
 		this.openConnection();
 
@@ -150,10 +148,10 @@ public class DBImplementation implements MediaMartaDAO {
 		return exists;
 	}
 
-	// Verify the user type (only used once the user is verified)
+	// Verifies the user type (only used once the user is verified)
 	@Override
 	public boolean verifyUserType(User user) {
-		// Open connection and declare a boolean to check if the user is an admin
+		// Opens the connection
 		boolean admin = false;
 		this.openConnection();
 
@@ -180,7 +178,7 @@ public class DBImplementation implements MediaMartaDAO {
 	// Inserts a new product
 	@Override
 	public boolean insertProd(Product prod) {
-		// Open connection and declare a boolean to check if the update is properly executed
+		// Opens the connection
 		boolean check = false;
 		this.openConnection();
 
@@ -209,13 +207,14 @@ public class DBImplementation implements MediaMartaDAO {
 		return check;
 	}
 
-	// Verify that the product exists, and show them
+	// Verifies that the product exists, and show them
 	@Override
 	public Map<String, Product> verifyProduct() {
 		ResultSet rs = null;
 		Product product;
 		Map<String, Product> products = new TreeMap<>();
-
+		
+		// Opens the connection
 		this.openConnection();
 		try {
 			stmt = con.prepareStatement(SQLSELECTPRODUCT);
@@ -241,7 +240,8 @@ public class DBImplementation implements MediaMartaDAO {
 	public Product obtainProductNamePrice(String name) {
 		ResultSet rs = null;
 		Product product = new Product();
-
+		
+		// Opens the connection
 		this.openConnection();
 		try {
 			stmt = con.prepareStatement(SQLSELECTPRODUCTNAMEPRICE);
@@ -266,6 +266,8 @@ public class DBImplementation implements MediaMartaDAO {
 	public boolean deleteProd(String nom) {
 		// Open connection and declare a boolean to check if the update is properly executed		
 		boolean check = false;
+		
+		// Opens the connection
 		this.openConnection();
 		try {
 			// Prepares the SQL query
@@ -290,6 +292,8 @@ public class DBImplementation implements MediaMartaDAO {
 		Map<String, Product> prods = new HashMap<>();
 		ResultSet rs = null;
 		Product product;
+		
+		// Opens the connection
 		this.openConnection();
 		try {
 			// Prepares the SQL query
@@ -318,9 +322,9 @@ public class DBImplementation implements MediaMartaDAO {
 	// Inserts a new component into the database
 	@Override
 	public boolean insertComp(Comp comp) {
-		// Open connection and declare a boolean to check if the update is properly executed
 		boolean check = false;
-
+		
+		// Opens the connection
 		this.openConnection();
 		try {
 			// Prepares the SQL query
@@ -349,13 +353,14 @@ public class DBImplementation implements MediaMartaDAO {
 		return check;
 	}
 
-	// Verify that the component exists, and show them
+	// Verifies that the component exists, and show them
 	@Override
 	public Map<String, Comp> verifyComponent() {
 		ResultSet rs = null;
 		Comp component;
 		Map<String, Comp> components = new TreeMap<>();
-
+		
+		// Opens the connection
 		this.openConnection();
 		try {
 			stmt = con.prepareStatement(SQLSELECTCOMPONENT);
@@ -381,7 +386,8 @@ public class DBImplementation implements MediaMartaDAO {
 	public Comp obtainComponentNamePrice(String name) {
 		ResultSet rs = null;
 		Comp component = new Comp();
-
+		
+		// Opens the connection
 		this.openConnection();
 		try {
 			stmt = con.prepareStatement(SQLSELECTCOMPONENTNAMEPRICE);
@@ -404,8 +410,9 @@ public class DBImplementation implements MediaMartaDAO {
 	// Delete a product
 	@Override
 	public boolean deleteComp(String nom) {
-		// Open connection and declare a boolean to check if the update is properly executed
 		boolean check = false;
+		
+		// Opens the connection
 		this.openConnection();
 		try {
 			// Prepares the SQL query
@@ -430,6 +437,8 @@ public class DBImplementation implements MediaMartaDAO {
 		Map<String, Comp> comps = new HashMap<>();
 		ResultSet rs = null;
 		Comp comp;
+		
+		// Opens the connection
 		this.openConnection();
 		try {
 			// Prepares the SQL query
@@ -460,7 +469,8 @@ public class DBImplementation implements MediaMartaDAO {
 	public boolean sellAndSubstract(String codUser, String nomItem, int amount, double price, boolean type) {
 		// Open connection and declare a boolean to check if the update is properly executed
 		boolean check = false;
-
+		
+		// Opens the connection
 		this.openConnection();
 		try {
 			// Prepares the SQL query
@@ -482,12 +492,14 @@ public class DBImplementation implements MediaMartaDAO {
 		return check;
 	}
 
-	// Verify that the brand exists, and prepare a map to use later
+	// Verifies that the brand exists, and prepares a map to use later
 	@Override
 	public Map<String, Brand> verifyBrands() {
 		ResultSet rs = null;
 		Brand brand;
 		Map<String, Brand> brands = new TreeMap<>();
+		
+		// Opens the connection
 		this.openConnection();
 		try {
 			// Prepares the SQL query
@@ -509,11 +521,12 @@ public class DBImplementation implements MediaMartaDAO {
 		return brands;
 	}
 
-	// Get the selected brand's code
+	// Gets the selected brand's code
 	public int getBrandCode(String brandName) {
 		ResultSet rs = null;
 		int brandCode = 0;
-
+		
+		// Opens the connection
 		this.openConnection();
 		try {
 			stmt = con.prepareStatement(SQLSELECTBRANDCODE);
@@ -533,13 +546,14 @@ public class DBImplementation implements MediaMartaDAO {
 		return brandCode;
 	}
 
-	// Show products of a brand
+	// Shows products of a brand
 	@Override
 	public Map<String, Product> showProductsBrand(String brand) {
 		Map<String, Product> brandProds = new TreeMap<>();
 		ResultSet rs = null;
 		Product product;
-
+		
+		// Opens the connection
 		this.openConnection();
 		try {
 			stmt = con.prepareStatement(SQLSELECTPRODUCTBRAND);
@@ -561,13 +575,14 @@ public class DBImplementation implements MediaMartaDAO {
 		return brandProds;
 	}
 
-	// Show components of a brand
+	// Shows components of a brand
 	@Override
 	public Map<String, Comp> showComponentsBrand(String brand) {
 		Map<String, Comp> brandComps = new TreeMap<>();
 		ResultSet rs = null;
 		Comp component;
-
+		
+		// Opens the connection
 		this.openConnection();
 		try {
 			stmt = con.prepareStatement(SQLSELECTCOMPONENTBRAND);
@@ -588,5 +603,4 @@ public class DBImplementation implements MediaMartaDAO {
 		}
 		return brandComps;
 	}
-
 }

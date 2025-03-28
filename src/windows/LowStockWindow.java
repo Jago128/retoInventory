@@ -21,7 +21,7 @@ public class LowStockWindow extends JDialog implements ActionListener {
 	private Map<String, Comp> components;
 	private User user;
 
-	/*****[WINDOW CREATION]**************************************************************************************************/
+	/**[WINDOW CREATION]*/
 
 	public LowStockWindow(JFrame parent, LoginController cont, User user) {
 		super(parent, true); // Blocks the father window
@@ -82,7 +82,7 @@ public class LowStockWindow extends JDialog implements ActionListener {
 		btnClose.addActionListener(this);
 	}
 
-	/*****[METHODS]*********************************************************************************************************/
+	/**[METHODS]*/
 
 	// Loads the list
 	public void loadList() {	
@@ -103,7 +103,7 @@ public class LowStockWindow extends JDialog implements ActionListener {
 		list.setModel(model);
 	}	
 
-	/*****[ACTION PERFORMER]**************************************************************************************************/
+	/**[ACTION PERFORMER]*/
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

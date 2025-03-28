@@ -23,7 +23,7 @@ public class BrandWindow extends JDialog implements ActionListener {
 	private Map<String, Comp> components;
 	private User user;
 
-	/*****[WINDOW CREATION]**************************************************************************************************/
+	/**[WINDOW CREATION]*/
 
 	public BrandWindow(JFrame parent, LoginController cont, User user) {
 		super(parent, true); // Blocks the father window
@@ -110,12 +110,12 @@ public class BrandWindow extends JDialog implements ActionListener {
 		btnClose.addActionListener(this);
 	}
 
-	/*****[METHODS]*********************************************************************************************************/
+	/**[METHODS]*/
 
 	// Loads the brands to the combo box
 	public void loadBrandsComboBox() {		
 		brands = cont.verifyBrands();
-		if(!brands.isEmpty()) {
+		if (!brands.isEmpty()) {
 			for (Brand b : brands.values()){
 				comboBoxBrands.addItem(b.getNameB());				
 			}
@@ -130,7 +130,7 @@ public class BrandWindow extends JDialog implements ActionListener {
 		products = cont.showProductsBrand((String)comboBoxBrands.getSelectedItem()); 
 		components = cont.showComponentsBrand((String)comboBoxBrands.getSelectedItem()); 
 
-		if(!products.isEmpty()) {
+		if (!products.isEmpty()) {
 			for (Product p : products.values()){
 				model.addElement(p.getNameP());
 			}
@@ -147,9 +147,9 @@ public class BrandWindow extends JDialog implements ActionListener {
 	public boolean verifyType() {
 		boolean type = false;
 		
-		if(products.containsKey(list.getSelectedValue())) {
+		if (products.containsKey(list.getSelectedValue())) {
 			type=true;
-		} else if(components.containsKey(list.getSelectedValue())) {
+		} else if (components.containsKey(list.getSelectedValue())) {
 			type=false;
 		}
 		return type;
@@ -159,11 +159,11 @@ public class BrandWindow extends JDialog implements ActionListener {
 	public String obtainName() {
 		String name;
 
-		if(verifyType()) {
+		if (verifyType()) {
 			Product product = new Product();
 			product=cont.obtainProductNamePrice(list.getSelectedValue());
 			name=product.getNameP();
-		}else{
+		} else {
 			Comp component = new Comp();
 			component=cont.obtainComponentNamePrice(list.getSelectedValue());
 			name=component.getNameC();
@@ -175,11 +175,11 @@ public class BrandWindow extends JDialog implements ActionListener {
 	public double obtainPrice() {
 		double price;
 
-		if(verifyType()) {
+		if (verifyType()) {
 			Product product = new Product();
 			product=cont.obtainProductNamePrice(list.getSelectedValue());
 			price=product.getPrice();
-		}else{
+		} else {
 			Comp component = new Comp();
 			component=cont.obtainComponentNamePrice(list.getSelectedValue());
 			price=component.getPrice();
@@ -187,11 +187,11 @@ public class BrandWindow extends JDialog implements ActionListener {
 		return price;
 	}
 
-	/*****[ACTION PERFORMER]**************************************************************************************************/
+	/**[ACTION PERFORMER]*/
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// Logs-Out and moves back to the Main Window
+		// Logs out and moves back to the Main Window
 		if (e.getSource() == btnLogOut) {
 			MainWindow main = new MainWindow(cont);
 			main.setVisible(true);
@@ -204,17 +204,17 @@ public class BrandWindow extends JDialog implements ActionListener {
 			this.dispose();
 		}
 		// Refreshes the Products and components from the list
-		if(e.getSource()==comboBoxBrands) {
+		if (e.getSource()==comboBoxBrands) {
 			if (comboBoxBrands.getSelectedIndex()>-1) { // It will refresh and fill the list with items of the brand selected in the ComboBox
 				list.removeAll();			
 				loadList();				
-			}else { // The list will be empty while there is nothing selected in the ComboBox
+			} else { // The list will be empty while there is nothing selected in the ComboBox
 				list.removeAll();
 			}
 		}
 		// Opens the window for the Check out
 		if (e.getSource()==btnBuy) {
-			if(!list.isSelectionEmpty()) { // If there is an item selected it will do the action
+			if (!list.isSelectionEmpty()) { // If there is an item selected it will do the action
 				CheckOutWindow checkOut = new CheckOutWindow(this, cont, user, obtainName(), obtainPrice(), verifyType());
 				checkOut.setVisible(true);
 			} else {
@@ -223,7 +223,7 @@ public class BrandWindow extends JDialog implements ActionListener {
 		} 
 		// Opens the window to delete
 		if (e.getSource()==btnRemove) {
-			if(!list.isSelectionEmpty()) { // If there is an item selected it will do the action
+			if (!list.isSelectionEmpty()) { // If there is an item selected it will do the action
 				boolean type = false;  // true = Product | false = Component
 				VerificationWindow checkOut = new VerificationWindow(this, cont, obtainName(), type);
 				checkOut.setVisible(true);
