@@ -487,8 +487,8 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.setDouble(4, price);
 			stmt.setBoolean(5, check);
 			ResultSet rs = stmt.executeQuery();
-			if (rs.getString(1).equals("Purchase successful, product stock updated.")||rs.getString(1).equals("Purchase successful, component stock updated.")) {
-				check=true;
+			if (rs.next()) {
+				check=rs.getBoolean(1);
 			}
 			stmt.close();
 			con.close();
@@ -532,7 +532,6 @@ public class DBImplementation implements MediaMartaDAO {
 	}
 
 	// Verifies that the brand exists, and prepares a map to use later
-
 	@Override
 	public Map<String, Brand> verifyBrands() {
 		ResultSet rs = null;
@@ -642,5 +641,4 @@ public class DBImplementation implements MediaMartaDAO {
 		}
 		return brandComps;
 	}
-
 }
