@@ -13,13 +13,16 @@ public class RestockWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private LoginController cont;
-	private JLabel lblItemName;
+	private JLabel lblItemName, lblActualStock;
 	private JButton btnClose, btnSubmit;
 	private JSpinner spinner;
 	private User user;
 	private String name;
 	private int price;
 	private boolean type; // true = Product | false = Component
+	private JLabel lblStock;
+	private JLabel lblNewStock;
+	private JLabel lblStockCalc;
 	
 	/**[WINDOW CREATION]*/
 
@@ -68,6 +71,12 @@ public class RestockWindow extends JDialog implements ActionListener {
 		lblItemName.setBounds(25, 111, 187, 34);
 		getContentPane().add(lblItemName);
 		
+		lblActualStock = new JLabel("Actual Stock: ");
+		lblActualStock.setHorizontalAlignment(SwingConstants.LEFT);
+		lblActualStock.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		lblActualStock.setBounds(25, 156, 187, 25);
+		getContentPane().add(lblActualStock);
+		
 		// Buttons
 		btnSubmit = new JButton("SUBMIT");
 		btnSubmit.setFont(new Font("Times New Roman", Font.PLAIN, 15));
@@ -78,6 +87,24 @@ public class RestockWindow extends JDialog implements ActionListener {
 		btnClose.setBounds(5, 5, 80, 21);
 		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		getContentPane().add(btnClose);
+		
+		lblStock = new JLabel("");
+		lblStock.setHorizontalAlignment(SwingConstants.LEFT);
+		lblStock.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		lblStock.setBounds(214, 156, 187, 25);
+		getContentPane().add(lblStock);
+		
+		lblNewStock = new JLabel("New Stock: ");
+		lblNewStock.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewStock.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		lblNewStock.setBounds(25, 184, 187, 25);
+		getContentPane().add(lblNewStock);
+		
+		lblStockCalc = new JLabel("");
+		lblStockCalc.setHorizontalAlignment(SwingConstants.LEFT);
+		lblStockCalc.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		lblStockCalc.setBounds(214, 184, 187, 25);
+		getContentPane().add(lblStockCalc);
 
 		// Adding action listener
 		btnSubmit.addActionListener(this);

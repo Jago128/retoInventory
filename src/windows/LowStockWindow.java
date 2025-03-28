@@ -83,6 +83,49 @@ public class LowStockWindow extends JDialog implements ActionListener {
 	}
 
 	/**[METHODS]*/
+	// Verify the type
+	public boolean verifyType() {
+		boolean type = false;
+
+		if (products.containsKey(list.getSelectedValue())) {
+			type=true;
+		} else if (components.containsKey(list.getSelectedValue())) {
+			type=false;
+		}
+		return type;
+	}
+
+	// Obtains the name of the selected product or component
+	public String obtainName() {
+		String name;
+
+		if (verifyType()) {
+			Product product = new Product();
+			product=cont.obtainProductNamePrice(list.getSelectedValue());
+			name=product.getNameP();
+		} else {
+			Comp component = new Comp();
+			component=cont.obtainComponentNamePrice(list.getSelectedValue());
+			name=component.getNameC();
+		}
+		return name;
+	}
+
+	// Obtains the price of the selected product or component
+	public double obtainPrice() {
+		double price;
+
+		if (verifyType()) {
+			Product product = new Product();
+			product=cont.obtainProductNamePrice(list.getSelectedValue());
+			price=product.getPrice();
+		} else {
+			Comp component = new Comp();
+			component=cont.obtainComponentNamePrice(list.getSelectedValue());
+			price=component.getPrice();
+		}
+		return price;
+	}
 
 	// Loads the list
 	public void loadList() {	
@@ -119,10 +162,15 @@ public class LowStockWindow extends JDialog implements ActionListener {
 		if (e.getSource()==btnClose) {
 			this.dispose();
 		} 
-		// Closes the window
+		// Opens the window to restock window
 		if (e.getSource()==btnRestock) {
-			// RestockWindow restock = new RestockWindow(this, cont, user, name, price, type);
-			// restock.setVisible(true);
+			if (!list.isSelectionEmpty()) { // If there is an item selected it will do the action				
+				RestockWindow restock = new RestockWindow(this, cont, user, obtainName(), obtainPrice(), verifyType());
+				restock.setVisible(true);
+			} else {
+				JOptionPane.showMessageDialog(null, "[ERROR] Select an item to add stock");
+			}
+
 		} 
 	}
 }
