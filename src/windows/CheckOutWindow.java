@@ -132,7 +132,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 		}
 		// Calls the method that ejecutes the action on the DataBase
 		if (e.getSource() == btnSubmit) {
-			cont.sellAndSubstract(user.getCodU(), name, (int) spinner.getValue(), calcPrice(), type);
+			cont.sellAndSubstract(user.getCodU(), name, (int)spinner.getValue(), calcPrice(), type);
 			ContinueWindow next = new ContinueWindow(this, cont, user, user.getCodU(), type);
 			next.setVisible(true);
 			refreshParentList();
@@ -144,7 +144,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 	public void stateChanged(ChangeEvent e) {
 		// Closes the window
 		if (e.getSource() == spinner) {
-			lblPrice.setText(calcPrice() + "€");
+			lblPrice.setText(calcPrice()+"€");
 		}
 	}
 }
