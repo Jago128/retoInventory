@@ -20,7 +20,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	private JLabel lblMesageUp, lblMessageDown;
 	private LoginController cont;
 
-	/*****[WINDOW CREATION]**************************************************************************************************/
+	/**[WINDOW CREATION]*/
 
 	public MainWindow(LoginController cont) {
 		this.cont = cont;
@@ -90,7 +90,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		btnClose.addActionListener(this);
 	}
 
-	/*****[METHODS]*********************************************************************************************************/
+	/**[METHODS]*/
 	
 	// Verifies the type of the user
 	public boolean verifyUserType(User user, boolean admin) {
@@ -102,7 +102,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		return admin;
 	}
 
-	/*****[ACTION PERFORMER]**************************************************************************************************/	
+	/**[ACTION PERFORMER]*/	
 
 	public void actionPerformed(ActionEvent e) {
 		boolean admin = false;
@@ -115,9 +115,9 @@ public class MainWindow extends JFrame implements ActionListener {
 			User user = new User(textCodU.getText(), new String(passwordPsw.getPassword()));
 			if (cont.verifyUserPassword(user)) {
 				lblMesageUp.setText("Welcome " + textCodU.getText());
-				if(verifyUserType(user, admin)) {
+				if (verifyUserType(user, admin)) {
 					user.setTypeU(TypeU.ADMIN);
-				}else {
+				} else {
 					user.setTypeU(TypeU.CLIENT);
 				}
 				MenuWindow menu = new MenuWindow(user, cont); // The admin variable is sent to show or not certain option in the next windows

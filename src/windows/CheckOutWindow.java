@@ -3,8 +3,7 @@ package windows;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
+import javax.swing.event.*;
 import controller.LoginController;
 import model.User;
 
@@ -23,7 +22,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 	private double price;
 	private boolean type; // true = Product | false = Component
 
-	/*****[WINDOW CREATION]**************************************************************************************************/
+	/**[WINDOW CREATION]*/
 
 	public CheckOutWindow(JDialog parent, LoginController cont, User user, String name, double price, boolean type) {
 		super(parent, true); // Blocks the father window
@@ -100,7 +99,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 		btnClose.addActionListener(this);
 	}
 
-	/*****[METHODS]*********************************************************************************************************/
+	/**[METHODS]*/
 
 	// Calculate price
 	public double calcPrice() {	// Calculates the subtotal basing on the price of the product and the spinner's value
@@ -122,7 +121,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 		}		
 	}
 
-	/*****[ACTION PERFORMER & CHANGE LISTENER]*******************************************************************************/
+	/**[ACTION PERFORMER & CHANGE LISTENER]*/
 
 	// Action performer
 	@Override

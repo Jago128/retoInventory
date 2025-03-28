@@ -20,7 +20,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 	private Map<String, Product> products;	
 	private User user;
 
-	/*****[WINDOW CREATION]**************************************************************************************************/
+	/**[WINDOW CREATION]*/
 
 	public ProductWindow(JFrame parent, LoginController cont, User user) {
 		super(parent,true); // Blocks the father window
@@ -90,7 +90,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 			btnBuy.setVisible(false);
 			btnAddNew.setVisible(true);
 			btnRemove.setVisible(true);			
-		} else {  // In case the user is a client these buttons will be visible
+		} else { // In case the user is a client these buttons will be visible
 			btnBuy.setVisible(true);
 			btnAddNew.setVisible(false);
 			btnRemove.setVisible(false);
@@ -104,7 +104,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 		btnClose.addActionListener(this);	
 	}
 
-	/*****[METHODS]*********************************************************************************************************/
+	/**[METHODS]*/
 
 	// Loads the products to the list
 	public void loadProductsList() {
@@ -126,7 +126,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 		return product;
 	}
 
-	/*****[ACTION PERFORMER]**************************************************************************************************/
+	/**[ACTION PERFORMER]*/
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -144,7 +144,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 		}
 		// Opens the window for the Check out
 		if (e.getSource() == btnBuy) {
-			if(!list.isSelectionEmpty()) { // If there is an item selected it will do the action
+			if (!list.isSelectionEmpty()) { // If there is an item selected it will do the action
 				boolean type = true;  // true = Product | false = Component
 				CheckOutWindow checkOut = new CheckOutWindow(this, cont, user, obtainNamePrice().getNameP(), obtainNamePrice().getPrice(), type);
 				checkOut.setVisible(true);
@@ -160,7 +160,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 		}
 		// Opens the window to delete
 		if (e.getSource()==btnRemove) {
-			if(!list.isSelectionEmpty()) { // If there is an item selected it will do the action
+			if (!list.isSelectionEmpty()) { // If there is an item selected it will do the action
 				boolean type = true;  // true = Product | false = Component
 				VerificationWindow checkOut = new VerificationWindow(this, cont, obtainNamePrice().getNameP(), type);
 				checkOut.setVisible(true);

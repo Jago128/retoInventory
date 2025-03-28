@@ -18,7 +18,7 @@ public class MenuWindow extends JFrame implements ActionListener {
 	private JButton btnLogOut, btnProducts, btnComponents, btnBrands, btnCheckStock, btnClose;
 	private User user;
 
-	/*****[WINDOW CREATION]**************************************************************************************************/
+	/**[WINDOW CREATION]*/
 
 	public MenuWindow(User user, LoginController controlador) {
 		this.cont = controlador;
@@ -99,7 +99,7 @@ public class MenuWindow extends JFrame implements ActionListener {
 		btnClose.addActionListener(this);
 	}
 
-	/*****[ACTION PERFORMER]**************************************************************************************************/
+	/**[ACTION PERFORMER]*/
 
 	public void actionPerformed(ActionEvent e) {
 		// Logs-Out and moves back to the Main Window

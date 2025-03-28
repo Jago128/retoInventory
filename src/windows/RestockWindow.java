@@ -21,7 +21,7 @@ public class RestockWindow extends JDialog implements ActionListener {
 	private int price;
 	private boolean type; // true = Product | false = Component
 	
-	/*****[WINDOW CREATION]**************************************************************************************************/
+	/**[WINDOW CREATION]*/
 
 	public RestockWindow(JDialog parent, LoginController cont, User user, String name, double price, boolean type) {
 		super(parent, true); // Blocks the father window
@@ -33,8 +33,8 @@ public class RestockWindow extends JDialog implements ActionListener {
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
 
-		// Spinner (Numeric value)
-		// It needs to be created before because the labels need the value of it
+		/* Spinner (Numeric value)
+		 * It needs to be created before because the labels need the value of it */
 		SpinnerModel sm = new SpinnerNumberModel(5, 5, 5000, 5); // Default, Min, Max, Increment
 		spinner = new JSpinner(sm);
 		spinner.setBounds(214, 111, 187, 34);
@@ -84,11 +84,11 @@ public class RestockWindow extends JDialog implements ActionListener {
 		btnClose.addActionListener(this);
 	}
 	
-	/*****[METHODS]*********************************************************************************************************/
+	/**[METHODS]*/
 
 	
 	
-	/*****[ACTION PERFORMER]**************************************************************************************************/
+	/**[ACTION PERFORMER]*/
 
 	@Override
 	public void actionPerformed(ActionEvent e) {				
@@ -99,6 +99,7 @@ public class RestockWindow extends JDialog implements ActionListener {
 		// 
 		if (e.getSource()==btnSubmit) {
 			// Call restock method
+			
 		}
 	}
 }

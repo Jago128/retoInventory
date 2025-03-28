@@ -17,7 +17,7 @@ public class ContinueWindow extends JDialog implements ActionListener {
 	private LoginController cont;
 	private User user;
 
-	/*****[WINDOW CREATION]**************************************************************************************************/
+	/**[WINDOW CREATION]*/
 	
 	public ContinueWindow(JDialog parent, LoginController cont, User user, String name, boolean type) {
 		super(parent, true); // Blocks the father window
@@ -52,7 +52,7 @@ public class ContinueWindow extends JDialog implements ActionListener {
 		btnNo.addActionListener(this);
 	}
 	
-	/*****[METHODS]*********************************************************************************************************/
+	/**[METHODS]*/
 	
 	// Verifying the type true = Product | false = Component
 	public String verifyType(boolean type) {
@@ -63,7 +63,7 @@ public class ContinueWindow extends JDialog implements ActionListener {
 		}
 	}	
 
-	/*****[ACTION PERFORMER]**************************************************************************************************/
+	/**[ACTION PERFORMER]*/
 	
 	@Override
 	public void actionPerformed(ActionEvent e) {

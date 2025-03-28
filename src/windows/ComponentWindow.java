@@ -20,7 +20,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 	private Map<String, Comp> components;
 	private User user;
 
-	/*****[WINDOW CREATION]**************************************************************************************************/
+	/**[WINDOW CREATION]*/
 
 	public ComponentWindow(JFrame parent, LoginController cont, User user) {
 		super(parent, true); // Blocks the father window
@@ -104,7 +104,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		btnClose.addActionListener(this);
 	}
 
-	/*****[METHODS]*********************************************************************************************************/
+	/**[METHODS]*/
 
 	// Loads the components to the list
 	public void loadComponents() {
@@ -126,7 +126,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		return component;
 	}
 
-	/*****[ACTION PERFORMER]**************************************************************************************************/
+	/**[ACTION PERFORMER]*/
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -160,7 +160,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		}
 		// Opens the window to delete
 		if (e.getSource()==btnRemove) {
-			if(!list.isSelectionEmpty()) { // If there is an item selected it will do the action
+			if (!list.isSelectionEmpty()) { // If there is an item selected it will do the action
 				boolean type = false;  // true = Product | false = Component
 				VerificationWindow checkOut = new VerificationWindow(this, cont, obtainNamePrice().getNameC(), type);
 				checkOut.setVisible(true);
