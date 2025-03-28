@@ -269,7 +269,6 @@ BEGIN
             SET STOCKCHECK:=(SELECT STOCKPRODUCT FROM PRODUCT WHERE CODPRODUCT = CODPROD);
             SET CURRENTSTOCK:=STOCKCHECK - QUANTITY;
             
-            -- Verificar si hay suficiente stock
             IF CURRENTSTOCK < 0 THEN
                 SET ERROR = TRUE;
             END IF;
