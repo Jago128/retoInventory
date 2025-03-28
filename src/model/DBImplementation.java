@@ -24,6 +24,8 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLTYPE = "SELECT type_u FROM user WHERE coduser = ?";
 	final String SQLINSERTUSER = "INSERT INTO user VALUES (?,?,?,'Client')";
 
+
+
 	// PRODUCT
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
 	final String SQLSELECTPRODUCTSTOCK = "SELECT * FROM product WHERE STOCKPRODUCT<=50 ORDER BY STOCKPRODUCT";
@@ -62,7 +64,7 @@ public class DBImplementation implements MediaMartaDAO {
 	// Method to open a new connection
 	private void openConnection() {
 		try {
-			// Tries to open the connection
+			// Try opening the connection
 			con = DriverManager.getConnection(urlBD, this.userBD, this.passwordBD);
 		} catch (SQLException e) {
 			System.out.println("Error when attempting to open the DB.");
@@ -95,10 +97,10 @@ public class DBImplementation implements MediaMartaDAO {
 		return register;
 	}
 
-	// Verifies that the user exists
+	// Verify that the user exists
 	@Override
 	public boolean verifyUser(User user) {
-		// Opens the connection
+		// Open connection and declare a boolean to check if the user exists
 		boolean exists = false;
 		this.openConnection();
 
@@ -122,10 +124,10 @@ public class DBImplementation implements MediaMartaDAO {
 		return exists;
 	}
 
-	// Verifies that the user and the password exist and matches
+	// Verify that the user and the password exist and matches
 	@Override
 	public boolean verifyUserPassword(User user) {
-		// Opens the connection
+		// Open connection and declare a boolean to check if the password exists and matches
 		boolean exists = false;
 		this.openConnection();
 
@@ -150,10 +152,10 @@ public class DBImplementation implements MediaMartaDAO {
 		return exists;
 	}
 
-	// Verifies the user type (only used once the user is verified)
+	// Verify the user type (only used once the user is verified)
 	@Override
 	public boolean verifyUserType(User user) {
-		// Opens the connection
+		// Open connection and declare a boolean to check if the user is an admin
 		boolean admin = false;
 		this.openConnection();
 
@@ -180,7 +182,7 @@ public class DBImplementation implements MediaMartaDAO {
 	// Inserts a new product
 	@Override
 	public boolean insertProd(Product prod) {
-		// Opens the connection
+		// Open connection and declare a boolean to check if the update is properly executed
 		boolean check = false;
 		this.openConnection();
 
@@ -209,7 +211,7 @@ public class DBImplementation implements MediaMartaDAO {
 		return check;
 	}
 
-	// Verifies that the product exists, and show them
+	// Verify that the product exists, and show them
 	@Override
 	public Map<String, Product> verifyProduct() {
 		ResultSet rs = null;
@@ -324,6 +326,7 @@ public class DBImplementation implements MediaMartaDAO {
 	// Inserts a new component into the database
 	@Override
 	public boolean insertComp(Comp comp) {
+		// Open connection and declare a boolean to check if the update is properly executed
 		boolean check = false;
 
 		// Opens the connection
@@ -355,7 +358,7 @@ public class DBImplementation implements MediaMartaDAO {
 		return check;
 	}
 
-	// Verifies that the component exists, and show them
+	// Verify that the component exists, and show them
 	@Override
 	public Map<String, Comp> verifyComponent() {
 		ResultSet rs = null;
@@ -412,6 +415,7 @@ public class DBImplementation implements MediaMartaDAO {
 	// Delete a product
 	@Override
 	public boolean deleteComp(String nom) {
+		// Open connection and declare a boolean to check if the update is properly executed
 		boolean check = false;
 
 		// Opens the connection
@@ -468,8 +472,8 @@ public class DBImplementation implements MediaMartaDAO {
 
 	// Substracts from a item's stock, essentilly selling the product to the user, and makes a new entry in Purchase
 	@Override
-	public boolean sellAndSubstract(String codUser, String nomItem, int quantity, double price, boolean type) {
-		// Open connection and declare a boolean to check if the function is properly executed
+	public boolean sellAndSubstract(String codUser, String nomItem, int amount, double price, boolean type) {
+		// Open connection and declare a boolean to check if the update is properly executed
 		boolean check = false;
 
 		// Opens the connection
@@ -479,11 +483,13 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt = con.prepareStatement(SQLSELL);
 			stmt.setString(1, codUser);
 			stmt.setString(2, nomItem);
-			stmt.setInt(3, quantity);
+			stmt.setInt(3, amount);
 			stmt.setDouble(4, price);
-			stmt.setBoolean(5, type);
+			stmt.setBoolean(5, check);
 			ResultSet rs = stmt.executeQuery();
-			check=rs.getBoolean(1);
+			if (rs.getString(1).equals("Purchase successful, product stock updated.")||rs.getString(1).equals("Purchase successful, component stock updated.")) {
+				check=true;
+			}
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
@@ -526,6 +532,7 @@ public class DBImplementation implements MediaMartaDAO {
 	}
 
 	// Verifies that the brand exists, and prepares a map to use later
+
 	@Override
 	public Map<String, Brand> verifyBrands() {
 		ResultSet rs = null;
@@ -554,7 +561,7 @@ public class DBImplementation implements MediaMartaDAO {
 		return brands;
 	}
 
-	// Gets the selected brand's code
+	// Get the selected brand's code
 	public int getBrandCode(String brandName) {
 		ResultSet rs = null;
 		int brandCode = 0;
@@ -578,7 +585,7 @@ public class DBImplementation implements MediaMartaDAO {
 		return brandCode;
 	}
 
-	// Shows products of a brand
+	// Show products of a brand
 	@Override
 	public Map<String, Product> showProductsBrand(String brand) {
 		Map<String, Product> brandProds = new TreeMap<>();
@@ -607,7 +614,7 @@ public class DBImplementation implements MediaMartaDAO {
 		return brandProds;
 	}
 
-	// Shows components of a brand
+	// Show components of a brand
 	@Override
 	public Map<String, Comp> showComponentsBrand(String brand) {
 		Map<String, Comp> brandComps = new TreeMap<>();
@@ -635,4 +642,5 @@ public class DBImplementation implements MediaMartaDAO {
 		}
 		return brandComps;
 	}
+
 }
