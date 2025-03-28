@@ -38,7 +38,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 
 		// Spinner (Numeric value)
 		// It needs to be created before because the labels need the value of it
-		SpinnerModel sm = new SpinnerNumberModel(1, 1, 10, 1); // Default, Min, Max, Increment
+		SpinnerModel sm = new SpinnerNumberModel(1, 1, cont.checkStock(name, type), 1); // Default, Min, Max, Increment
 		spinner = new JSpinner(sm);
 		spinner.setBounds(214, 111, 187, 34);
 		getContentPane().add(spinner);
@@ -100,7 +100,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 	}
 
 	/**[METHODS]*/
-
+	
 	// Calculate price
 	public double calcPrice() {	// Calculates the subtotal basing on the price of the product and the spinner's value
 		return price * (int) spinner.getValue();
