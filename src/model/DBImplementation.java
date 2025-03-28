@@ -42,7 +42,7 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLSELECTCOMPONENTNAMEPRICE = "SELECT nameComp, priceComp FROM component WHERE nameComp = ?";
 
 	// Product and Component related stuff
-	final String SQLSELL = "SELECT sellAndSubstract(?,?,?,?,?)";
+	final String SQLSELL = "SELECT sellAndSubstract(?,?,?,?,?) AS SELL";
 
 	// BRAND
 	final String SQLSELECTBRAND = "SELECT * FROM brand";
@@ -486,7 +486,7 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.setBoolean(5, type);
 			ResultSet rs = stmt.executeQuery();
 			if (rs.next()) {
-				check=rs.getBoolean(1);
+				check=rs.getBoolean("SELL");
 			}
 			stmt.close();
 			con.close();
