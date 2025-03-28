@@ -498,6 +498,7 @@ public class DBImplementation implements MediaMartaDAO {
 		return check;
 	}
 
+	// Checks the stock of a product
 	@Override
 	public int checkStock(String nomItem, boolean type) {
 		int stock = 0;
