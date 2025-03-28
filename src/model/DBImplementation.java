@@ -38,7 +38,7 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLSELECTCOMPONENT = "SELECT * FROM component";
 	final String SQLSELECTCOMPSTOCK = "SELECT * FROM component WHERE STOCKCOMPONENT<=50 ORDER BY STOCKCOMPONENT";
 	final String SQLINSERTCOMP = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, STOCKCOMPONENT, PRICECOMP, CODBRAND) VALUES (?,?,?,?,?)";
-	final String SQLDELETECOMP = "SELECT FROM COMPONENT WHERE NAMECOMP = ?";
+	final String SQLDELETECOMP = "DELETE FROM COMPONENT WHERE NAMECOMP = ?";
 	final String SQLSELECTCOMPONENTNAMEPRICE = "SELECT nameComp, priceComp FROM component WHERE nameComp = ?";
 
 	// Product and Component related stuff

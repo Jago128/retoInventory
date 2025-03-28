@@ -278,7 +278,6 @@ BEGIN
             END IF;
         END IF;
 
-        -- Si no hay error, actualizar stock e insertar compra
         IF ERROR = FALSE THEN
             UPDATE PRODUCT SET STOCKPRODUCT = CURRENTSTOCK WHERE CODPRODUCT = CODPROD;
             SET CURRENTDATE = CURDATE();
@@ -286,28 +285,23 @@ BEGIN
             SET MESSAGE = "Purchase successful, product stock updated.";
         END IF;
     ELSE
-        -- Manejo de componentes
         SET CODCOMP:=(SELECT CODCOMPONENT FROM COMPONENT WHERE TRIM(NAMECOMP) = TRIM(NAME_I) LIMIT 1);
         
-        -- Si el componente no existe, devolver error
         IF CODCOMP IS NULL THEN
             SET MESSAGE = "ERROR: Component not found.";
             SET ERROR = TRUE;
         END IF;
 
-        -- Obtener stock actual
         IF ERROR = FALSE THEN
             SET STOCKCHECK:=(SELECT STOCKCOMPONENT FROM COMPONENT WHERE CODCOMPONENT = CODCOMP);
             SET CURRENTSTOCK:=STOCKCHECK - QUANTITY;
             
-            -- Verificar si hay suficiente stock
             IF CURRENTSTOCK < 0 THEN
                 SET MESSAGE = "ERROR: Not enough component stock.";
                 SET ERROR = TRUE;
             END IF;
         END IF;
 
-        -- Si no hay error, actualizar stock y insertar compra
         IF ERROR = FALSE THEN
             UPDATE COMPONENT SET STOCKCOMPONENT = CURRENTSTOCK WHERE CODCOMPONENT = CODCOMP;
             SET CURRENTDATE = CURDATE();
@@ -372,6 +366,7 @@ WHERE
     NAMECOMP = Nom;
     RETURN CPrice;
 END //
+Delimiter ;
 
 Delimiter //
 CREATE PROCEDURE showProdsAndCompsOfAParticularBrand(brandName VARCHAR(15))
