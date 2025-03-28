@@ -32,14 +32,16 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLDELETEPROD = "DELETE FROM PRODUCT WHERE NAMEP = ?";
 	final String SQLSELECTPRODUCTNAMEPRICE = "SELECT nameP, price FROM product WHERE nameP = ?";
 	final String SQLPROD = "SELECT PROD FROM PRODUCT WHERE NAMEP = ?";
+	final String SQLRESTOCKPRODUCT = "";
 
 	// COMPONENT
 	final String SQLSELECTCOMPONENT = "SELECT * FROM component";
 	final String SQLSELECTCOMPSTOCK = "SELECT * FROM component WHERE STOCKCOMPONENT<=50 ORDER BY STOCKCOMPONENT";
-	final String SQLCOMPSTOCK = "SELECT STOCKCOMPONENT FROM product WHERE nameComp = ?";
+	final String SQLCOMPSTOCK = "SELECT STOCKCOMPONENT FROM component WHERE nameComp = ?";
 	final String SQLINSERTCOMP = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, STOCKCOMPONENT, PRICECOMP, CODBRAND) VALUES (?,?,?,?,?)";
 	final String SQLDELETECOMP = "DELETE FROM COMPONENT WHERE NAMECOMP = ?";
 	final String SQLSELECTCOMPONENTNAMEPRICE = "SELECT nameComp, priceComp FROM component WHERE nameComp = ?";
+	final String SQLRESTOCKCOMPONENT = "";
 
 	// Product and Component related stuff
 	final String SQLSELL = "SELECT sellAndSubstract(?,?,?,?,?) AS SELL";
@@ -639,5 +641,14 @@ public class DBImplementation implements MediaMartaDAO {
 			e.printStackTrace();
 		}
 		return brandComps;
+	}
+
+	// Restocks products and components
+	@Override
+	public boolean restock(String name, int quantity) {
+		// Open connection and declare a boolean to check if the update is properly executed
+		boolean check = false;
+
+		return check;
 	}
 }

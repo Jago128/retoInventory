@@ -42,6 +42,8 @@ public interface MediaMartaDAO {
 	
 	public int checkStock(String nomItem, boolean type);
 	
+	public boolean restock(String name, int quantity);
+	
 	// Brand related methods
 	public Map<String, Brand> verifyBrands();
 	
