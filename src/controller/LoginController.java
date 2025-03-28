@@ -80,6 +80,10 @@ public class LoginController {
 	public boolean sellAndSubstract(String codUser, String nomProd, int amount, double price, boolean comp) {
 		return dao.sellAndSubstract(codUser, nomProd, amount, price, comp);
 	}
+	
+	public int checkStock(String nomItem, boolean type) {
+		return dao.checkStock(nomItem, type);
+	}
 
 	// Brand related methods
 	public Map<String, Brand> verifyBrands() {

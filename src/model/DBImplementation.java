@@ -27,6 +27,7 @@ public class DBImplementation implements MediaMartaDAO {
 	// PRODUCT
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
 	final String SQLSELECTPRODUCTSTOCK = "SELECT * FROM product WHERE STOCKPRODUCT<=50 ORDER BY STOCKPRODUCT";
+	final String SQLPRODUCTSTOCK = "SELECT STOCKPRODUCT FROM product nameP = ?";
 	final String SQLINSERTPROD = "INSERT INTO PRODUCT (NAMEP, TYPEP, PRICE, STOCKPRODUCT, CODBRAND) VALUES (?,?,?,?,?)";
 	final String SQLDELETEPROD = "DELETE FROM PRODUCT WHERE NAMEP = ?";
 	final String SQLSELECTPRODUCTNAMEPRICE = "SELECT nameP, price FROM product WHERE nameP = ?";
@@ -35,6 +36,7 @@ public class DBImplementation implements MediaMartaDAO {
 	// COMPONENT
 	final String SQLSELECTCOMPONENT = "SELECT * FROM component";
 	final String SQLSELECTCOMPSTOCK = "SELECT * FROM component WHERE STOCKCOMPONENT<=50 ORDER BY STOCKCOMPONENT";
+	final String SQLCOMPSTOCK = "SELECT STOCKCOMPONENT FROM product nameComp = ?";
 	final String SQLINSERTCOMP = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, STOCKCOMPONENT, PRICECOMP, CODBRAND) VALUES (?,?,?,?,?)";
 	final String SQLDELETECOMP = "DELETE FROM COMPONENT WHERE NAMECOMP = ?";
 	final String SQLSELECTCOMPONENTNAMEPRICE = "SELECT nameComp, priceComp FROM component WHERE nameComp = ?";
@@ -213,7 +215,7 @@ public class DBImplementation implements MediaMartaDAO {
 		ResultSet rs = null;
 		Product product;
 		Map<String, Product> products = new TreeMap<>();
-		
+
 		// Opens the connection
 		this.openConnection();
 		try {
@@ -240,7 +242,7 @@ public class DBImplementation implements MediaMartaDAO {
 	public Product obtainProductNamePrice(String name) {
 		ResultSet rs = null;
 		Product product = new Product();
-		
+
 		// Opens the connection
 		this.openConnection();
 		try {
@@ -266,7 +268,7 @@ public class DBImplementation implements MediaMartaDAO {
 	public boolean deleteProd(String nom) {
 		// Open connection and declare a boolean to check if the update is properly executed		
 		boolean check = false;
-		
+
 		// Opens the connection
 		this.openConnection();
 		try {
@@ -292,7 +294,7 @@ public class DBImplementation implements MediaMartaDAO {
 		Map<String, Product> prods = new HashMap<>();
 		ResultSet rs = null;
 		Product product;
-		
+
 		// Opens the connection
 		this.openConnection();
 		try {
@@ -323,7 +325,7 @@ public class DBImplementation implements MediaMartaDAO {
 	@Override
 	public boolean insertComp(Comp comp) {
 		boolean check = false;
-		
+
 		// Opens the connection
 		this.openConnection();
 		try {
@@ -359,7 +361,7 @@ public class DBImplementation implements MediaMartaDAO {
 		ResultSet rs = null;
 		Comp component;
 		Map<String, Comp> components = new TreeMap<>();
-		
+
 		// Opens the connection
 		this.openConnection();
 		try {
@@ -386,7 +388,7 @@ public class DBImplementation implements MediaMartaDAO {
 	public Comp obtainComponentNamePrice(String name) {
 		ResultSet rs = null;
 		Comp component = new Comp();
-		
+
 		// Opens the connection
 		this.openConnection();
 		try {
@@ -411,7 +413,7 @@ public class DBImplementation implements MediaMartaDAO {
 	@Override
 	public boolean deleteComp(String nom) {
 		boolean check = false;
-		
+
 		// Opens the connection
 		this.openConnection();
 		try {
@@ -437,7 +439,7 @@ public class DBImplementation implements MediaMartaDAO {
 		Map<String, Comp> comps = new HashMap<>();
 		ResultSet rs = null;
 		Comp comp;
-		
+
 		// Opens the connection
 		this.openConnection();
 		try {
@@ -469,7 +471,7 @@ public class DBImplementation implements MediaMartaDAO {
 	public boolean sellAndSubstract(String codUser, String nomItem, int quantity, double price, boolean type) {
 		// Open connection and declare a boolean to check if the function is properly executed
 		boolean check = false;
-		
+
 		// Opens the connection
 		this.openConnection();
 		try {
@@ -490,13 +492,46 @@ public class DBImplementation implements MediaMartaDAO {
 		return check;
 	}
 
+	@Override
+	public int checkStock(String nomItem, boolean type) {
+		int stock = 0;
+		ResultSet rs = null;
+
+		this.openConnection();
+		try {
+			if (type) {
+				// Prepares the SQL query
+				stmt = con.prepareStatement(SQLPRODUCTSTOCK);
+
+				rs = stmt.executeQuery();
+				if (rs.next()) {
+					stock=rs.getInt("STOCKPRODUCT");
+				}
+			} else {
+				// Prepares the SQL query
+				stmt = con.prepareStatement(SQLCOMPSTOCK);
+				
+				rs = stmt.executeQuery();
+				if (rs.next()) {
+					stock=rs.getInt("STOCKCOMPONENT");
+				}
+			}
+			rs.close();
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return stock;
+	}
+
 	// Verifies that the brand exists, and prepares a map to use later
 	@Override
 	public Map<String, Brand> verifyBrands() {
 		ResultSet rs = null;
 		Brand brand;
 		Map<String, Brand> brands = new TreeMap<>();
-		
+
 		// Opens the connection
 		this.openConnection();
 		try {
@@ -523,7 +558,7 @@ public class DBImplementation implements MediaMartaDAO {
 	public int getBrandCode(String brandName) {
 		ResultSet rs = null;
 		int brandCode = 0;
-		
+
 		// Opens the connection
 		this.openConnection();
 		try {
@@ -540,7 +575,6 @@ public class DBImplementation implements MediaMartaDAO {
 			System.out.println("SQL error");
 			e.printStackTrace();
 		}
-
 		return brandCode;
 	}
 
@@ -550,7 +584,7 @@ public class DBImplementation implements MediaMartaDAO {
 		Map<String, Product> brandProds = new TreeMap<>();
 		ResultSet rs = null;
 		Product product;
-		
+
 		// Opens the connection
 		this.openConnection();
 		try {
@@ -579,7 +613,7 @@ public class DBImplementation implements MediaMartaDAO {
 		Map<String, Comp> brandComps = new TreeMap<>();
 		ResultSet rs = null;
 		Comp component;
-		
+
 		// Opens the connection
 		this.openConnection();
 		try {

@@ -40,6 +40,8 @@ public interface MediaMartaDAO {
 	// Product and Comp methods
 	public boolean sellAndSubstract(String codUser, String nomProd, int amount, double price, boolean comp);
 	
+	public int checkStock(String nomItem, boolean type);
+	
 	// Brand related methods
 	public Map<String, Brand> verifyBrands();
 	
