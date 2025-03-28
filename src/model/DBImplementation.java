@@ -502,7 +502,7 @@ public class DBImplementation implements MediaMartaDAO {
 			if (type) {
 				// Prepares the SQL query
 				stmt = con.prepareStatement(SQLPRODUCTSTOCK);
-
+				stmt.setString(1, nomItem);
 				rs = stmt.executeQuery();
 				if (rs.next()) {
 					stock=rs.getInt("STOCKPRODUCT");
@@ -510,7 +510,7 @@ public class DBImplementation implements MediaMartaDAO {
 			} else {
 				// Prepares the SQL query
 				stmt = con.prepareStatement(SQLCOMPSTOCK);
-				
+				stmt.setString(1, nomItem);
 				rs = stmt.executeQuery();
 				if (rs.next()) {
 					stock=rs.getInt("STOCKCOMPONENT");
