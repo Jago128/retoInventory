@@ -132,12 +132,12 @@ public class BrandWindow extends JDialog implements ActionListener {
 
 		if (!products.isEmpty()) {
 			for (Product p : products.values()){
-				model.addElement(p.getNameP());
+				model.addElement(p.getNameP()+p.getPrice()+"€");
 			}
 		}		
 		if (!components.isEmpty()) {
 			for (Comp c : components.values()) {
-				model.addElement(c.getNameC());
+				model.addElement(c.getNameC()+c.getPrice()+"€");
 			}
 		}
 		list.setModel(model);

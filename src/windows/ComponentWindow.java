@@ -113,7 +113,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		components = cont.verifyComponent();
 		if (!components.isEmpty()) {
 			for (Comp c : components.values()) {
-				model.addElement(c.getNameC());
+				model.addElement(c.getNameC()+c.getPrice()+"€");
 			}
 		}
 		list.setModel(model);

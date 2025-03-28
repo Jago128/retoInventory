@@ -113,7 +113,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 		products = cont.verifyProduct();
 		if(!products.isEmpty()) {
 			for (Product p : products.values()){
-				model.addElement(p.getNameP());
+				model.addElement(p.getNameP()+p.getPrice()+"€");
 			}
 		}
 		list.setModel(model);
