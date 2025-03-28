@@ -41,7 +41,7 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLINSERTCOMP = "INSERT INTO COMPONENT (NAMECOMP, TYPEC, STOCKCOMPONENT, PRICECOMP, CODBRAND) VALUES (?,?,?,?,?)";
 	final String SQLDELETECOMP = "DELETE FROM COMPONENT WHERE NAMECOMP = ?";
 	final String SQLSELECTCOMPONENTNAMEPRICE = "SELECT nameComp, priceComp FROM component WHERE nameComp = ?";
-	final String SQLRESTOCKCOMPONENT = "";
+	final String SQLRESTOCKCOMPONENT = " UPDATE component SET STOCKCOMPONENT = ? WHERE NAMECOMP = ?";
 
 	// Product and Component related stuff
 	final String SQLSELL = "SELECT sellAndSubstract(?,?,?,?,?)";
@@ -642,7 +642,19 @@ public class DBImplementation implements MediaMartaDAO {
 	public boolean restock(String name, int quantity) {
 		// Open connection and declare a boolean to check if the update is properly executed
 		boolean check = false;
-
+		this.openConnection();
+		try{
+			stmt = con.prepareStatement(SQLRESTOCKCOMPONENT);
+			stmt.setInt(1, quantity);
+			stmt.setString(2, name);
+			
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("SQL error");
+			e.printStackTrace();
+		}
+		
 		return check;
 	}
 }
