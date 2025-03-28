@@ -123,12 +123,12 @@ public class VerificationWindow extends JDialog implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
+		// Closes the window
 		if (e.getSource() == btnClose) {
 			this.dispose();
 		}
-		String ver;
-		ver = textVerification.getText();
-		if (e.getSource() == btnSubmit && verifyCode(cod, ver)) {
+		// Verifies the code 
+		if (e.getSource() == btnSubmit && verifyCode(cod, textVerification.getText())) {
 			deletion(cont, name, type);			
 			refreshParentList();
 			this.dispose();

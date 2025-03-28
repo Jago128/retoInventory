@@ -303,7 +303,7 @@ public class DBImplementation implements MediaMartaDAO {
 			while (rs.next()) {
 				product = new Product();
 				product.setNameP(rs.getString("NAMEP"));
-				product.setTypeP(TypeP.valueOf(rs.getString("TYPEP")));
+				product.setTypeP(TypeP.valueOf(rs.getString("TYPEP").toUpperCase()));
 				product.setPrice(rs.getDouble("PRICE"));
 				product.setStock(rs.getInt("STOCKPRODUCT"));
 				product.setCodBrand(rs.getInt("CODBRAND"));
@@ -448,7 +448,7 @@ public class DBImplementation implements MediaMartaDAO {
 			while (rs.next()) {
 				comp = new Comp();
 				comp.setNameC(rs.getString("NAMECOMP"));
-				comp.setTypeC(TypeC.valueOf(rs.getString("TYPEC")));
+				comp.setTypeC(TypeC.valueOf(rs.getString("TYPEC").toUpperCase()));
 				comp.setPrice(rs.getDouble("PRICECOMP"));
 				comp.setStock(rs.getInt("STOCKCOMPONENT"));
 				comp.setCodBrand(rs.getInt("CODBRAND"));
