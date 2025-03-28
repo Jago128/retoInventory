@@ -5,7 +5,7 @@ CREATE TABLE USER (
     CODUSER VARCHAR(20) PRIMARY KEY,
     USERNAME VARCHAR(30),
     PSW VARCHAR(15),
-    TYPE_U ENUM('Client', 'Admin' )
+    TYPE_U ENUM('Client', 'Admin')
 );
 
 CREATE TABLE BRAND (
