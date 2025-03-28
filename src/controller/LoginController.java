@@ -85,6 +85,10 @@ public class LoginController {
 		return dao.checkStock(nomItem, type);
 	}
 
+	public boolean restock(String name, int quantity) {
+		return dao.restock(name, quantity);
+	}
+	
 	// Brand related methods
 	public Map<String, Brand> verifyBrands() {
 		return dao.verifyBrands();
