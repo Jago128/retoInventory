@@ -24,8 +24,6 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLTYPE = "SELECT type_u FROM user WHERE coduser = ?";
 	final String SQLINSERTUSER = "INSERT INTO user VALUES (?,?,?,'Client')";
 
-
-
 	// PRODUCT
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
 	final String SQLSELECTPRODUCTSTOCK = "SELECT * FROM product WHERE STOCKPRODUCT<=50 ORDER BY STOCKPRODUCT";
