@@ -467,7 +467,7 @@ public class DBImplementation implements MediaMartaDAO {
 	// Substracts from a item's stock, essentilly selling the product to the user, and makes a new entry in Purchase
 	@Override
 	public boolean sellAndSubstract(String codUser, String nomItem, int quantity, double price, boolean type) {
-		// Open connection and declare a boolean to check if the update is properly executed
+		// Open connection and declare a boolean to check if the function is properly executed
 		boolean check = false;
 		
 		// Opens the connection
