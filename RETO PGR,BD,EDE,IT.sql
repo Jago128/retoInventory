@@ -5,7 +5,7 @@ CREATE TABLE USER (
     CODUSER VARCHAR(20) PRIMARY KEY,
     USERNAME VARCHAR(30),
     PSW VARCHAR(15),
-    TYPE_U ENUM('Client', 'Admin')
+    TYPE_U ENUM('Client', 'Admin' )
 );
 
 CREATE TABLE BRAND (
@@ -77,20 +77,21 @@ INSERT INTO USER VALUES
 ("Joao10","Felix","1234","Client");
       
 INSERT INTO BRAND (NAMEBRAND) VALUES 
-("Apple"),
-("Samsung"),
-("Lenovo"),
-("Huawei"),
-("ASUS"),
-("INTEL");
+("Apple"), -- AutoincrementCode: 1
+("Samsung"), -- AutoincrementCode: 2
+("Lenovo"), -- AutoincrementCode: 3
+("Huawei"), -- AutoincrementCode: 4
+("ASUS"), -- AutoincrementCode: 5
+("INTEL"); -- AutoincrementCode: 6
     
 INSERT INTO PRODUCT (NAMEP,TYPEP,PRICE,STOCKPRODUCT,CODBRAND) VALUES
-("Iphone X","Mobile",500,150,1),
-("Samsung Galaxy Book 4","Computer",399,70,2),
-("Lenovo IdeaPad Slim 3","Computer",700,300,3),
-("Samsung Galaxy S24","Mobile",550,4,2),
-("ASUS ExpertBook","Computer",710,300,5),
-("HUAWEI Pura 70 Pro","Mobile",1000,700,4);
+("Iphone X","Mobile",500,150,1), -- Apple
+("Samsung Galaxy Book 4","Computer",2,70,2), -- Samsung
+("Lenovo IdeaPad Slim 3","Computer",700,23,3), -- Lenovo
+("Samsung Galaxy S24","Mobile",550,4,2), -- Samsung
+("ASUS ExpertBook","Computer",710,50,5), -- ASUS
+("HUAWEI Pura 70 Pro","Mobile",1000,700,4), -- Huawei
+("Intel Pro","Mobile",105,214,6); -- Intel
 
 INSERT INTO PURCHASE (CODPRODUCT,CODUSER,QUANTITY,TOTALPRICE,DATEP) VALUES
 (6,'Pakete7',5, 5000,'2025-02-20'),
@@ -99,12 +100,12 @@ INSERT INTO PURCHASE (CODPRODUCT,CODUSER,QUANTITY,TOTALPRICE,DATEP) VALUES
 (4,'Pakete7',2, 1100,'2025-02-25');
 
 INSERT INTO COMPONENT (NAMECOMP,TYPEC,CODBRAND,STOCKCOMPONENT,PRICECOMP) VALUES 
-("Asus GT710","Graphics",5,10,81.99),
-("Intel Core i5-13400","Processor",6,15,170),
-("ESC 4000 G4X","RAM",5,10,110.99),
-("OFFTEK 8GB","RAM",5,12,30),
-("ASUS Dual RTX 4060 TI","Graphics",5,7,81.99),
-("Ultra 9 285K","Processor",6,4,665);
+("Asus GT710","Graphics",5,2,81.99), -- ASUS
+("Intel Core i5-13400","Processor",6,15,170), -- Intel
+("ESC 4000 G4X","RAM",3,62,110.99), -- Lenovo
+("OFFTEK 8GB","RAM",4,95,30), -- Huawei
+("ASUS Dual RTX 4060 TI","Graphics",5,47,81.99), -- ASUS
+("Ultra 9 285K","Processor",6,15,665); -- INTEL
 
 INSERT INTO BUY (CODCOMPONENT,CODUSER,QUANTITY,TOTALPRICE,DATEB) VALUES
 (5,'Xabitxu',5, 409.95,'2025-02-20'),
