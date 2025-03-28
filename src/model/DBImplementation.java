@@ -44,7 +44,7 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLRESTOCKCOMPONENT = "";
 
 	// Product and Component related stuff
-	final String SQLSELL = "SELECT sellAndSubstract(?,?,?,?,?)";
+	final String SQLSELL = "CALL sellAndSubstract(?,?,?,?,?)";
 
 	// BRAND
 	final String SQLSELECTBRAND = "SELECT * FROM brand";
