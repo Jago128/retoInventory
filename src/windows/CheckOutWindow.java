@@ -132,9 +132,11 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 		if (e.getSource() == btnClose) {
 			this.dispose();
 		}
+		
 		// Calls the method that ejecutes the action on the DataBase
 		if (e.getSource() == btnSubmit) {
-			cont.sellAndSubstract(user.getCodU(), name, (int)spinner.getValue(), calcPrice(), type);
+			int amount = (int)spinner.getValue();
+			cont.sellAndSubstract(user.getCodU(), name, amount, calcPrice(), type);
 			ContinueWindow next = new ContinueWindow(this, user, type);
 			next.setVisible(true);
 			refreshParentList();

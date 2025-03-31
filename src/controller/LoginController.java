@@ -89,8 +89,8 @@ public class LoginController {
 
 	/**[PRODUCTS & COMPONENTS]**/
 
-	public void sellAndSubstract(String codUser, String nomProd, int amount, double price, boolean comp) {
-		dao.sellAndSubstract(codUser, nomProd, amount, price, comp);
+	public void sellAndSubstract(String codUser, String nomItem, int amount, double price, boolean type) {
+		dao.sellAndSubstract(codUser, nomItem, amount, price, type);
 	};
 
 	public boolean restock(int code, int quantity, boolean type) {
