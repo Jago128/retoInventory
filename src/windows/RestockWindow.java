@@ -150,7 +150,7 @@ public class RestockWindow extends JDialog implements ActionListener, ChangeList
 		// 
 		if (e.getSource()==btnSubmit) {			
 			cont.restock(code, calcNewStock(), type);
-			JOptionPane.showMessageDialog(null, "Component "+name+" got added "+(int) spinner.getValue()+" units succesfully");
+			JOptionPane.showMessageDialog(null, "Component "+name+" got added "+(int)spinner.getValue()+" units succesfully");
 			refreshParentList();
 			this.dispose();
 		}

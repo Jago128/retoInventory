@@ -14,7 +14,6 @@ public class ContinueWindow extends JDialog implements ActionListener {
 	private JLabel lblTitle;
 	private JButton btnYes, btnNo;
 
-
 	/**[WINDOW CREATION]*/
 
 	public ContinueWindow(JDialog parent, User user, boolean type) {

@@ -30,7 +30,6 @@ public class AddNewWindow extends JDialog implements ActionListener {
 	public AddNewWindow(JDialog parent, LoginController cont, User user, String name, boolean type) {
 		super(parent, true); // Blocks the father window
 		this.cont = cont;
-		this.cont = cont;
 		this.type = type; // true = Product | false = Component
 
 		// Window
@@ -166,7 +165,7 @@ public class AddNewWindow extends JDialog implements ActionListener {
 
 	// Sets the color of the labels true = BLACK | false = RED
 	public void setLabelColor(JLabel label, boolean correct) {
-		if(correct) {
+		if (correct) {
 			label.setForeground(Color.BLACK);
 		} else {
 			label.setForeground(Color.RED);
