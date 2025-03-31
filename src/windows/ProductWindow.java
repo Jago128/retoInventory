@@ -16,8 +16,8 @@ public class ProductWindow extends JDialog implements ActionListener {
 	private LoginController cont;
 	private JLabel lblMediaMarta, lblProducts;
 	private JButton btnLogOut, btnBuy, btnAddNew, btnRemove, btnClose;
+	private JComboBox <String> comboBoxOrder;
 	private JList<String> listName, listPrice;
-	private Map<String, Product> products;	
 	private User user;
 
 	/**[WINDOW CREATION]**/
@@ -31,6 +31,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 		setTitle("MEDIAMARTA: Products");
 		setBounds(100, 100, 480, 636);
 		getContentPane().setLayout(null);
+		getContentPane().setBackground(Color.WHITE);
 		setResizable(false); // Blocks the window so it can't be modified the size
 
 		// Titles
@@ -46,6 +47,12 @@ public class ProductWindow extends JDialog implements ActionListener {
 		lblProducts.setBounds(10, 58, 446, 19);
 		getContentPane().add(lblProducts);
 
+		JLabel lblOrderBy = new JLabel("Order by");
+		lblOrderBy.setHorizontalAlignment(SwingConstants.CENTER);
+		lblOrderBy.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		lblOrderBy.setBounds(327, 61, 129, 14);
+		getContentPane().add(lblOrderBy);
+
 		// Labels
 		JLabel lblCodUser = new JLabel(user.getUsername());
 		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -53,16 +60,24 @@ public class ProductWindow extends JDialog implements ActionListener {
 		lblCodUser.setBounds(375, 27, 81, 19);
 		getContentPane().add(lblCodUser);
 
-		// List
+		// List & ComboBox
 		listName = new JList<String>();
 		listName.setBounds(10, 104, 314, 406);
 		getContentPane().add(listName);		
 
 		listPrice = new JList<String>();
 		listPrice.setBounds(327, 104, 129, 406);
-		getContentPane().add(listPrice);
+		getContentPane().add(listPrice);		
 
+		comboBoxOrder = new JComboBox<String>();
+		comboBoxOrder.setBounds(327, 81, 129, 22);
+		getContentPane().add(comboBoxOrder);
+		comboBoxOrder.addItem("Alphabet");
+		comboBoxOrder.addItem("Price");
+		comboBoxOrder.addItem("Code");
+		
 		loadProductsList();
+
 
 		// Buttons
 		btnLogOut = new JButton("Log-Out");
@@ -89,7 +104,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 		btnClose = new JButton("CLOSE");
 		btnClose.setBounds(5, 5, 80, 21);
 		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		getContentPane().add(btnClose);				
+		getContentPane().add(btnClose);
 
 		// Buttons visibility
 		if (user.getTypeU()==TypeU.ADMIN) { // In case the user is an admin these buttons will be visible
@@ -114,21 +129,74 @@ public class ProductWindow extends JDialog implements ActionListener {
 
 	// Loads the products to the list
 	public void loadProductsList() {
+		Map<String, Product> products = cont.verifyProduct();
+
 		listName.removeAll();
 		listPrice.removeAll();
 
 		DefaultListModel<String> modelName = new DefaultListModel<String>();
 		DefaultListModel<String> modelPrice = new DefaultListModel<String>();
 
-		products = cont.verifyProduct();		
-		if(!products.isEmpty()) {
+		switch ((String)comboBoxOrder.getSelectedItem()) {
+		case "Alphabet": // Uses the TreeMap ordered by the key as the name
+			if(!products.isEmpty()) {
+				for (Product p : products.values()){
+					if(p.getStock()>0) {
+						modelName.addElement(p.getNameP());
+						modelPrice.addElement(p.getPrice()+" €");
+					}	
+				}
+			}
+			break;
+		case "Price": // Creates a TreeMap ordered by the key as the price
+			Map<Double, Product> productsByPrice = new TreeMap<>();
+
+			if(!products.isEmpty()) {
+				for (Product p : products.values()){
+					if(p.getStock()>0) {
+						productsByPrice.put(p.getPrice(), p);
+					}	
+				}
+			}
+			if(!productsByPrice.isEmpty()) {
+				for (Product p : productsByPrice.values()){
+					if(p.getStock()>0) {
+						modelName.addElement(p.getNameP());
+						modelPrice.addElement(p.getPrice()+" €");
+					}	
+				}
+			}
+			break;
+		case "Code":  // Creates a TreeMap ordered by the key as the code
+			Map<Integer, Product> productsByCode = new TreeMap<>();
+
+			if(!products.isEmpty()) {
+				for (Product p : products.values()){
+					if(p.getStock()>0) {
+						productsByCode.put(p.getCodP(), p);
+					}	
+				}
+			}
+			if(!productsByCode.isEmpty()) {
+				for (Product p : productsByCode.values()){
+					if(p.getStock()>0) {
+						modelName.addElement(p.getNameP());
+						modelPrice.addElement(p.getPrice()+" €");
+					}	
+				}
+			}
+			break;		
+		}
+
+		/*if(!products.isEmpty()) {
 			for (Product p : products.values()){
 				if(p.getStock()>0) {
 					modelName.addElement(p.getNameP());
 					modelPrice.addElement(p.getPrice()+" €");
 				}	
 			}
-		}		
+		}*/
+
 		listName.setModel(modelName);
 		listPrice.setModel(modelPrice);
 	}
@@ -155,6 +223,10 @@ public class ProductWindow extends JDialog implements ActionListener {
 		// Closes the window
 		if (e.getSource()==btnClose) {
 			this.dispose();
+		}
+		// Detects when new option of order is choosed
+		if (e.getSource()==comboBoxOrder) {
+			loadProductsList();
 		}
 		// Opens the window for the Check out
 		if (e.getSource() == btnBuy) {

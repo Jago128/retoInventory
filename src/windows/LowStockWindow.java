@@ -32,6 +32,7 @@ public class LowStockWindow extends JDialog implements ActionListener {
 		setTitle("MEDIAMARTA: Low Stock Items");
 		setBounds(100, 100, 480, 636);
 		getContentPane().setLayout(null);
+		getContentPane().setBackground(Color.WHITE);
 		setResizable(false); // Blocks the window so it can't be modified the size
 
 		// Titles

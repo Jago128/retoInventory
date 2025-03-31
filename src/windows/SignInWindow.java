@@ -28,6 +28,7 @@ public class SignInWindow extends JDialog implements ActionListener {
 		setTitle("REGISTER NEW USER");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
+		getContentPane().setBackground(Color.WHITE);
 		setResizable(false); // Blocks the window so it can't be modified the size
 
 		// Titles

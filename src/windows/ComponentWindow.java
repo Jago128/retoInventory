@@ -6,6 +6,7 @@ import model.*;
 import javax.swing.*;
 import controller.LoginController;
 import java.util.Map;
+import java.util.TreeMap;
 
 // SHOW COMPONENT WINDOW  
 // Go to->(CheckOutWindow, NewItemWindow, VerificationWindow)
@@ -16,8 +17,8 @@ public class ComponentWindow extends JDialog implements ActionListener {
 	private LoginController cont;
 	private JLabel lblMediaMarta, lblProducts;
 	private JButton btnLogOut, btnBuy, btnAddNew, btnRemove, btnClose;
-	private JList<String> listName, listPrice;
-	private Map<String, Comp> components;
+	private JComboBox <String> comboBoxOrder;
+	private JList<String> listName, listPrice;	
 	private User user;
 
 	/**[WINDOW CREATION]**/
@@ -31,6 +32,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		setTitle("MEDIAMARTA: Components");
 		setBounds(100, 100, 480, 636);
 		getContentPane().setLayout(null);
+		getContentPane().setBackground(Color.WHITE);
 		setResizable(false); // Blocks the window so it can't be modified the size
 
 		// Titles
@@ -47,7 +49,6 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		getContentPane().add(lblProducts);
 
 		// Labels
-		// Labels
 		JLabel lblCodUser = new JLabel(user.getUsername());
 		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
@@ -63,7 +64,14 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		listPrice.setBounds(327, 104, 129, 406);
 		getContentPane().add(listPrice);
 
-		loadComponentList();
+		comboBoxOrder = new JComboBox<String>();
+		comboBoxOrder.setBounds(327, 81, 129, 22);
+		getContentPane().add(comboBoxOrder);
+		comboBoxOrder.addItem("Alphabet");
+		comboBoxOrder.addItem("Price");
+		comboBoxOrder.addItem("Code");
+		
+		loadComponentList();		
 
 		// Buttons
 		btnLogOut = new JButton("Log-Out");
@@ -115,21 +123,73 @@ public class ComponentWindow extends JDialog implements ActionListener {
 
 	// Loads the components to the list
 	public void loadComponentList() {	
+		Map<String, Comp> components = cont.verifyComponent();
+		
 		listName.removeAll();
 		listPrice.removeAll();
 
 		DefaultListModel<String> modelName = new DefaultListModel<String>();
 		DefaultListModel<String> modelPrice = new DefaultListModel<String>();
+		
+		switch ((String)comboBoxOrder.getSelectedItem()) {
+		case "Alphabet": // Uses the TreeMap ordered by the key as the name
+			if(!components.isEmpty()) {
+				for (Comp c : components.values()){
+					if(c.getStock()>0) {
+						modelName.addElement(c.getNameC());
+						modelPrice.addElement(c.getPrice()+" €");
+					}	
+				}
+			}
+			break;
+		case "Price": // Creates a TreeMap ordered by the key as the price
+			Map<Double, Comp> componentsByPrice = new TreeMap<>();
 
-		components = cont.verifyComponent();
-		if(!components.isEmpty()) {
+			if(!components.isEmpty()) {
+				for (Comp c : components.values()){
+					if(c.getStock()>0) {
+						componentsByPrice.put(c.getPrice(), c);
+					}	
+				}
+			}
+			if(!componentsByPrice.isEmpty()) {
+				for (Comp c : componentsByPrice.values()){
+					if(c.getStock()>0) {
+						modelName.addElement(c.getNameC());
+						modelPrice.addElement(c.getPrice()+" €");
+					}	
+				}
+			}
+			break;
+		case "Code":  // Creates a TreeMap ordered by the key as the code
+			Map<Integer, Comp> componentsByCode = new TreeMap<>();
+
+			if(!components.isEmpty()) {
+				for (Comp c : components.values()){
+					if(c.getStock()>0) {
+						componentsByCode.put(c.getCodC(), c);
+					}	
+				}
+			}
+			if(!componentsByCode.isEmpty()) {
+				for (Comp c : componentsByCode.values()){
+					if(c.getStock()>0) {
+						modelName.addElement(c.getNameC());
+						modelPrice.addElement(c.getPrice()+" €");
+					}	
+				}
+			}
+			break;		
+		}
+		
+		/*if(!components.isEmpty()) {
 			for (Comp c : components.values()){
 				if(c.getStock()>0) {
 					modelName.addElement(c.getNameC());
 					modelPrice.addElement(c.getPrice()+" €");
 				}
 			}
-		}
+		}*/
 
 		listName.setModel(modelName);
 		listPrice.setModel(modelPrice);
@@ -157,6 +217,10 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		// Closes the window
 		if (e.getSource() == btnClose) {
 			this.dispose();
+		}
+		// Detects when new option of order is choosed
+		if (e.getSource()==comboBoxOrder) {
+			loadComponentList();
 		}
 		// Opens the window for the Check out
 		if (e.getSource() == btnBuy) {

@@ -18,10 +18,9 @@ public class BrandWindow extends JDialog implements ActionListener {
 	private JButton btnLogOut, btnBuy, btnRemove, btnClose;
 	private JComboBox <String> comboBoxBrands;
 	private JList<String> listName, listPrice;
-	private Map<String, Brand> brands;
+	private User user;
 	private Map<String, Product> products;
 	private Map<String, Comp> components;
-	private User user;
 
 	/**[WINDOW CREATION]**/
 
@@ -34,6 +33,7 @@ public class BrandWindow extends JDialog implements ActionListener {
 		setTitle("MEDIAMARTA: Brands");
 		setBounds(100, 100, 480, 636);
 		getContentPane().setLayout(null);
+		getContentPane().setBackground(Color.WHITE);
 		setResizable(false); // Blocks the window so it can't be modified the size
 
 		// Titles
@@ -119,6 +119,8 @@ public class BrandWindow extends JDialog implements ActionListener {
 
 	// Loads the brands to the combo box
 	public void loadBrandsComboBox() {		
+		Map<String, Brand> brands;
+		
 		brands = cont.verifyBrands();
 		if (!brands.isEmpty()) {
 			for (Brand b : brands.values()){

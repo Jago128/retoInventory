@@ -28,7 +28,7 @@ public class AddNewWindow extends JDialog implements ActionListener {
 	/**[WINDOW CREATION]*/
 
 	public AddNewWindow(JDialog parent, LoginController cont, User user, String name, boolean type) {
-		super(parent, true); // Blocks the father window
+		super(parent, true); // Blocks the father window		
 		this.cont = cont;
 		this.type = type; // true = Product | false = Component
 
@@ -36,6 +36,7 @@ public class AddNewWindow extends JDialog implements ActionListener {
 		setTitle("MEDIAMARTA: Add New " + verifyType(type));
 		setBounds(100, 100, 480, 442);
 		getContentPane().setLayout(null);
+		getContentPane().setBackground(Color.WHITE);
 		setResizable(false); // Blocks the window so it can't be modified the size
 
 		// Titles

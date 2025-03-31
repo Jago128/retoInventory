@@ -1,6 +1,7 @@
 package windows;
 
 import java.awt.BorderLayout;
+import java.awt.Color;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
@@ -47,6 +48,7 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 		// Window
 		setTitle("MEDIAMARTA: "+user.getUsername()+"'s Purchases");
 		setBounds(100, 100, 480, 636);
+		getContentPane().setBackground(Color.WHITE);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);

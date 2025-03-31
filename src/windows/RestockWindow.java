@@ -34,6 +34,7 @@ public class RestockWindow extends JDialog implements ActionListener, ChangeList
 		setTitle("MEDIAMARTA: Restock Item");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
+		getContentPane().setBackground(Color.WHITE);
 		setResizable(false); // Blocks the window so it can't be modified the size
 
 		/* Spinner (Numeric value)
