@@ -38,13 +38,13 @@ public class LowStockWindow extends JDialog implements ActionListener {
 		lblMediaMarta = new JLabel("MediaMarta");
 		lblMediaMarta.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMediaMarta.setFont(new Font("Times New Roman", Font.PLAIN, 25));
-		lblMediaMarta.setBounds(10, 24, 461, 46);
+		lblMediaMarta.setBounds(10, 24, 446, 46);
 		getContentPane().add(lblMediaMarta);
 
 		lblLowStock = new JLabel("LOW STOCK ITEMS");
 		lblLowStock.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLowStock.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblLowStock.setBounds(10, 58, 461, 19);
+		lblLowStock.setBounds(10, 58, 446, 19);
 		getContentPane().add(lblLowStock);
 
 		// Labels
@@ -67,7 +67,7 @@ public class LowStockWindow extends JDialog implements ActionListener {
 
 		// Buttons
 		btnLogOut = new JButton("Log-Out");
-		btnLogOut.setBackground(new Color(240, 240, 240));
+		btnLogOut.setBackground(UIManager.getColor("Button.background"));
 		btnLogOut.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		btnLogOut.setBounds(375, 5, 81, 21);
 		getContentPane().add(btnLogOut);
