@@ -135,7 +135,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 	// Obtains the name and price of the selected component
 	public Comp obtainNamePrice() {
 		Comp component = new Comp();
-		component=cont.obtainComponentNamePrice(listName.getSelectedValue());
+		component=cont.obtainComponent(listName.getSelectedValue());
 		return component;
 	}
 

@@ -134,11 +134,11 @@ public class LowStockWindow extends JDialog implements ActionListener {
 
 		if (verifyType()) {
 			Product product = new Product();
-			product=cont.obtainProductNamePrice(listName.getSelectedValue());
+			product=cont.obtainProduct(listName.getSelectedValue());
 			name=product.getNameP();
 		} else {
 			Comp component = new Comp();
-			component=cont.obtainComponentNamePrice(listName.getSelectedValue());
+			component=cont.obtainComponent(listName.getSelectedValue());
 			name=component.getNameC();
 		}
 		return name;
@@ -150,15 +150,31 @@ public class LowStockWindow extends JDialog implements ActionListener {
 
 		if (verifyType()) {
 			Product product = new Product();
-			product=cont.obtainProductNamePrice(listName.getSelectedValue());
+			product=cont.obtainProduct(listName.getSelectedValue());
 			price=product.getPrice();
 		} else {
 			Comp component = new Comp();
-			component=cont.obtainComponentNamePrice(listName.getSelectedValue());
+			component=cont.obtainComponent(listName.getSelectedValue());
 			price=component.getPrice();
 		}
 		return price;
 	}	
+	
+	// Obtains the name of the selected product or component
+		public int obtainCode() {
+			int code;
+
+			if (verifyType()) {
+				Product product = new Product();
+				product=cont.obtainProduct(listName.getSelectedValue());
+				code=product.getCodP();
+			} else {
+				Comp component = new Comp();
+				component=cont.obtainComponent(listName.getSelectedValue());
+				code=component.getCodC();
+			}
+			return code;
+		}
 
 	/**[ACTION PERFORMER]**/
 
@@ -179,7 +195,7 @@ public class LowStockWindow extends JDialog implements ActionListener {
 		// Opens the window to restock window
 		if (e.getSource()==btnRestock) {
 			if (!listName.isSelectionEmpty()) { // If there is an item selected it will do the action				
-				RestockWindow restock = new RestockWindow(this, cont, user, obtainName(), obtainPrice(), verifyType());
+				RestockWindow restock = new RestockWindow(this, cont, user, obtainName(), obtainCode(), obtainPrice(), verifyType());
 				restock.setVisible(true);
 			} else {
 				JOptionPane.showMessageDialog(null, "[ERROR] Select an item to add stock");

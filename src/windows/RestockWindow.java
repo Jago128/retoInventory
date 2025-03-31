@@ -18,14 +18,16 @@ public class RestockWindow extends JDialog implements ActionListener, ChangeList
 	private JButton btnClose, btnSubmit;
 	private JSpinner spinner;
 	private String name;
+	private int code;
 	private boolean type; // true = Product | false = Component
 
 	/**[WINDOW CREATION]**/
 
-	public RestockWindow(JDialog parent, LoginController cont, User user, String name, double price, boolean type) {
+	public RestockWindow(JDialog parent, LoginController cont, User user, String name, int code, double price, boolean type) {
 		super(parent, true); // Blocks the father window
 		this.cont = cont;
 		this.name = name;
+		this.code = code;
 		this.type = type; // true = Product | false = Component
 
 		// Window
@@ -128,7 +130,7 @@ public class RestockWindow extends JDialog implements ActionListener, ChangeList
 		}
 		// 
 		if (e.getSource()==btnSubmit) {			
-			cont.restock(name, (int) spinner.getValue(), type);
+			cont.restock(code, (int) spinner.getValue(), type);
 			JOptionPane.showMessageDialog(null, "Component "+name+" got added "+(int) spinner.getValue()+" units succesfully");
 			this.dispose();
 		}

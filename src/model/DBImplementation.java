@@ -26,7 +26,7 @@ public class DBImplementation implements MediaMartaDAO {
 
 	// PRODUCTS
 	final String SQLSELECTPRODUCT = "SELECT * FROM product";
-	final String SQLSELECTPRODUCTNAMEPRICE = "SELECT nameP, price FROM product WHERE nameP = ?";
+	final String SQLSELECTPRODUCTNAMEPRICE = "SELECT * FROM product WHERE nameP = ?";
 	final String SQLINSERTPROD = "INSERT INTO product (nameP, typeP, price, stockProduct, codBrand) VALUES (?,?,?,?,?)";
 	final String SQLDELETEPROD = "DELETE FROM product WHERE nameP = ?";
 	final String SQLPRODUCTSTOCK = "SELECT stockProduct FROM product WHERE nameP = ?";	
@@ -35,7 +35,7 @@ public class DBImplementation implements MediaMartaDAO {
 
 	// COMPONENTS
 	final String SQLSELECTCOMPONENT = "SELECT * FROM component";
-	final String SQLSELECTCOMPONENTNAMEPRICE = "SELECT nameComp, priceComp FROM component WHERE nameComp = ?";
+	final String SQLSELECTCOMPONENTNAMEPRICE = "SELECT * FROM component WHERE nameComp = ?";
 	final String SQLINSERTCOMP = "INSERT INTO component (nameComp, typeC, stockComponent, priceComp, codBrand) VALUES (?,?,?,?,?)";
 	final String SQLDELETECOMP = "DELETE FROM component WHERE nameComp = ?";
 	final String SQLCOMPSTOCK = "SELECT stockComponent FROM component WHERE nameComp = ?";
@@ -43,8 +43,8 @@ public class DBImplementation implements MediaMartaDAO {
 
 	// PRODUCTS & COMPONENTS
 	final String SQLSELL = "CALL sellAndSubstract(?,?,?,?,?)";
-	final String SQLRESTOCKPRODUCT = "UPDATE product SET stockProduct = ? WHERE nameP = (SELECT nameP FROM product WHERE nameP = ?)";
-	final String SQLRESTOCKCOMPONENT = "UPDATE component SET stockComponent = ? WHERE nameComp = ?";
+	final String SQLRESTOCKPRODUCT = "UPDATE product SET stockProduct = ? WHERE codProduct = ?";
+	final String SQLRESTOCKCOMPONENT = "UPDATE component SET stockComponent = ? WHERE codComponent = ?";
 
 	// BRANDS
 	final String SQLSELECTBRAND = "SELECT * FROM brand";
@@ -250,7 +250,7 @@ public class DBImplementation implements MediaMartaDAO {
 
 	// Obtain a product's name and price, based on the name of the product provided
 	@Override
-	public Product obtainProductNamePrice(String name) {
+	public Product obtainProduct(String name) {
 		ResultSet rs = null;
 		Product product = new Product();
 
@@ -261,8 +261,12 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.setString(1, name);
 			rs = stmt.executeQuery();
 			if (rs.next()) {
-				product.setNameP(rs.getString("namep"));
+				product.setCodP(rs.getInt("codProduct"));
+				product.setNameP(rs.getString("nameP"));
 				product.setPrice(rs.getDouble("price"));
+				//product.setTypeP(rs.getDouble("priceComp"));
+				product.setCodBrand(rs.getInt("codBrand"));
+				product.setStock(rs.getInt("stockProduct"));
 			}
 			rs.close();
 			stmt.close();
@@ -433,7 +437,7 @@ public class DBImplementation implements MediaMartaDAO {
 
 	// Obtain choosed component's name and price
 	@Override
-	public Comp obtainComponentNamePrice(String name) {
+	public Comp obtainComponent(String name) {
 		ResultSet rs = null;
 		Comp component = new Comp();
 
@@ -444,8 +448,12 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.setString(1, name);
 			rs = stmt.executeQuery();
 			if (rs.next()) {
+				component.setCodC(rs.getInt("codComponent"));
 				component.setNameC(rs.getString("nameComp"));
 				component.setPrice(rs.getDouble("priceComp"));
+				//component.setTypeC(rs.getDouble("priceComp"));
+				component.setCodBrand(rs.getInt("codBrand"));
+				component.setStock(rs.getInt("stockComponent"));
 			}
 			rs.close();
 			stmt.close();
@@ -576,7 +584,7 @@ public class DBImplementation implements MediaMartaDAO {
 
 	// Restocks products and components
 	@Override
-	public boolean restock(String name, int quantity, boolean type) {
+	public boolean restock(int code, int quantity, boolean type) {
 		// Open connection and declare a boolean to check if the update is properly executed
 		boolean check = false;
 		this.openConnection();
@@ -585,7 +593,7 @@ public class DBImplementation implements MediaMartaDAO {
 			try{
 				stmt = con.prepareStatement(SQLRESTOCKPRODUCT);
 				stmt.setInt(1, quantity);
-				stmt.setString(2, name);
+				stmt.setInt(2, code);
 
 				stmt.close();
 				con.close();
@@ -597,7 +605,7 @@ public class DBImplementation implements MediaMartaDAO {
 			try{
 				stmt = con.prepareStatement(SQLRESTOCKCOMPONENT);
 				stmt.setInt(1, quantity);
-				stmt.setString(2, name);
+				stmt.setInt(2, code);
 
 				stmt.close();
 				con.close();
