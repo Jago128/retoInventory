@@ -11,17 +11,28 @@ class TestUser {
 
 	@BeforeEach
 	void setUp() throws Exception {
-		user = new User("", "", "", TypeU.valueOf("Client"));
+		user = new User("Joao10","Felix","1234", TypeU.CLIENT);
 	}
 
 	@AfterEach
 	void tearDown() throws Exception {
-		
+		user = null;
 	}
 
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	public void testDefaultConstructor() {
+		User test = new User();
+		assertNull(test.getCodU());
+		assertNull(test.getPassword());
+		assertNull(test.getTypeU());
+		assertNull(test.getUsername());
 	}
-
+	
+	@Test
+	public void testParametrizedConstrctor() {
+		assertEquals("Joao10", user.getCodU());
+		assertEquals("1234", user.getPassword());
+		assertEquals(TypeU.CLIENT, user.getTypeU());
+		assertEquals("Felix", user.getUsername());
+	}
 }
