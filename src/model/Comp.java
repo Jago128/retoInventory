@@ -87,10 +87,10 @@ public class Comp {
 		this.price = price;
 	}
 
-	//Method to show name and price
-	public String nameAndPrice() {
-		return nameC + price + "€";
-	}
+	// Method to show name and price
+		public String nameAndPrice() {
+			return "[Product "+codC+"] "+nameC+" "+price+" €";
+		}
 	
 	// Declare toString
 	@Override

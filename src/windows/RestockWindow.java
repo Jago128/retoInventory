@@ -5,7 +5,6 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
-
 import controller.LoginController;
 import model.User;
 
@@ -19,16 +18,14 @@ public class RestockWindow extends JDialog implements ActionListener, ChangeList
 	private JLabel lblItemName, lblStockCalc, lblStock, lblActualStock, lblNewStock;
 	private JButton btnClose, btnSubmit;
 	private JSpinner spinner;
-	private User user;
 	private String name;
 	private boolean type; // true = Product | false = Component
 
-	/**[WINDOW CREATION]*/
+	/**[WINDOW CREATION]**/
 
 	public RestockWindow(JDialog parent, LoginController cont, User user, String name, double price, boolean type) {
 		super(parent, true); // Blocks the father window
 		this.cont = cont;
-		this.user = user;
 		this.name = name;
 		this.type = type; // true = Product | false = Component
 
@@ -36,6 +33,7 @@ public class RestockWindow extends JDialog implements ActionListener, ChangeList
 		setTitle("MEDIAMARTA: Restock Item");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
+		setResizable(false); // Blocks the window so it can't be modified the size
 
 		/* Spinner (Numeric value)
 		 * It needs to be created before because the labels need the value of it */
@@ -113,14 +111,14 @@ public class RestockWindow extends JDialog implements ActionListener, ChangeList
 		btnClose.addActionListener(this);
 	}
 
-	/**[METHODS]*/
+	/**[METHODS]**/
 
 	// Calculates the new stock
 	public int calcNewStock() {	// Calculates the subtotal basing on the price of the product and the spinner's value
 		return cont.checkStock(name, type) + (int) spinner.getValue();
 	}
 
-	/**[ACTION PERFORMER]*/
+	/**[ACTION PERFORMER & CHANGE LISTENER]**/
 
 	@Override
 	public void actionPerformed(ActionEvent e) {				
@@ -130,10 +128,10 @@ public class RestockWindow extends JDialog implements ActionListener, ChangeList
 		}
 		// 
 		if (e.getSource()==btnSubmit) {			
-			cont.restock(name, (int) spinner.getValue());
+			cont.restock(name, (int) spinner.getValue(), type);
 		}
-
 	}
+	
 	// Change listener
 	@Override
 	public void stateChanged(ChangeEvent e) {

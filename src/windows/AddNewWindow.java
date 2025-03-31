@@ -37,6 +37,7 @@ public class AddNewWindow extends JDialog implements ActionListener {
 		setTitle("MEDIAMARTA: Add New " + verifyType(type));
 		setBounds(100, 100, 480, 442);
 		getContentPane().setLayout(null);
+		setResizable(false); // Blocks the window so it can't be modified the size
 
 		// Titles
 		lblTitle = new JLabel(verifyType(type) + " Information");
@@ -161,7 +162,25 @@ public class AddNewWindow extends JDialog implements ActionListener {
 		btnClose.addActionListener(this);
 	}
 
-	/**[METHODS]*/
+	/**[METHODS]**/
+
+	// Sets the color of the labels true = BLACK | false = RED
+	public void setLabelColor(JLabel label, boolean correct) {
+		if(correct) {
+			label.setForeground(Color.BLACK);
+		} else {
+			label.setForeground(Color.RED);
+		}
+	}
+
+	// Sets the color of the text fields true = WHITE | false = RED
+	public void setTextColor(JTextField field, boolean correct) {
+		if(correct) {
+			field.setForeground(Color.WHITE);
+		} else {
+			field.setBackground(new Color(250, 128, 114));
+		}
+	}
 
 	// Verifying the type true = Product | false = Component
 	public String verifyType(boolean type) {
@@ -187,11 +206,13 @@ public class AddNewWindow extends JDialog implements ActionListener {
 	public boolean verifyCredentialsName() {
 		if (textName == null || textName.getText().equals("")) {
 			lblName.setText("*NAME:");
-			lblName.setForeground(Color.RED);
+			setLabelColor(lblName, false);
+			// lblName.setForeground(Color.RED);
 			return false;
 		} else {
 			lblName.setText(" NAME:");
-			lblName.setForeground(Color.BLACK);
+			setLabelColor(lblName, true);
+			// lblName.setForeground(Color.BLACK);
 			return true;
 		}
 	}
@@ -200,16 +221,18 @@ public class AddNewWindow extends JDialog implements ActionListener {
 	public boolean verifyCredentialsType() {
 		if (rdbtnA.isSelected() || rdbtnB.isSelected() || rdbtnC.isSelected()) {
 			lblType.setText(" TYPE:");
-			lblType.setForeground(Color.BLACK);
+			setLabelColor(lblType, true);
+			// lblType.setForeground(Color.BLACK);
 			return true;
 		} else {
 			lblType.setText("*TYPE:");
-			lblType.setForeground(Color.RED);
+			setLabelColor(lblType, false);
+			// lblType.setForeground(Color.RED);
 			return false;
 		}
 	}
 
-	// Adquires the Type value
+	// Acquires the Type value
 	public void setType() {
 		if (type) {
 			if (rdbtnB.isSelected()) {

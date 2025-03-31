@@ -20,7 +20,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 	private Map<String, Product> products;	
 	private User user;
 
-	/**[WINDOW CREATION]*/
+	/**[WINDOW CREATION]**/
 
 	public ProductWindow(JFrame parent, LoginController cont, User user) {
 		super(parent,true); // Blocks the father window
@@ -31,6 +31,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 		setTitle("MEDIAMARTA: Products");
 		setBounds(100, 100, 480, 636);
 		getContentPane().setLayout(null);
+		setResizable(false); // Blocks the window so it can't be modified the size
 
 		// Titles
 		lblMediaMarta = new JLabel("MediaMarta");
@@ -104,7 +105,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 		btnClose.addActionListener(this);	
 	}
 
-	/**[METHODS]*/
+	/**[METHODS]**/
 
 	// Loads the products to the list
 	public void loadProductsList() {
@@ -113,7 +114,8 @@ public class ProductWindow extends JDialog implements ActionListener {
 		products = cont.verifyProduct();
 		if(!products.isEmpty()) {
 			for (Product p : products.values()){
-				model.addElement(p.getNameP()+p.getPrice()+"€");
+				model.addElement(p.nameAndPrice());
+				// model.addElement(p.getNameP()+p.getPrice()+" €");
 			}
 		}
 		list.setModel(model);
@@ -126,7 +128,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 		return product;
 	}
 
-	/**[ACTION PERFORMER]*/
+	/**[ACTION PERFORMER]**/
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

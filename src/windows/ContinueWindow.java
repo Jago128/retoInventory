@@ -28,6 +28,7 @@ public class ContinueWindow extends JDialog implements ActionListener {
 		setTitle("Verify action");
 		setBounds(100, 100, 450, 194);
 		getContentPane().setLayout(null);
+		setResizable(false); // Blocks the window so it can't be modified the size
 
 		// Titles
 		lblTitle = new JLabel(name+", do you want to keep buying "+verifyType(type)+"?");
@@ -75,7 +76,7 @@ public class ContinueWindow extends JDialog implements ActionListener {
 		} 
 		// Goes back to the MenuWindow closing the windows in between
 		if (e.getSource() == btnNo) {
-			MenuWindow menu = new MenuWindow(user, cont); // The admin variable is sent to show or not certain option in the next windows			
+			MenuWindow menu = new MenuWindow(cont, user); // The admin variable is sent to show or not certain option in the next windows			
 			menu.setVisible(true);
 			JDialog parent = (JDialog)this.getParent(); // Obtains the parent window			
 			JDialog parentsParent = (JDialog)parent.getParent(); // Obtains the parents parent window	

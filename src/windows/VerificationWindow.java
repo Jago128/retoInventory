@@ -22,18 +22,19 @@ public class VerificationWindow extends JDialog implements ActionListener {
 	private String name;
 	private boolean type; // true = Product | false = Component
 
-	/**[WINDOW CREATION]*/
+	/**[WINDOW CREATION]**/
 
-	public VerificationWindow(JDialog parent, LoginController cont, String name, boolean type) {
+	public VerificationWindow(JDialog parent, LoginController cont, String name, boolean type) {		
 		super(parent, true); // Blocks the father window
 		this.cont = cont;
 		this.name = name;
 		this.type = type;
 
-		// Window
+		// Window		
 		setTitle("Verify action");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
+		setResizable(false); // Blocks the window so it can't be modified the size
 
 		// Titles
 		lblTitle = new JLabel("Insert the code " + generateCode() + " to verify the action");
@@ -73,7 +74,7 @@ public class VerificationWindow extends JDialog implements ActionListener {
 		btnClose.addActionListener(this);
 	}
 
-	/**[METHODS]*/
+	/**[METHODS]**/
 
 	// Generates a random code from 1 to 4 numbers
 	public int generateCode() {
@@ -119,7 +120,7 @@ public class VerificationWindow extends JDialog implements ActionListener {
 		}		
 	}
 
-	/**[ACTION PERFORMER]*/
+	/**[ACTION PERFORMER]**/
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

@@ -20,7 +20,7 @@ public class MainWindow extends JFrame implements ActionListener {
 	private JLabel lblMesageUp, lblMessageDown;
 	private LoginController cont;
 
-	/**[WINDOW CREATION]*/
+	/**[WINDOW CREATION]**/
 
 	public MainWindow(LoginController cont) {
 		this.cont = cont;
@@ -33,6 +33,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
+		setResizable(false); // Blocks the window so it can't be modified the size
 
 		// Titles
 		JLabel lblUser = new JLabel("USER");
@@ -90,22 +91,39 @@ public class MainWindow extends JFrame implements ActionListener {
 		btnClose.addActionListener(this);
 	}
 
-	/**[METHODS]*/
-	
-	// Verifies the type of the user
-	public boolean verifyUserType(User user, boolean admin) {
-		if (cont.verifyUserType(user)) { // If is admin it will be true
-			admin = true;
-		} else { // If its not it will be false
-			admin = false;
+	/**[METHODS]**/
+
+	// Sets the color of the labels true = BLACK | false = RED
+	public void setLabelColor(JLabel label, boolean correct) {
+		if(correct) {
+			label.setForeground(Color.BLACK);
+		} else {
+			label.setForeground(Color.RED);
 		}
-		return admin;
 	}
 
-	/**[ACTION PERFORMER]*/	
+	// Sets the color of the text fields true = WHITE | false = RED
+	public void setTextColor(JTextField field, boolean correct) {
+		if(correct) {
+			field.setForeground(Color.WHITE);
+		} else {
+			field.setBackground(new Color(250, 128, 114));
+		}
+	}
 
+	// Verifies the type of the user
+	public void verifyUserType(User user) {
+		if (cont.verifyUserType(user)) { 
+			user.setTypeU(TypeU.ADMIN);
+		} else { 
+			user.setTypeU(TypeU.CLIENT);
+		}
+	}
+
+	/**[ACTION PERFORMER]**/	
+
+	@Override
 	public void actionPerformed(ActionEvent e) {
-		boolean admin = false;
 		// Closes the window
 		if (e.getSource() == btnClose) {
 			this.dispose();
@@ -113,18 +131,29 @@ public class MainWindow extends JFrame implements ActionListener {
 		// Verifies if the user exist to log in
 		if (e.getSource() == btnLogIn) {
 			User user = new User(textCodU.getText(), new String(passwordPsw.getPassword()));
-			if (cont.verifyUserPassword(user)) {
-				lblMesageUp.setText("Welcome " + textCodU.getText());
-				if (verifyUserType(user, admin)) {
-					user.setTypeU(TypeU.ADMIN);
-				} else {
-					user.setTypeU(TypeU.CLIENT);
+			if (cont.verifyUser(user)) { // Verifies the user exists 
+				setTextColor(textCodU, true);
+				if (cont.verifyUserPassword(user)) { // Verifies the password matches 			
+					verifyUserType(user);
+					/*if (verifyUserType(user)) { // Checks the user type to set it
+						user.setTypeU(TypeU.ADMIN);
+					} else {
+						user.setTypeU(TypeU.CLIENT);					
+					}*/
+					setLabelColor(lblMesageUp, true);
+					lblMesageUp.setText("Welcome " + textCodU.getText());
+					lblMessageDown.setText("");
+					JOptionPane.showMessageDialog(null, "Welcome " + textCodU.getText()); // Pop-Up Message
+					MenuWindow menu = new MenuWindow(cont, user); 
+					menu.setVisible(true);
+					this.dispose();
+				}  else { // If the password doesn't match warns the user with a red message
+					setLabelColor(lblMesageUp, false); // If the user doesn't exist warns the user with a red message
+					lblMesageUp.setText("Incorrect password.");					
 				}
-				MenuWindow menu = new MenuWindow(user, cont); // The admin variable is sent to show or not certain option in the next windows
-				menu.setVisible(true);
-				dispose();
-			} else {
-				lblMesageUp.setText("User not found.");
+			} else { // If the user doesn't exist warns the user with a red message
+				setLabelColor(lblMesageUp, false);
+				lblMesageUp.setText("The user does not exist.");
 				lblMessageDown.setText("To register go to Log-In.");
 			}
 		}
@@ -132,7 +161,7 @@ public class MainWindow extends JFrame implements ActionListener {
 		if (e.getSource() == btnSignIn) {
 			SignInWindow signIn = new SignInWindow(cont);
 			signIn.setVisible(true);
-			dispose();
+			this.dispose();
 		}
 	}
 }

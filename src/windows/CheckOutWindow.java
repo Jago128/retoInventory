@@ -22,7 +22,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 	private double price;
 	private boolean type; // true = Product | false = Component
 
-	/**[WINDOW CREATION]*/
+	/**[WINDOW CREATION]**/
 
 	public CheckOutWindow(JDialog parent, LoginController cont, User user, String name, double price, boolean type) {
 		super(parent, true); // Blocks the father window
@@ -35,6 +35,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 		setTitle("MEDIAMARTA: Check-out");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
+		setResizable(false); // Blocks the window so it can't be modified the size
 
 		// Spinner (Numeric value)
 		// It needs to be created before because the labels need the value of it
@@ -99,7 +100,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 		btnClose.addActionListener(this);
 	}
 
-	/**[METHODS]*/
+	/**[METHODS]**/
 	
 	// Calculate price
 	public double calcPrice() {	// Calculates the subtotal basing on the price of the product and the spinner's value
@@ -121,7 +122,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 		}		
 	}
 
-	/**[ACTION PERFORMER & CHANGE LISTENER]*/
+	/**[ACTION PERFORMER & CHANGE LISTENER]**/
 
 	// Action performer
 	@Override

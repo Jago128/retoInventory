@@ -18,9 +18,9 @@ public class MenuWindow extends JFrame implements ActionListener {
 	private JButton btnLogOut, btnProducts, btnComponents, btnBrands, btnCheckStock, btnClose;
 	private User user;
 
-	/**[WINDOW CREATION]*/
+	/**[WINDOW CREATION]**/
 
-	public MenuWindow(User user, LoginController controlador) {
+	public MenuWindow(LoginController controlador, User user) {
 		this.cont = controlador;
 		this.user = user;
 
@@ -31,6 +31,7 @@ public class MenuWindow extends JFrame implements ActionListener {
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
+		setResizable(false); // Blocks the window so it can't be modified the size
 
 		// Titles
 		JLabel lblWelcomeTo = new JLabel("Welcome to");
@@ -99,8 +100,9 @@ public class MenuWindow extends JFrame implements ActionListener {
 		btnClose.addActionListener(this);
 	}
 
-	/**[ACTION PERFORMER]*/
-
+	/**[ACTION PERFORMER]**/
+	
+	@Override
 	public void actionPerformed(ActionEvent e) {
 		// Logs-Out and moves back to the Main Window
 		if (e.getSource() == btnLogOut) {
@@ -127,7 +129,7 @@ public class MenuWindow extends JFrame implements ActionListener {
 			BrandWindow brand = new BrandWindow(this, cont, user); // The admin variable is sent to show or not certain option in the next windows
 			brand.setVisible(true);
 		}
-		// Opens the window of the low stock window (only visible with admin users)
+		// Opens the window of the low stock window (only visible to admin users)
 		if (e.getSource() == btnCheckStock) { // The admin variable is sent to show or not certain option in the next windows
 			LowStockWindow lowStock = new LowStockWindow(this, cont, user);
 			lowStock.setVisible(true);

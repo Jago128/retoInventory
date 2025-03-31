@@ -23,7 +23,7 @@ public class BrandWindow extends JDialog implements ActionListener {
 	private Map<String, Comp> components;
 	private User user;
 
-	/**[WINDOW CREATION]*/
+	/**[WINDOW CREATION]**/
 
 	public BrandWindow(JFrame parent, LoginController cont, User user) {
 		super(parent, true); // Blocks the father window
@@ -34,6 +34,7 @@ public class BrandWindow extends JDialog implements ActionListener {
 		setTitle("MEDIAMARTA: Brands");
 		setBounds(100, 100, 480, 636);
 		getContentPane().setLayout(null);
+		setResizable(false); // Blocks the window so it can't be modified the size
 
 		// Titles
 		lblMediaMarta = new JLabel("MediaMarta");
@@ -110,7 +111,7 @@ public class BrandWindow extends JDialog implements ActionListener {
 		btnClose.addActionListener(this);
 	}
 
-	/**[METHODS]*/
+	/**[METHODS]**/
 
 	// Loads the brands to the combo box
 	public void loadBrandsComboBox() {		
@@ -132,12 +133,14 @@ public class BrandWindow extends JDialog implements ActionListener {
 
 		if (!products.isEmpty()) {
 			for (Product p : products.values()){
-				model.addElement(p.getNameP()+p.getPrice()+"€");
+				model.addElement(p.nameAndPrice());
+				// model.addElement(p.getNameP()+p.getPrice()+" €");
 			}
 		}		
 		if (!components.isEmpty()) {
 			for (Comp c : components.values()) {
-				model.addElement(c.getNameC()+c.getPrice()+"€");
+				model.addElement(c.nameAndPrice());
+				// model.addElement(c.getNameC()+c.getPrice()+" €");
 			}
 		}
 		list.setModel(model);
@@ -187,7 +190,7 @@ public class BrandWindow extends JDialog implements ActionListener {
 		return price;
 	}
 
-	/**[ACTION PERFORMER]*/
+	/**[ACTION PERFORMER]**/
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

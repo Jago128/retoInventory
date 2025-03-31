@@ -89,7 +89,7 @@ public class Product {
 
 	// Method to show name and price
 	public String nameAndPrice() {
-		return nameP + price + "€";
+		return "[Product "+codP+"] "+nameP+" "+price+" €";
 	}
 	
 	// Declare toString

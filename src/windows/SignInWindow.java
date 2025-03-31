@@ -13,13 +13,13 @@ public class SignInWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private LoginController cont;
-	private JLabel lblTitulo, lblMensaje;
+	private JLabel lblTitulo, lblMessage;
 	private JTextField textUserCod, textName;
 	private JPasswordField password, passwordConfirmation;	
 	private JButton btnClose, btnSubmit;
 
-	/**[WINDOW CREATION]*/
-	
+	/**[WINDOW CREATION]**/
+
 	public SignInWindow(LoginController cont) {
 		this.cont = cont;
 
@@ -27,6 +27,7 @@ public class SignInWindow extends JDialog implements ActionListener {
 		setTitle("REGISTER NEW USER");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
+		setResizable(false); // Blocks the window so it can't be modified the size
 
 		// Titles
 		lblTitulo = new JLabel("Register");
@@ -55,11 +56,11 @@ public class SignInWindow extends JDialog implements ActionListener {
 		lblPasswordConf.setBounds(66, 150, 147, 19);
 		getContentPane().add(lblPasswordConf);
 
-		lblMensaje = new JLabel("");
-		lblMensaje.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMensaje.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblMensaje.setBounds(66, 179, 313, 34);
-		getContentPane().add(lblMensaje);
+		lblMessage = new JLabel("");
+		lblMessage.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMessage.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		lblMessage.setBounds(66, 179, 313, 34);
+		getContentPane().add(lblMessage);
 
 		// Text fields
 		textUserCod = new JTextField();
@@ -97,7 +98,25 @@ public class SignInWindow extends JDialog implements ActionListener {
 	}
 
 	/**[METHODS]*/	
-	
+
+	// Sets the color of the labels true = BLACK | false = RED
+	public void setLabelColor(JLabel label, boolean correct) {
+		if(correct) {
+			label.setForeground(Color.BLACK);
+		} else {
+			label.setForeground(Color.RED);
+		}
+	}
+
+	// Sets the color of the text fields true = WHITE | false = RED
+	public void setTextColor(JTextField field, boolean correct) {
+		if(correct) {
+			field.setForeground(Color.WHITE);
+		} else {
+			field.setBackground(new Color(250, 128, 114));
+		}
+	}
+
 	// Verifying the password is equal in both text fields
 	public boolean verifyPassword(String password, String passwordConf) {
 		boolean correct;
@@ -110,7 +129,7 @@ public class SignInWindow extends JDialog implements ActionListener {
 		return correct;
 	}
 
-	/**[ACTION PERFORMER]*/
+	/**[ACTION PERFORMER]**/
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -122,23 +141,35 @@ public class SignInWindow extends JDialog implements ActionListener {
 		if (e.getSource() == btnSubmit) {
 			User user = new User(textUserCod.getText(), textName.getText()); // Creates a user
 			if (!cont.verifyUser(user)) { // Verifies if a user with the same name exists
-				textUserCod.setBackground(new Color(255, 255, 255));
+				setTextColor(textUserCod, true);
+				// textUserCod.setBackground(new Color(255, 255, 255));
 				if (verifyPassword(new String(password.getPassword()), new String(passwordConfirmation.getPassword()))) { // Verifies if the password is equal in both text fields
-					passwordConfirmation.setBackground(new Color(255, 255, 255));
-					user.setPassword(new String(password.getPassword())); // Modifies the password					 
+					setTextColor(password, true);
+					setTextColor(passwordConfirmation, true);
+					// passwordConfirmation.setBackground(new Color(255, 255, 255));
+					user.setPassword(new String(password.getPassword())); // Modifies the password to the correct one					 
 					cont.registerUser(user); // Registers the user
-					JOptionPane.showMessageDialog(null, "User registered correctly");
-					MenuWindow menu = new MenuWindow(user, cont);
+					lblMessage.setText("User registered correctly.");
+					setLabelColor(lblMessage, true);
+					JOptionPane.showMessageDialog(null, "User registered correctly.");
+					MenuWindow menu = new MenuWindow(cont, user);
 					menu.setVisible(true);
 					this.dispose();
 				} else {
-					lblMensaje.setText("The password must be equal in both parts");
-					password.setBackground(new Color(250, 128, 114));
-					passwordConfirmation.setBackground(new Color(250, 128, 114));
+					lblMessage.setText("The password must be equal in both parts.");
+					setLabelColor(lblMessage, false);
+					setTextColor(password, false);
+					setTextColor(passwordConfirmation, false);
+					// lblMessage.setForeground(Color.RED);				
+					// password.setBackground(new Color(250, 128, 114));
+					// passwordConfirmation.setBackground(new Color(250, 128, 114));
 				}
 			} else {
-				lblMensaje.setText("User with that code already exists");
-				textUserCod.setBackground(new Color(250, 128, 114));
+				lblMessage.setText("User with that code already exists.");
+				setLabelColor(lblMessage, false);
+				setTextColor(textUserCod, false);
+				// lblMessage.setForeground(Color.RED);
+				// textUserCod.setBackground(new Color(250, 128, 114));
 			}
 		}
 	}

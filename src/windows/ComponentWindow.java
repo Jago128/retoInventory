@@ -20,7 +20,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 	private Map<String, Comp> components;
 	private User user;
 
-	/**[WINDOW CREATION]*/
+	/**[WINDOW CREATION]**/
 
 	public ComponentWindow(JFrame parent, LoginController cont, User user) {
 		super(parent, true); // Blocks the father window
@@ -31,6 +31,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		setTitle("MEDIAMARTA: Components");
 		setBounds(100, 100, 480, 636);
 		getContentPane().setLayout(null);
+		setResizable(false); // Blocks the window so it can't be modified the size
 
 		// Titles
 		lblMediaMarta = new JLabel("MediaMarta");
@@ -104,7 +105,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		btnClose.addActionListener(this);
 	}
 
-	/**[METHODS]*/
+	/**[METHODS]**/
 
 	// Loads the components to the list
 	public void loadComponents() {
@@ -113,7 +114,8 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		components = cont.verifyComponent();
 		if (!components.isEmpty()) {
 			for (Comp c : components.values()) {
-				model.addElement(c.getNameC()+c.getPrice()+"€");
+				model.addElement(c.nameAndPrice());
+				// model.addElement(c.getNameC()+c.getPrice()+" €");
 			}
 		}
 		list.setModel(model);
@@ -126,7 +128,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		return component;
 	}
 
-	/**[ACTION PERFORMER]*/
+	/**[ACTION PERFORMER]**/
 
 	@Override
 	public void actionPerformed(ActionEvent e) {

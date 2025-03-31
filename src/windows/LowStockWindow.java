@@ -21,7 +21,7 @@ public class LowStockWindow extends JDialog implements ActionListener {
 	private Map<String, Comp> components;
 	private User user;
 
-	/**[WINDOW CREATION]*/
+	/**[WINDOW CREATION]**/
 
 	public LowStockWindow(JFrame parent, LoginController cont, User user) {
 		super(parent, true); // Blocks the father window
@@ -32,6 +32,7 @@ public class LowStockWindow extends JDialog implements ActionListener {
 		setTitle("MEDIAMARTA: Low Stock Items");
 		setBounds(100, 100, 480, 636);
 		getContentPane().setLayout(null);
+		setResizable(false); // Blocks the window so it can't be modified the size
 
 		// Titles
 		lblMediaMarta = new JLabel("MediaMarta");
@@ -82,7 +83,27 @@ public class LowStockWindow extends JDialog implements ActionListener {
 		btnClose.addActionListener(this);
 	}
 
-	/**[METHODS]*/
+	/**[METHODS]**/
+	
+	// Loads the list
+	public void loadList() {	
+		DefaultListModel<String> model = new DefaultListModel<String>();
+		products = cont.showProdsOrderedByStock();
+		components = cont.showCompsOrderedByStock();
+
+		if(!products.isEmpty()) {
+			for (Product p : products.values()){
+				model.addElement(p.getNameP()+" "+cont.checkStock(p.getNameP(), true)+" stock left");
+			}
+		}		
+		if (!components.isEmpty()) {
+			for (Comp c : components.values()) {
+				model.addElement(c.getNameC()+" "+cont.checkStock(c.getNameC(), false)+" stock left");
+			}
+		}
+		list.setModel(model);
+	}
+	
 	// Verify the type
 	public boolean verifyType() {
 		boolean type = false;
@@ -125,28 +146,9 @@ public class LowStockWindow extends JDialog implements ActionListener {
 			price=component.getPrice();
 		}
 		return price;
-	}
-
-	// Loads the list
-	public void loadList() {	
-		DefaultListModel<String> model = new DefaultListModel<String>();
-		products = cont.showProdsOrderedByStock();
-		components = cont.showCompsOrderedByStock();
-
-		if(!products.isEmpty()) {
-			for (Product p : products.values()){
-				model.addElement(p.getNameP());
-			}
-		}		
-		if (!components.isEmpty()) {
-			for (Comp c : components.values()) {
-				model.addElement(c.getNameC());
-			}
-		}
-		list.setModel(model);
 	}	
 
-	/**[ACTION PERFORMER]*/
+	/**[ACTION PERFORMER]**/
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
