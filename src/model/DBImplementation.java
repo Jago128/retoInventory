@@ -31,6 +31,7 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLDELETEPROD = "DELETE FROM product WHERE nameP = ?";
 	final String SQLPRODUCTSTOCK = "SELECT stockProduct FROM product WHERE nameP = ?";	
 	final String SQLSELECTPRODUCTSTOCK = "SELECT * FROM product WHERE stockProduct <= 50 ORDER BY stockProduct";	
+	final String SQLPROD = "SELECT PROD FROM PRODUCT WHERE NAMEP = ?";
 
 	// COMPONENTS
 	final String SQLSELECTCOMPONENT = "SELECT * FROM component";
@@ -43,7 +44,6 @@ public class DBImplementation implements MediaMartaDAO {
 	// PRODUCTS & COMPONENTS
 	final String SQLSELL = "CALL sellAndSubstract(?,?,?,?,?)";
 	final String SQLRESTOCKPRODUCT = "UPDATE product SET stockProduct = ? WHERE nameP = (SELECT nameP FROM product WHERE nameP = ?)";
-	// final String SQLRESTOCKPRODUCT = "UPDATE product SET stockProduct = ? WHERE nameP = ?";
 	final String SQLRESTOCKCOMPONENT = "UPDATE component SET stockComponent = ? WHERE nameComp = ?";
 
 	// BRANDS
