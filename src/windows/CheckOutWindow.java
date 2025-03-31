@@ -28,6 +28,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 		super(parent, true); // Blocks the father window
 		this.cont = cont;
 		this.user = user;
+		this.name = name;
 		this.price = price;
 		this.type = type; // true = Product | false = Component
 

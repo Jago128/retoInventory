@@ -86,12 +86,12 @@ INSERT INTO BRAND (NAMEBRAND) VALUES
     
 INSERT INTO PRODUCT (NAMEP,TYPEP,PRICE,STOCKPRODUCT,CODBRAND) VALUES
 ("Iphone X","Mobile",500,150,1), -- Apple
-("Samsung Galaxy Book 4","Computer",2,70,2), -- Samsung
-("Lenovo IdeaPad Slim 3","Computer",700,23,3), -- Lenovo
-("Samsung Galaxy S24","Mobile",550,4,2), -- Samsung
+("Samsung Galaxy Book 4","Computer",200,70,2), -- Samsung
+("Lenovo IdeaPad Slim 3","Computer",700,25,3), -- Lenovo
+("Samsung Galaxy S24","Mobile",550,5,2), -- Samsung
 ("ASUS ExpertBook","Computer",710,50,5), -- ASUS
 ("HUAWEI Pura 70 Pro","Mobile",1000,700,4), -- Huawei
-("Intel Pro","Mobile",105,214,6); -- Intel
+("Intel Pro","Mobile",105,215,6); -- Intel
 
 INSERT INTO PURCHASE (CODPRODUCT,CODUSER,QUANTITY,TOTALPRICE,DATEP) VALUES
 (6,'Pakete7',5, 5000,'2025-02-20'),
@@ -100,11 +100,11 @@ INSERT INTO PURCHASE (CODPRODUCT,CODUSER,QUANTITY,TOTALPRICE,DATEP) VALUES
 (4,'Pakete7',2, 1100,'2025-02-25');
 
 INSERT INTO COMPONENT (NAMECOMP,TYPEC,CODBRAND,STOCKCOMPONENT,PRICECOMP) VALUES 
-("Asus GT710","Graphics",5,2,81.99), -- ASUS
+("Asus GT710","Graphics",5,5,81.99), -- ASUS
 ("Intel Core i5-13400","Processor",6,15,170), -- Intel
-("ESC 4000 G4X","RAM",3,62,110.99), -- Lenovo
+("ESC 4000 G4X","RAM",3,60,110.99), -- Lenovo
 ("OFFTEK 8GB","RAM",4,95,30), -- Huawei
-("ASUS Dual RTX 4060 TI","Graphics",5,47,81.99), -- ASUS
+("ASUS Dual RTX 4060 TI","Graphics",5,45,81.99), -- ASUS
 ("Ultra 9 285K","Processor",6,15,665); -- INTEL
 
 INSERT INTO BUY (CODCOMPONENT,CODUSER,QUANTITY,TOTALPRICE,DATEB) VALUES
@@ -243,6 +243,8 @@ BEGIN
     END IF;        
 END //
 Delimiter ;
+
+select * from purchase;
 
 DELIMITER //
 CREATE PROCEDURE sellAndSubstract(CODUSER VARCHAR(20), NAME_I VARCHAR(50), AMOUNT INT, PRICE DOUBLE, PROD BOOLEAN)
