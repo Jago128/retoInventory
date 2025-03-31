@@ -20,8 +20,10 @@ import javax.swing.border.EmptyBorder;
 
 import controller.LoginController;
 import model.Brand;
+import model.Buy;
 import model.Comp;
 import model.Product;
+import model.Purchase;
 import model.TypeU;
 import model.User;
 
@@ -32,9 +34,8 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 	private LoginController cont;
 	private JButton btnLogOut, btnCheckStock, btnClose;
 	private User user;
-	private Map<String, Brand> brands;
-	private Map<String, Product> products;
-	private Map<String, Comp> components;
+	private Map<String, Purchase> purchases;
+	private Map<String, Buy> buys;
 	private JList<String> listPurchases;
 
 	/**[WINDOW CREATION]**/
@@ -44,8 +45,7 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 		this.user = user;
 
 		// Window
-		setTitle("MEDIAMARTA: Welcome");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setTitle("MEDIAMARTA: "+user.getUsername()+"'s Purchases");
 		setBounds(100, 100, 480, 636);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -71,7 +71,7 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 		listPurchases.setBounds(5, 104, 451, 422);
 		contentPane.add(listPurchases);
 
-		loadProductsList();
+		//loadProductsList();
 		
 		// Buttons
 		btnLogOut = new JButton("Log-Out");
@@ -104,36 +104,28 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 	/**[METHODS]**/
 
 	// Loads the products to the list
-	public void loadProductsList() {
+	/*public void loadProductsList() {
 		listPurchases.removeAll();
 		
 		DefaultListModel<String> modelProd = new DefaultListModel<String>();
 		DefaultListModel<String> modelComp = new DefaultListModel<String>();
-		DefaultListModel<String> modelBrand = new DefaultListModel<String>();
 		
-		products = cont.verifyProduct();
-		if(!products.isEmpty()) {
-			for (Product p : products.values()){
+		purchases = cont.verifyPurchase();
+		if(!purchases.isEmpty()) {
+			for (Purchase p : purchases.values()){
 				modelProd.addElement(p.nameAndPrice());
 			}
 		}
 	
-		components = cont.verifyComponent();
-		if (!components.isEmpty()) {
-			for (Comp c : components.values()) {
-				modelComp.addElement(c.nameAndPrice());
+		buys = cont.verifyBuys();
+		if (!buys.isEmpty()) {
+			for (Buy b : buys.values()) {
+				modelComp.addElement(b.nameAndPrice());
 			}
-		}
-		
-		brands = cont.verifyBrands();
-		if (!brands.isEmpty()) {
-			for (Brand b : brands.values()) {
-				modelBrand.addElement(b.getNameB());
-			}
-		}
+		}				
 		
 		listPurchases.setModel(modelProd);
-	}
+	}*/
 
 	/**[ACTION PERFORMER]**/
 
