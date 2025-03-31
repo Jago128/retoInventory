@@ -172,11 +172,11 @@ public class BrandWindow extends JDialog implements ActionListener {
 
 		if (verifyType()) {
 			Product product = new Product();
-			product=cont.obtainProductNamePrice(listName.getSelectedValue());
+			product=cont.obtainProduct(listName.getSelectedValue());
 			name=product.getNameP();
 		} else {
 			Comp component = new Comp();
-			component=cont.obtainComponentNamePrice(listName.getSelectedValue());
+			component=cont.obtainComponent(listName.getSelectedValue());
 			name=component.getNameC();
 		}
 		return name;
@@ -188,11 +188,11 @@ public class BrandWindow extends JDialog implements ActionListener {
 
 		if (verifyType()) {
 			Product product = new Product();
-			product=cont.obtainProductNamePrice(listName.getSelectedValue());
+			product=cont.obtainProduct(listName.getSelectedValue());
 			price=product.getPrice();
 		} else {
 			Comp component = new Comp();
-			component=cont.obtainComponentNamePrice(listName.getSelectedValue());
+			component=cont.obtainComponent(listName.getSelectedValue());
 			price=component.getPrice();
 		}
 		return price;

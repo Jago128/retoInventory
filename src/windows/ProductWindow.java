@@ -134,7 +134,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 	// Obtains the name and price of the selected product
 	public Product obtainNamePrice() {
 		Product product = new Product();
-		product=cont.obtainProductNamePrice(listName.getSelectedValue());
+		product=cont.obtainProduct(listName.getSelectedValue());
 		return product;
 	}
 

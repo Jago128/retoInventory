@@ -20,7 +20,7 @@ public interface MediaMartaDAO {
 	
 	public Map<String, Product> verifyProduct();
 
-	public Product obtainProductNamePrice(String name);
+	public Product obtainProduct(String name);
 	
 	public boolean insertProd(Product prod);
 
@@ -34,7 +34,7 @@ public interface MediaMartaDAO {
 	
 	public Map<String, Comp> verifyComponent();
 
-	public Comp obtainComponentNamePrice(String name);
+	public Comp obtainComponent(String name);
 	
 	public boolean insertComp(Comp comp);
 	
@@ -46,7 +46,7 @@ public interface MediaMartaDAO {
 
 	public void sellAndSubstract(String codUser, String nomProd, int amount, double price, boolean comp);
 	
-	public boolean restock(String name, int quantity, boolean type);
+	public boolean restock(int code, int quantity, boolean type);
 	
 	/**[BRANDS]**/
 

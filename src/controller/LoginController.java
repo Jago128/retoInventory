@@ -45,8 +45,8 @@ public class LoginController {
 		return dao.verifyProduct();
 	};
 
-	public Product obtainProductNamePrice(String name) {
-		return dao.obtainProductNamePrice(name);
+	public Product obtainProduct(String name) {
+		return dao.obtainProduct(name);
 	};
 
 	public boolean insertProd(Product prod) {
@@ -71,8 +71,8 @@ public class LoginController {
 		return dao.verifyComponent();
 	};
 
-	public Comp obtainComponentNamePrice(String name) {
-		return dao.obtainComponentNamePrice(name);
+	public Comp obtainComponent(String name) {
+		return dao.obtainComponent(name);
 	};
 
 	public boolean insertComp(Comp comp) {
@@ -93,8 +93,8 @@ public class LoginController {
 		dao.sellAndSubstract(codUser, nomProd, amount, price, comp);
 	};
 
-	public boolean restock(String name, int quantity, boolean type) {
-		return dao.restock(name, quantity, type);
+	public boolean restock(int code, int quantity, boolean type) {
+		return dao.restock(code, quantity, type);
 	};
 
 	/**[BRANDS]**/
