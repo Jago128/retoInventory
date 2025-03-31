@@ -285,7 +285,11 @@ public class AddNewWindow extends JDialog implements ActionListener {
 		} else if (parent instanceof BrandWindow){ 
 			BrandWindow productWindow = (BrandWindow)parent;
 			productWindow.loadList(); 
-		}		
+		}
+		else if (parent instanceof LowStockWindow) {
+			LowStockWindow lowStockWindow = (LowStockWindow)parent;
+			lowStockWindow.loadList();
+		}
 	}
 
 	/**[ACTION PERFORMER]*/

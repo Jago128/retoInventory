@@ -16,7 +16,7 @@ public class ContinueWindow extends JDialog implements ActionListener {
 
 
 	/**[WINDOW CREATION]*/
-	
+
 	public ContinueWindow(JDialog parent, User user, boolean type) {
 		super(parent, true); // Blocks the father window
 
@@ -48,9 +48,9 @@ public class ContinueWindow extends JDialog implements ActionListener {
 		btnYes.addActionListener(this);
 		btnNo.addActionListener(this);
 	}
-	
+
 	/**[METHODS]*/
-	
+
 	// Verifying the type true = Product | false = Component
 	public String verifyType(boolean type) {
 		if (type) {
@@ -60,13 +60,32 @@ public class ContinueWindow extends JDialog implements ActionListener {
 		}
 	}	
 
+	// Refresh parent window list
+	public void refreshParentList() {
+		JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
+		if(parent instanceof ProductWindow){ // Checks the parent window type
+			ProductWindow productWindow = (ProductWindow)parent; // Cast it to its type to be able to use it's methods
+			productWindow.loadProductsList(); // Calls the parent method to reload the list
+		} else if (parent instanceof ComponentWindow){ 
+			ComponentWindow productWindow = (ComponentWindow)parent;
+			productWindow.loadComponentList(); 
+		} else if (parent instanceof BrandWindow){ 
+			BrandWindow productWindow = (BrandWindow)parent;
+			productWindow.loadList(); 
+		}
+		else if (parent instanceof LowStockWindow) {
+			LowStockWindow lowStockWindow = (LowStockWindow)parent;
+			lowStockWindow.loadList();
+		}
+	}
+
 	/**[ACTION PERFORMER]*/
-	
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// Goes back to to ProductWindow, ComponentWindow or BrandWindow
 		if (e.getSource() == btnYes) {
-			JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
+			JDialog parent = (JDialog)this.getParent(); // Obtains the parent window			
 			parent.dispose(); // Closes the parent window
 			this.dispose();
 		} 

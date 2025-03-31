@@ -594,7 +594,7 @@ public class DBImplementation implements MediaMartaDAO {
 				stmt = con.prepareStatement(SQLRESTOCKPRODUCT);
 				stmt.setInt(1, quantity);
 				stmt.setInt(2, code);
-
+				stmt.executeUpdate();
 				stmt.close();
 				con.close();
 			} catch (SQLException e) {

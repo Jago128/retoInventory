@@ -112,7 +112,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 	// Refresh parent window list
 	public void refreshParentList() {
 		JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
-		if (parent instanceof ProductWindow){ // Checks the parent window type
+		if(parent instanceof ProductWindow){ // Checks the parent window type
 			ProductWindow productWindow = (ProductWindow)parent; // Cast it to its type to be able to use it's methods
 			productWindow.loadProductsList(); // Calls the parent method to reload the list
 		} else if (parent instanceof ComponentWindow){ 
@@ -121,7 +121,11 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 		} else if (parent instanceof BrandWindow){ 
 			BrandWindow productWindow = (BrandWindow)parent;
 			productWindow.loadList(); 
-		}		
+		}
+		else if (parent instanceof LowStockWindow) {
+			LowStockWindow lowStockWindow = (LowStockWindow)parent;
+			lowStockWindow.loadList();
+		}
 	}
 
 	/**[ACTION PERFORMER & CHANGE LISTENER]**/

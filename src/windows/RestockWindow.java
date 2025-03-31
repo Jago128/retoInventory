@@ -131,7 +131,11 @@ public class RestockWindow extends JDialog implements ActionListener, ChangeList
 		} else if (parent instanceof BrandWindow){ 
 			BrandWindow productWindow = (BrandWindow)parent;
 			productWindow.loadList(); 
-		}		
+		}
+		else if (parent instanceof LowStockWindow) {
+			LowStockWindow lowStockWindow = (LowStockWindow)parent;
+			lowStockWindow.loadList();
+		}
 	}
 
 	/**[ACTION PERFORMER & CHANGE LISTENER]**/
@@ -145,7 +149,7 @@ public class RestockWindow extends JDialog implements ActionListener, ChangeList
 		}
 		// 
 		if (e.getSource()==btnSubmit) {			
-			cont.restock(code, (int) spinner.getValue(), type);
+			cont.restock(code, calcNewStock(), type);
 			JOptionPane.showMessageDialog(null, "Component "+name+" got added "+(int) spinner.getValue()+" units succesfully");
 			refreshParentList();
 			this.dispose();
