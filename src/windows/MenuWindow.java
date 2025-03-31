@@ -77,7 +77,7 @@ public class MenuWindow extends JFrame implements ActionListener {
 		
 		// Buttons
 		btnLogOut = new JButton("Log-Out");
-		btnLogOut.setBackground(new Color(240, 240, 240));
+		btnLogOut.setBackground(UIManager.getColor("Button.background"));
 		btnLogOut.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		btnLogOut.setBounds(375, 5, 81, 21);
 		contentPane.add(btnLogOut);
@@ -111,6 +111,12 @@ public class MenuWindow extends JFrame implements ActionListener {
 		btnClose.setBounds(5, 5, 80, 21);
 		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		contentPane.add(btnClose);		
+		
+		JButton btnPurchases = new JButton("Purchases");
+		btnPurchases.setFont(new Font("Times New Roman", Font.PLAIN, 10));
+		btnPurchases.setBackground(UIManager.getColor("Button.background"));
+		btnPurchases.setBounds(294, 5, 81, 21);
+		contentPane.add(btnPurchases);
 
 		// Adding action listener
 		btnLogOut.addActionListener(this);

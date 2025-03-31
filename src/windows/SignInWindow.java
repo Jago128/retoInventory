@@ -145,6 +145,8 @@ public class SignInWindow extends JDialog implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// Closes the window
 		if (e.getSource() == btnClose) {
+			MainWindow frame = new MainWindow(cont);
+			frame.setVisible(true);			
 			this.dispose();
 		}
 		// Verifies the text fields and creates the user

@@ -37,13 +37,13 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		lblMediaMarta = new JLabel("MediaMarta");
 		lblMediaMarta.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMediaMarta.setFont(new Font("Times New Roman", Font.PLAIN, 25));
-		lblMediaMarta.setBounds(10, 24, 461, 46);
+		lblMediaMarta.setBounds(10, 24, 446, 46);
 		getContentPane().add(lblMediaMarta);
 
 		lblProducts = new JLabel("COMPONENTS");
 		lblProducts.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProducts.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblProducts.setBounds(10, 58, 461, 19);
+		lblProducts.setBounds(10, 58, 446, 19);
 		getContentPane().add(lblProducts);
 
 		// Labels
@@ -67,7 +67,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 
 		// Buttons
 		btnLogOut = new JButton("Log-Out");
-		btnLogOut.setBackground(new Color(240, 240, 240));
+		btnLogOut.setBackground(UIManager.getColor("Button.background"));
 		btnLogOut.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		btnLogOut.setBounds(375, 5, 81, 21);
 		getContentPane().add(btnLogOut);
@@ -124,8 +124,10 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		components = cont.verifyComponent();
 		if(!components.isEmpty()) {
 			for (Comp c : components.values()){
-				modelName.addElement(c.getNameC());
-				modelPrice.addElement(c.getPrice()+" €");
+				if(c.getStock()>0) {
+					modelName.addElement(c.getNameC());
+					modelPrice.addElement(c.getPrice()+" €");
+				}
 			}
 		}
 
