@@ -64,10 +64,11 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 		getContentPane().add(subtotal);
 
 		// Labels
-		JLabel lblCodUser = new JLabel(user.getCodU());
+		// Labels
+		JLabel lblCodUser = new JLabel(user.getUsername());
 		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		lblCodUser.setBounds(345, 5, 81, 19);
+		lblCodUser.setBounds(375, 27, 81, 19);
 		getContentPane().add(lblCodUser);
 
 		lblItemName = new JLabel(name);
@@ -101,7 +102,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 	}
 
 	/**[METHODS]**/
-	
+
 	// Calculate price
 	public double calcPrice() {	// Calculates the subtotal basing on the price of the product and the spinner's value
 		return price * (int) spinner.getValue();
@@ -134,7 +135,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 		// Calls the method that ejecutes the action on the DataBase
 		if (e.getSource() == btnSubmit) {
 			cont.sellAndSubstract(user.getCodU(), name, (int)spinner.getValue(), calcPrice(), type);
-			ContinueWindow next = new ContinueWindow(this, user, user.getCodU(), type);
+			ContinueWindow next = new ContinueWindow(this, user, type);
 			next.setVisible(true);
 			refreshParentList();
 		}

@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import controller.LoginController;
+import model.TypeU;
 import model.User;
 
 // CREATE NEW USER WINDOW 
@@ -128,6 +129,15 @@ public class SignInWindow extends JDialog implements ActionListener {
 		}
 		return correct;
 	}
+	
+	// Sets the correct data of the user
+	public User setUser(User user) {
+		user.setCodU(textUserCod.getText());
+		user.setUsername(textName.getText());
+		user.setPassword(new String(password.getPassword())); 
+		user.setTypeU(TypeU.CLIENT);
+		return user;
+	}
 
 	/**[ACTION PERFORMER]**/
 
@@ -142,12 +152,10 @@ public class SignInWindow extends JDialog implements ActionListener {
 			User user = new User(textUserCod.getText(), textName.getText()); // Creates a user
 			if (!cont.verifyUser(user)) { // Verifies if a user with the same name exists
 				setTextColor(textUserCod, true);
-				// textUserCod.setBackground(new Color(255, 255, 255));
 				if (verifyPassword(new String(password.getPassword()), new String(passwordConfirmation.getPassword()))) { // Verifies if the password is equal in both text fields
 					setTextColor(password, true);
-					setTextColor(passwordConfirmation, true);
-					// passwordConfirmation.setBackground(new Color(255, 255, 255));
-					user.setPassword(new String(password.getPassword())); // Modifies the password to the correct one					 
+					setTextColor(passwordConfirmation, true);					
+					setUser(user);										 
 					cont.registerUser(user); // Registers the user
 					lblMessage.setText("User registered correctly.");
 					setLabelColor(lblMessage, true);
@@ -160,16 +168,11 @@ public class SignInWindow extends JDialog implements ActionListener {
 					setLabelColor(lblMessage, false);
 					setTextColor(password, false);
 					setTextColor(passwordConfirmation, false);
-					// lblMessage.setForeground(Color.RED);				
-					// password.setBackground(new Color(250, 128, 114));
-					// passwordConfirmation.setBackground(new Color(250, 128, 114));
 				}
 			} else {
 				lblMessage.setText("User with that code already exists.");
 				setLabelColor(lblMessage, false);
 				setTextColor(textUserCod, false);
-				// lblMessage.setForeground(Color.RED);
-				// textUserCod.setBackground(new Color(250, 128, 114));
 			}
 		}
 	}

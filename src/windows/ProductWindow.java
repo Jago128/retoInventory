@@ -47,7 +47,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 		getContentPane().add(lblProducts);
 
 		// Labels
-		JLabel lblCodUser = new JLabel(user.getCodU());
+		JLabel lblCodUser = new JLabel(user.getUsername());
 		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		lblCodUser.setBounds(375, 27, 81, 19);
@@ -57,11 +57,11 @@ public class ProductWindow extends JDialog implements ActionListener {
 		listName = new JList<String>();
 		listName.setBounds(10, 104, 314, 406);
 		getContentPane().add(listName);		
-		
+
 		listPrice = new JList<String>();
 		listPrice.setBounds(327, 104, 129, 406);
 		getContentPane().add(listPrice);
-		
+
 		loadProductsList();
 
 		// Buttons
@@ -80,12 +80,12 @@ public class ProductWindow extends JDialog implements ActionListener {
 		btnAddNew.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		btnAddNew.setBounds(10, 533, 196, 35);
 		getContentPane().add(btnAddNew);
-		
+
 		btnRemove = new JButton("REMOVE");
 		btnRemove.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		btnRemove.setBounds(260, 533, 196, 35);
 		getContentPane().add(btnRemove);
-		
+
 		btnClose = new JButton("CLOSE");
 		btnClose.setBounds(5, 5, 80, 21);
 		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
@@ -116,10 +116,10 @@ public class ProductWindow extends JDialog implements ActionListener {
 	public void loadProductsList() {
 		listName.removeAll();
 		listPrice.removeAll();
-		
+
 		DefaultListModel<String> modelName = new DefaultListModel<String>();
 		DefaultListModel<String> modelPrice = new DefaultListModel<String>();
-		
+
 		products = cont.verifyProduct();		
 		if(!products.isEmpty()) {
 			for (Product p : products.values()){
@@ -130,7 +130,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 		listName.setModel(modelName);
 		listPrice.setModel(modelPrice);
 	}
-	
+
 	// Obtains the name and price of the selected product
 	public Product obtainNamePrice() {
 		Product product = new Product();

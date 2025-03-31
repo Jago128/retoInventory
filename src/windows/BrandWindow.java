@@ -50,7 +50,7 @@ public class BrandWindow extends JDialog implements ActionListener {
 		getContentPane().add(lblBrands);
 
 		// Labels
-		JLabel lblCodUser = new JLabel(user.getCodU());
+		JLabel lblCodUser = new JLabel(user.getUsername());
 		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		lblCodUser.setBounds(375, 27, 81, 19);

@@ -17,7 +17,7 @@ public class ContinueWindow extends JDialog implements ActionListener {
 
 	/**[WINDOW CREATION]*/
 	
-	public ContinueWindow(JDialog parent, User user, String name, boolean type) {
+	public ContinueWindow(JDialog parent, User user, boolean type) {
 		super(parent, true); // Blocks the father window
 
 		// Window
@@ -27,7 +27,7 @@ public class ContinueWindow extends JDialog implements ActionListener {
 		setResizable(false); // Blocks the window so it can't be modified the size
 
 		// Titles
-		lblTitle = new JLabel(name+", do you want to keep buying "+verifyType(type)+"?");
+		lblTitle = new JLabel(user.getUsername()+", do you want to keep buying "+verifyType(type)+"?");
 		lblTitle.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setBounds(10, 32, 416, 37);
