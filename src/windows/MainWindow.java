@@ -105,18 +105,9 @@ public class MainWindow extends JFrame implements ActionListener {
 	// Sets the color of the text fields true = WHITE | false = RED
 	public void setTextColor(JTextField field, boolean correct) {
 		if(correct) {
-			field.setForeground(Color.WHITE);
+			field.setBackground(Color.WHITE);
 		} else {
 			field.setBackground(new Color(250, 128, 114));
-		}
-	}
-
-	// Verifies the type of the user
-	public void verifyUserType(User user) {
-		if (cont.verifyUserType(user)) { 
-			user.setTypeU(TypeU.ADMIN);
-		} else { 
-			user.setTypeU(TypeU.CLIENT);
 		}
 	}
 
@@ -134,13 +125,9 @@ public class MainWindow extends JFrame implements ActionListener {
 			if (cont.verifyUser(user)) { // Verifies the user exists 
 				setTextColor(textCodU, true);
 				if (cont.verifyUserPassword(user)) { // Verifies the password matches 			
-					verifyUserType(user);
-					/*if (verifyUserType(user)) { // Checks the user type to set it
-						user.setTypeU(TypeU.ADMIN);
-					} else {
-						user.setTypeU(TypeU.CLIENT);					
-					}*/
+					user = cont.getUser(user); // Obtains all the data of the user
 					setLabelColor(lblMesageUp, true);
+					setTextColor(passwordPsw, true);
 					lblMesageUp.setText("Welcome " + textCodU.getText());
 					lblMessageDown.setText("");
 					JOptionPane.showMessageDialog(null, "Welcome " + textCodU.getText()); // Pop-Up Message
@@ -148,11 +135,13 @@ public class MainWindow extends JFrame implements ActionListener {
 					menu.setVisible(true);
 					this.dispose();
 				}  else { // If the password doesn't match warns the user with a red message
-					setLabelColor(lblMesageUp, false); // If the user doesn't exist warns the user with a red message
+					setLabelColor(lblMesageUp, false);
+					setTextColor(passwordPsw, false);
 					lblMesageUp.setText("Incorrect password.");					
 				}
 			} else { // If the user doesn't exist warns the user with a red message
 				setLabelColor(lblMesageUp, false);
+				setTextColor(textCodU, false);
 				lblMesageUp.setText("The user does not exist.");
 				lblMessageDown.setText("To register go to Log-In.");
 			}

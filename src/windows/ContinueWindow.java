@@ -3,7 +3,6 @@ package windows;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import controller.LoginController;
 import model.User;
 
 // CONTINUE WINDOW
@@ -14,15 +13,12 @@ public class ContinueWindow extends JDialog implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JLabel lblTitle;
 	private JButton btnYes, btnNo;
-	private LoginController cont;
-	private User user;
+
 
 	/**[WINDOW CREATION]*/
 	
-	public ContinueWindow(JDialog parent, LoginController cont, User user, String name, boolean type) {
+	public ContinueWindow(JDialog parent, User user, String name, boolean type) {
 		super(parent, true); // Blocks the father window
-		this.cont = cont;
-		this.user = user;
 
 		// Window
 		setTitle("Verify action");
@@ -76,8 +72,6 @@ public class ContinueWindow extends JDialog implements ActionListener {
 		} 
 		// Goes back to the MenuWindow closing the windows in between
 		if (e.getSource() == btnNo) {
-			MenuWindow menu = new MenuWindow(cont, user); // The admin variable is sent to show or not certain option in the next windows			
-			menu.setVisible(true);
 			JDialog parent = (JDialog)this.getParent(); // Obtains the parent window			
 			JDialog parentsParent = (JDialog)parent.getParent(); // Obtains the parents parent window	
 			parentsParent.dispose(); // Closes the parents parent window

@@ -30,6 +30,10 @@ public class LoginController {
 	public boolean verifyUserType(User user) {
 		return dao.verifyUserType(user);
 	};
+	
+	public User getUser(User user){
+		return dao.getUser(user);
+	};
 
 	public boolean registerUser(User user) {
 		return dao.registerUser(user);

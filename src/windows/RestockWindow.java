@@ -119,7 +119,8 @@ public class RestockWindow extends JDialog implements ActionListener, ChangeList
 	}
 
 	/**[ACTION PERFORMER & CHANGE LISTENER]**/
-
+	
+	// Action Performer
 	@Override
 	public void actionPerformed(ActionEvent e) {				
 		// Closes the window
@@ -129,6 +130,8 @@ public class RestockWindow extends JDialog implements ActionListener, ChangeList
 		// 
 		if (e.getSource()==btnSubmit) {			
 			cont.restock(name, (int) spinner.getValue(), type);
+			JOptionPane.showMessageDialog(null, "Component "+name+" got added "+(int) spinner.getValue()+" units succesfully");
+			this.dispose();
 		}
 	}
 	

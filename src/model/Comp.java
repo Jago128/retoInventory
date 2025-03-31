@@ -89,7 +89,7 @@ public class Comp {
 
 	// Method to show name and price
 		public String nameAndPrice() {
-			return "[Product "+codC+"] "+nameC+" "+price+" €";
+			return "[Component Code "+codC+"] "+nameC+" "+price+" €";
 		}
 	
 	// Declare toString

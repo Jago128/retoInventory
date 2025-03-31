@@ -176,7 +176,7 @@ public class AddNewWindow extends JDialog implements ActionListener {
 	// Sets the color of the text fields true = WHITE | false = RED
 	public void setTextColor(JTextField field, boolean correct) {
 		if(correct) {
-			field.setForeground(Color.WHITE);
+			field.setBackground(Color.WHITE);
 		} else {
 			field.setBackground(new Color(250, 128, 114));
 		}
@@ -281,7 +281,7 @@ public class AddNewWindow extends JDialog implements ActionListener {
 			productWindow.loadProductsList(); // Calls the parent method to reload the list
 		} else if (parent instanceof ComponentWindow){ 
 			ComponentWindow productWindow = (ComponentWindow)parent;
-			productWindow.loadComponents(); 
+			productWindow.loadComponentList(); 
 		} else if (parent instanceof BrandWindow){ 
 			BrandWindow productWindow = (BrandWindow)parent;
 			productWindow.loadList(); 
@@ -303,35 +303,13 @@ public class AddNewWindow extends JDialog implements ActionListener {
 				if (type) { // If all fields are filled depending on the choices will create the Product or Component to add it to the database
 					Product product = new Product(textName.getText(), productType, (double)spinnerPrice.getValue(), (int)spinnerQuantity.getValue(), setBrandCode());
 					cont.insertProd(product);
-					JOptionPane.showMessageDialog(null, "Product "+product.getNameP()+" with price "+product.getPrice()+"€ added with "+product.getStock()+" units of stock succesfully");
-					/*JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
-					if (parent instanceof ProductWindow){
-						ProductWindow productWindow = (ProductWindow)parent;
-						productWindow.loadProductsList();
-					} else if (parent instanceof ComponentWindow){
-						ComponentWindow productWindow = (ComponentWindow)parent;
-						productWindow.loadComponents();
-					} else if (parent instanceof BrandWindow){
-						BrandWindow productWindow = (BrandWindow)parent;
-						productWindow.loadList();
-					}*/
+					JOptionPane.showMessageDialog(null, "Product "+product.getNameP()+" with price "+product.getPrice()+"€ added with "+product.getStock()+" units of stock succesfully");					
 					refreshParentList();
 					this.dispose();
 				} else {
 					Comp component = new Comp(textName.getText(), componentType, setBrandCode(), (int)spinnerQuantity.getValue(), (double)spinnerPrice.getValue()); // String nameC, TypeC typeC, int codBrand, int stock, double price
 					cont.insertComp(component);
 					JOptionPane.showMessageDialog(null, "Component "+component.getNameC()+" with price "+component.getPrice()+"€ added with "+component.getStock()+" units of stock succesfully");
-					/*JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
-					if (parent instanceof ProductWindow){ // Checks which type its
-						ProductWindow productWindow = (ProductWindow)parent;
-						productWindow.loadProductsList(); // Calls the parent method to reload the list
-					} else if (parent instanceof ComponentWindow){
-						ComponentWindow productWindow = (ComponentWindow)parent;
-						productWindow.loadComponents(); // Calls the parent method to reload the list
-					} else if (parent instanceof BrandWindow){
-						BrandWindow productWindow = (BrandWindow)parent;
-						productWindow.loadList(); // Calls the parent method to reload the list
-					}*/	
 					refreshParentList();
 					this.dispose();
 				}

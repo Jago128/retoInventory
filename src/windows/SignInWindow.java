@@ -111,7 +111,7 @@ public class SignInWindow extends JDialog implements ActionListener {
 	// Sets the color of the text fields true = WHITE | false = RED
 	public void setTextColor(JTextField field, boolean correct) {
 		if(correct) {
-			field.setForeground(Color.WHITE);
+			field.setBackground(Color.WHITE);
 		} else {
 			field.setBackground(new Color(250, 128, 114));
 		}

@@ -17,7 +17,7 @@ public class BrandWindow extends JDialog implements ActionListener {
 	private JLabel lblMediaMarta, lblBrands;
 	private JButton btnLogOut, btnBuy, btnRemove, btnClose;
 	private JComboBox <String> comboBoxBrands;
-	private JList<String> list;
+	private JList<String> listName, listPrice;
 	private Map<String, Brand> brands;
 	private Map<String, Product> products;
 	private Map<String, Comp> components;
@@ -63,9 +63,13 @@ public class BrandWindow extends JDialog implements ActionListener {
 		getContentPane().add(comboBoxBrands);		
 		loadBrandsComboBox();		
 
-		list = new JList<String>();
-		list.setBounds(10, 156, 446, 354);
-		getContentPane().add(list);		
+		listName = new JList<String>();
+		listName.setBounds(10, 147, 314, 363);
+		getContentPane().add(listName);		
+
+		listPrice = new JList<String>();
+		listPrice.setBounds(327, 147, 129, 363);
+		getContentPane().add(listPrice);
 
 		// Buttons
 		btnLogOut = new JButton("Log-Out");
@@ -126,33 +130,37 @@ public class BrandWindow extends JDialog implements ActionListener {
 
 	// Loads the list
 	public void loadList() {
-		list.removeAll();
-		DefaultListModel<String> model = new DefaultListModel<String>();
-		products = cont.showProductsBrand((String)comboBoxBrands.getSelectedItem()); 
-		components = cont.showComponentsBrand((String)comboBoxBrands.getSelectedItem()); 
+		listName.removeAll();
+		listPrice.removeAll();
 
+		DefaultListModel<String> modelName = new DefaultListModel<String>();
+		DefaultListModel<String> modelPrice = new DefaultListModel<String>();
+
+		products = cont.showProductsBrand((String)comboBoxBrands.getSelectedItem()); 
 		if (!products.isEmpty()) {
 			for (Product p : products.values()){
-				model.addElement(p.nameAndPrice());
-				// model.addElement(p.getNameP()+p.getPrice()+" €");
+				modelName.addElement(p.getNameP());
+				modelPrice.addElement(p.getPrice()+" €");
 			}
-		}		
+		}	
+		components = cont.showComponentsBrand((String)comboBoxBrands.getSelectedItem()); 
 		if (!components.isEmpty()) {
 			for (Comp c : components.values()) {
-				model.addElement(c.nameAndPrice());
-				// model.addElement(c.getNameC()+c.getPrice()+" €");
+				modelName.addElement(c.getNameC());
+				modelPrice.addElement(c.getPrice()+" €");
 			}
 		}
-		list.setModel(model);
+		listName.setModel(modelName);
+		listPrice.setModel(modelPrice);
 	}
 
 	// Verify the type
 	public boolean verifyType() {
 		boolean type = false;
-		
-		if (products.containsKey(list.getSelectedValue())) {
+
+		if (products.containsKey(listName.getSelectedValue())) {
 			type=true;
-		} else if (components.containsKey(list.getSelectedValue())) {
+		} else if (components.containsKey(listName.getSelectedValue())) {
 			type=false;
 		}
 		return type;
@@ -164,11 +172,11 @@ public class BrandWindow extends JDialog implements ActionListener {
 
 		if (verifyType()) {
 			Product product = new Product();
-			product=cont.obtainProductNamePrice(list.getSelectedValue());
+			product=cont.obtainProductNamePrice(listName.getSelectedValue());
 			name=product.getNameP();
 		} else {
 			Comp component = new Comp();
-			component=cont.obtainComponentNamePrice(list.getSelectedValue());
+			component=cont.obtainComponentNamePrice(listName.getSelectedValue());
 			name=component.getNameC();
 		}
 		return name;
@@ -180,11 +188,11 @@ public class BrandWindow extends JDialog implements ActionListener {
 
 		if (verifyType()) {
 			Product product = new Product();
-			product=cont.obtainProductNamePrice(list.getSelectedValue());
+			product=cont.obtainProductNamePrice(listName.getSelectedValue());
 			price=product.getPrice();
 		} else {
 			Comp component = new Comp();
-			component=cont.obtainComponentNamePrice(list.getSelectedValue());
+			component=cont.obtainComponentNamePrice(listName.getSelectedValue());
 			price=component.getPrice();
 		}
 		return price;
@@ -209,15 +217,17 @@ public class BrandWindow extends JDialog implements ActionListener {
 		// Refreshes the Products and components from the list
 		if (e.getSource()==comboBoxBrands) {
 			if (comboBoxBrands.getSelectedIndex()>-1) { // It will refresh and fill the list with items of the brand selected in the ComboBox
-				list.removeAll();			
-				loadList();				
+				listName.removeAll();			
+				listPrice.removeAll();	
+				loadList();
 			} else { // The list will be empty while there is nothing selected in the ComboBox
-				list.removeAll();
+				listName.removeAll();
+				listPrice.removeAll();
 			}
 		}
 		// Opens the window for the Check out
 		if (e.getSource()==btnBuy) {
-			if (!list.isSelectionEmpty()) { // If there is an item selected it will do the action
+			if (!listName.isSelectionEmpty()) { // If there is an item selected it will do the action
 				CheckOutWindow checkOut = new CheckOutWindow(this, cont, user, obtainName(), obtainPrice(), verifyType());
 				checkOut.setVisible(true);
 			} else {
@@ -226,9 +236,9 @@ public class BrandWindow extends JDialog implements ActionListener {
 		} 
 		// Opens the window to delete
 		if (e.getSource()==btnRemove) {
-			if (!list.isSelectionEmpty()) { // If there is an item selected it will do the action							
+			if (!listName.isSelectionEmpty()) { // If there is an item selected it will do the action							
 				boolean type = verifyType(); // true = Product | false = Component
-				
+
 				VerificationWindow checkOut = new VerificationWindow(this, cont, obtainName(), type);
 				checkOut.setVisible(true);
 			} else {

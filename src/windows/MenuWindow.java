@@ -2,6 +2,8 @@ package windows;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.Map;
+
 import javax.swing.*;
 import javax.swing.border.*;
 import model.*;
@@ -17,6 +19,10 @@ public class MenuWindow extends JFrame implements ActionListener {
 	private LoginController cont;
 	private JButton btnLogOut, btnProducts, btnComponents, btnBrands, btnCheckStock, btnClose;
 	private User user;
+	private Map<String, Brand> brands;
+	private Map<String, Product> products;
+	private Map<String, Comp> components;
+	private JList<String> listProduct, listComp, listBrand;
 
 	/**[WINDOW CREATION]**/
 
@@ -46,7 +52,7 @@ public class MenuWindow extends JFrame implements ActionListener {
 		lblMediaMarta.setFont(new Font("Times New Roman", Font.PLAIN, 25));
 		contentPane.setLayout(null);
 		contentPane.add(lblMediaMarta);
-		
+
 		// Labels
 		JLabel lblCodUser = new JLabel(user.getCodU());
 		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -54,6 +60,21 @@ public class MenuWindow extends JFrame implements ActionListener {
 		lblCodUser.setBounds(375, 27, 81, 19);
 		contentPane.add(lblCodUser);
 
+		// Lists & Scroll
+		listProduct = new JList<String>();
+		listProduct.setBounds(5, 149, 451, 65);
+		contentPane.add(listProduct);			
+
+		listComp = new JList<String>();
+		listComp.setBounds(5, 294, 451, 65);
+		contentPane.add(listComp);
+		
+		listBrand = new JList<String>();
+		listBrand.setBounds(5, 448, 451, 65);
+		contentPane.add(listBrand);
+
+		loadProductsList();
+		
 		// Buttons
 		btnLogOut = new JButton("Log-Out");
 		btnLogOut.setBackground(new Color(240, 240, 240));
@@ -62,17 +83,17 @@ public class MenuWindow extends JFrame implements ActionListener {
 		contentPane.add(btnLogOut);
 
 		btnProducts = new JButton("PRODUCTS");
-		btnProducts.setBounds(5, 104, 461, 35);
+		btnProducts.setBounds(5, 104, 451, 35);
 		btnProducts.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		contentPane.add(btnProducts);
 
 		btnComponents = new JButton("COMPONENTS");
-		btnComponents.setBounds(5, 231, 461, 35);
+		btnComponents.setBounds(5, 249, 451, 35);
 		btnComponents.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		contentPane.add(btnComponents);
 
 		btnBrands = new JButton("BRANDS");
-		btnBrands.setBounds(5, 363, 461, 35);
+		btnBrands.setBounds(5, 403, 451, 35);
 		btnBrands.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		contentPane.add(btnBrands);
 
@@ -100,8 +121,46 @@ public class MenuWindow extends JFrame implements ActionListener {
 		btnClose.addActionListener(this);
 	}
 
-	/**[ACTION PERFORMER]**/
+	/**[METHODS]**/
+
+	// Loads the products to the list
+	public void loadProductsList() {
+		listProduct.removeAll();
+		listComp.removeAll();
+		listBrand.removeAll();		
+		
+		DefaultListModel<String> modelProd = new DefaultListModel<String>();
+		DefaultListModel<String> modelComp = new DefaultListModel<String>();
+		DefaultListModel<String> modelBrand = new DefaultListModel<String>();
+		
+		products = cont.verifyProduct();
+		if(!products.isEmpty()) {
+			for (Product p : products.values()){
+				modelProd.addElement(p.nameAndPrice());
+			}
+		}
 	
+		components = cont.verifyComponent();
+		if (!components.isEmpty()) {
+			for (Comp c : components.values()) {
+				modelComp.addElement(c.nameAndPrice());
+			}
+		}
+		
+		brands = cont.verifyBrands();
+		if (!brands.isEmpty()) {
+			for (Brand b : brands.values()) {
+				modelBrand.addElement(b.getNameB());
+			}
+		}
+		
+		listProduct.setModel(modelProd);
+		listComp.setModel(modelComp);
+		listBrand.setModel(modelBrand);
+	}
+
+	/**[ACTION PERFORMER]**/
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// Logs-Out and moves back to the Main Window

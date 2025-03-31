@@ -16,7 +16,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 	private LoginController cont;
 	private JLabel lblMediaMarta, lblProducts;
 	private JButton btnLogOut, btnBuy, btnAddNew, btnRemove, btnClose;
-	private JList<String> list;
+	private JList<String> listName, listPrice;
 	private Map<String, Product> products;	
 	private User user;
 
@@ -54,9 +54,14 @@ public class ProductWindow extends JDialog implements ActionListener {
 		getContentPane().add(lblCodUser);
 
 		// List
-		list = new JList<String>();
-		list.setBounds(10, 104, 446, 406);
-		getContentPane().add(list);
+		listName = new JList<String>();
+		listName.setBounds(10, 104, 314, 406);
+		getContentPane().add(listName);		
+		
+		listPrice = new JList<String>();
+		listPrice.setBounds(327, 104, 129, 406);
+		getContentPane().add(listPrice);
+		
 		loadProductsList();
 
 		// Buttons
@@ -84,7 +89,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 		btnClose = new JButton("CLOSE");
 		btnClose.setBounds(5, 5, 80, 21);
 		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		getContentPane().add(btnClose);
+		getContentPane().add(btnClose);				
 
 		// Buttons visibility
 		if (user.getTypeU()==TypeU.ADMIN) { // In case the user is an admin these buttons will be visible
@@ -109,22 +114,27 @@ public class ProductWindow extends JDialog implements ActionListener {
 
 	// Loads the products to the list
 	public void loadProductsList() {
-		list.removeAll();
-		DefaultListModel<String> model = new DefaultListModel<String>();
-		products = cont.verifyProduct();
+		listName.removeAll();
+		listPrice.removeAll();
+		
+		DefaultListModel<String> modelName = new DefaultListModel<String>();
+		DefaultListModel<String> modelPrice = new DefaultListModel<String>();
+		
+		products = cont.verifyProduct();		
 		if(!products.isEmpty()) {
 			for (Product p : products.values()){
-				model.addElement(p.nameAndPrice());
-				// model.addElement(p.getNameP()+p.getPrice()+" €");
+				modelName.addElement(p.getNameP());
+				modelPrice.addElement(p.getPrice()+" €");
 			}
-		}
-		list.setModel(model);
+		}		
+		listName.setModel(modelName);
+		listPrice.setModel(modelPrice);
 	}
 	
 	// Obtains the name and price of the selected product
 	public Product obtainNamePrice() {
 		Product product = new Product();
-		product=cont.obtainProductNamePrice(list.getSelectedValue());
+		product=cont.obtainProductNamePrice(listName.getSelectedValue());
 		return product;
 	}
 
@@ -146,7 +156,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 		}
 		// Opens the window for the Check out
 		if (e.getSource() == btnBuy) {
-			if (!list.isSelectionEmpty()) { // If there is an item selected it will do the action
+			if (!listName.isSelectionEmpty()) { // If there is an item selected it will do the action
 				boolean type = true;  // true = Product | false = Component
 				CheckOutWindow checkOut = new CheckOutWindow(this, cont, user, obtainNamePrice().getNameP(), obtainNamePrice().getPrice(), type);
 				checkOut.setVisible(true);
@@ -162,7 +172,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 		}
 		// Opens the window to delete
 		if (e.getSource()==btnRemove) {
-			if (!list.isSelectionEmpty()) { // If there is an item selected it will do the action
+			if (!listName.isSelectionEmpty()) { // If there is an item selected it will do the action
 				boolean type = true;  // true = Product | false = Component
 				VerificationWindow checkOut = new VerificationWindow(this, cont, obtainNamePrice().getNameP(), type);
 				checkOut.setVisible(true);

@@ -115,7 +115,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 			productWindow.loadProductsList(); // Calls the parent method to reload the list
 		} else if (parent instanceof ComponentWindow){ 
 			ComponentWindow productWindow = (ComponentWindow)parent;
-			productWindow.loadComponents(); 
+			productWindow.loadComponentList(); 
 		} else if (parent instanceof BrandWindow){ 
 			BrandWindow productWindow = (BrandWindow)parent;
 			productWindow.loadList(); 
@@ -134,7 +134,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 		// Calls the method that ejecutes the action on the DataBase
 		if (e.getSource() == btnSubmit) {
 			cont.sellAndSubstract(user.getCodU(), name, (int)spinner.getValue(), calcPrice(), type);
-			ContinueWindow next = new ContinueWindow(this, cont, user, user.getCodU(), type);
+			ContinueWindow next = new ContinueWindow(this, user, user.getCodU(), type);
 			next.setVisible(true);
 			refreshParentList();
 		}

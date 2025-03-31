@@ -11,6 +11,8 @@ public interface MediaMartaDAO {
 	public boolean verifyUserPassword(User user);
 
 	public boolean verifyUserType(User user);
+	
+	public User getUser(User user);
 
 	public boolean registerUser(User user);
 

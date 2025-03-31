@@ -16,7 +16,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 	private LoginController cont;
 	private JLabel lblMediaMarta, lblProducts;
 	private JButton btnLogOut, btnBuy, btnAddNew, btnRemove, btnClose;
-	private JList<String> list;
+	private JList<String> listName, listPrice;
 	private Map<String, Comp> components;
 	private User user;
 
@@ -54,10 +54,15 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		getContentPane().add(lblCodUser);
 
 		// List
-		list = new JList<String>();
-		list.setBounds(10, 104, 446, 406);
-		getContentPane().add(list);
-		loadComponents();
+		listName = new JList<String>();
+		listName.setBounds(10, 104, 314, 406);
+		getContentPane().add(listName);		
+
+		listPrice = new JList<String>();
+		listPrice.setBounds(327, 104, 129, 406);
+		getContentPane().add(listPrice);
+
+		loadComponentList();
 
 		// Buttons
 		btnLogOut = new JButton("Log-Out");
@@ -108,23 +113,29 @@ public class ComponentWindow extends JDialog implements ActionListener {
 	/**[METHODS]**/
 
 	// Loads the components to the list
-	public void loadComponents() {
-		list.removeAll();
-		DefaultListModel<String> model = new DefaultListModel<String>();
+	public void loadComponentList() {	
+		listName.removeAll();
+		listPrice.removeAll();
+
+		DefaultListModel<String> modelName = new DefaultListModel<String>();
+		DefaultListModel<String> modelPrice = new DefaultListModel<String>();
+
 		components = cont.verifyComponent();
-		if (!components.isEmpty()) {
-			for (Comp c : components.values()) {
-				model.addElement(c.nameAndPrice());
-				// model.addElement(c.getNameC()+c.getPrice()+" €");
+		if(!components.isEmpty()) {
+			for (Comp c : components.values()){
+				modelName.addElement(c.getNameC());
+				modelPrice.addElement(c.getPrice()+" €");
 			}
 		}
-		list.setModel(model);
+
+		listName.setModel(modelName);
+		listPrice.setModel(modelPrice);
 	}
 
 	// Obtains the name and price of the selected component
 	public Comp obtainNamePrice() {
 		Comp component = new Comp();
-		component=cont.obtainComponentNamePrice(list.getSelectedValue());
+		component=cont.obtainComponentNamePrice(listName.getSelectedValue());
 		return component;
 	}
 
@@ -146,7 +157,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		}
 		// Opens the window for the Check out
 		if (e.getSource() == btnBuy) {
-			if(!list.isSelectionEmpty()) { // If there is an item selected it will do the action
+			if(!listName.isSelectionEmpty()) { // If there is an item selected it will do the action
 				boolean type = false;  // true = Product | false = Component
 				CheckOutWindow checkOut = new CheckOutWindow(this, cont, user, obtainNamePrice().getNameC(), obtainNamePrice().getPrice(), type);
 				checkOut.setVisible(true);
@@ -162,7 +173,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		}
 		// Opens the window to delete
 		if (e.getSource()==btnRemove) {
-			if (!list.isSelectionEmpty()) { // If there is an item selected it will do the action
+			if (!listName.isSelectionEmpty()) { // If there is an item selected it will do the action
 				boolean type = false;  // true = Product | false = Component
 				VerificationWindow checkOut = new VerificationWindow(this, cont, obtainNamePrice().getNameC(), type);
 				checkOut.setVisible(true);

@@ -113,7 +113,7 @@ public class VerificationWindow extends JDialog implements ActionListener {
 			productWindow.loadProductsList(); // Calls the parent method to reload the list
 		} else if (parent instanceof ComponentWindow){ 
 			ComponentWindow productWindow = (ComponentWindow)parent;
-			productWindow.loadComponents(); 
+			productWindow.loadComponentList(); 
 		} else if (parent instanceof BrandWindow){ 
 			BrandWindow productWindow = (BrandWindow)parent;
 			productWindow.loadList(); 

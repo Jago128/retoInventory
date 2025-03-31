@@ -35,14 +35,15 @@ public class DBImplementation implements MediaMartaDAO {
 	// COMPONENTS
 	final String SQLSELECTCOMPONENT = "SELECT * FROM component";
 	final String SQLSELECTCOMPONENTNAMEPRICE = "SELECT nameComp, priceComp FROM component WHERE nameComp = ?";
-	final String SQLINSERTCOMP = "INSERT INTO component (nameCopm, typeC, stockComponent, priceComp, codBrand) VALUES (?,?,?,?,?)";
+	final String SQLINSERTCOMP = "INSERT INTO component (nameComp, typeC, stockComponent, priceComp, codBrand) VALUES (?,?,?,?,?)";
 	final String SQLDELETECOMP = "DELETE FROM component WHERE nameComp = ?";
 	final String SQLCOMPSTOCK = "SELECT stockComponent FROM component WHERE nameComp = ?";
 	final String SQLSELECTCOMPSTOCK = "SELECT * FROM component WHERE stockcomponent <= 50 ORDER BY stockComponent";	
 
 	// PRODUCTS & COMPONENTS
 	final String SQLSELL = "CALL sellAndSubstract(?,?,?,?,?)";
-	final String SQLRESTOCKPRODUCT = "UPDATE product SET stockProduct = ? WHERE nameP = ?";
+	final String SQLRESTOCKPRODUCT = "UPDATE product SET stockProduct = ? WHERE nameP = (SELECT nameP FROM product WHERE nameP = ?)";
+	// final String SQLRESTOCKPRODUCT = "UPDATE product SET stockProduct = ? WHERE nameP = ?";
 	final String SQLRESTOCKCOMPONENT = "UPDATE component SET stockComponent = ? WHERE nameComp = ?";
 
 	// BRANDS
@@ -159,6 +160,37 @@ public class DBImplementation implements MediaMartaDAO {
 		return admin;
 	}
 
+	// Gets users's information
+	public User getUser(User user) {
+		ResultSet rsU = null;
+
+		// Opens the connection
+		this.openConnection();
+		try {
+			stmt = con.prepareStatement(SQLUSER);
+			stmt.setString(1, user.getCodU());
+			rsU = stmt.executeQuery();
+			while (rsU.next()) {				
+				user.setCodU(rsU.getString("codUser"));
+				user.setPassword(rsU.getString("psw"));
+				user.setUsername(rsU.getString("username"));
+
+				if (verifyUserType(user)) {
+					user.setTypeU(TypeU.ADMIN);
+				} else { 
+					user.setTypeU(TypeU.CLIENT);
+				}
+			}
+			rsU.close();			
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("SQL error");
+			e.printStackTrace();
+		}
+		return user;
+	}
+
 	// Registers a new user
 	@Override
 	public boolean registerUser(User user) {
@@ -199,8 +231,11 @@ public class DBImplementation implements MediaMartaDAO {
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				product = new Product();
-				product.setNameP(rs.getString("namep"));
+				product.setNameP(rs.getString("nameP"));
 				product.setPrice(rs.getDouble("price"));
+				product.setStock(rs.getInt("stockProduct"));
+				product.setCodP(rs.getInt("codProduct"));
+				product.setCodBrand(rs.getInt("codBrand"));
 				products.put(product.getNameP(), product);
 			}
 			rs.close();
@@ -379,8 +414,11 @@ public class DBImplementation implements MediaMartaDAO {
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				component = new Comp();
-				component.setNameC(rs.getString("namecomp"));
-				component.setPrice(rs.getDouble("pricecomp"));
+				component.setNameC(rs.getString("nameComp"));
+				component.setPrice(rs.getDouble("priceComp"));
+				component.setStock(rs.getInt("stockComponent"));
+				component.setCodC(rs.getInt("codComponent"));
+				component.setCodBrand(rs.getInt("codBrand"));
 				components.put(component.getNameC(), component);
 			}
 			rs.close();
@@ -641,8 +679,11 @@ public class DBImplementation implements MediaMartaDAO {
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				product = new Product();
-				product.setNameP(rs.getString("namep"));
+				product.setNameP(rs.getString("nameP"));
 				product.setPrice(rs.getDouble("price"));
+				product.setStock(rs.getInt("stockProduct"));
+				product.setCodP(rs.getInt("codProduct"));
+				product.setCodBrand(rs.getInt("codBrand"));
 				brandProds.put(product.getNameP(), product);
 			}
 			rs.close();
@@ -670,8 +711,11 @@ public class DBImplementation implements MediaMartaDAO {
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				component = new Comp();
-				component.setNameC(rs.getString("namecomp"));
-				component.setPrice(rs.getDouble("pricecomp"));
+				component.setNameC(rs.getString("nameComp"));
+				component.setPrice(rs.getDouble("priceComp"));
+				component.setStock(rs.getInt("stockComponent"));
+				component.setCodC(rs.getInt("codComponent"));
+				component.setCodBrand(rs.getInt("codBrand"));
 				brandComps.put(component.getNameC(), component);
 			}
 			rs.close();
