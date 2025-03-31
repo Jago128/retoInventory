@@ -71,6 +71,12 @@ public class AddNewWindow extends JDialog implements ActionListener {
 		lblBrand.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		getContentPane().add(lblBrand);
 
+		// Labels
+		JLabel lblCodUser = new JLabel(user.getUsername());
+		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		lblCodUser.setBounds(375, 27, 81, 19);
+
 		lblMessage = new JLabel("");
 		lblMessage.setForeground(Color.RED);
 		lblMessage.setBounds(10, 313, 446, 34);
@@ -78,12 +84,6 @@ public class AddNewWindow extends JDialog implements ActionListener {
 		getContentPane().add(lblMessage);
 
 		// Text Fields
-		JLabel lblCodUser = new JLabel(user.getCodU());
-		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		lblCodUser.setBounds(375, 27, 81, 19);
-		getContentPane().add(lblCodUser);
-
 		textName = new JTextField();
 		textName.setBounds(231, 68, 225, 29);
 		textName.setColumns(10);

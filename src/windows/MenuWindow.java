@@ -54,7 +54,7 @@ public class MenuWindow extends JFrame implements ActionListener {
 		contentPane.add(lblMediaMarta);
 
 		// Labels
-		JLabel lblCodUser = new JLabel(user.getCodU());
+		JLabel lblCodUser = new JLabel(user.getUsername());
 		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		lblCodUser.setBounds(375, 27, 81, 19);

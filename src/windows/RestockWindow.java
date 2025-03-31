@@ -119,8 +119,23 @@ public class RestockWindow extends JDialog implements ActionListener, ChangeList
 		return cont.checkStock(name, type) + (int) spinner.getValue();
 	}
 
+	// Refresh parent window list
+	public void refreshParentList() {
+		JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
+		if(parent instanceof ProductWindow){ // Checks the parent window type
+			ProductWindow productWindow = (ProductWindow)parent; // Cast it to its type to be able to use it's methods
+			productWindow.loadProductsList(); // Calls the parent method to reload the list
+		} else if (parent instanceof ComponentWindow){ 
+			ComponentWindow productWindow = (ComponentWindow)parent;
+			productWindow.loadComponentList(); 
+		} else if (parent instanceof BrandWindow){ 
+			BrandWindow productWindow = (BrandWindow)parent;
+			productWindow.loadList(); 
+		}		
+	}
+
 	/**[ACTION PERFORMER & CHANGE LISTENER]**/
-	
+
 	// Action Performer
 	@Override
 	public void actionPerformed(ActionEvent e) {				
@@ -132,10 +147,11 @@ public class RestockWindow extends JDialog implements ActionListener, ChangeList
 		if (e.getSource()==btnSubmit) {			
 			cont.restock(code, (int) spinner.getValue(), type);
 			JOptionPane.showMessageDialog(null, "Component "+name+" got added "+(int) spinner.getValue()+" units succesfully");
+			refreshParentList();
 			this.dispose();
 		}
 	}
-	
+
 	// Change listener
 	@Override
 	public void stateChanged(ChangeEvent e) {
