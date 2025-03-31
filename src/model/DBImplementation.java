@@ -32,7 +32,7 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLDELETEPROD = "DELETE FROM PRODUCT WHERE NAMEP = ?";
 	final String SQLSELECTPRODUCTNAMEPRICE = "SELECT nameP, price FROM product WHERE nameP = ?";
 	final String SQLPROD = "SELECT PROD FROM PRODUCT WHERE NAMEP = ?";
-	final String SQLRESTOCKPRODUCT = "UPDATE product SET STOCKPRODUCT = ? WHERE NAMEPROD = ?";
+	final String SQLRESTOCKPRODUCT = "UPDATE product SET STOCKPRODUCT = ? WHERE NAMEP = ?";
 
 	// COMPONENT
 	final String SQLSELECTCOMPONENT = "SELECT * FROM component";
