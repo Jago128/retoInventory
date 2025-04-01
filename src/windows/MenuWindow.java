@@ -9,9 +9,9 @@ import javax.swing.border.*;
 import model.*;
 import controller.LoginController;
 
-// MENU WINDOW 
-// Go to->(ProductWindow, ComponentWindow, BrandWindow, LowStockWindow)
-// Back to->(MainWindow, *close*)
+/* MENU WINDOW
+ * Go to->(ProductWindow, ComponentWindow, BrandWindow, LowStockWindow)
+ * Back to->(MainWindow, *close*)*/
 public class MenuWindow extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;

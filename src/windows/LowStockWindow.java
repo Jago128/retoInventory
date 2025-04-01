@@ -7,9 +7,9 @@ import javax.swing.*;
 import controller.LoginController;
 import java.util.Map;
 
-// SHOW LOW STOCK WINDOW  
-// Go to->(ReestockWindow)
-// Back to->(CheckOutWindow, NewItemWindow, VerificationWindow)
+/* SHOW LOW STOCK WINDOW  
+ * Go to->(ReestockWindow)
+ * Back to->(CheckOutWindow, NewItemWindow, VerificationWindow)*/
 public class LowStockWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -63,7 +63,6 @@ public class LowStockWindow extends JDialog implements ActionListener {
 		listStock = new JList<String>();
 		listStock.setBounds(327, 104, 129, 406);
 		getContentPane().add(listStock);
-
 		loadList();
 
 		// Buttons
@@ -100,7 +99,7 @@ public class LowStockWindow extends JDialog implements ActionListener {
 		DefaultListModel<String> modelStock = new DefaultListModel<String>();
 		
 		products = cont.showProdsOrderedByStock();		
-		if(!products.isEmpty()) {
+		if (!products.isEmpty()) {
 			for (Product p : products.values()){
 				modelName.addElement(p.getNameP());	
 				modelStock.addElement("Stock: "+cont.checkStock(p.getNameP(), true));	

@@ -7,9 +7,9 @@ import model.*;
 import controller.LoginController;
 import java.util.Map;
 
-// SHOW BY BRAND WINDOW  
-// Go to->(CheckOutWindow, VerificationWindow)
-// Back to->(MainWindow, MenuWindow)
+/* SHOW BY BRAND WINDOW  
+ * Go to->(CheckOutWindow, VerificationWindow)
+ * Back to->(MainWindow, MenuWindow)*/
 public class BrandWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;

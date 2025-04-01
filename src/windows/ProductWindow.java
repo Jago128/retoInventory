@@ -7,9 +7,9 @@ import model.*;
 import javax.swing.*;
 import controller.LoginController;
 
-// SHOW PRODUCT WINDOW  
-// Go to->(CheckOutWindow, NewItemWindow, VerificationWindow)
-// Back to->(MainWindow, MenuWindow)
+/* SHOW PRODUCT WINDOW  
+ * Go to->(CheckOutWindow, NewItemWindow, VerificationWindow)
+ * Back to->(MainWindow, MenuWindow)*/
 public class ProductWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;

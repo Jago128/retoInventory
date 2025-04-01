@@ -7,9 +7,9 @@ import controller.LoginController;
 import model.TypeU;
 import model.User;
 
-// CREATE NEW USER WINDOW 
-// Go to->(MenuWindow)
-// Back to->(MainWindow)
+/* CREATE NEW USER WINDOW 
+ * Go to->(MenuWindow)
+ * Back to->(MainWindow)*/
 public class SignInWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;

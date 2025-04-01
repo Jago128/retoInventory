@@ -8,9 +8,9 @@ import controller.LoginController;
 import java.util.Map;
 import java.util.TreeMap;
 
-// SHOW COMPONENT WINDOW  
-// Go to->(CheckOutWindow, NewItemWindow, VerificationWindow)
-// Back to->(MainWindow, MenuWindow)
+/* SHOW COMPONENT WINDOW  
+ * Go to->(CheckOutWindow, NewItemWindow, VerificationWindow)
+ * Back to->(MainWindow, MenuWindow)*/
 public class ComponentWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -145,14 +145,14 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		case "Price": // Creates a TreeMap ordered by the key as the price
 			Map<Double, Comp> componentsByPrice = new TreeMap<>();
 
-			if(!components.isEmpty()) {
+			if (!components.isEmpty()) {
 				for (Comp c : components.values()){
 					if(c.getStock()>0) {
 						componentsByPrice.put(c.getPrice(), c);
 					}	
 				}
 			}
-			if(!componentsByPrice.isEmpty()) {
+			if (!componentsByPrice.isEmpty()) {
 				for (Comp c : componentsByPrice.values()){
 					if(c.getStock()>0) {
 						modelName.addElement(c.getNameC());

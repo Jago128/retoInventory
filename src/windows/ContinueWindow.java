@@ -5,9 +5,9 @@ import java.awt.event.*;
 import javax.swing.*;
 import model.User;
 
-// CONTINUE WINDOW
-// Go to->(ProductWindow/ComponentWindow/BrandWindow)
-// Back to->(MenuWindow)
+/* CONTINUE WINDOW
+ * Go to->(ProductWindow/ComponentWindow/BrandWindow)
+ * Back to->(MenuWindow)*/
 public class ContinueWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -63,7 +63,7 @@ public class ContinueWindow extends JDialog implements ActionListener {
 	// Refresh parent window list
 	public void refreshParentList() {
 		JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
-		if(parent instanceof ProductWindow){ // Checks the parent window type
+		if (parent instanceof ProductWindow){ // Checks the parent window type
 			ProductWindow productWindow = (ProductWindow)parent; // Cast it to its type to be able to use it's methods
 			productWindow.loadProductsList(); // Calls the parent method to reload the list
 		} else if (parent instanceof ComponentWindow){ 
