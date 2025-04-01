@@ -7,9 +7,9 @@ import javax.swing.event.*;
 import controller.LoginController;
 import model.User;
 
-// CHECK OUT WINDOW 
-// Go to->(*close*)
-// Back to->(ProductWindow/ComponentWindow/BrandWindow)
+/* CHECK OUT WINDOW 
+ * Go to->(*close*)
+ * Back to->(ProductWindow/ComponentWindow/BrandWindow) */
 public class CheckOutWindow extends JDialog implements ActionListener, ChangeListener {
 
 	private static final long serialVersionUID = 1L;
@@ -39,8 +39,8 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 		getContentPane().setBackground(Color.WHITE);
 		setResizable(false); // Blocks the window so it can't be modified the size
 
-		// Spinner (Numeric value)
-		// It needs to be created before because the labels need the value of it
+		/* Spinner (Numeric value)
+		 * It needs to be created before because the labels need the value of it */
 		SpinnerModel sm = new SpinnerNumberModel(1, 1, cont.checkStock(name, type), 1); // Default, Min, Max, Increment
 		spinner = new JSpinner(sm);
 		spinner.setBounds(214, 111, 187, 34);
@@ -65,7 +65,6 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 		subtotal.setBounds(25, 156, 187, 34);
 		getContentPane().add(subtotal);
 
-		// Labels
 		// Labels
 		JLabel lblCodUser = new JLabel(user.getUsername());
 		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
