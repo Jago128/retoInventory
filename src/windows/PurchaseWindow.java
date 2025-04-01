@@ -1,32 +1,15 @@
 package windows;
 
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.*;
+import java.awt.event.*;
 import java.util.Map;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
-import javax.swing.JDialog;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JPanel;
-import javax.swing.SwingConstants;
-import javax.swing.UIManager;
+import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 
 import controller.LoginController;
-import model.Brand;
-import model.Buy;
-import model.Comp;
-import model.Product;
-import model.Purchase;
-import model.TypeU;
-import model.User;
+import model.*;
+
 
 public class PurchaseWindow extends JDialog implements ActionListener {
 
