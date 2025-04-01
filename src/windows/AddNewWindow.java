@@ -5,7 +5,7 @@ import java.awt.event.*;
 import model.*;
 import javax.swing.*;
 import controller.LoginController;
-import java.util.Map;
+import java.util.*;
 
 /* ADD NEW ITEM WINDOW 
  * Go to->(*close*)
@@ -175,7 +175,7 @@ public class AddNewWindow extends JDialog implements ActionListener {
 
 	// Sets the color of the text fields true = WHITE | false = RED
 	public void setTextColor(JTextField field, boolean correct) {
-		if(correct) {
+		if (correct) {
 			field.setBackground(Color.WHITE);
 		} else {
 			field.setBackground(new Color(250, 128, 114));

@@ -3,7 +3,7 @@ package windows;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import model.User;
+import model.*;
 
 /* CONTINUE WINDOW
  * Go to->(ProductWindow/ComponentWindow/BrandWindow)

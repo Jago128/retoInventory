@@ -4,7 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import controller.LoginController;
-import java.util.Random;
+import java.util.*;
 
 /* VERIFICATION WINDOW  
  * Go to->(*close*)

@@ -135,7 +135,7 @@ public class ProductWindow extends JDialog implements ActionListener{
 		case "MOBILES": // Uses the TreeMap ordered by the key as the name
 			if(!products.isEmpty()) {
 				for (Product p : products.values()){
-					if(p.getStock()>0 && p.getTypeP()==TypeP.MOBILE) {
+					if (p.getStock()>0 && p.getTypeP()==TypeP.MOBILE) {
 						modelName.addElement(p.getNameP());
 						modelPrice.addElement(p.getPrice()+" €");
 					}	
@@ -145,7 +145,7 @@ public class ProductWindow extends JDialog implements ActionListener{
 		case "COMPUTERS": // Creates a TreeMap ordered by the key as the price
 			if(!products.isEmpty()) {
 				for (Product p : products.values()){
-					if(p.getStock()>0 && p.getTypeP()==TypeP.COMPUTER) {
+					if (p.getStock()>0 && p.getTypeP()==TypeP.COMPUTER) {
 						modelName.addElement(p.getNameP());
 						modelPrice.addElement(p.getPrice()+" €");
 					}	
@@ -155,7 +155,7 @@ public class ProductWindow extends JDialog implements ActionListener{
 		default:
 			if(!products.isEmpty()) {
 				for (Product p : products.values()){
-					if(p.getStock()>0) {
+					if (p.getStock()>0) {
 						modelName.addElement(p.getNameP());
 						modelPrice.addElement(p.getPrice()+" €");
 					}	

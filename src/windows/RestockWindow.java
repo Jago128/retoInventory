@@ -5,7 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
 import controller.LoginController;
-import model.User;
+import model.*;
 
 /* SHOW LOW STOCK WINDOW
  * Go to->(*close*)

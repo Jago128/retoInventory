@@ -5,7 +5,7 @@ import java.awt.event.*;
 import javax.swing.*;
 import model.*;
 import controller.LoginController;
-import java.util.Map;
+import java.util.*;
 
 /* SHOW BY BRAND WINDOW  
  * Go to->(CheckOutWindow, VerificationWindow)

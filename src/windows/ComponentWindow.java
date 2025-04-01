@@ -5,8 +5,7 @@ import java.awt.event.*;
 import model.*;
 import javax.swing.*;
 import controller.LoginController;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.*;
 
 /* SHOW COMPONENT WINDOW  
  * Go to->(CheckOutWindow, NewItemWindow, VerificationWindow)
