@@ -8,10 +8,11 @@ import javax.swing.*;
 
 import controller.LoginController;
 
-/* SHOW PRODUCT WINDOW  
- * Go to->(CheckOutWindow, NewItemWindow, VerificationWindow)
- * Back to->(MainWindow, MenuWindow)*/
-public class ProductWindow extends JDialog implements ActionListener {
+// SHOW PRODUCT WINDOW  
+// Go to->(CheckOutWindow, NewItemWindow, VerificationWindow)
+// Back to->(MainWindow, MenuWindow)
+public class ProductWindow extends JDialog implements ActionListener{
+
 	private static final long serialVersionUID = 1L;
 	private LoginController cont;
 	private JLabel lblMediaMarta, lblProducts;
@@ -31,19 +32,20 @@ public class ProductWindow extends JDialog implements ActionListener {
 		setTitle("MEDIAMARTA: Products");
 		setBounds(100, 100, 480, 636);
 		getContentPane().setLayout(null);
+		getContentPane().setBackground(Color.WHITE);
 		setResizable(false); // Blocks the window so it can't be modified the size
 
 		// Titles
 		lblMediaMarta = new JLabel("MediaMarta");
 		lblMediaMarta.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMediaMarta.setFont(new Font("Times New Roman", Font.PLAIN, 25));
-		lblMediaMarta.setBounds(10, 24, 461, 46);
+		lblMediaMarta.setBounds(10, 24, 446, 46);
 		getContentPane().add(lblMediaMarta);
 
 		lblProducts = new JLabel("PRODUCTS");
 		lblProducts.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProducts.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblProducts.setBounds(10, 58, 461, 19);
+		lblProducts.setBounds(10, 58, 446, 19);
 		getContentPane().add(lblProducts);
 
 		// Labels
@@ -53,7 +55,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 		lblCodUser.setBounds(375, 27, 81, 19);
 		getContentPane().add(lblCodUser);
 
-		// List
+		// List & ComboBox
 		listName = new JList<String>();
 		listName.setBounds(10, 104, 314, 406);
 		getContentPane().add(listName);		
@@ -61,8 +63,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 		listPrice = new JList<String>();
 		listPrice.setBounds(327, 104, 129, 406);
 		getContentPane().add(listPrice);		
-		loadProductsList();
-		
+
 		comboxFilter = new JComboBox<String>();
 		comboxFilter.setBounds(10, 81, 446, 22);
 		getContentPane().add(comboxFilter);
@@ -70,9 +71,11 @@ public class ProductWindow extends JDialog implements ActionListener {
 		comboxFilter.addItem("MOBILES");
 		comboxFilter.addItem("COMPUTERS");
 
+		loadProductsList();
+
 		// Buttons
 		btnLogOut = new JButton("Log-Out");
-		btnLogOut.setBackground(new Color(240, 240, 240));
+		btnLogOut.setBackground(UIManager.getColor("Button.background"));
 		btnLogOut.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		btnLogOut.setBounds(375, 5, 81, 21);
 		getContentPane().add(btnLogOut);
@@ -95,7 +98,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 		btnClose = new JButton("CLOSE");
 		btnClose.setBounds(5, 5, 80, 21);
 		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		getContentPane().add(btnClose);				
+		getContentPane().add(btnClose);
 
 		// Buttons visibility
 		if (user.getTypeU()==TypeU.ADMIN) { // In case the user is an admin these buttons will be visible
@@ -119,26 +122,11 @@ public class ProductWindow extends JDialog implements ActionListener {
 
 	/**[METHODS]**/
 
-	// Loads the products to the list
+	// Loads the products to the list depending on the filter
 	public void loadProductsList() {
-
-		listName.removeAll();
-		listPrice.removeAll();
-
-
 		Map<String, Product> products = cont.verifyProduct();
-
 		DefaultListModel<String> modelName = new DefaultListModel<String>();
 		DefaultListModel<String> modelPrice = new DefaultListModel<String>();
-
-
-		products = cont.verifyProduct();		
-		if(!products.isEmpty()) {
-			for (Product p : products.values()){
-				modelName.addElement(p.getNameP());
-				modelPrice.addElement(p.getPrice()+" €");
-			}
-		}		
 
 		listName.removeAll();
 		listPrice.removeAll();

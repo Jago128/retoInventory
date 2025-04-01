@@ -16,7 +16,7 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private LoginController cont;
-	private JButton btnLogOut, btnCheckStock, btnClose;
+	private JButton btnLogOut, btnClose;
 	private User user;
 	private Map<String, Purchase> purchases;
 	private Map<String, Buy> buys;
@@ -53,7 +53,7 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 
 		// Lists & Scroll
 		listPurchases = new JList<String>();
-		listPurchases.setBounds(5, 104, 451, 422);
+		listPurchases.setBounds(5, 104, 451, 485);
 		contentPane.add(listPurchases);
 
 		//loadProductsList();
@@ -65,16 +65,6 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 		btnLogOut.setBounds(375, 5, 81, 21);
 		contentPane.add(btnLogOut);
 
-		btnCheckStock = new JButton("CHECK STOCK");
-		btnCheckStock.setBounds(134, 554, 196, 35);
-		btnCheckStock.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		if (user.getTypeU()==TypeU.ADMIN) { // In case the user is admin the button will be visible
-			btnCheckStock.setVisible(true);
-		} else { // The client will not have this option visible
-			btnCheckStock.setVisible(false);
-		}
-		contentPane.add(btnCheckStock);
-
 		btnClose = new JButton("CLOSE");
 		btnClose.setBounds(5, 5, 80, 21);
 		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
@@ -82,7 +72,6 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 
 		// Adding action listener
 		btnLogOut.addActionListener(this);
-		btnCheckStock.addActionListener(this);
 		btnClose.addActionListener(this);
 	}
 
@@ -125,10 +114,6 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 		// Closes the window
 		if (e.getSource() == btnClose) {
 			this.dispose();
-		}
-		// Opens the window of the low stock window (only visible to admin users)
-		if (e.getSource() == btnCheckStock) { // The admin variable is sent to show or not certain option in the next windows
-			
 		}
 	}
 }

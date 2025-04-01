@@ -759,4 +759,24 @@ public class DBImplementation implements MediaMartaDAO {
 		}
 		return brandComps;
 	}
+
+	/**[PURCHASES & BUYS]**/
+
+	// Get the Purchase list
+	public Map<String, Purchase> getPurchases() {
+		ResultSet rs = null;
+		Purchase product;
+		Map<String, Purchase> purchases = new TreeMap<>();
+
+		return purchases;
+	}
+	
+	// Get the buy list
+	public Map<String, Buy> getBuys() {
+		ResultSet rs = null;
+		Buy buy;
+		Map<String, Buy> buys = new TreeMap<>();
+
+		return buys;
+	}
 }
