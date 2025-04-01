@@ -477,12 +477,19 @@ public class DBImplementation implements MediaMartaDAO {
 			// Prepares the SQL query
 			stmt = con.prepareStatement(SQLINSERTCOMP);
 			stmt.setString(1, comp.getNameC());
-			if (comp.getTypeC() == TypeC.GRAPHICS) {
+
+			switch (comp.getTypeC()) {
+			case GRAPHICS:
 				stmt.setString(2, "Graphics");
-			} else if (comp.getTypeC() == TypeC.RAM) {
+				break;
+
+			case PROCESSOR:
 				stmt.setString(2, "RAM");
-			} else if (comp.getTypeC() == TypeC.PROCESSOR) {
+				break;
+
+			case RAM:
 				stmt.setString(2, "Processor");
+				break;
 			}
 			stmt.setInt(3, comp.getStock());
 			stmt.setDouble(4, comp.getPrice());
@@ -587,7 +594,7 @@ public class DBImplementation implements MediaMartaDAO {
 	public boolean restock(int code, int quantity, boolean type) {
 		// Open connection and declare a boolean to check if the update is properly executed
 		boolean check = false;
-		
+
 		this.openConnection();
 		try {
 			if (type) {
