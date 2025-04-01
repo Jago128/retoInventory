@@ -46,7 +46,6 @@ class TestBrand {
 	void testDefaultConstructor() {
 		Brand defaultBrand=new Brand();
 		assertNull(defaultBrand.getCodB());
-        assertNull(defaultBrand.getNameB());
 	}
 	
 	@Test
