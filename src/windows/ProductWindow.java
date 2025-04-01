@@ -5,8 +5,6 @@ import java.awt.event.*;
 import java.util.*;
 import model.*;
 import javax.swing.*;
-import javax.swing.event.ChangeEvent;
-import javax.swing.event.ChangeListener;
 
 import controller.LoginController;
 

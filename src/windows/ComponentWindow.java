@@ -6,7 +6,6 @@ import model.*;
 import javax.swing.*;
 import controller.LoginController;
 import java.util.Map;
-import java.util.TreeMap;
 
 // SHOW COMPONENT WINDOW  
 // Go to->(CheckOutWindow, NewItemWindow, VerificationWindow)
@@ -133,7 +132,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		listPrice.removeAll();
 		
 		switch ((String)comboxFilter.getSelectedItem()) {
-		case "Graphics": 
+		case "GRAPHICS": 
 			if(!components.isEmpty()) {
 				for (Comp c : components.values()){
 					if(c.getStock()>0 && c.getTypeC()==TypeC.GRAPHICS) {
@@ -153,7 +152,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 				}
 			}
 			break;
-		case "Processors": 
+		case "PROCESSORS": 
 			if(!components.isEmpty()) {
 				for (Comp c : components.values()){
 					if(c.getStock()>0 && c.getTypeC()==TypeC.PROCESSOR) {
