@@ -117,12 +117,12 @@ public class LoginController {
 	/**[PURCHASES & BUYS]**/
 
 	// Get the Purchase list
-	public Map<String, Purchase> getPurchases(){
-		return dao.getPurchases();
+	public Map<String, Purchase> getPurchases(int codU){
+		return dao.getPurchases(codU);
 	}
 	
 	// Get the buy list
-	public Map<String, Buy> getBuys(){
-		return dao.getBuys();
+	public Map<String, Buy> getBuys(int codU){
+		return dao.getBuys(codU);
 	}
 }

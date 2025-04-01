@@ -51,7 +51,10 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLSELECTBRANDCODE = "SELECT codBrand FROM brand WHERE nameBrand = ?";
 	final String SQLSELECTPRODUCTBRAND = "SELECT * FROM product WHERE codBrand =(SELECT codBrand FROM brand WHERE nameBrand = ?)";
 	final String SQLSELECTCOMPONENTBRAND = "SELECT * FROM component WHERE codBrand=(SELECT codBrand FROM brand WHERE nameBrand = ?)";
-
+	
+	// PURCHASES AND BUYS
+	final String SQLSELECTPURCHASES = "SELECT * FROM PURCHASES ORDERED BY NAME";
+	
 	/**[DATABASE]**/
 
 	// Declare implementation constructor
@@ -763,16 +766,18 @@ public class DBImplementation implements MediaMartaDAO {
 	/**[PURCHASES & BUYS]**/
 
 	// Get the Purchase list
-	public Map<String, Purchase> getPurchases() {
+	public Map<String, Purchase> getPurchases(int codU) {
 		ResultSet rs = null;
 		Purchase product;
 		Map<String, Purchase> purchases = new TreeMap<>();
+		
+		this.openConnection();
 
 		return purchases;
 	}
 	
 	// Get the buy list
-	public Map<String, Buy> getBuys() {
+	public Map<String, Buy> getBuys(int codU) {
 		ResultSet rs = null;
 		Buy buy;
 		Map<String, Buy> buys = new TreeMap<>();
