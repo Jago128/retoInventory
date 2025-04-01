@@ -1,8 +1,6 @@
 package model;
 
-import java.sql.ResultSet;
 import java.util.Map;
-import java.util.TreeMap;
 
 public interface MediaMartaDAO {
 
@@ -62,9 +60,7 @@ public interface MediaMartaDAO {
 
 	/**[PURCHASES & BUYS]**/
 
-	// Get the Purchase list
 	public Map<String, Purchase> getPurchases(String codU);
 	
-	// Get the buy list
 	public Map<String, Buy> getBuys(String codU);
 }
