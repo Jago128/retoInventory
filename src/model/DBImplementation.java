@@ -162,18 +162,18 @@ public class DBImplementation implements MediaMartaDAO {
 
 	// Gets users's information
 	public User getUser(User user) {
-		ResultSet rsU = null;
+		ResultSet rs = null;
 
 		// Opens the connection
 		this.openConnection();
 		try {
 			stmt = con.prepareStatement(SQLUSER);
 			stmt.setString(1, user.getCodU());
-			rsU = stmt.executeQuery();
-			while (rsU.next()) {				
-				user.setCodU(rsU.getString("codUser"));
-				user.setPassword(rsU.getString("psw"));
-				user.setUsername(rsU.getString("username"));
+			rs = stmt.executeQuery();
+			while (rs.next()) {				
+				user.setCodU(rs.getString("codUser"));
+				user.setPassword(rs.getString("psw"));
+				user.setUsername(rs.getString("username"));
 
 				if (verifyUserType(user)) {
 					user.setTypeU(TypeU.ADMIN);
@@ -181,7 +181,7 @@ public class DBImplementation implements MediaMartaDAO {
 					user.setTypeU(TypeU.CLIENT);
 				}
 			}
-			rsU.close();			
+			rs.close();			
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
@@ -587,32 +587,25 @@ public class DBImplementation implements MediaMartaDAO {
 	public boolean restock(int code, int quantity, boolean type) {
 		// Open connection and declare a boolean to check if the update is properly executed
 		boolean check = false;
+		
 		this.openConnection();
-
-		if (type) {
-			try{
+		try {
+			if (type) {
 				stmt = con.prepareStatement(SQLRESTOCKPRODUCT);
 				stmt.setInt(1, quantity);
 				stmt.setInt(2, code);
 				stmt.executeUpdate();
-				stmt.close();
-				con.close();
-			} catch (SQLException e) {
-				System.out.println("SQL error");
-				e.printStackTrace();
-			}
-		} else {
-			try{
+
+			} else {
 				stmt = con.prepareStatement(SQLRESTOCKCOMPONENT);
 				stmt.setInt(1, quantity);
 				stmt.setInt(2, code);
-
-				stmt.close();
-				con.close();
-			} catch (SQLException e) {
-				System.out.println("SQL error");
-				e.printStackTrace();
 			}
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("SQL error");
+			e.printStackTrace();
 		}
 		return check;
 	}
