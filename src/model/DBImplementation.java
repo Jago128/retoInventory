@@ -766,7 +766,7 @@ public class DBImplementation implements MediaMartaDAO {
 	/**[PURCHASES & BUYS]**/
 
 	// Get the Purchase list
-	public Map<String, Purchase> getPurchases(int codU) {
+	public Map<String, Purchase> getPurchases(String codU) {
 		ResultSet rs = null;
 		Purchase product;
 		Map<String, Purchase> purchases = new TreeMap<>();
@@ -777,7 +777,7 @@ public class DBImplementation implements MediaMartaDAO {
 	}
 	
 	// Get the buy list
-	public Map<String, Buy> getBuys(int codU) {
+	public Map<String, Buy> getBuys(String codU) {
 		ResultSet rs = null;
 		Buy buy;
 		Map<String, Buy> buys = new TreeMap<>();
