@@ -4,8 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import controller.LoginController;
-import model.TypeU;
-import model.User;
+import model.*;
 
 /* CREATE NEW USER WINDOW 
  * Go to->(MenuWindow)

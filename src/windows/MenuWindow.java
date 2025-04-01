@@ -2,7 +2,7 @@ package windows;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.Map;
+import java.util.*;
 
 import javax.swing.*;
 import javax.swing.border.*;
