@@ -233,9 +233,17 @@ public class DBImplementation implements MediaMartaDAO {
 				product = new Product();
 				product.setNameP(rs.getString("nameP"));
 				product.setPrice(rs.getDouble("price"));
-				product.setStock(rs.getInt("stockProduct"));
+				switch(rs.getString("typeP")) {
+				case "Mobile":
+					product.setTypeP(TypeP.MOBILE);
+					break;
+				case "Computer":
+					product.setTypeP(TypeP.COMPUTER);
+					break;
+				}			
 				product.setCodP(rs.getInt("codProduct"));
 				product.setCodBrand(rs.getInt("codBrand"));
+				product.setStock(rs.getInt("stockProduct"));	
 				products.put(product.getNameP(), product);
 			}
 			rs.close();
@@ -425,9 +433,20 @@ public class DBImplementation implements MediaMartaDAO {
 				component = new Comp();
 				component.setNameC(rs.getString("nameComp"));
 				component.setPrice(rs.getDouble("priceComp"));
-				component.setStock(rs.getInt("stockComponent"));
+				switch(rs.getString("typeC")) {
+				case "Graphics":
+					component.setTypeC(TypeC.GRAPHICS);
+					break;
+				case "RAM":
+					component.setTypeC(TypeC.RAM);
+					break;
+				case "Processor":
+					component.setTypeC(TypeC.PROCESSOR);
+					break;
+				}
 				component.setCodC(rs.getInt("codComponent"));
 				component.setCodBrand(rs.getInt("codBrand"));
+				component.setStock(rs.getInt("stockComponent"));
 				components.put(component.getNameC(), component);
 			}
 			rs.close();

@@ -5,17 +5,18 @@ import java.awt.event.*;
 import java.util.*;
 import model.*;
 import javax.swing.*;
+
 import controller.LoginController;
 
 /* SHOW PRODUCT WINDOW  
  * Go to->(CheckOutWindow, NewItemWindow, VerificationWindow)
  * Back to->(MainWindow, MenuWindow)*/
 public class ProductWindow extends JDialog implements ActionListener {
-
 	private static final long serialVersionUID = 1L;
 	private LoginController cont;
 	private JLabel lblMediaMarta, lblProducts;
 	private JButton btnLogOut, btnBuy, btnAddNew, btnRemove, btnClose;
+	private JComboBox <String> comboxFilter;
 	private JList<String> listName, listPrice;
 	private Map<String, Product> products;	
 	private User user;
@@ -60,9 +61,15 @@ public class ProductWindow extends JDialog implements ActionListener {
 
 		listPrice = new JList<String>();
 		listPrice.setBounds(327, 104, 129, 406);
-		getContentPane().add(listPrice);
-
+		getContentPane().add(listPrice);		
 		loadProductsList();
+		
+		comboxFilter = new JComboBox<String>();
+		comboxFilter.setBounds(10, 81, 446, 22);
+		getContentPane().add(comboxFilter);
+		comboxFilter.addItem("ALL");
+		comboxFilter.addItem("MOBILES");
+		comboxFilter.addItem("COMPUTERS");
 
 		// Buttons
 		btnLogOut = new JButton("Log-Out");
@@ -103,6 +110,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 		}
 
 		// Adding action listener
+		comboxFilter.addActionListener(this);
 		btnLogOut.addActionListener(this);
 		btnBuy.addActionListener(this);
 		btnAddNew.addActionListener(this);
@@ -114,11 +122,16 @@ public class ProductWindow extends JDialog implements ActionListener {
 
 	// Loads the products to the list
 	public void loadProductsList() {
+
 		listName.removeAll();
 		listPrice.removeAll();
 
+
+		Map<String, Product> products = cont.verifyProduct();
+
 		DefaultListModel<String> modelName = new DefaultListModel<String>();
 		DefaultListModel<String> modelPrice = new DefaultListModel<String>();
+
 
 		products = cont.verifyProduct();		
 		if(!products.isEmpty()) {
@@ -127,6 +140,42 @@ public class ProductWindow extends JDialog implements ActionListener {
 				modelPrice.addElement(p.getPrice()+" €");
 			}
 		}		
+
+		listName.removeAll();
+		listPrice.removeAll();
+		
+		switch ((String)comboxFilter.getSelectedItem()) {
+		case "MOBILES": // Uses the TreeMap ordered by the key as the name
+			if(!products.isEmpty()) {
+				for (Product p : products.values()){
+					if(p.getStock()>0 && p.getTypeP()==TypeP.MOBILE) {
+						modelName.addElement(p.getNameP());
+						modelPrice.addElement(p.getPrice()+" €");
+					}	
+				}
+			}
+			break;
+		case "COMPUTERS": // Creates a TreeMap ordered by the key as the price
+			if(!products.isEmpty()) {
+				for (Product p : products.values()){
+					if(p.getStock()>0 && p.getTypeP()==TypeP.COMPUTER) {
+						modelName.addElement(p.getNameP());
+						modelPrice.addElement(p.getPrice()+" €");
+					}	
+				}
+			}	
+			break;	
+		default:
+			if(!products.isEmpty()) {
+				for (Product p : products.values()){
+					if(p.getStock()>0) {
+						modelName.addElement(p.getNameP());
+						modelPrice.addElement(p.getPrice()+" €");
+					}	
+				}
+			}
+			break;
+		}
 		listName.setModel(modelName);
 		listPrice.setModel(modelPrice);
 	}
@@ -140,6 +189,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 
 	/**[ACTION PERFORMER]**/
 
+	// Action Performer
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// Logs-Out and moves back to the Main Window	
@@ -153,6 +203,10 @@ public class ProductWindow extends JDialog implements ActionListener {
 		// Closes the window
 		if (e.getSource()==btnClose) {
 			this.dispose();
+		}
+		// Detects when new option of order is choosed
+		if (e.getSource()==comboxFilter) {
+			loadProductsList();
 		}
 		// Opens the window for the Check out
 		if (e.getSource() == btnBuy) {

@@ -17,7 +17,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 	private LoginController cont;
 	private JLabel lblMediaMarta, lblProducts;
 	private JButton btnLogOut, btnBuy, btnAddNew, btnRemove, btnClose;
-	private JComboBox <String> comboBoxOrder;
+	private JComboBox <String> comboxFilter;
 	private JList<String> listName, listPrice;	
 	private User user;
 
@@ -55,7 +55,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		lblCodUser.setBounds(375, 27, 81, 19);
 		getContentPane().add(lblCodUser);
 
-		// List
+		// List & ComboBox
 		listName = new JList<String>();
 		listName.setBounds(10, 104, 314, 406);
 		getContentPane().add(listName);		
@@ -64,12 +64,13 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		listPrice.setBounds(327, 104, 129, 406);
 		getContentPane().add(listPrice);
 
-		comboBoxOrder = new JComboBox<String>();
-		comboBoxOrder.setBounds(327, 81, 129, 22);
-		getContentPane().add(comboBoxOrder);
-		comboBoxOrder.addItem("Alphabet");
-		comboBoxOrder.addItem("Price");
-		comboBoxOrder.addItem("Code");
+		comboxFilter = new JComboBox<String>();
+		comboxFilter.setBounds(10, 81, 446, 22);
+		getContentPane().add(comboxFilter);
+		comboxFilter.addItem("ALL");
+		comboxFilter.addItem("GRAPHICS");
+		comboxFilter.addItem("RAM");
+		comboxFilter.addItem("PROCESSORS");		
 		
 		loadComponentList();		
 
@@ -112,6 +113,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		}
 
 		// Adding action listener
+		comboxFilter.addActionListener(this);
 		btnLogOut.addActionListener(this);
 		btnBuy.addActionListener(this);
 		btnAddNew.addActionListener(this);
@@ -121,19 +123,48 @@ public class ComponentWindow extends JDialog implements ActionListener {
 
 	/**[METHODS]**/
 
-	// Loads the components to the list
-	public void loadComponentList() {	
+	// Loads the products to the list
+	public void loadComponentList() {
 		Map<String, Comp> components = cont.verifyComponent();
-		
-		listName.removeAll();
-		listPrice.removeAll();
-
 		DefaultListModel<String> modelName = new DefaultListModel<String>();
 		DefaultListModel<String> modelPrice = new DefaultListModel<String>();
+
+		listName.removeAll();
+		listPrice.removeAll();
 		
-		switch ((String)comboBoxOrder.getSelectedItem()) {
-		case "Alphabet": // Uses the TreeMap ordered by the key as the name
+		switch ((String)comboxFilter.getSelectedItem()) {
+		case "GRAPHICS": 
 			if(!components.isEmpty()) {
+				for (Comp c : components.values()){
+					if(c.getStock()>0 && c.getTypeC()==TypeC.GRAPHICS) {
+						modelName.addElement(c.getNameC());
+						modelPrice.addElement(c.getPrice()+" €");
+					}	
+				}
+			}
+			break;
+		case "RAM": 
+			if(!components.isEmpty()) {
+				for (Comp c : components.values()){
+					if(c.getStock()>0 && c.getTypeC()==TypeC.RAM) {
+						modelName.addElement(c.getNameC());
+						modelPrice.addElement(c.getPrice()+" €");
+					}	
+				}
+			}
+			break;
+		case "PROCESSORS": 
+			if(!components.isEmpty()) {
+				for (Comp c : components.values()){
+					if(c.getStock()>0 && c.getTypeC()==TypeC.PROCESSOR) {
+						modelName.addElement(c.getNameC());
+						modelPrice.addElement(c.getPrice()+" €");
+					}	
+				}
+			}
+			break;
+		default:
+			if (!components.isEmpty()) {
 				for (Comp c : components.values()){
 					if(c.getStock()>0) {
 						modelName.addElement(c.getNameC());
@@ -181,16 +212,6 @@ public class ComponentWindow extends JDialog implements ActionListener {
 			}
 			break;		
 		}
-		
-		/*if(!components.isEmpty()) {
-			for (Comp c : components.values()){
-				if(c.getStock()>0) {
-					modelName.addElement(c.getNameC());
-					modelPrice.addElement(c.getPrice()+" €");
-				}
-			}
-		}*/
-
 		listName.setModel(modelName);
 		listPrice.setModel(modelPrice);
 	}
@@ -219,7 +240,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 			this.dispose();
 		}
 		// Detects when new option of order is choosed
-		if (e.getSource()==comboBoxOrder) {
+		if (e.getSource()==comboxFilter) {
 			loadComponentList();
 		}
 		// Opens the window for the Check out
