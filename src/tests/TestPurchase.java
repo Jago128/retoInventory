@@ -14,9 +14,8 @@ class TestPurchase {
 	private Purchase purch;
 	@BeforeEach
 	void setUp() throws Exception {
-		purch = new Purchase (1,1,"Xabitxu",150,LocalDate.now());
+		purch = new Purchase (1,1,"Xabitxu",150,0, LocalDate.now());
 	}
-	
 	
 	@Test
 	void test() {
