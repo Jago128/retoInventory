@@ -93,12 +93,12 @@ class TestProduct {
 	@Test
 	void testDefaultConstructor() {
 		Product defaultProduct=new Product();
-		assertNull(defaultProduct.getCodP());
-		assertNull(defaultProduct.getNameP());
-		assertNull(defaultProduct.getTypeP());
-		assertNull(defaultProduct.getPrice());
-		assertNull(defaultProduct.getStock());
-		assertNull(defaultProduct.getCodBrand());
+		assertEquals(0, defaultProduct.getCodP());
+		assertEquals("", defaultProduct.getNameP());
+		assertEquals(TypeP.COMPUTER, defaultProduct.getTypeP());
+		assertEquals(0, defaultProduct.getPrice());
+		assertEquals(0, defaultProduct.getStock());
+		assertEquals(0, defaultProduct.getCodBrand());
 	}
 	
 	@Test
