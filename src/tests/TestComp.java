@@ -12,7 +12,7 @@ class TestComp {
 	private Comp comp;
 	@BeforeEach
 	void setUp() throws Exception {
-		comp = new Comp ("Asus GT710",TypeC.GRAPHICS,5,5,81.99);
+		comp = new Comp (1, "Asus GT710",TypeC.GRAPHICS,5,5,81.99);
 	}
 
 	@AfterEach
@@ -23,12 +23,12 @@ class TestComp {
 	@Test
 	public void testDefaultConstructor() {
 		Comp defaultEmployee = new Comp();
-		assertNull(defaultEmployee.getCodC());
-		assertNull(defaultEmployee.getNameC());
-		assertNull(defaultEmployee.getTypeC());
-		assertNull(defaultEmployee.getCodBrand());
-		assertNull(defaultEmployee.getStock());
-		assertNull(defaultEmployee.getPrice());
+		assertEquals(0,defaultEmployee.getCodC());
+		assertEquals("", defaultEmployee.getNameC());
+		assertEquals(TypeC.GRAPHICS,defaultEmployee.getTypeC());
+		assertEquals(0,defaultEmployee.getCodBrand());
+		assertEquals(0,defaultEmployee.getStock());
+		assertEquals(0,defaultEmployee.getPrice());
 	}
 
 	@Test
@@ -108,11 +108,6 @@ class TestComp {
 	public void testSetPrice() {
 		comp.setPrice(81.99);
 		assertEquals(81.99, comp.getPrice());
-	}
-
-	@Test
-	void test() {
-		fail("Not yet implemented");
 	}
 
 }
