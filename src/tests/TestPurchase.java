@@ -36,15 +36,11 @@ class TestPurchase {
 
 	@Test
 	public void testParameterizedConstructor() {
-		assertEquals(1, comp.getCodC());
-		assertEquals("Asus GT710", comp.getNameC());
-		assertEquals(TypeC.GRAPHICS, comp.getTypeC());
-		assertEquals(5, comp.getCodBrand());
-		assertEquals(5, comp.getStock());
-		assertEquals(81.99, comp.getPrice());       
+		assertEquals(1, purch.getCodC());
+		assertEquals("Asus GT710", purch.getNameC());
+		assertEquals(TypeC.GRAPHICS, purch.getTypeC());
+		assertEquals(5, purch.getCodBrand());
+		assertEquals(5, purch.getStock());
+		assertEquals(81.99, purch.getPrice());       
 	}
-	
-	
-	
-
 }
