@@ -35,4 +35,9 @@ class TestUser {
 		assertEquals(TypeU.CLIENT, user.getTypeU());
 		assertEquals("Felix", user.getUsername());
 	}
+	
+	@Test
+	public void getCodUTest() {
+		assertEquals("Joao10", user.getCodU());
+	}
 }
