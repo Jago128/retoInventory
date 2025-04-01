@@ -62,6 +62,14 @@ public class Buy {
 		this.quantity = quantity;
 	}
 
+	public double getPrice() {
+		return price;
+	}
+
+	public void setPrice(double price) {
+		this.price = price;
+	}
+	
 	public LocalDate getDate() {
 		return date;
 	}
