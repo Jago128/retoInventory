@@ -113,4 +113,16 @@ public class LoginController {
 	public Map<String, Comp> showComponentsBrand(String brand) {
 		return dao.showComponentsBrand(brand);
 	}
+	
+	/**[PURCHASES & BUYS]**/
+
+	// Get the Purchase list
+	public Map<String, Purchase> getPurchases(){
+		return dao.getPurchases();
+	}
+	
+	// Get the buy list
+	public Map<String, Buy> getBuys(){
+		return dao.getBuys();
+	}
 }

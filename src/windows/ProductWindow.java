@@ -122,7 +122,7 @@ public class ProductWindow extends JDialog implements ActionListener{
 
 	/**[METHODS]**/
 
-	// Loads the products to the list
+	// Loads the products to the list depending on the filter
 	public void loadProductsList() {
 		Map<String, Product> products = cont.verifyProduct();
 		DefaultListModel<String> modelName = new DefaultListModel<String>();
