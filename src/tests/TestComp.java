@@ -17,6 +17,7 @@ class TestComp {
 	void tearDown() throws Exception {
 		comp=null;
 	}
+
 	
 	@Test
 	public void testDefaultConstructor() {
@@ -28,7 +29,7 @@ class TestComp {
 		assertNull(defaultEmployee.getStock());
 		assertNull(defaultEmployee.getPrice());
 	}
-
+	
 	@Test
 	public void testParameterizedConstructor() {
 		assertEquals(1, comp.getCodC());
@@ -39,9 +40,74 @@ class TestComp {
 		assertEquals(81.99, comp.getPrice());       
 	}
 
+	@Test
+    public void testGetCodC() {
+        assertEquals(1, comp.getCodC());
+    }
+    
+    
+    @Test
+    public void testSetCodC() {
+        comp.setCodC(1);
+        assertEquals(1, comp.getCodC());
+    }
+    
+    @Test 
+    public void testGetNameC() {
+    	assertEquals("Asus GT710", comp.getNameC());
+    }
 
 
-
+    @Test 
+    public void testSetNameC() {
+    	comp.setNameC("Asus GT710");
+        assertEquals("Asus GT710", comp.getNameC());
+    }
+    
+    @Test
+    public void testGetTypeC() {
+    	assertEquals(TypeC.GRAPHICS, comp.getTypeC());
+    }
+    
+    @Test
+    public void testSetTypeC() {
+    	comp.setTypeC(TypeC.GRAPHICS);
+        assertEquals(TypeC.GRAPHICS, comp.getTypeC());
+    }
+    
+    @Test
+    public void testGetCodBrand() {
+    	assertEquals(5, comp.getCodBrand());
+    }
+    
+    @Test
+    public void testSetCodBrand() {
+    	comp.setCodBrand(5);
+        assertEquals(5, comp.getCodBrand());
+    }
+    
+    @Test
+    public void testGetStock() {
+    	assertEquals(5, comp.getStock());
+    }
+    
+    @Test
+    public void testSetStock() {
+    	comp.setStock(5);
+        assertEquals(5, comp.getStock());
+    }
+    
+    @Test
+    public void testGetPrice() {
+    	assertEquals(81.99, comp.getPrice());  
+    }
+    
+    @Test
+    public void testSetPrice() {
+    	comp.setPrice(81.99);
+    	assertEquals(81.99, comp.getPrice());
+    }
+    
 	@Test
 	void test() {
 		fail("Not yet implemented");
