@@ -17,7 +17,7 @@ public class MenuWindow extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private LoginController cont;
-	private JButton btnLogOut, btnProducts, btnComponents, btnBrands, btnCheckStock, btnClose;
+	private JButton btnLogOut, btnPurchases, btnProducts, btnComponents, btnBrands, btnCheckStock, btnClose;
 	private User user;
 	private Map<String, Brand> brands;
 	private Map<String, Product> products;
@@ -113,7 +113,7 @@ public class MenuWindow extends JFrame implements ActionListener {
 		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		contentPane.add(btnClose);		
 		
-		JButton btnPurchases = new JButton("Purchases");
+		btnPurchases = new JButton("Purchases");
 		btnPurchases.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		btnPurchases.setBackground(UIManager.getColor("Button.background"));
 		btnPurchases.setBounds(294, 5, 81, 21);
@@ -121,6 +121,7 @@ public class MenuWindow extends JFrame implements ActionListener {
 
 		// Adding action listener
 		btnLogOut.addActionListener(this);
+		btnPurchases.addActionListener(this);
 		btnProducts.addActionListener(this);
 		btnComponents.addActionListener(this);
 		btnBrands.addActionListener(this);
@@ -174,6 +175,11 @@ public class MenuWindow extends JFrame implements ActionListener {
 		if (e.getSource() == btnLogOut) {
 			MainWindow main = new MainWindow(cont);
 			main.setVisible(true);
+			this.dispose();
+		}// Logs-Out and moves back to the Main Window
+		if (e.getSource() == btnPurchases) {
+			PurchaseWindow purchase = new PurchaseWindow(cont, user);
+			purchase.setVisible(true);
 			this.dispose();
 		}
 		// Closes the window

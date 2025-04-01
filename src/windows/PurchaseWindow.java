@@ -18,8 +18,8 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 	private LoginController cont;
 	private JButton btnLogOut, btnClose;
 	private User user;
-	private Map<String, Purchase> purchases;
-	private Map<String, Buy> buys;
+	//private Map<String, Purchase> purchases;
+	//private Map<String, Buy> buys;
 	private JList<String> listPurchases;
 
 	/**[WINDOW CREATION]**/
@@ -57,7 +57,7 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 		contentPane.add(listPurchases);
 
 		//loadProductsList();
-		
+
 		// Buttons
 		btnLogOut = new JButton("Log-Out");
 		btnLogOut.setBackground(UIManager.getColor("Button.background"));
@@ -78,28 +78,26 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 	/**[METHODS]**/
 
 	// Loads the products to the list
-	/*public void loadProductsList() {
+	public void loadProductsList() {		
+		Map<String, Purchase> purchases = cont.getPurchases(user.getCodU());
+		Map<String, Buy> buys = cont.getBuys(user.getCodU());
+
+		DefaultListModel<String> model = new DefaultListModel<String>();				
+
 		listPurchases.removeAll();
-		
-		DefaultListModel<String> modelProd = new DefaultListModel<String>();
-		DefaultListModel<String> modelComp = new DefaultListModel<String>();
-		
-		purchases = cont.verifyPurchase();
+
 		if(!purchases.isEmpty()) {
 			for (Purchase p : purchases.values()){
-				modelProd.addElement(p.nameAndPrice());
+				model.addElement(p.allData());
 			}
 		}
-	
-		buys = cont.verifyBuys();
 		if (!buys.isEmpty()) {
-			for (Buy b : buys.values()) {
-				modelComp.addElement(b.nameAndPrice());
+			for (Buy b : buys.values()){
+				model.addElement(b.allData());
 			}
 		}				
-		
-		listPurchases.setModel(modelProd);
-	}*/
+		listPurchases.setModel(model);
+	}
 
 	/**[ACTION PERFORMER]**/
 
