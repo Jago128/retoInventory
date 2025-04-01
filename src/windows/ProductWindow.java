@@ -13,13 +13,13 @@ import controller.LoginController;
 // SHOW PRODUCT WINDOW  
 // Go to->(CheckOutWindow, NewItemWindow, VerificationWindow)
 // Back to->(MainWindow, MenuWindow)
-public class ProductWindow extends JDialog implements ActionListener, ChangeListener {
+public class ProductWindow extends JDialog implements ActionListener{
 
 	private static final long serialVersionUID = 1L;
 	private LoginController cont;
 	private JLabel lblMediaMarta, lblProducts;
 	private JButton btnLogOut, btnBuy, btnAddNew, btnRemove, btnClose;
-	private JComboBox <String> comboBoxOrder;
+	private JComboBox <String> comboxFilter;
 	private JList<String> listName, listPrice;
 	private User user;
 
@@ -50,12 +50,6 @@ public class ProductWindow extends JDialog implements ActionListener, ChangeList
 		lblProducts.setBounds(10, 58, 446, 19);
 		getContentPane().add(lblProducts);
 
-		JLabel lblOrderBy = new JLabel("Order by");
-		lblOrderBy.setHorizontalAlignment(SwingConstants.CENTER);
-		lblOrderBy.setFont(new Font("Times New Roman", Font.BOLD, 15));
-		lblOrderBy.setBounds(327, 61, 129, 14);
-		getContentPane().add(lblOrderBy);
-
 		// Labels
 		JLabel lblCodUser = new JLabel(user.getUsername());
 		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
@@ -72,15 +66,14 @@ public class ProductWindow extends JDialog implements ActionListener, ChangeList
 		listPrice.setBounds(327, 104, 129, 406);
 		getContentPane().add(listPrice);		
 
-		comboBoxOrder = new JComboBox<String>();
-		comboBoxOrder.setBounds(327, 81, 129, 22);
-		getContentPane().add(comboBoxOrder);
-		comboBoxOrder.addItem("Default");
-		comboBoxOrder.addItem("Mobile");
-		comboBoxOrder.addItem("Computer");
+		comboxFilter = new JComboBox<String>();
+		comboxFilter.setBounds(10, 81, 446, 22);
+		getContentPane().add(comboxFilter);
+		comboxFilter.addItem("ALL");
+		comboxFilter.addItem("MOBILES");
+		comboxFilter.addItem("COMPUTERS");
 
 		loadProductsList();
-
 
 		// Buttons
 		btnLogOut = new JButton("Log-Out");
@@ -121,6 +114,7 @@ public class ProductWindow extends JDialog implements ActionListener, ChangeList
 		}
 
 		// Adding action listener
+		comboxFilter.addActionListener(this);
 		btnLogOut.addActionListener(this);
 		btnBuy.addActionListener(this);
 		btnAddNew.addActionListener(this);
@@ -133,14 +127,33 @@ public class ProductWindow extends JDialog implements ActionListener, ChangeList
 	// Loads the products to the list
 	public void loadProductsList() {
 		Map<String, Product> products = cont.verifyProduct();
-
-		listName.removeAll();
-		listPrice.removeAll();
-
 		DefaultListModel<String> modelName = new DefaultListModel<String>();
 		DefaultListModel<String> modelPrice = new DefaultListModel<String>();
 
-		switch ((String)comboBoxOrder.getSelectedItem()) {
+		listName.removeAll();
+		listPrice.removeAll();
+		
+		switch ((String)comboxFilter.getSelectedItem()) {
+		case "MOBILES": // Uses the TreeMap ordered by the key as the name
+			if(!products.isEmpty()) {
+				for (Product p : products.values()){
+					if(p.getStock()>0 && p.getTypeP()==TypeP.MOBILE) {
+						modelName.addElement(p.getNameP());
+						modelPrice.addElement(p.getPrice()+" €");
+					}	
+				}
+			}
+			break;
+		case "COMPUTERS": // Creates a TreeMap ordered by the key as the price
+			if(!products.isEmpty()) {
+				for (Product p : products.values()){
+					if(p.getStock()>0 && p.getTypeP()==TypeP.COMPUTER) {
+						modelName.addElement(p.getNameP());
+						modelPrice.addElement(p.getPrice()+" €");
+					}	
+				}
+			}	
+			break;	
 		default:
 			if(!products.isEmpty()) {
 				for (Product p : products.values()){
@@ -151,98 +164,64 @@ public class ProductWindow extends JDialog implements ActionListener, ChangeList
 				}
 			}
 			break;
-		case "Mobile": // Uses the TreeMap ordered by the key as the name
-			if(!products.isEmpty()) {
-				for (Product p : products.values()){
-					if(p.getStock()>0 && p.getTypeP()==TypeP.MOBILE) {
-						modelName.addElement(p.getNameP());
-						modelPrice.addElement(p.getPrice()+" €");
-					}	
-				}
-			}
-			break;
-		case "Computer": // Creates a TreeMap ordered by the key as the price
-			if(!products.isEmpty()) {
-				for (Product p : products.values()){
-					if(p.getStock()>0 && p.getTypeP()==TypeP.COMPUTER) {
-						modelName.addElement(p.getNameP());
-						modelPrice.addElement(p.getPrice()+" €");
-					}	
-				}
-			}	
-			break;
-			/*if(!products.isEmpty()) {
-			for (Product p : products.values()){
-				if(p.getStock()>0) {
-					modelName.addElement(p.getNameP());
-					modelPrice.addElement(p.getPrice()+" €");
-				}	
-			}
-		}*/			
 		}
 		listName.setModel(modelName);
 		listPrice.setModel(modelPrice);
 	}
 
+	// Obtains the name and price of the selected product
+	public Product obtainNamePrice() {
+		Product product = new Product();
+		product=cont.obtainProduct(listName.getSelectedValue());
+		return product;
+	}
 
-		// Obtains the name and price of the selected product
-		public Product obtainNamePrice() {
-			Product product = new Product();
-			product=cont.obtainProduct(listName.getSelectedValue());
-			return product;
+	/**[ACTION PERFORMER]**/
+
+	// Action Performer
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// Logs-Out and moves back to the Main Window	
+		if (e.getSource()==btnLogOut) {
+			MainWindow frame = new MainWindow(cont);
+			frame.setVisible(true);
+			JFrame parent = (JFrame)this.getParent(); // Obtains the parent window
+			parent.dispose(); // Closes the parent window
+			this.dispose();
+		}		
+		// Closes the window
+		if (e.getSource()==btnClose) {
+			this.dispose();
 		}
-
-		/**[ACTION PERFORMER & CHANGE LISTENER]**/
-
-		// Action Performer
-		@Override
-		public void actionPerformed(ActionEvent e) {
-			// Logs-Out and moves back to the Main Window	
-			if (e.getSource()==btnLogOut) {
-				MainWindow frame = new MainWindow(cont);
-				frame.setVisible(true);
-				JFrame parent = (JFrame)this.getParent(); // Obtains the parent window
-				parent.dispose(); // Closes the parent window
-				this.dispose();
-			}		
-			// Closes the window
-			if (e.getSource()==btnClose) {
-				this.dispose();
-			}
-			// Opens the window for the Check out
-			if (e.getSource() == btnBuy) {
-				if (!listName.isSelectionEmpty()) { // If there is an item selected it will do the action
-					boolean type = true;  // true = Product | false = Component
-					CheckOutWindow checkOut = new CheckOutWindow(this, cont, user, obtainNamePrice().getNameP(), obtainNamePrice().getPrice(), type);
-					checkOut.setVisible(true);
-				} else {
-					JOptionPane.showMessageDialog(null, "[ERROR] Select an item to buy");
-				}
-			}
-			// Opens the window to add a new product
-			if (e.getSource()==btnAddNew) {			
+		// Detects when new option of order is choosed
+		if (e.getSource()==comboxFilter) {
+			loadProductsList();
+		}
+		// Opens the window for the Check out
+		if (e.getSource() == btnBuy) {
+			if (!listName.isSelectionEmpty()) { // If there is an item selected it will do the action
 				boolean type = true;  // true = Product | false = Component
-				AddNewWindow addNew = new AddNewWindow(this, cont, user, obtainNamePrice().getNameP(), type);
-				addNew.setVisible(true);
-			}
-			// Opens the window to delete
-			if (e.getSource()==btnRemove) {
-				if (!listName.isSelectionEmpty()) { // If there is an item selected it will do the action
-					boolean type = true;  // true = Product | false = Component
-					VerificationWindow checkOut = new VerificationWindow(this, cont, obtainNamePrice().getNameP(), type);
-					checkOut.setVisible(true);
-				} else {
-					JOptionPane.showMessageDialog(null, "[ERROR] Select an item to delete");
-				}
+				CheckOutWindow checkOut = new CheckOutWindow(this, cont, user, obtainNamePrice().getNameP(), obtainNamePrice().getPrice(), type);
+				checkOut.setVisible(true);
+			} else {
+				JOptionPane.showMessageDialog(null, "[ERROR] Select an item to buy");
 			}
 		}
-
-		// Change listener
-		@Override
-		public void stateChanged(ChangeEvent e) {
-			// Detects when new option of order is choosed
-			if (e.getSource()==comboBoxOrder) {
-				loadProductsList();
+		// Opens the window to add a new product
+		if (e.getSource()==btnAddNew) {			
+			boolean type = true;  // true = Product | false = Component
+			AddNewWindow addNew = new AddNewWindow(this, cont, user, obtainNamePrice().getNameP(), type);
+			addNew.setVisible(true);
+		}
+		// Opens the window to delete
+		if (e.getSource()==btnRemove) {
+			if (!listName.isSelectionEmpty()) { // If there is an item selected it will do the action
+				boolean type = true;  // true = Product | false = Component
+				VerificationWindow checkOut = new VerificationWindow(this, cont, obtainNamePrice().getNameP(), type);
+				checkOut.setVisible(true);
+			} else {
+				JOptionPane.showMessageDialog(null, "[ERROR] Select an item to delete");
 			}
 		}
 	}
+}
