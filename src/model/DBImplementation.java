@@ -289,10 +289,15 @@ public class DBImplementation implements MediaMartaDAO {
 			// Prepares the SQL query
 			stmt = con.prepareStatement(SQLINSERTPROD);
 			stmt.setString(1, prod.getNameP());
-			if (prod.getTypeP() == TypeP.MOBILE) {
+			
+			switch (prod.getTypeP()) {
+			case COMPUTER:
 				stmt.setString(2, "Mobile");
-			} else {
+				break;
+				
+			case MOBILE:
 				stmt.setString(2, "Computer");
+				break;
 			}
 			stmt.setDouble(3, prod.getPrice());
 			stmt.setInt(4, prod.getStock());
