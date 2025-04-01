@@ -63,11 +63,11 @@ public class Purchase {
 	public void setQuantity(int quantity) {
 		this.quantity = quantity;
 	}
-	
+
 	public double getPrice() {
 		return price;
 	}
-	
+
 	public void setDouble(double price) {
 		this.price = price;
 	}
@@ -79,12 +79,12 @@ public class Purchase {
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
-	
+
 	// Method to show name and price
-			public String allData() {
-				return "["+codPurchase+"] "+codProduct+" "+price+" €"+" date";
-			}
-	
+	public String allData() {
+		return "["+codPurchase+"] "+codProduct+" "+price+" €"+" date";
+	}
+
 	// Declare toString
 	@Override
 	public String toString() {

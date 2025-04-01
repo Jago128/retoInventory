@@ -8,6 +8,7 @@ public class Buy {
 	private int codComponent;
 	private String codUser;
 	private int quantity;
+	private double price;
 	private LocalDate date;
 
 	// Declare empty constructor
@@ -68,7 +69,12 @@ public class Buy {
 	public void setDate(LocalDate date) {
 		this.date = date;
 	}
-	
+
+	// Method to show name and price
+	public String allData() {
+		return "["+codPurchase+"] "+codComponent+" "+price+" €"+" date";
+	}
+
 	// Declare toString
 	@Override
 	public String toString() {
