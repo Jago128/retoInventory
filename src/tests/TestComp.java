@@ -6,7 +6,6 @@ import org.junit.jupiter.api.*;
 
 import model.Comp;
 import model.TypeC;
-import principal.Employee;
 
 class TestComp {
 	private Comp comp;
