@@ -114,10 +114,10 @@ INSERT INTO BUY (CODCOMPONENT,CODUSER,QUANTITY,TOTALPRICE,DATEB) VALUES
 (2,'PepGuardiola',9, 1530,'2025-02-25');
 
 Delimiter //
-CREATE PROCEDURE signIn(UCOD VARCHAR(20), UNAME VARCHAR(30), UPSW VARCHAR(15))
+CREATE PROCEDURE signIn(COD VARCHAR(20), USERNAME VARCHAR(30), PASSWORD VARCHAR(15))
 BEGIN
-	INSERT INTO USER (CODUSER, USERNAME, PSW, TYPE_U) VALUES(UCOD, UNAME, UPSW, "Client");
-    SELECT 'Usuario añadido' AS Mensaje;
+	INSERT INTO USER (CODUSER, USERNAME, PSW, TYPE_U) VALUES(COD, USERNAME, PASSWORD, "Client");
+    SELECT 'The user was added.' AS Mensaje;
 END //
 Delimiter ;
 
@@ -126,46 +126,46 @@ CREATE PROCEDURE insertProduct(NAMEP VARCHAR(50), TYPEP ENUM ("Mobile","Computer
 BEGIN
 INSERT INTO Product (NAMEP,TYPEP,PRICE,STOCKPRODUCT,CODBRAND) VALUES
 (NAMEP,TYPEP,PRICE,STOCKPRODUCT,CODBRAND);
-SELECT 'Producto añadido' AS Mensaje;
+SELECT 'The product was added.' AS Mensaje;
 END //
 Delimiter ;
 
 Delimiter //
 CREATE PROCEDURE showProducts()
 BEGIN
-	DECLARE Fin BOOLEAN DEFAULT FALSE;
-    DECLARE NomProd VARCHAR(50);
-    DECLARE TipoP ENUM ("Mobile","Computer");
-    DECLARE PriceP DOUBLE;
-    DECLARE StockP INT;
-    DECLARE CodBrand INT;
+	DECLARE end BOOLEAN DEFAULT FALSE;
+    DECLARE name VARCHAR(50);
+    DECLARE TypeP ENUM ("Mobile","Computer");
+    DECLARE price DOUBLE;
+    DECLARE stock INT;
+    DECLARE codBrand INT;
     DECLARE C CURSOR FOR SELECT NAMEP,TYPEP,PRICE,STOCKPRODUCT,CODBRAND FROM PRODUCT;
-	DECLARE CONTINUE HANDLER FOR NOT FOUND SET FIN = TRUE;
+	DECLARE CONTINUE HANDLER FOR NOT FOUND SET end = TRUE;
     
     OPEN C;
-	FETCH C INTO NomProd,TipoP,PriceP,StockP,CodBrand;
-	WHILE NOT FIN DO
-		SELECT CONCAT ('Name: ', NomProd, ' Type: ', TipoP,' Price: ', PriceP,' Stock: ', StockP,' CodeBrand: ', CodBrand) "Datos pedidos"; 
-		Fetch c into NomProd,TipoP,PriceP,StockP,CodBrand; 
+	FETCH C INTO name,TypeP,price,stock,codBrand;
+	WHILE NOT END DO
+		SELECT CONCAT ('Name: ', name, ' Type: ', TypeP,' Price: ', price,' Stock: ', stock,' CodeBrand: ', codBrand) AS "Order data"; 
+		FETCH C INTO name,TypeP,price,stock,codBrand;
     END WHILE; 
     CLOSE C; 
 END //
 Delimiter ;
 
 Delimiter //
-CREATE PROCEDURE deleteProduct(NomProd VARCHAR(50))
+CREATE PROCEDURE deleteProduct(name VARCHAR(50))
 BEGIN
-	DECLARE CodigoProd INT;
-    DECLARE ENCONTRADO BOOLEAN DEFAULT TRUE;
-    DECLARE CONTINUE HANDLER FOR NOT FOUND SET ENCONTRADO = FALSE;
+	DECLARE code INT;
+    DECLARE found BOOLEAN DEFAULT TRUE;
+    DECLARE CONTINUE HANDLER FOR NOT FOUND SET found = FALSE;
     
-	SELECT CODPRODUCT INTO CodigoProd FROM PRODUCT WHERE NAMEP = NomProd;
+	SELECT CODPRODUCT INTO code FROM PRODUCT WHERE NAMEP = name;
 
-    IF NOT ENCONTRADO THEN
+    IF NOT FOUND THEN
 		SELECT CONCAT('The product ', NomProd,' could not be found.') AS DELETE_PRODUCT;
     ELSE 
 		SELECT CONCAT('The product ', NomProd,' has been deleted correctly.') AS DELETE_PRODUCT;
-		DELETE FROM PRODUCT WHERE CODPRODUCT = CodigoProd;
+		DELETE FROM PRODUCT WHERE CODPRODUCT = code;
     END IF;        
 END //
 Delimiter ;
@@ -200,7 +200,7 @@ CREATE PROCEDURE insertComponent(NAMECOMP VARCHAR(50), TYPEC ENUM("Graphics","RA
 BEGIN
 INSERT INTO Product (NAMECOMP,TYPEC,CODBRAND, STOCKCOMPONENT, PRICECOMP) VALUES
 (NAMECOMP,TYPEC,CODBRAND, STOCKCOMPONENT, PRICECOMP);
-SELECT 'Componente añadido' AS Mensaje;
+SELECT 'The component was added.' AS Mensaje;
 END //
 Delimiter ;
 
