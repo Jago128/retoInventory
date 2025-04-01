@@ -22,10 +22,10 @@ class TestUser {
 	@Test
 	public void testDefaultConstructor() {
 		User test = new User();
-		assertNull(test.getCodU());
-		assertNull(test.getPassword());
-		assertNull(test.getTypeU());
-		assertNull(test.getUsername());
+		assertEquals("", test.getCodU());
+		assertEquals("", test.getPassword());
+		assertEquals(TypeU.UNSET, test.getTypeU());
+		assertEquals("", test.getUsername());
 	}
 	
 	@Test

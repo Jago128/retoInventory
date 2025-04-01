@@ -18,6 +18,7 @@ class TestBrand {
 
 	@AfterEach
 	void tearDown() throws Exception {
+		brand = null;
 	}
 
 	@Test
