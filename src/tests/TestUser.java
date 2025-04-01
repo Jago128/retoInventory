@@ -40,4 +40,43 @@ class TestUser {
 	public void getCodUTest() {
 		assertEquals("Joao10", user.getCodU());
 	}
+	
+	@Test
+	public void getPasswordTest() {
+		assertEquals("1234", user.getPassword());
+	}
+	
+	@Test
+	public void getTypeUTest() {
+		assertEquals(TypeU.CLIENT, user.getTypeU());
+	}
+	
+	@Test
+	public void getUsernameTest() {
+		assertEquals("Felix", user.getUsername());
+	}
+	
+	@Test
+	public void setCodUTest() {
+		user.setCodU("Jago128");
+		assertEquals("Jago128", user.getCodU());
+	}
+	
+	@Test
+	public void setPasswordTest() {
+		user.setPassword("1288");
+		assertEquals("1288", user.getPassword());
+	}
+	
+	@Test
+	public void setTypeUTest() {
+		user.setTypeU(TypeU.ADMIN);
+		assertEquals(TypeU.ADMIN, user.getTypeU());
+	}
+	
+	@Test
+	public void setUsernameTest() {
+		user.setUsername("Jagoba");
+		assertEquals("Jagoba", user.getUsername());
+	}
 }
