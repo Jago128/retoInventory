@@ -18,7 +18,6 @@ public class ProductWindow extends JDialog implements ActionListener {
 	private JButton btnLogOut, btnBuy, btnAddNew, btnRemove, btnClose;
 	private JComboBox <String> comboxFilter;
 	private JList<String> listName, listPrice;
-	private Map<String, Product> products;	
 	private User user;
 
 	/**[WINDOW CREATION]**/
