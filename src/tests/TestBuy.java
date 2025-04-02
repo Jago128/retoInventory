@@ -37,7 +37,7 @@ class TestBuy {
 		assertEquals("",test.getCodUser());
 		assertEquals(0,test.getQuantity());
 		assertEquals(0,test.getPrice());
-		assertEquals(Date.valueOf(buy.getLocalDate()),test.getDate());
+		assertEquals(Date.valueOf(LocalDate.now()),test.getDate());
 	}
 
 	@Test

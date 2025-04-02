@@ -81,14 +81,6 @@ public class Purchase {
 		this.date = date;
 	}
 
-	public LocalDate getLocalDate() {
-		return localDate;
-	}
-
-	public void setLocalDate(LocalDate localDate) {
-		this.localDate = localDate;
-	}
-
 	// Method to show name and price
 	public String allData() {
 		return "["+codPurchase+"] "+codProduct+" "+price+" €"+" date";
