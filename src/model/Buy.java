@@ -11,7 +11,6 @@ public class Buy {
 	private int quantity;
 	private double price;
 	private Date date;
-	private LocalDate localDate;
 
 	// Declare empty constructor
 	public Buy() {
@@ -20,7 +19,7 @@ public class Buy {
 		this.codUser = "";
 		this.quantity = 0;
 		this.price = 0;
-		this.date = Date.valueOf(localDate);
+		this.date = Date.valueOf(LocalDate.now());
 	}
 
 	// Declare parametrized constructor
@@ -80,14 +79,6 @@ public class Buy {
 
 	public void setDate(Date date) {
 		this.date = date;
-	}
-
-	public LocalDate getLocalDate() {
-		return localDate;
-	}
-
-	public void setLocalDate(LocalDate localDate) {
-		this.localDate = localDate;
 	}
 
 	// Method to show name and price

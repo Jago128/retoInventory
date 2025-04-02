@@ -57,7 +57,7 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 		listPurchases.setBounds(10, 104, 446, 485);
 		contentPane.add(listPurchases);
 
-		//loadProductsList();
+		loadProductsList();
 
 		// Buttons
 		btnLogOut = new JButton("Log-Out");
@@ -80,8 +80,8 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 
 	// Loads the products to the list
 	public void loadProductsList() {		
-		Map<String, Purchase> purchases = cont.getPurchases(user.getCodU());
-		Map<String, Buy> buys = cont.getBuys(user.getCodU());
+		Map<Integer, Purchase> purchases = cont.getPurchases(user.getCodU());
+		Map<Integer, Buy> buys = cont.getBuys(user.getCodU());
 
 		DefaultListModel<String> model = new DefaultListModel<String>();				
 
