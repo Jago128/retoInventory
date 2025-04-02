@@ -68,7 +68,7 @@ public class Purchase {
 		return price;
 	}
 
-	public void setDouble(double price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
