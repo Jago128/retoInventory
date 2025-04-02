@@ -43,8 +43,9 @@ class TestBuy {
 	@Test
 	public void testParameterizedConstructor() {
 		String dateStr="2025/01/04";
-		LocalDate date=null;
-		date=LocalDate.parse(dateStr, format);
+		LocalDate dateL=null;
+		dateL=LocalDate.parse(dateStr, format);
+		Date date = Date.valueOf(dateL);
 		assertEquals(1, buy.getCodBuy());
 		assertEquals(4, buy.getCodComponent());
 		assertEquals("Jago128", buy.getCodUser());
