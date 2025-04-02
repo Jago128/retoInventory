@@ -74,7 +74,8 @@ INSERT INTO USER VALUES
 ("Xabitxu","Xabi","4321","Admin"),
 ("Mineralex","Alex","4321","Admin"),
 ("PepGuardiola","Pepe","1234","Client"),
-("Joao10","Felix","1234","Client");
+("Joao10","Felix","1234","Client"),
+("","Test User","","Client"); -- User for tests
       
 INSERT INTO BRAND (NAMEBRAND) VALUES 
 ("Apple"), -- AutoincrementCode: 1
