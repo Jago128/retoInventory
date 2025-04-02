@@ -1,29 +1,31 @@
 package model;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class Buy {
 	// Declare variables
-	private int codPurchase;
+	private int codBuy;
 	private int codComponent;
 	private String codUser;
 	private int quantity;
 	private double price;
-	private LocalDate date;
+	private Date date;
+	private LocalDate localDate;
 
 	// Declare empty constructor
 	public Buy() {
-		this.codPurchase = 0;
+		this.codBuy = 0;
 		this.codComponent = 0;
 		this.codUser = "";
 		this.quantity = 0;
 		this.price = 0;
-		this.date = LocalDate.now();
+		this.date = Date.valueOf(localDate);
 	}
 
 	// Declare parametrized constructor
-	public Buy(int codPurchase, int codComponent, String codUser, int quantity, double price, LocalDate date) {
-		this.codPurchase = codPurchase;
+	public Buy(int codBuy, int codComponent, String codUser, int quantity, double price, Date date) {
+		this.codBuy = codBuy;
 		this.codComponent = codComponent;
 		this.codUser = codUser;
 		this.quantity = quantity;
@@ -32,12 +34,12 @@ public class Buy {
 	}
 
 	// Declare getters and setters
-	public int getCodPurchase() {
-		return codPurchase;
+	public int getCodBuy() {
+		return codBuy;
 	}
 
-	public void setCodPurchase(int codPurchase) {
-		this.codPurchase = codPurchase;
+	public void setCodBuy(int codBuy) {
+		this.codBuy = codBuy;
 	}
 
 	public int getCodComponent() {
@@ -72,22 +74,30 @@ public class Buy {
 		this.price = price;
 	}
 	
-	public LocalDate getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDate date) {
+	public void setDate(Date date) {
 		this.date = date;
+	}
+
+	public LocalDate getLocalDate() {
+		return localDate;
+	}
+
+	public void setLocalDate(LocalDate localDate) {
+		this.localDate = localDate;
 	}
 
 	// Method to show name and price
 	public String allData() {
-		return "["+codPurchase+"] "+codComponent+" "+price+" €"+" date";
+		return "["+codBuy+"] "+codComponent+" "+price+" €"+" date";
 	}
 
 	// Declare toString
 	@Override
 	public String toString() {
-		return "Purchase [Code: "+codPurchase+", Component Code: "+codComponent+", User Code: "+codUser+", Quantity: "+quantity+", Date: "+date+"]";
+		return "Purchase [Code: "+codBuy+", Component Code: "+codComponent+", User Code: "+codUser+", Quantity: "+quantity+", Date: "+date+"]";
 	}
 }
