@@ -13,14 +13,16 @@ import model.Purchase;
 class TestPurchase {
 	private Purchase purch;
 	private DateTimeFormatter format;
+	private LocalDate dateL;
+	private Date date;
+	private String dateStr;
 	
 	@BeforeEach
 	void setUp() throws Exception {
 		format=DateTimeFormatter.ofPattern("yyyy/MM/dd");
-		String dateStr="2025/03/02";
-		LocalDate dateL = null;
+		dateStr="2025/03/02";
 		dateL=LocalDate.parse(dateStr, format);
-		Date date=Date.valueOf(dateL);
+		date=Date.valueOf(dateL);
 		purch = new Purchase (1,1,"Xabitxu",150,0, date);
 	}
 	
@@ -37,14 +39,11 @@ class TestPurchase {
 		assertEquals("",test.getCodUser());
 		assertEquals(0,test.getQuantity());
 		assertEquals(0,test.getPrice());
-		assertEquals(Date.valueOf(purch.getLocalDate()),test.getDate());
+		assertEquals(Date.valueOf(LocalDate.now()),test.getDate());
 	}
 
 	@Test
 	public void testParameterizedConstructor() {
-		String dateStr="2025/03/02";
-		LocalDate date=null;
-		date=LocalDate.parse(dateStr, format);
 		assertEquals(1, purch.getCodPurchase());
 		assertEquals(1, purch.getCodProduct());
 		assertEquals("Xabitxu", purch.getCodUser());
@@ -117,10 +116,9 @@ class TestPurchase {
 
 	@Test
 	public void testSetDate() {
-		String dateStr="2025/02/20";
-		LocalDate dateL = null;
+		dateStr="2025/02/20";
 		dateL=LocalDate.parse(dateStr, format);
-		Date date = Date.valueOf(dateL);
+		date = Date.valueOf(dateL);
 		purch.setDate(date);
 		assertEquals(date, purch.getDate());  
 	}

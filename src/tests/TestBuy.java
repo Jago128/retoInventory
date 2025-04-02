@@ -13,14 +13,16 @@ import model.Buy;
 class TestBuy {
 	private Buy buy;
 	private DateTimeFormatter format;
+	private LocalDate dateL;
+	private Date date;
+	private String dateStr;
 	
 	@BeforeEach
 	void setUp() throws Exception {
 		format=DateTimeFormatter.ofPattern("yyyy/MM/dd");
-		String dateStr="2025/01/04";
-		LocalDate dateL=null;
+		dateStr="2025/01/04";
 		dateL=LocalDate.parse(dateStr, format);
-		Date date = Date.valueOf(dateL);
+		date = Date.valueOf(dateL);
 		buy = new Buy(1,4,"Jago128",2, 60, date);
 	}
 	
@@ -42,10 +44,6 @@ class TestBuy {
 
 	@Test
 	public void testParameterizedConstructor() {
-		String dateStr="2025/01/04";
-		LocalDate dateL=null;
-		dateL=LocalDate.parse(dateStr, format);
-		Date date = Date.valueOf(dateL);
 		assertEquals(1, buy.getCodBuy());
 		assertEquals(4, buy.getCodComponent());
 		assertEquals("Jago128", buy.getCodUser());
@@ -113,15 +111,18 @@ class TestBuy {
 	
 	@Test
 	public void testGetDate() {
-		assertEquals(Date.valueOf(buy.getLocalDate()), buy.getDate());  
+		String dateStr="2025/01/04";
+		LocalDate dateL=null;
+		dateL=LocalDate.parse(dateStr, format);
+		Date date = Date.valueOf(dateL);
+		assertEquals(date, buy.getDate());  
 	}
 
 	@Test
 	public void testSetDate() {
-		String dateStr="2025/02/20";
-		LocalDate dateL=null;
+		dateStr="2025/02/20";
 		dateL=LocalDate.parse(dateStr, format);
-		Date date = Date.valueOf(dateL);
+		date = Date.valueOf(dateL);
 		buy.setDate(date);
 		assertEquals(date, buy.getDate());  
 	}
