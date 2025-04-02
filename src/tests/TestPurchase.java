@@ -3,18 +3,23 @@ package tests;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import org.junit.jupiter.api.*;
 
-import model.Comp;
 import model.Purchase;
-import model.TypeC;
 
 class TestPurchase {
 	private Purchase purch;
+	private DateTimeFormatter format;
+	
 	@BeforeEach
 	void setUp() throws Exception {
-		purch = new Purchase (1,1,"Xabitxu",150,0, LocalDate.now());
+		format=DateTimeFormatter.ofPattern("yyyy/MM/dd");
+		String dateStr="2025/03/02";
+		LocalDate date=null;
+		date=LocalDate.parse(dateStr, format);
+		purch = new Purchase (1,1,"Xabitxu",150,0, date);
 	}
 	
 	@AfterEach
@@ -107,8 +112,10 @@ class TestPurchase {
 
 	@Test
 	public void testSetDate() {
-		purch.setDate(LocalDate.now());
-		assertEquals(LocalDate.now(), purch.getDate());  
+		String dateStr="2025/02/20";
+		LocalDate date=null;
+		date=LocalDate.parse(dateStr, format);
+		purch.setDate(date);
+		assertEquals(date, purch.getDate());  
 	}
-	
 }
