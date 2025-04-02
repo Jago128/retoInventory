@@ -29,23 +29,26 @@ class TestPurchase {
 	
 	@Test
 	public void testDefaultConstructor() {
-		Purchase defaultEmployee = new Purchase();
-		assertEquals(0,defaultEmployee.getCodPurchase());
-		assertEquals(0, defaultEmployee.getCodProduct());
-		assertEquals("",defaultEmployee.getCodUser());
-		assertEquals(0,defaultEmployee.getQuantity());
-		assertEquals(0,defaultEmployee.getPrice());
-		assertEquals(LocalDate.now(),defaultEmployee.getDate());
+		Purchase test = new Purchase();
+		assertEquals(0,test.getCodPurchase());
+		assertEquals(0, test.getCodProduct());
+		assertEquals("",test.getCodUser());
+		assertEquals(0,test.getQuantity());
+		assertEquals(0,test.getPrice());
+		assertEquals(LocalDate.now(),test.getDate());
 	}
 
 	@Test
 	public void testParameterizedConstructor() {
+		String dateStr="2025/03/02";
+		LocalDate date=null;
+		date=LocalDate.parse(dateStr, format);
 		assertEquals(1, purch.getCodPurchase());
 		assertEquals(1, purch.getCodProduct());
 		assertEquals("Xabitxu", purch.getCodUser());
 		assertEquals(150, purch.getQuantity());
 		assertEquals(0, purch.getPrice());
-		assertEquals(LocalDate.now(), purch.getDate());       
+		assertEquals(date, purch.getDate());       
 	}
 	
 	@Test

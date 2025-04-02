@@ -17,15 +17,17 @@ public class Buy {
 		this.codComponent = 0;
 		this.codUser = "";
 		this.quantity = 0;
+		this.price = 0;
 		this.date = LocalDate.now();
 	}
 
 	// Declare parametrized constructor
-	public Buy(int codPurchase, int codComponent, String codUser, int quantity, LocalDate date) {
+	public Buy(int codPurchase, int codComponent, String codUser, int quantity, double price, LocalDate date) {
 		this.codPurchase = codPurchase;
 		this.codComponent = codComponent;
 		this.codUser = codUser;
 		this.quantity = quantity;
+		this.price = price;
 		this.date = date;
 	}
 
