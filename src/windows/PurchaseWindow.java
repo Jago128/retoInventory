@@ -112,6 +112,8 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 		}
 		// Closes the window
 		if (e.getSource() == btnClose) {
+			MenuWindow menu = new MenuWindow(cont, user); 
+			menu.setVisible(true);
 			this.dispose();
 		}
 	}

@@ -117,6 +117,11 @@ public class MenuWindow extends JFrame implements ActionListener {
 		btnPurchases.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		btnPurchases.setBackground(UIManager.getColor("Button.background"));
 		btnPurchases.setBounds(294, 5, 81, 21);
+		if (user.getTypeU()==TypeU.CLIENT) { // In case the user is client the button will be visible
+			btnPurchases.setVisible(true);
+		} else { // The admin will not have this option visible
+			btnPurchases.setVisible(false);
+		}
 		contentPane.add(btnPurchases);
 
 		// Adding action listener
