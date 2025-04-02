@@ -53,7 +53,7 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLSELECTCOMPONENTBRAND = "SELECT * FROM component WHERE codBrand=(SELECT codBrand FROM brand WHERE nameBrand = ?)";
 
 	// PURCHASES AND BUYS
-	final String SQLSELECTPURCHASES = "SELECT * FROM purchase WHERE codUser = ?";
+	final String SQLSELECTPURCHASE = "SELECT * FROM purchase WHERE codUser = ?";
 	final String SQLSELECTBUY = "SELECT * FROM buy WHERE codUser = ?";
 
 	/**[DATABASE]**/
@@ -775,7 +775,8 @@ public class DBImplementation implements MediaMartaDAO {
 		// Opens the connection
 		this.openConnection();
 		try {
-			stmt = con.prepareStatement(SQLSELECTPURCHASES);
+			stmt = con.prepareStatement(SQLSELECTPURCHASE);
+			stmt.setString(1, codU);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				purchase = new Purchase();
@@ -805,7 +806,8 @@ public class DBImplementation implements MediaMartaDAO {
 		// Opens the connection
 		this.openConnection();
 		try {
-			stmt = con.prepareStatement(SQLSELECTPURCHASES);
+			stmt = con.prepareStatement(SQLSELECTBUY);
+			stmt.setString(1, codU);
 			rs = stmt.executeQuery();
 			while (rs.next()) {
 				buy = new Buy();

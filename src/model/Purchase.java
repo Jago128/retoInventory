@@ -11,7 +11,6 @@ public class Purchase {
 	private int quantity;
 	private double price;
 	private Date date;
-	private LocalDate localDate;
 
 	// Declare empty constructor
 	public Purchase() {
@@ -20,7 +19,7 @@ public class Purchase {
 		this.codUser = "";
 		this.quantity = 0;
 		this.price= 0;
-		this.date = Date.valueOf(localDate);
+		this.date = Date.valueOf(LocalDate.now());
 	}
 
 	// Declare parametrized constructor
