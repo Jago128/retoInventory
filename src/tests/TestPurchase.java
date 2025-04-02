@@ -2,6 +2,7 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -17,8 +18,9 @@ class TestPurchase {
 	void setUp() throws Exception {
 		format=DateTimeFormatter.ofPattern("yyyy/MM/dd");
 		String dateStr="2025/03/02";
-		LocalDate date=null;
-		date=LocalDate.parse(dateStr, format);
+		LocalDate dateL = null;
+		dateL=LocalDate.parse(dateStr, format);
+		Date date=Date.valueOf(dateL);
 		purch = new Purchase (1,1,"Xabitxu",150,0, date);
 	}
 	
@@ -116,8 +118,9 @@ class TestPurchase {
 	@Test
 	public void testSetDate() {
 		String dateStr="2025/02/20";
-		LocalDate date=null;
-		date=LocalDate.parse(dateStr, format);
+		LocalDate dateL = null;
+		dateL=LocalDate.parse(dateStr, format);
+		Date date = Date.valueOf(dateL);
 		purch.setDate(date);
 		assertEquals(date, purch.getDate());  
 	}
