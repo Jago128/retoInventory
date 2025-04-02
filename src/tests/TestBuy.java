@@ -2,6 +2,7 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 
@@ -17,8 +18,9 @@ class TestBuy {
 	void setUp() throws Exception {
 		format=DateTimeFormatter.ofPattern("yyyy/MM/dd");
 		String dateStr="2025/01/04";
-		LocalDate date=null;
-		date=LocalDate.parse(dateStr, format);
+		LocalDate dateL=null;
+		dateL=LocalDate.parse(dateStr, format);
+		Date date = Date.valueOf(dateL);
 		buy = new Buy(1,4,"Jago128",2, 60, date);
 	}
 	
@@ -30,12 +32,12 @@ class TestBuy {
 	@Test
 	public void testDefaultConstructor() {
 		Buy test = new Buy();
-		assertEquals(0,test.getCodPurchase());
+		assertEquals(0,test.getCodBuy());
 		assertEquals(0, test.getCodComponent());
 		assertEquals("",test.getCodUser());
 		assertEquals(0,test.getQuantity());
 		assertEquals(0,test.getPrice());
-		assertEquals(LocalDate.now(),test.getDate());
+		assertEquals(Date.valueOf(buy.getLocalDate()),test.getDate());
 	}
 
 	@Test
@@ -43,7 +45,7 @@ class TestBuy {
 		String dateStr="2025/01/04";
 		LocalDate date=null;
 		date=LocalDate.parse(dateStr, format);
-		assertEquals(1, buy.getCodPurchase());
+		assertEquals(1, buy.getCodBuy());
 		assertEquals(4, buy.getCodComponent());
 		assertEquals("Jago128", buy.getCodUser());
 		assertEquals(2, buy.getQuantity());
@@ -53,19 +55,19 @@ class TestBuy {
 	
 	@Test
 	public void testGetCodPurchase() {
-		assertEquals(1, buy.getCodPurchase());
+		assertEquals(1, buy.getCodBuy());
 	}
 
 
 	@Test
 	public void testSetCodPurchase() {
-		buy.setCodPurchase(1);
-		assertEquals(1, buy.getCodPurchase());
+		buy.setCodBuy(1);
+		assertEquals(1, buy.getCodBuy());
 	}
 
 	@Test 
 	public void testGetCodProduct() {
-		assertEquals(1, buy.getCodComponent());
+		assertEquals(4, buy.getCodComponent());
 	}
 
 
@@ -77,7 +79,7 @@ class TestBuy {
 
 	@Test
 	public void testGetCodUser() {
-		assertEquals("Xabitxu", buy.getCodUser());
+		assertEquals("Jago128", buy.getCodUser());
 	}
 
 	@Test
@@ -88,7 +90,7 @@ class TestBuy {
 
 	@Test
 	public void testGetQuantity() {
-		assertEquals(150, buy.getQuantity());
+		assertEquals(2, buy.getQuantity());
 	}
 
 	@Test
@@ -99,25 +101,26 @@ class TestBuy {
 
 	@Test
 	public void testGetPrice() {
-		assertEquals(0, buy.getPrice());
+		assertEquals(60, buy.getPrice());
 	}
 
 	@Test
 	public void testSetPrice() {
-		buy.setPrice(0);
-		assertEquals(0, buy.getPrice());
+		buy.setPrice(2);
+		assertEquals(2, buy.getPrice());
 	}
 	
 	@Test
 	public void testGetDate() {
-		assertEquals(LocalDate.now(), buy.getDate());  
+		assertEquals(Date.valueOf(buy.getLocalDate()), buy.getDate());  
 	}
 
 	@Test
 	public void testSetDate() {
 		String dateStr="2025/02/20";
-		LocalDate date=null;
-		date=LocalDate.parse(dateStr, format);
+		LocalDate dateL=null;
+		dateL=LocalDate.parse(dateStr, format);
+		Date date = Date.valueOf(dateL);
 		buy.setDate(date);
 		assertEquals(date, buy.getDate());  
 	}
