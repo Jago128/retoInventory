@@ -33,6 +33,7 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 		setBounds(100, 100, 480, 636);
 		getContentPane().setBackground(Color.WHITE);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		setResizable(false);
@@ -53,7 +54,7 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 
 		// Lists & Scroll
 		listPurchases = new JList<String>();
-		listPurchases.setBounds(5, 104, 451, 485);
+		listPurchases.setBounds(10, 104, 446, 485);
 		contentPane.add(listPurchases);
 
 		//loadProductsList();
