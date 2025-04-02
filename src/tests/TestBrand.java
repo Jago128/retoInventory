@@ -20,6 +20,20 @@ class TestBrand {
 	void tearDown() throws Exception {
 		brand = null;
 	}
+	
+    
+	@Test
+	void testDefaultConstructor() {
+		Brand defaultBrand=new Brand();
+		assertEquals(0, defaultBrand.getCodB());
+		assertEquals("", defaultBrand.getNameB());
+	}
+	
+	@Test
+    public void testParameterizedConstructor() {
+        assertEquals(1, brand.getCodB());
+        assertEquals("Samsung", brand.getNameB());
+    }
 
 	@Test
     public void testGetId() {
@@ -42,18 +56,4 @@ class TestBrand {
         brand.setNameB("Apple");
         assertEquals("Apple", brand.getNameB());
     }
-    
-	@Test
-	void testDefaultConstructor() {
-		Brand defaultBrand=new Brand();
-		assertEquals(0, defaultBrand.getCodB());
-		assertEquals("", defaultBrand.getNameB());
-	}
-	
-	@Test
-    public void testParameterizedConstructor() {
-        assertEquals(1, brand.getCodB());
-        assertEquals("Samsung", brand.getNameB());
-    }
-
 }

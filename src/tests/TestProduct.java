@@ -22,6 +22,23 @@ class TestProduct {
 	void tearDown() throws Exception {
 		product = null;
 	}
+	
+	@Test
+	void testDefaultConstructor() {
+		Product defaultProduct=new Product();
+		assertEquals(0, defaultProduct.getCodP());
+		assertEquals("", defaultProduct.getNameP());
+		assertEquals(TypeP.COMPUTER, defaultProduct.getTypeP());
+		assertEquals(0, defaultProduct.getPrice());
+		assertEquals(0, defaultProduct.getStock());
+		assertEquals(0, defaultProduct.getCodBrand());
+	}
+	
+	@Test
+    public void testParameterizedConstructor() {
+        assertEquals(1, product.getCodP());
+        assertEquals("Iphone X", product.getNameP());
+    }
 
 	@Test
     public void testGetCodP() {
@@ -88,23 +105,4 @@ class TestProduct {
         product.setCodBrand(2);
         assertEquals(2, product.getCodBrand());
     }
-
-    
-	@Test
-	void testDefaultConstructor() {
-		Product defaultProduct=new Product();
-		assertEquals(0, defaultProduct.getCodP());
-		assertEquals("", defaultProduct.getNameP());
-		assertEquals(TypeP.COMPUTER, defaultProduct.getTypeP());
-		assertEquals(0, defaultProduct.getPrice());
-		assertEquals(0, defaultProduct.getStock());
-		assertEquals(0, defaultProduct.getCodBrand());
-	}
-	
-	@Test
-    public void testParameterizedConstructor() {
-        assertEquals(1, product.getCodP());
-        assertEquals("Iphone X", product.getNameP());
-    }
-
 }
