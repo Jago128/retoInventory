@@ -111,10 +111,6 @@ class TestBuy {
 	
 	@Test
 	public void testGetDate() {
-		String dateStr="2025/01/04";
-		LocalDate dateL=null;
-		dateL=LocalDate.parse(dateStr, format);
-		Date date = Date.valueOf(dateL);
 		assertEquals(date, buy.getDate());  
 	}
 
