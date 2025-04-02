@@ -118,6 +118,14 @@ public class SignInWindow extends JDialog implements ActionListener {
 		}
 	}
 
+	// Verifying the password has the correct format
+	public boolean verifyPasswordFormat(String password) { // EXCEPTION
+		boolean correct=false;
+
+
+		return correct;
+	}
+
 	// Verifying the password is equal in both text fields
 	public boolean verifyPassword(String password, String passwordConf) {
 		boolean correct;
@@ -129,7 +137,7 @@ public class SignInWindow extends JDialog implements ActionListener {
 		}
 		return correct;
 	}
-	
+
 	// Sets the correct data of the user
 	public User setUser(User user) {
 		user.setCodU(textUserCod.getText());
@@ -154,22 +162,26 @@ public class SignInWindow extends JDialog implements ActionListener {
 			User user = new User(textUserCod.getText(), textName.getText()); // Creates a user
 			if (!cont.verifyUser(user)) { // Verifies if a user with the same name exists
 				setTextColor(textUserCod, true);
-				if (verifyPassword(new String(password.getPassword()), new String(passwordConfirmation.getPassword()))) { // Verifies if the password is equal in both text fields
-					setTextColor(password, true);
-					setTextColor(passwordConfirmation, true);					
-					setUser(user);										 
-					cont.registerUser(user); // Registers the user
-					lblMessage.setText("User registered correctly.");
-					setLabelColor(lblMessage, true);
-					JOptionPane.showMessageDialog(null, "User registered correctly.");
-					MenuWindow menu = new MenuWindow(cont, user);
-					menu.setVisible(true);
-					this.dispose();
-				} else {
-					lblMessage.setText("The password must be equal in both parts.");
-					setLabelColor(lblMessage, false);
-					setTextColor(password, false);
-					setTextColor(passwordConfirmation, false);
+				if(verifyPasswordFormat(new String(password.getPassword()))) { // EXCEPTION
+					if (verifyPassword(new String(password.getPassword()), new String(passwordConfirmation.getPassword()))) { // Verifies if the password is equal in both text fields
+						setTextColor(password, true);
+						setTextColor(passwordConfirmation, true);					
+						setUser(user);										 
+						cont.registerUser(user); // Registers the user
+						lblMessage.setText("User registered correctly.");
+						setLabelColor(lblMessage, true);
+						JOptionPane.showMessageDialog(null, "User registered correctly.");
+						MenuWindow menu = new MenuWindow(cont, user);
+						menu.setVisible(true);
+						this.dispose();
+					} else {
+						lblMessage.setText("The password must be equal in both parts.");
+						setLabelColor(lblMessage, false);
+						setTextColor(password, false);
+						setTextColor(passwordConfirmation, false);
+					}
+				} else { // EXCEPTION
+					
 				}
 			} else {
 				lblMessage.setText("User with that code already exists.");
