@@ -20,7 +20,7 @@ class TestPurchase {
 	@BeforeEach
 	void setUp() throws Exception {
 		format=DateTimeFormatter.ofPattern("yyyy/MM/dd");
-		dateStr="2025/03/02";
+		dateStr="2025/04/02";
 		dateL=LocalDate.parse(dateStr, format);
 		date=Date.valueOf(dateL);
 		purch = new Purchase (1,1,"Xabitxu",150,0, date);
@@ -111,7 +111,7 @@ class TestPurchase {
 	
 	@Test
 	public void testGetDate() {
-		assertEquals(LocalDate.now(), purch.getDate());  
+		assertEquals(date, purch.getDate());     
 	}
 
 	@Test
