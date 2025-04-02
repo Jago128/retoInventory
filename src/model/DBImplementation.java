@@ -51,10 +51,11 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLSELECTBRANDCODE = "SELECT codBrand FROM brand WHERE nameBrand = ?";
 	final String SQLSELECTPRODUCTBRAND = "SELECT * FROM product WHERE codBrand =(SELECT codBrand FROM brand WHERE nameBrand = ?)";
 	final String SQLSELECTCOMPONENTBRAND = "SELECT * FROM component WHERE codBrand=(SELECT codBrand FROM brand WHERE nameBrand = ?)";
-	
+
 	// PURCHASES AND BUYS
-	final String SQLSELECTPURCHASES = "SELECT * FROM PURCHASES ORDERED BY NAME";
-	
+	final String SQLSELECTPURCHASES = "SELECT * FROM purchase WHERE codUser = ?";
+	final String SQLSELECTBUY = "SELECT * FROM buy WHERE codUser = ?";
+
 	/**[DATABASE]**/
 
 	// Declare implementation constructor
@@ -300,12 +301,12 @@ public class DBImplementation implements MediaMartaDAO {
 			// Prepares the SQL query
 			stmt = con.prepareStatement(SQLINSERTPROD);
 			stmt.setString(1, prod.getNameP());
-			
+
 			switch (prod.getTypeP()) {
 			case COMPUTER:
 				stmt.setString(2, "Mobile");
 				break;
-				
+
 			case MOBILE:
 				stmt.setString(2, "Computer");
 				break;
@@ -766,22 +767,63 @@ public class DBImplementation implements MediaMartaDAO {
 	/**[PURCHASES & BUYS]**/
 
 	// Get the Purchase list
-	public Map<String, Purchase> getPurchases(String codU) {
+	public Map<Integer, Purchase> getPurchases(String codU) {
 		ResultSet rs = null;
-		Purchase product;
-		Map<String, Purchase> purchases = new TreeMap<>();
-		
-		this.openConnection();
+		Purchase purchase;
+		Map<Integer, Purchase> purchases = new TreeMap<>();
 
+		// Opens the connection
+		this.openConnection();
+		try {
+			stmt = con.prepareStatement(SQLSELECTPURCHASES);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				purchase = new Purchase();
+				purchase.setCodPurchase(rs.getInt("codPurchase"));
+				purchase.setCodProduct(rs.getInt("codProduct"));			
+				purchase.setCodUser(rs.getString("codUser"));
+				purchase.setQuantity(rs.getInt("quantity"));
+				purchase.setPrice(rs.getDouble("totalPrice"));	
+				purchase.setDate(rs.getDate("dateP"));	
+				purchases.put(purchase.getCodPurchase(), purchase);
+			}
+			rs.close();
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("SQL error");
+			e.printStackTrace();
+		}
 		return purchases;
 	}
-	
+
 	// Get the buy list
-	public Map<String, Buy> getBuys(String codU) {
+	public Map<Integer, Buy> getBuys(String codU) {
 		ResultSet rs = null;
 		Buy buy;
-		Map<String, Buy> buys = new TreeMap<>();
-
+		Map<Integer, Buy> buys = new TreeMap<>();
+		// Opens the connection
+		this.openConnection();
+		try {
+			stmt = con.prepareStatement(SQLSELECTPURCHASES);
+			rs = stmt.executeQuery();
+			while (rs.next()) {
+				buy = new Buy();
+				buy.setCodBuy(rs.getInt("codBuy"));
+				buy.setCodComponent(rs.getInt("codComponent"));			
+				buy.setCodUser(rs.getString("codUser"));
+				buy.setQuantity(rs.getInt("quantity"));
+				buy.setPrice(rs.getDouble("totalPrice"));	
+				buy.setDate(rs.getDate("dateB"));	
+				buys.put(buy.getCodBuy(), buy);
+			}
+			rs.close();
+			stmt.close();
+			con.close();
+		} catch (SQLException e) {
+			System.out.println("SQL error");
+			e.printStackTrace();
+		}
 		return buys;
 	}
 }

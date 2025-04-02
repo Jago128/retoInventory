@@ -60,7 +60,7 @@ public interface MediaMartaDAO {
 
 	/**[PURCHASES & BUYS]**/
 
-	public Map<String, Purchase> getPurchases(String codU);
+	public Map<Integer, Purchase> getPurchases(String codU);
 	
-	public Map<String, Buy> getBuys(String codU);
+	public Map<Integer, Buy> getBuys(String codU);
 }

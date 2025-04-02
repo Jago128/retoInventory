@@ -1,5 +1,6 @@
 package model;
 
+import java.sql.Date;
 import java.time.LocalDate;
 
 public class Purchase {
@@ -9,7 +10,8 @@ public class Purchase {
 	private String codUser;
 	private int quantity;
 	private double price;
-	private LocalDate date;
+	private Date date;
+	private LocalDate localDate;
 
 	// Declare empty constructor
 	public Purchase() {
@@ -18,11 +20,11 @@ public class Purchase {
 		this.codUser = "";
 		this.quantity = 0;
 		this.price= 0;
-		this.date = LocalDate.now();
+		this.date = Date.valueOf(localDate);
 	}
 
 	// Declare parametrized constructor
-	public Purchase(int codPurchase, int codProduct, String codUser, int quantity, double price, LocalDate date) {
+	public Purchase(int codPurchase, int codProduct, String codUser, int quantity, double price, Date date) {
 		this.codPurchase = codPurchase;
 		this.codProduct = codProduct;
 		this.codUser = codUser;
@@ -68,15 +70,15 @@ public class Purchase {
 		return price;
 	}
 
-	public void setDouble(double price) {
+	public void setPrice(double price) {
 		this.price = price;
 	}
 
-	public LocalDate getDate() {
+	public Date getDate() {
 		return date;
 	}
 
-	public void setDate(LocalDate date) {
+	public void setDate(Date date) {
 		this.date = date;
 	}
 
