@@ -129,7 +129,8 @@ public class SignInWindow extends JDialog implements ActionListener {
 		}
 		return check;
 	}
-	
+
+	// Verifies the password has the format
 	public boolean passwordFormat(String password) {
 		Pattern pattern = Pattern.compile("^(?=.*[0-9])(?=.*[A-Za-z]).{8,}$");
 		Matcher matcher = pattern.matcher(password);
