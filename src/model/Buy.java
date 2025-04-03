@@ -89,6 +89,6 @@ public class Buy {
 	// Declare toString
 	@Override
 	public String toString() {
-		return "Purchase [Code: "+codBuy+", Component Code: "+codComponent+", User Code: "+codUser+", Quantity: "+quantity+", Date: "+date+"]";
+		return "Buy [Code: "+codBuy+", Component Code: "+codComponent+", User Code: "+codUser+", Quantity: "+quantity+", Date: "+date+"]";
 	}
 }
