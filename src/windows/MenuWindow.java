@@ -23,6 +23,7 @@ public class MenuWindow extends JFrame implements ActionListener {
 	private Map<String, Product> products;
 	private Map<String, Comp> components;
 	private JList<String> listProduct, listComp, listBrand;
+	private JTextField textField;
 
 	/**[WINDOW CREATION]**/
 
@@ -62,29 +63,32 @@ public class MenuWindow extends JFrame implements ActionListener {
 		contentPane.add(lblCodUser);
 
 		// Lists & Scroll
-		listProduct = new JList<String>();
-		listProduct.setBounds(5, 149, 424, 65);
-		contentPane.add(listProduct);	
+		listProduct = new JList<String>();		
+		listProduct.setLayoutOrientation(JList.VERTICAL);
 
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setViewportView(listProduct);
-		listProduct.setLayoutOrientation(JList.VERTICAL);
-		contentPane.add(scrollPane);
-		
-		/*JScrollBar scrollBarProd = new JScrollBar();
-		scrollBarProd.setBounds(439, 149, 17, 65);
-		listProduct.setLayoutOrientation(JList.VERTICAL);
-		contentPane.add(scrollBarProd);*/ 
-		
-		//listProduct.add(scrollBarProd);
-		
+		JScrollPane scrollPaneProduct = new JScrollPane(listProduct); // Creates a ScrollPane where the list will be
+		scrollPaneProduct.setViewportView(listProduct);
+		scrollPaneProduct.setBounds(5, 137, 451, 92); // Set bounds of the ScrollPane
+		scrollPaneProduct.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		contentPane.add(scrollPaneProduct);
+
 		listComp = new JList<String>();
-		listComp.setBounds(5, 294, 451, 65);
 		contentPane.add(listComp);
 
+		JScrollPane scrollPaneComponent = new JScrollPane(listComp); // Creates a ScrollPane where the list will be
+		scrollPaneComponent.setViewportView(listComp);
+		scrollPaneComponent.setBounds(5, 283, 451, 92); // Set bounds of the ScrollPane
+		scrollPaneComponent.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		contentPane.add(scrollPaneComponent);
+
 		listBrand = new JList<String>();
-		listBrand.setBounds(5, 448, 451, 65);
 		contentPane.add(listBrand);
+
+		JScrollPane scrollPaneBrand = new JScrollPane(listBrand); // Creates a ScrollPane where the list will be
+		scrollPaneBrand.setViewportView(listBrand);
+		scrollPaneBrand.setBounds(5, 437, 451, 92); // Set bounds of the ScrollPane
+		scrollPaneBrand.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+		contentPane.add(scrollPaneBrand);
 
 		loadProductsList();
 
@@ -134,7 +138,7 @@ public class MenuWindow extends JFrame implements ActionListener {
 		} else { // The admin will not have this option visible
 			btnPurchases.setVisible(false);
 		}
-		contentPane.add(btnPurchases);
+		contentPane.add(btnPurchases);		
 
 		// Adding action listener
 		btnLogOut.addActionListener(this);
