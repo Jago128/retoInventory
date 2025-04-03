@@ -4,6 +4,7 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
+import model.*;
 import controller.LoginController;
 
 /* MAIN MENU WINDOW 
@@ -121,9 +122,30 @@ public class MainWindow extends JFrame implements ActionListener {
 		}
 		// Verifies if the user exist to log in
 		if (e.getSource() == btnLogIn) {
-			MenuWindow menu = new MenuWindow(cont);
-			menu.setVisible(true);
-			this.dispose();
+			User user = new User(textCodU.getText(), new String(passwordPsw.getPassword()));
+			if (cont.verifyUser(user)) { // Verifies the user exists 
+				setTextColor(textCodU, true);
+				if (cont.verifyUserPassword(user)) { // Verifies the password matches 			
+					user = cont.getUser(user); // Obtains all the data of the user
+					setLabelColor(lblMesageUp, true);
+					setTextColor(passwordPsw, true);
+					lblMesageUp.setText("Welcome " + textCodU.getText());
+					lblMessageDown.setText("");
+					JOptionPane.showMessageDialog(null, "Welcome " + textCodU.getText()); // Pop-Up Message
+					MenuWindow menu = new MenuWindow(cont); 
+					menu.setVisible(true);
+					this.dispose();
+				}  else { // If the password doesn't match warns the user with a red message
+					setLabelColor(lblMesageUp, false);
+					setTextColor(passwordPsw, false);
+					lblMesageUp.setText("Incorrect password.");					
+				}
+			} else { // If the user doesn't exist warns the user with a red message
+				setLabelColor(lblMesageUp, false);
+				setTextColor(textCodU, false);
+				lblMesageUp.setText("The user does not exist.");
+				lblMessageDown.setText("To register go to Log-In.");
+			}
 		}
 		// Opens a new window to log-in for the new user to register
 		if (e.getSource() == btnSignIn) {
