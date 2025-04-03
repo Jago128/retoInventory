@@ -109,5 +109,15 @@ class TestComp {
 		comp.setPrice(81.99);
 		assertEquals(81.99, comp.getPrice());
 	}
+	
+	@Test
+	public void testNameAndPrice() {
+		assertEquals("[Component Code "+"1"+"] "+"Asus GT710"+" "+"81.99"+" €",comp.nameAndPrice());
+	}
+	
+	@Test
+	public void testToString() {
+		assertEquals("Comp [Code: "+"1"+", Name: "+"Asus GT710"+", Type: "+"GRAPHICS"+", Brand Code: "+"5"+", Stock: "+"5"+", Price: "+"81.99]",comp.toString()); 
+	}
 
 }

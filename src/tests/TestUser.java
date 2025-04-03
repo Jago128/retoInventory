@@ -79,4 +79,9 @@ class TestUser {
 		user.setUsername("Jagoba");
 		assertEquals("Jagoba", user.getUsername());
 	}
+	
+	@Test
+	public void testToString() {
+		assertEquals("User [Code: "+"Joao10"+", Username: "+"Felix"+", Password: "+"1234"+", Type: "+"CLIENT]",user.toString()); 
+	}
 }
