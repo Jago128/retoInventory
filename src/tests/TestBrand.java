@@ -2,9 +2,6 @@ package tests;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-import java.io.ByteArrayOutputStream;
-import java.io.PrintStream;
-
 import org.junit.jupiter.api.*;
 
 import model.Brand;
@@ -12,8 +9,6 @@ import model.Brand;
 class TestBrand {
 
 	private Brand brand;
-	private  ByteArrayOutputStream outContent = new ByteArrayOutputStream();
-	private final PrintStream originalOut = System.out;
 
 	@BeforeEach
 	public void setUp() {
@@ -25,7 +20,6 @@ class TestBrand {
 	void tearDown() throws Exception {
 		brand = null;
 	}
-
 
 	@Test
 	void testDefaultConstructor() {
