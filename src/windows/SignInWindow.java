@@ -131,7 +131,7 @@ public class SignInWindow extends JDialog implements ActionListener {
 	}
 	
 	public boolean passwordFormat(String password) {
-		Pattern pattern = Pattern.compile("^([\\w]{1,}[\\d]{1,}).{8,}$");
+		Pattern pattern = Pattern.compile("^([\\w]{1,})([\\d]{1,}).{8,}$");
 		Matcher matcher = pattern.matcher(password);
 		return matcher.matches();
 	}
