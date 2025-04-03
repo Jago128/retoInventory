@@ -55,15 +55,15 @@ public class ProductWindow extends JDialog implements ActionListener{
 		lblCodUser.setBounds(375, 27, 81, 19);
 		getContentPane().add(lblCodUser);
 
-		// List & ComboBox
+		// List, Scroll & ComboBox
 		listName = new JList<String>();
 		listName.setBounds(10, 104, 314, 406);
-		getContentPane().add(listName);		
+		getContentPane().add(listName);			
 
 		listPrice = new JList<String>();
 		listPrice.setBounds(327, 104, 129, 406);
 		getContentPane().add(listPrice);		
-
+		
 		comboxFilter = new JComboBox<String>();
 		comboxFilter.setBounds(10, 81, 446, 22);
 		getContentPane().add(comboxFilter);

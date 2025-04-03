@@ -68,13 +68,13 @@ CREATE TABLE BUY (
 );
 
 INSERT INTO USER VALUES 
-("Pakete7","Paco","1234","Client"),
+("Pakete7","Paco","abcd1234","Client"),
 ("Jago128","Jagoba","4321","Admin"),
 ("BoliBick","Victor","4321","Admin"),
 ("Xabitxu","Xabi","4321","Admin"),
 ("Mineralex","Alex","4321","Admin"),
-("PepGuardiola","Pepe","1234","Client"),
-("Joao10","Felix","1234","Client"),
+("PepGuardiola","Pepe","abcd1234","Client"),
+("Joao10","Felix","abcd1234","Client"),
 ("","Test User","","Client"); -- User for tests
       
 INSERT INTO BRAND (NAMEBRAND) VALUES 
