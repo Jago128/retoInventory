@@ -193,7 +193,10 @@ public class SignInWindow extends JDialog implements ActionListener {
 						}
 					}
 				} catch (IncorrectPasswordFormatException error) {
+					setLabelColor(lblMessage, false);
+					setTextColor(password, false);
 					lblMessage.setText(error.getMessage());
+					JOptionPane.showMessageDialog(null, "Password must have at least 8 chacraters and contain one letter and one number.");
 				}
 			} else {
 				lblMessage.setText("User with that code already exists.");
