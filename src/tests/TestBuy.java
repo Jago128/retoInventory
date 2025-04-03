@@ -122,4 +122,14 @@ class TestBuy {
 		buy.setDate(date);
 		assertEquals(date, buy.getDate());  
 	}
+	
+	@Test
+	public void testAllData() {
+		assertEquals("[COD1] 2 units of component 4 at  total price 60.0€ on 2025-01-04",buy.allData());
+	}
+	
+	@Test
+	public void testToString() {
+		assertEquals("Buy [Code: 1, Component Code: 4, User Code: Jago128, Quantity: 2, Date: 2025-01-04]", buy.toString());
+	}
 }

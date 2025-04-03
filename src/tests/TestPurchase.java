@@ -23,7 +23,7 @@ class TestPurchase {
 		dateStr="2025/04/02";
 		dateL=LocalDate.parse(dateStr, format);
 		date=Date.valueOf(dateL);
-		purch = new Purchase (1,1,"Xabitxu",150,0, date);
+		purch = new Purchase (1,1,"Xabitxu",150,100, date);
 	}
 	
 	@AfterEach
@@ -48,7 +48,7 @@ class TestPurchase {
 		assertEquals(1, purch.getCodProduct());
 		assertEquals("Xabitxu", purch.getCodUser());
 		assertEquals(150, purch.getQuantity());
-		assertEquals(0, purch.getPrice());
+		assertEquals(100, purch.getPrice());
 		assertEquals(date, purch.getDate());       
 	}
 	
@@ -100,13 +100,13 @@ class TestPurchase {
 
 	@Test
 	public void testGetPrice() {
-		assertEquals(0, purch.getPrice());
+		assertEquals(100, purch.getPrice());
 	}
 
 	@Test
 	public void testSetPrice() {
-		purch.setPrice(0);
-		assertEquals(0, purch.getPrice());
+		purch.setPrice(10);
+		assertEquals(10, purch.getPrice());
 	}
 	
 	@Test
@@ -121,5 +121,15 @@ class TestPurchase {
 		date = Date.valueOf(dateL);
 		purch.setDate(date);
 		assertEquals(date, purch.getDate());  
+	}
+	
+	@Test
+	public void testAllData() {
+		assertEquals("[COD1] 150 units of component 1 at  total price 100.0€ on 2025-04-02",purch.allData());
+	}
+	
+	@Test
+	public void testToString() {
+		assertEquals("Purchase [Code: 1, Product Code: 1, User Code: Xabitxu, Quantity: 150, Date: 2025-04-02]", purch.toString());
 	}
 }
