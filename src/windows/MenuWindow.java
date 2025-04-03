@@ -63,19 +63,31 @@ public class MenuWindow extends JFrame implements ActionListener {
 
 		// Lists & Scroll
 		listProduct = new JList<String>();
-		listProduct.setBounds(5, 149, 451, 65);
-		contentPane.add(listProduct);			
+		listProduct.setBounds(5, 149, 424, 65);
+		contentPane.add(listProduct);	
 
+		JScrollPane scrollPane = new JScrollPane();
+		scrollPane.setViewportView(listProduct);
+		listProduct.setLayoutOrientation(JList.VERTICAL);
+		contentPane.add(scrollPane);
+		
+		/*JScrollBar scrollBarProd = new JScrollBar();
+		scrollBarProd.setBounds(439, 149, 17, 65);
+		listProduct.setLayoutOrientation(JList.VERTICAL);
+		contentPane.add(scrollBarProd);*/ 
+		
+		//listProduct.add(scrollBarProd);
+		
 		listComp = new JList<String>();
 		listComp.setBounds(5, 294, 451, 65);
 		contentPane.add(listComp);
-		
+
 		listBrand = new JList<String>();
 		listBrand.setBounds(5, 448, 451, 65);
 		contentPane.add(listBrand);
 
 		loadProductsList();
-		
+
 		// Buttons
 		btnLogOut = new JButton("Log-Out");
 		btnLogOut.setBackground(UIManager.getColor("Button.background"));
@@ -112,7 +124,7 @@ public class MenuWindow extends JFrame implements ActionListener {
 		btnClose.setBounds(5, 5, 80, 21);
 		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		contentPane.add(btnClose);		
-		
+
 		btnPurchases = new JButton("Purchases");
 		btnPurchases.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		btnPurchases.setBackground(UIManager.getColor("Button.background"));
@@ -141,32 +153,36 @@ public class MenuWindow extends JFrame implements ActionListener {
 		listProduct.removeAll();
 		listComp.removeAll();
 		listBrand.removeAll();		
-		
+
 		DefaultListModel<String> modelProd = new DefaultListModel<String>();
 		DefaultListModel<String> modelComp = new DefaultListModel<String>();
 		DefaultListModel<String> modelBrand = new DefaultListModel<String>();
-		
+
 		products = cont.verifyProduct();
 		if(!products.isEmpty()) {
 			for (Product p : products.values()){
-				modelProd.addElement(p.nameAndPrice());
+				if(p.getStock()>0) {
+					modelProd.addElement(p.nameAndPrice());
+				}
 			}
 		}
-	
+
 		components = cont.verifyComponent();
 		if (!components.isEmpty()) {
 			for (Comp c : components.values()) {
-				modelComp.addElement(c.nameAndPrice());
+				if(c.getStock()>0) {
+					modelComp.addElement(c.nameAndPrice());
+				}				
 			}
 		}
-		
+
 		brands = cont.verifyBrands();
 		if (!brands.isEmpty()) {
 			for (Brand b : brands.values()) {
 				modelBrand.addElement(b.getNameB());
 			}
 		}
-		
+
 		listProduct.setModel(modelProd);
 		listComp.setModel(modelComp);
 		listBrand.setModel(modelBrand);
