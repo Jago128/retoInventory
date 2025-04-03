@@ -6,9 +6,9 @@ import javax.swing.*;
 import controller.LoginController;
 import java.util.*;
 
-/* VERIFICATION WINDOW  
- * Go to->(*close*)
- * Back to->(ProductWindow/ComponentWindow/BrandWindow)*/
+// VERIFICATION WINDOW  
+// Go to->(*close*)
+// Back to->(ProductWindow/ComponentWindow/BrandWindow)
 public class VerificationWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;

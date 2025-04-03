@@ -7,9 +7,9 @@ import javax.swing.*;
 import controller.LoginController;
 import java.util.*;
 
-/* ADD NEW ITEM WINDOW 
- * Go to->(*close*)
- * Back to->(ProductWindow/ComponentWindow/BrandWindow)*/
+// ADD NEW ITEM WINDOW 
+// Go to->(*close*)
+// Back to->(ProductWindow/ComponentWindow/BrandWindow)
 public class AddNewWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;

@@ -3,15 +3,14 @@ package windows;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.*;
-
 import javax.swing.*;
 import javax.swing.border.*;
 import model.*;
 import controller.LoginController;
 
-/* MENU WINDOW
- * Go to->(ProductWindow, ComponentWindow, BrandWindow, LowStockWindow)
- * Back to->(MainWindow, *close*)*/
+// MENU WINDOW
+// Go to->(ProductWindow, ComponentWindow, BrandWindow, LowStockWindow)
+// Back to->(MainWindow, *close*)
 public class MenuWindow extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -25,7 +24,7 @@ public class MenuWindow extends JFrame implements ActionListener {
 	private JList<String> listProduct, listComp, listBrand;
 
 	/**[WINDOW CREATION]**/
-	
+
 	public MenuWindow(LoginController controlador, User user) {
 		this.cont = controlador;
 		this.user = user;

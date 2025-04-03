@@ -7,9 +7,9 @@ import javax.swing.event.*;
 import controller.LoginController;
 import model.User;
 
-/* CHECK OUT WINDOW 
- * Go to->(*close*)
- * Back to->(ProductWindow/ComponentWindow/BrandWindow) */
+// CHECK OUT WINDOW 
+// Go to->(*close*)
+// Back to->(ProductWindow/ComponentWindow/BrandWindow)
 public class CheckOutWindow extends JDialog implements ActionListener, ChangeListener {
 
 	private static final long serialVersionUID = 1L;
@@ -137,7 +137,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 		if (e.getSource() == btnClose) {
 			this.dispose();
 		}
-		
+
 		// Calls the method that ejecutes the action on the DataBase
 		if (e.getSource() == btnSubmit) {
 			cont.sellAndSubstract(user.getCodU(), name, (int)spinner.getValue(), calcPrice(), type);

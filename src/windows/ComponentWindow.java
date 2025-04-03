@@ -7,9 +7,9 @@ import javax.swing.*;
 import controller.LoginController;
 import java.util.*;
 
-/* SHOW COMPONENT WINDOW  
- * Go to->(CheckOutWindow, NewItemWindow, VerificationWindow)
- * Back to->(MainWindow, MenuWindow)*/
+// SHOW COMPONENT WINDOW  
+// Go to->(CheckOutWindow, NewItemWindow, VerificationWindow)
+// Back to->(MainWindow, MenuWindow) 
 public class ComponentWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -70,7 +70,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		comboxFilter.addItem("GRAPHICS");
 		comboxFilter.addItem("RAM");
 		comboxFilter.addItem("PROCESSORS");		
-		
+
 		loadComponentList();		
 
 		// Buttons
@@ -130,7 +130,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 
 		listName.removeAll();
 		listPrice.removeAll();
-		
+
 		switch ((String)comboxFilter.getSelectedItem()) {
 		case "GRAPHICS": 
 			if(!components.isEmpty()) {

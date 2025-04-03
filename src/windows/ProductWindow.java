@@ -5,7 +5,6 @@ import java.awt.event.*;
 import java.util.*;
 import model.*;
 import javax.swing.*;
-
 import controller.LoginController;
 
 // SHOW PRODUCT WINDOW  
@@ -63,7 +62,7 @@ public class ProductWindow extends JDialog implements ActionListener{
 		listPrice = new JList<String>();
 		listPrice.setBounds(327, 104, 129, 406);
 		getContentPane().add(listPrice);		
-		
+
 		comboxFilter = new JComboBox<String>();
 		comboxFilter.setBounds(10, 81, 446, 22);
 		getContentPane().add(comboxFilter);
@@ -130,7 +129,7 @@ public class ProductWindow extends JDialog implements ActionListener{
 
 		listName.removeAll();
 		listPrice.removeAll();
-		
+
 		switch ((String)comboxFilter.getSelectedItem()) {
 		case "MOBILES": // Uses the TreeMap ordered by the key as the name
 			if(!products.isEmpty()) {

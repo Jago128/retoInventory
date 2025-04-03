@@ -5,9 +5,9 @@ import java.awt.event.*;
 import javax.swing.*;
 import model.*;
 
-/* CONTINUE WINDOW
- * Go to->(ProductWindow/ComponentWindow/BrandWindow)
- * Back to->(MenuWindow)*/
+// CONTINUE WINDOW
+// Go to->(ProductWindow/ComponentWindow/BrandWindow)
+// Back to->(MenuWindow)
 public class ContinueWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;

@@ -7,9 +7,9 @@ import javax.swing.event.*;
 import controller.LoginController;
 import model.*;
 
-/* SHOW LOW STOCK WINDOW
- * Go to->(*close*)
- * Back to->(LowStockWindow)*/
+// SHOW LOW STOCK WINDOW
+// Go to->(*close*)
+// Back to->(LowStockWindow)
 public class RestockWindow extends JDialog implements ActionListener, ChangeListener {
 
 	private static final long serialVersionUID = 1L;

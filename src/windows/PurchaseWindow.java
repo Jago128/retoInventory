@@ -10,7 +10,9 @@ import javax.swing.border.EmptyBorder;
 import controller.LoginController;
 import model.*;
 
-
+// SHOW PURCHASE WINDOW  
+// Go to->(*close*)
+// Back to->(MenuWindow)
 public class PurchaseWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;

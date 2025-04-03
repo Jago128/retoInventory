@@ -7,9 +7,9 @@ import model.*;
 import controller.LoginController;
 import java.util.*;
 
-/* SHOW BY BRAND WINDOW  
- * Go to->(CheckOutWindow, VerificationWindow)
- * Back to->(MainWindow, MenuWindow)*/
+// SHOW BY BRAND WINDOW  
+// Go to->(CheckOutWindow, VerificationWindow)
+// Back to->(MainWindow, MenuWindow)
 public class BrandWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -120,7 +120,7 @@ public class BrandWindow extends JDialog implements ActionListener {
 	// Loads the brands to the combo box
 	public void loadBrandsComboBox() {		
 		Map<String, Brand> brands;
-		
+
 		brands = cont.verifyBrands();
 		if (!brands.isEmpty()) {
 			for (Brand b : brands.values()){

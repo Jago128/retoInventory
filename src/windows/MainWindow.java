@@ -7,9 +7,9 @@ import javax.swing.border.*;
 import model.*;
 import controller.LoginController;
 
-/* MAIN MENU WINDOW 
- * Go to->(MenuWindow, SignInWindow)
- * Back to->(*close*)*/
+// MAIN MENU WINDOW 
+// Go to->(MenuWindow, SignInWindow)
+// Back to->(*close*)
 public class MainWindow extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;

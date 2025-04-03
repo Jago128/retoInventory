@@ -3,15 +3,14 @@ package windows;
 import java.awt.*;
 import java.awt.event.*;
 import java.util.regex.*;
-
 import javax.swing.*;
 import controller.LoginController;
 import exception.IncorrectPasswordFormatException;
 import model.*;
 
-/* CREATE NEW USER WINDOW 
- * Go to->(MenuWindow)
- * Back to->(MainWindow)*/
+// CREATE NEW USER WINDOW 
+// Go to->(MenuWindow)
+// Back to->(MainWindow)
 public class SignInWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;

@@ -7,9 +7,9 @@ import javax.swing.*;
 import controller.LoginController;
 import java.util.*;
 
-/* SHOW LOW STOCK WINDOW  
- * Go to->(ReestockWindow)
- * Back to->(CheckOutWindow, NewItemWindow, VerificationWindow)*/
+// SHOW LOW STOCK WINDOW  
+// Go to->(ReestockWindow)
+// Back to->(CheckOutWindow, NewItemWindow, VerificationWindow)
 public class LowStockWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -94,10 +94,10 @@ public class LowStockWindow extends JDialog implements ActionListener {
 	public void loadList() {	
 		listName.removeAll();
 		listStock.removeAll();
-		
+
 		DefaultListModel<String> modelName = new DefaultListModel<String>();
 		DefaultListModel<String> modelStock = new DefaultListModel<String>();
-		
+
 		products = cont.showProdsOrderedByStock();		
 		if (!products.isEmpty()) {
 			for (Product p : products.values()){
@@ -159,22 +159,22 @@ public class LowStockWindow extends JDialog implements ActionListener {
 		}
 		return price;
 	}	
-	
-	// Obtains the name of the selected product or component
-		public int obtainCode() {
-			int code;
 
-			if (verifyType()) {
-				Product product = new Product();
-				product=cont.obtainProduct(listName.getSelectedValue());
-				code=product.getCodP();
-			} else {
-				Comp component = new Comp();
-				component=cont.obtainComponent(listName.getSelectedValue());
-				code=component.getCodC();
-			}
-			return code;
+	// Obtains the name of the selected product or component
+	public int obtainCode() {
+		int code;
+
+		if (verifyType()) {
+			Product product = new Product();
+			product=cont.obtainProduct(listName.getSelectedValue());
+			code=product.getCodP();
+		} else {
+			Comp component = new Comp();
+			component=cont.obtainComponent(listName.getSelectedValue());
+			code=component.getCodC();
 		}
+		return code;
+	}
 
 	/**[ACTION PERFORMER]**/
 
