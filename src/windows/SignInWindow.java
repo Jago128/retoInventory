@@ -103,7 +103,60 @@ public class SignInWindow extends JDialog implements ActionListener {
 
 	/**[METHODS]*/	
 
+	// Sets the color of the labels true = BLACK | false = RED
+	public void setLabelColor(JLabel label, boolean correct) {
+		if(correct) {
+			label.setForeground(Color.BLACK);
+		} else {
+			label.setForeground(Color.RED);
+		}
+	}
 
+	// Sets the color of the text fields true = WHITE | false = RED
+	public void setTextColor(JTextField field, boolean correct) {
+		if (correct) {
+			field.setBackground(Color.WHITE);
+		} else {
+			field.setBackground(new Color(250, 128, 114));
+		}
+	}
+
+	// Verifying the password has the correct format
+	public boolean verifyPasswordFormat(String password) throws IncorrectPasswordFormatException { // EXCEPTION
+		boolean check = passwordFormat(password);
+		if (!check) {
+			throw new IncorrectPasswordFormatException();
+		}
+		return check;
+	}
+
+	// Verifies the password has the format
+	public boolean passwordFormat(String password) {
+		Pattern pattern = Pattern.compile("^(?=.*[0-9])(?=.*[A-Za-z]).{8,}$");
+		Matcher matcher = pattern.matcher(password);
+		return matcher.matches();
+	}
+
+	// Verifying the password is equal in both text fields
+	public boolean verifyPassword(String password, String passwordConf) {
+		boolean correct;
+
+		if (password.equals(passwordConf)) {
+			correct = true;
+		} else {
+			correct = false;
+		}
+		return correct;
+	}
+
+	// Sets the correct data of the user
+	public User setUser(User user) {
+		user.setCodU(textUserCod.getText());
+		user.setUsername(textName.getText());
+		user.setPassword(new String(password.getPassword())); 
+		user.setTypeU(TypeU.CLIENT);
+		return user;
+	}
 
 	/**[ACTION PERFORMER]**/
 
@@ -119,11 +172,37 @@ public class SignInWindow extends JDialog implements ActionListener {
 		if (e.getSource() == btnSubmit) {
 			User user = new User(textUserCod.getText(), textName.getText()); // Creates a user
 			if (!cont.verifyUser(user)) { // Verifies if a user with the same name exists
-				JOptionPane.showMessageDialog(null, "User registered correctly.");
-				MenuWindow menu = new MenuWindow(cont);
-				menu.setVisible(true);
-				this.dispose();
-
+				setTextColor(textUserCod, true);
+				try {
+					if (verifyPasswordFormat(new String(password.getPassword()))) { // EXCEPTION
+						if (verifyPassword(new String(password.getPassword()), new String(passwordConfirmation.getPassword()))) { // Verifies if the password is equal in both text fields
+							setTextColor(password, true);
+							setTextColor(passwordConfirmation, true);					
+							setUser(user);										 
+							cont.registerUser(user); // Registers the user
+							lblMessage.setText("User registered correctly.");
+							setLabelColor(lblMessage, true);
+							JOptionPane.showMessageDialog(null, "User registered correctly.");
+							MenuWindow menu = new MenuWindow(cont);
+							menu.setVisible(true);
+							this.dispose();
+						} else {
+							lblMessage.setText("The password must be equal in both parts.");
+							setLabelColor(lblMessage, false);
+							setTextColor(password, false);
+							setTextColor(passwordConfirmation, false);
+						}
+					}
+				} catch (IncorrectPasswordFormatException error) {
+					setLabelColor(lblMessage, false);
+					setTextColor(password, false);
+					lblMessage.setText(error.getMessage());
+					JOptionPane.showMessageDialog(null, "Password must have at least 8 characters and contain one letter and one number.");
+				}
+			} else {
+				lblMessage.setText("User with that code already exists.");
+				setLabelColor(lblMessage, false);
+				setTextColor(textUserCod, false);
 			}
 		}
 	}

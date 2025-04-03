@@ -93,7 +93,23 @@ public class MainWindow extends JFrame implements ActionListener {
 
 	/**[METHODS]**/
 
-	
+	// Sets the color of the labels true = BLACK | false = RED
+	public void setLabelColor(JLabel label, boolean correct) {
+		if(correct) {
+			label.setForeground(Color.BLACK);
+		} else {
+			label.setForeground(Color.RED);
+		}
+	}
+
+	// Sets the color of the text fields true = WHITE | false = RED
+	public void setTextColor(JTextField field, boolean correct) {
+		if(correct) {
+			field.setBackground(Color.WHITE);
+		} else {
+			field.setBackground(new Color(250, 128, 114));
+		}
+	}
 
 	/**[ACTION PERFORMER]**/	
 
