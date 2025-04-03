@@ -38,6 +38,10 @@ class TestProduct {
     public void testParameterizedConstructor() {
         assertEquals(1, product.getCodP());
         assertEquals("Iphone X", product.getNameP());
+        assertEquals(TypeP.MOBILE, product.getTypeP());
+        assertEquals(1000, product.getPrice());
+        assertEquals(100, product.getStock());
+        assertEquals(1, product.getCodBrand());
     }
 
 	@Test
@@ -47,8 +51,8 @@ class TestProduct {
 	
     @Test
     public void testSetCodP() {
-        product.setCodP(2);
-        assertEquals(2, product.getCodP());
+        product.setCodP(1);
+        assertEquals(1, product.getCodP());
     }
 
     @Test
@@ -58,8 +62,8 @@ class TestProduct {
 
     @Test
     public void testSetNameP() {
-        product.setNameP("Samsung S24");
-        assertEquals("Samsung S24", product.getNameP());
+        product.setNameP("Iphone X");
+        assertEquals("Iphone X", product.getNameP());
     }
     
     @Test
@@ -69,8 +73,8 @@ class TestProduct {
 	
     @Test
     public void testSetTypeP() {
-        product.setTypeP(TypeP.COMPUTER);
-        assertEquals(TypeP.COMPUTER, product.getTypeP());
+        product.setTypeP(TypeP.MOBILE);
+        assertEquals(TypeP.MOBILE, product.getTypeP());
     }
 
     @Test
@@ -80,8 +84,8 @@ class TestProduct {
 	
     @Test
     public void testSetPrice() {
-        product.setPrice(2);
-        assertEquals(2, product.getPrice());
+        product.setPrice(1000);
+        assertEquals(1000, product.getPrice());
     }
 
     @Test
@@ -91,8 +95,8 @@ class TestProduct {
 	
     @Test
     public void testSetStock() {
-        product.setStock(2);
-        assertEquals(2, product.getStock());
+        product.setStock(100);
+        assertEquals(100, product.getStock());
     }
 
     @Test
@@ -102,7 +106,17 @@ class TestProduct {
 	
     @Test
     public void testSetCodBrand() {
-        product.setCodBrand(2);
-        assertEquals(2, product.getCodBrand());
+        product.setCodBrand(1);
+        assertEquals(1, product.getCodBrand());
     }
+    
+    @Test
+	public void testNameAndPrice() {
+		assertEquals("[Product Code "+"1"+"] "+"Iphone X"+" "+"1000.0"+" €",product.nameAndPrice());
+	}
+	
+	@Test
+	public void testToString() {
+		assertEquals("Product [Code: "+"1"+", Name: "+"Iphone X"+", Type: "+"MOBILE"+", Price: "+"1000.0"+ ", Stock: "+"100"+", Brand Code: "+"1]",product.toString()); 
+	}
 }

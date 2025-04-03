@@ -28,7 +28,7 @@ public class Comp {
 		this.stock = stock;
 		this.price = price;
 	}
-	
+
 	public Comp(int codC, String nameC, TypeC typeC, int codBrand, int stock, double price) {
 		this.codC = codC;
 		this.nameC = nameC;
@@ -88,10 +88,10 @@ public class Comp {
 	}
 
 	// Method to show name and price
-		public String nameAndPrice() {
-			return "[Component Code "+codC+"] "+nameC+" "+price+" €";
-		}
-	
+	public String nameAndPrice() {
+		return "[Component Code "+codC+"] "+nameC+" "+price+" €";
+	}
+
 	// Declare toString
 	@Override
 	public String toString() {
