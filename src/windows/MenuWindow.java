@@ -25,7 +25,7 @@ public class MenuWindow extends JFrame implements ActionListener {
 	private JList<String> listProduct, listComp, listBrand;
 
 	/**[WINDOW CREATION]**/
-
+	
 	public MenuWindow(LoginController controlador, User user) {
 		this.cont = controlador;
 		this.user = user;
