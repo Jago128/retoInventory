@@ -2,8 +2,11 @@ package windows;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.util.regex.*;
+
 import javax.swing.*;
 import controller.LoginController;
+import exception.IncorrectPasswordFormatException;
 import model.*;
 
 /* CREATE NEW USER WINDOW 
@@ -111,7 +114,7 @@ public class SignInWindow extends JDialog implements ActionListener {
 
 	// Sets the color of the text fields true = WHITE | false = RED
 	public void setTextColor(JTextField field, boolean correct) {
-		if(correct) {
+		if (correct) {
 			field.setBackground(Color.WHITE);
 		} else {
 			field.setBackground(new Color(250, 128, 114));
@@ -119,11 +122,18 @@ public class SignInWindow extends JDialog implements ActionListener {
 	}
 
 	// Verifying the password has the correct format
-	public boolean verifyPasswordFormat(String password) { // EXCEPTION
-		boolean correct=false;
-
-
-		return correct;
+	public boolean verifyPasswordFormat(String password) throws IncorrectPasswordFormatException { // EXCEPTION
+		boolean check = passwordFormat(password);
+		if (!check) {
+			throw new IncorrectPasswordFormatException();
+		}
+		return check;
+	}
+	
+	public boolean passwordFormat(String password) {
+		Pattern pattern = Pattern.compile("/^(?=.*[0-9])(?=.*[a-zA-Z])([a-zA-Z0-9]+)$/");
+		Matcher matcher = pattern.matcher(password);
+		return matcher.matches();
 	}
 
 	// Verifying the password is equal in both text fields
@@ -162,26 +172,28 @@ public class SignInWindow extends JDialog implements ActionListener {
 			User user = new User(textUserCod.getText(), textName.getText()); // Creates a user
 			if (!cont.verifyUser(user)) { // Verifies if a user with the same name exists
 				setTextColor(textUserCod, true);
-				if(verifyPasswordFormat(new String(password.getPassword()))) { // EXCEPTION
-					if (verifyPassword(new String(password.getPassword()), new String(passwordConfirmation.getPassword()))) { // Verifies if the password is equal in both text fields
-						setTextColor(password, true);
-						setTextColor(passwordConfirmation, true);					
-						setUser(user);										 
-						cont.registerUser(user); // Registers the user
-						lblMessage.setText("User registered correctly.");
-						setLabelColor(lblMessage, true);
-						JOptionPane.showMessageDialog(null, "User registered correctly.");
-						MenuWindow menu = new MenuWindow(cont, user);
-						menu.setVisible(true);
-						this.dispose();
-					} else {
-						lblMessage.setText("The password must be equal in both parts.");
-						setLabelColor(lblMessage, false);
-						setTextColor(password, false);
-						setTextColor(passwordConfirmation, false);
+				try {
+					if (verifyPasswordFormat(new String(password.getPassword()))) { // EXCEPTION
+						if (verifyPassword(new String(password.getPassword()), new String(passwordConfirmation.getPassword()))) { // Verifies if the password is equal in both text fields
+							setTextColor(password, true);
+							setTextColor(passwordConfirmation, true);					
+							setUser(user);										 
+							cont.registerUser(user); // Registers the user
+							lblMessage.setText("User registered correctly.");
+							setLabelColor(lblMessage, true);
+							JOptionPane.showMessageDialog(null, "User registered correctly.");
+							MenuWindow menu = new MenuWindow(cont, user);
+							menu.setVisible(true);
+							this.dispose();
+						} else {
+							lblMessage.setText("The password must be equal in both parts.");
+							setLabelColor(lblMessage, false);
+							setTextColor(password, false);
+							setTextColor(passwordConfirmation, false);
+						}
 					}
-				} else { // EXCEPTION
-					
+				} catch (IncorrectPasswordFormatException error) {
+					lblMessage.setText(error.getMessage());
 				}
 			} else {
 				lblMessage.setText("User with that code already exists.");
