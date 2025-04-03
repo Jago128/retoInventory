@@ -131,7 +131,7 @@ public class SignInWindow extends JDialog implements ActionListener {
 	}
 	
 	public boolean passwordFormat(String password) {
-		Pattern pattern = Pattern.compile("^(?=.*[0-9])(?=.*\\w).{8,}$");
+		Pattern pattern = Pattern.compile("^(?=.*[0-9])(?=.*[A-Za-z]).{8,}$");
 		Matcher matcher = pattern.matcher(password);
 		return matcher.matches();
 	}
@@ -196,7 +196,7 @@ public class SignInWindow extends JDialog implements ActionListener {
 					setLabelColor(lblMessage, false);
 					setTextColor(password, false);
 					lblMessage.setText(error.getMessage());
-					JOptionPane.showMessageDialog(null, "Password must have at least 8 chacraters and contain one letter and one number.");
+					JOptionPane.showMessageDialog(null, "Password must have at least 8 characters and contain one letter and one number.");
 				}
 			} else {
 				lblMessage.setText("User with that code already exists.");
