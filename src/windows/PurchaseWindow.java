@@ -2,34 +2,28 @@ package windows;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
-
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-
 import controller.LoginController;
-import model.*;
 
-
+/* SHOW LOW PURCHASE WINDOW
+ * Go to->(*close*)
+ * Back to->(Menuwindow)*/
 public class PurchaseWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private LoginController cont;
 	private JButton btnLogOut, btnClose;
-	private User user;
-	//private Map<String, Purchase> purchases;
-	//private Map<String, Buy> buys;
 	private JList<String> listPurchases;
 
 	/**[WINDOW CREATION]**/
 
-	public PurchaseWindow(LoginController controlador, User user) {
+	public PurchaseWindow(LoginController controlador) {
 		this.cont = controlador;
-		this.user = user;
 
 		// Window
-		setTitle("MEDIAMARTA: "+user.getUsername()+"'s Purchases");
+		setTitle("MEDIAMARTA: "+"Username"+"'s Purchases");
 		setBounds(100, 100, 480, 636);
 		getContentPane().setBackground(Color.WHITE);
 		contentPane = new JPanel();
@@ -38,7 +32,7 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 		setContentPane(contentPane);
 		setResizable(false);
 
-		JLabel lblYourPurchases = new JLabel(user.getUsername()+"'s Purchases");
+		JLabel lblYourPurchases = new JLabel("Username"+"'s Purchases");
 		lblYourPurchases.setBounds(5, 37, 461, 46);
 		lblYourPurchases.setHorizontalAlignment(SwingConstants.CENTER);
 		lblYourPurchases.setFont(new Font("Times New Roman", Font.PLAIN, 25));
@@ -46,7 +40,7 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 		contentPane.add(lblYourPurchases);
 
 		// Labels
-		JLabel lblCodUser = new JLabel(user.getUsername());
+		JLabel lblCodUser = new JLabel("Username");
 		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		lblCodUser.setBounds(375, 27, 81, 19);
@@ -56,8 +50,6 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 		listPurchases = new JList<String>();
 		listPurchases.setBounds(10, 104, 446, 485);
 		contentPane.add(listPurchases);
-
-		loadProductsList();
 
 		// Buttons
 		btnLogOut = new JButton("Log-Out");
@@ -78,28 +70,7 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 
 	/**[METHODS]**/
 
-	// Loads the products to the list
-	public void loadProductsList() {		
-		Map<Integer, Purchase> purchases = cont.getPurchases(user.getCodU());
-		Map<Integer, Buy> buys = cont.getBuys(user.getCodU());
-
-		DefaultListModel<String> model = new DefaultListModel<String>();				
-
-		listPurchases.removeAll();
-
-		if(!purchases.isEmpty()) {
-			for (Purchase p : purchases.values()){
-				model.addElement(p.allData());
-			}
-		}
-		if (!buys.isEmpty()) {
-			for (Buy b : buys.values()){
-				model.addElement(b.allData());
-			}
-		}				
-		listPurchases.setModel(model);
-	}
-
+	
 	/**[ACTION PERFORMER]**/
 
 	@Override
@@ -112,7 +83,7 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 		}
 		// Closes the window
 		if (e.getSource() == btnClose) {
-			MenuWindow menu = new MenuWindow(cont, user); 
+			MenuWindow menu = new MenuWindow(cont); 
 			menu.setVisible(true);
 			this.dispose();
 		}

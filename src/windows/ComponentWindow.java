@@ -5,7 +5,6 @@ import java.awt.event.*;
 import model.*;
 import javax.swing.*;
 import controller.LoginController;
-import java.util.*;
 
 /* SHOW COMPONENT WINDOW  
  * Go to->(CheckOutWindow, NewItemWindow, VerificationWindow)
@@ -22,10 +21,9 @@ public class ComponentWindow extends JDialog implements ActionListener {
 
 	/**[WINDOW CREATION]**/
 
-	public ComponentWindow(JFrame parent, LoginController cont, User user) {
+	public ComponentWindow(JFrame parent, LoginController cont) {
 		super(parent, true); // Blocks the father window
 		this.cont = cont;
-		this.user = user;
 
 		// Window
 		setTitle("MEDIAMARTA: Components");
@@ -48,7 +46,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		getContentPane().add(lblProducts);
 
 		// Labels
-		JLabel lblCodUser = new JLabel(user.getUsername());
+		JLabel lblCodUser = new JLabel("Username");
 		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		lblCodUser.setBounds(375, 27, 81, 19);
@@ -69,9 +67,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		comboxFilter.addItem("ALL");
 		comboxFilter.addItem("GRAPHICS");
 		comboxFilter.addItem("RAM");
-		comboxFilter.addItem("PROCESSORS");		
-		
-		loadComponentList();		
+		comboxFilter.addItem("PROCESSORS");				
 
 		// Buttons
 		btnLogOut = new JButton("Log-Out");
@@ -101,15 +97,6 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		getContentPane().add(btnClose);
 
 		// Buttons visibility
-		if (user.getTypeU()==TypeU.ADMIN) { // In case the user is an admin these buttons will be visible
-			btnBuy.setVisible(false);
-			btnAddNew.setVisible(true);
-			btnRemove.setVisible(true);			
-		} else {  // In case the user is a client these buttons will be visible
-			btnBuy.setVisible(true);
-			btnAddNew.setVisible(false);
-			btnRemove.setVisible(false);
-		}
 
 		// Adding action listener
 		comboxFilter.addActionListener(this);
@@ -122,105 +109,7 @@ public class ComponentWindow extends JDialog implements ActionListener {
 
 	/**[METHODS]**/
 
-	// Loads the products to the list
-	public void loadComponentList() {
-		Map<String, Comp> components = cont.verifyComponent();
-		DefaultListModel<String> modelName = new DefaultListModel<String>();
-		DefaultListModel<String> modelPrice = new DefaultListModel<String>();
-
-		listName.removeAll();
-		listPrice.removeAll();
-		
-		switch ((String)comboxFilter.getSelectedItem()) {
-		case "GRAPHICS": 
-			if(!components.isEmpty()) {
-				for (Comp c : components.values()){
-					if(c.getStock()>0 && c.getTypeC()==TypeC.GRAPHICS) {
-						modelName.addElement(c.getNameC());
-						modelPrice.addElement(c.getPrice()+" €");
-					}	
-				}
-			}
-			break;
-		case "RAM": 
-			if(!components.isEmpty()) {
-				for (Comp c : components.values()){
-					if(c.getStock()>0 && c.getTypeC()==TypeC.RAM) {
-						modelName.addElement(c.getNameC());
-						modelPrice.addElement(c.getPrice()+" €");
-					}	
-				}
-			}
-			break;
-		case "PROCESSORS": 
-			if(!components.isEmpty()) {
-				for (Comp c : components.values()){
-					if(c.getStock()>0 && c.getTypeC()==TypeC.PROCESSOR) {
-						modelName.addElement(c.getNameC());
-						modelPrice.addElement(c.getPrice()+" €");
-					}	
-				}
-			}
-			break;
-		default:
-			if (!components.isEmpty()) {
-				for (Comp c : components.values()){
-					if(c.getStock()>0) {
-						modelName.addElement(c.getNameC());
-						modelPrice.addElement(c.getPrice()+" €");
-					}	
-				}
-			}
-			break;
-		case "Price": // Creates a TreeMap ordered by the key as the price
-			Map<Double, Comp> componentsByPrice = new TreeMap<>();
-
-			if (!components.isEmpty()) {
-				for (Comp c : components.values()){
-					if(c.getStock()>0) {
-						componentsByPrice.put(c.getPrice(), c);
-					}	
-				}
-			}
-			if (!componentsByPrice.isEmpty()) {
-				for (Comp c : componentsByPrice.values()){
-					if(c.getStock()>0) {
-						modelName.addElement(c.getNameC());
-						modelPrice.addElement(c.getPrice()+" €");
-					}	
-				}
-			}
-			break;
-		case "Code":  // Creates a TreeMap ordered by the key as the code
-			Map<Integer, Comp> componentsByCode = new TreeMap<>();
-
-			if(!components.isEmpty()) {
-				for (Comp c : components.values()){
-					if(c.getStock()>0) {
-						componentsByCode.put(c.getCodC(), c);
-					}	
-				}
-			}
-			if(!componentsByCode.isEmpty()) {
-				for (Comp c : componentsByCode.values()){
-					if(c.getStock()>0) {
-						modelName.addElement(c.getNameC());
-						modelPrice.addElement(c.getPrice()+" €");
-					}	
-				}
-			}
-			break;		
-		}
-		listName.setModel(modelName);
-		listPrice.setModel(modelPrice);
-	}
-
-	// Obtains the name and price of the selected component
-	public Comp obtainNamePrice() {
-		Comp component = new Comp();
-		component=cont.obtainComponent(listName.getSelectedValue());
-		return component;
-	}
+	
 
 	/**[ACTION PERFORMER]**/
 
@@ -240,13 +129,13 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		}
 		// Detects when new option of order is choosed
 		if (e.getSource()==comboxFilter) {
-			loadComponentList();
+			
 		}
 		// Opens the window for the Check out
 		if (e.getSource() == btnBuy) {
 			if(!listName.isSelectionEmpty()) { // If there is an item selected it will do the action
 				boolean type = false;  // true = Product | false = Component
-				CheckOutWindow checkOut = new CheckOutWindow(this, cont, user, obtainNamePrice().getNameC(), obtainNamePrice().getPrice(), type);
+				CheckOutWindow checkOut = new CheckOutWindow(this, cont);
 				checkOut.setVisible(true);
 			} else {
 				JOptionPane.showMessageDialog(null, "[ERROR] Select an item to buy");
@@ -255,14 +144,14 @@ public class ComponentWindow extends JDialog implements ActionListener {
 		// Opens the window to add a new component
 		if (e.getSource()==btnAddNew) {			
 			boolean type = false;  // true = Product | false = Component
-			AddNewWindow addNew = new AddNewWindow(this, cont, user, obtainNamePrice().getNameC(), type);
+			AddNewWindow addNew = new AddNewWindow(this, cont);
 			addNew.setVisible(true);
 		}
 		// Opens the window to delete
 		if (e.getSource()==btnRemove) {
 			if (!listName.isSelectionEmpty()) { // If there is an item selected it will do the action
 				boolean type = false;  // true = Product | false = Component
-				VerificationWindow checkOut = new VerificationWindow(this, cont, obtainNamePrice().getNameC(), type);
+				VerificationWindow checkOut = new VerificationWindow(this, cont);
 				checkOut.setVisible(true);
 			} else {
 				JOptionPane.showMessageDialog(null, "[ERROR] Select an item to delete");

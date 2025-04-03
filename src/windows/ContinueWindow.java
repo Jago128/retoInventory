@@ -3,7 +3,6 @@ package windows;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
-import model.*;
 
 /* CONTINUE WINDOW
  * Go to->(ProductWindow/ComponentWindow/BrandWindow)
@@ -16,7 +15,7 @@ public class ContinueWindow extends JDialog implements ActionListener {
 
 	/**[WINDOW CREATION]*/
 
-	public ContinueWindow(JDialog parent, User user, boolean type) {
+	public ContinueWindow(JDialog parent) {
 		super(parent, true); // Blocks the father window
 
 		// Window
@@ -27,7 +26,7 @@ public class ContinueWindow extends JDialog implements ActionListener {
 		setResizable(false); // Blocks the window so it can't be modified the size
 
 		// Titles
-		lblTitle = new JLabel(user.getUsername()+", do you want to keep buying "+verifyType(type)+"?");
+		lblTitle = new JLabel("Username"+", do you want to keep buying "+"Type"+"?");
 		lblTitle.setFont(new Font("Times New Roman", Font.PLAIN, 15));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setBounds(10, 32, 416, 37);
@@ -51,33 +50,7 @@ public class ContinueWindow extends JDialog implements ActionListener {
 
 	/**[METHODS]*/
 
-	// Verifying the type true = Product | false = Component
-	public String verifyType(boolean type) {
-		if (type) {
-			return "products";
-		} else {
-			return "components";
-		}
-	}	
-
-	// Refresh parent window list
-	public void refreshParentList() {
-		JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
-		if (parent instanceof ProductWindow){ // Checks the parent window type
-			ProductWindow productWindow = (ProductWindow)parent; // Cast it to its type to be able to use it's methods
-			productWindow.loadProductsList(); // Calls the parent method to reload the list
-		} else if (parent instanceof ComponentWindow){ 
-			ComponentWindow productWindow = (ComponentWindow)parent;
-			productWindow.loadComponentList(); 
-		} else if (parent instanceof BrandWindow){ 
-			BrandWindow productWindow = (BrandWindow)parent;
-			productWindow.loadList(); 
-		}
-		else if (parent instanceof LowStockWindow) {
-			LowStockWindow lowStockWindow = (LowStockWindow)parent;
-			lowStockWindow.loadList();
-		}
-	}
+	
 
 	/**[ACTION PERFORMER]*/
 

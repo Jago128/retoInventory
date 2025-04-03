@@ -4,7 +4,6 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.border.*;
-import model.*;
 import controller.LoginController;
 
 /* MAIN MENU WINDOW 
@@ -94,23 +93,7 @@ public class MainWindow extends JFrame implements ActionListener {
 
 	/**[METHODS]**/
 
-	// Sets the color of the labels true = BLACK | false = RED
-	public void setLabelColor(JLabel label, boolean correct) {
-		if(correct) {
-			label.setForeground(Color.BLACK);
-		} else {
-			label.setForeground(Color.RED);
-		}
-	}
-
-	// Sets the color of the text fields true = WHITE | false = RED
-	public void setTextColor(JTextField field, boolean correct) {
-		if(correct) {
-			field.setBackground(Color.WHITE);
-		} else {
-			field.setBackground(new Color(250, 128, 114));
-		}
-	}
+	
 
 	/**[ACTION PERFORMER]**/	
 
@@ -122,30 +105,9 @@ public class MainWindow extends JFrame implements ActionListener {
 		}
 		// Verifies if the user exist to log in
 		if (e.getSource() == btnLogIn) {
-			User user = new User(textCodU.getText(), new String(passwordPsw.getPassword()));
-			if (cont.verifyUser(user)) { // Verifies the user exists 
-				setTextColor(textCodU, true);
-				if (cont.verifyUserPassword(user)) { // Verifies the password matches 			
-					user = cont.getUser(user); // Obtains all the data of the user
-					setLabelColor(lblMesageUp, true);
-					setTextColor(passwordPsw, true);
-					lblMesageUp.setText("Welcome " + textCodU.getText());
-					lblMessageDown.setText("");
-					JOptionPane.showMessageDialog(null, "Welcome " + textCodU.getText()); // Pop-Up Message
-					MenuWindow menu = new MenuWindow(cont, user); 
-					menu.setVisible(true);
-					this.dispose();
-				}  else { // If the password doesn't match warns the user with a red message
-					setLabelColor(lblMesageUp, false);
-					setTextColor(passwordPsw, false);
-					lblMesageUp.setText("Incorrect password.");					
-				}
-			} else { // If the user doesn't exist warns the user with a red message
-				setLabelColor(lblMesageUp, false);
-				setTextColor(textCodU, false);
-				lblMesageUp.setText("The user does not exist.");
-				lblMessageDown.setText("To register go to Log-In.");
-			}
+			MenuWindow menu = new MenuWindow(cont);
+			menu.setVisible(true);
+			this.dispose();
 		}
 		// Opens a new window to log-in for the new user to register
 		if (e.getSource() == btnSignIn) {

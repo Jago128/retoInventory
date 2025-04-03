@@ -2,7 +2,6 @@ package windows;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.util.*;
 import model.*;
 import javax.swing.*;
 
@@ -23,10 +22,9 @@ public class ProductWindow extends JDialog implements ActionListener{
 
 	/**[WINDOW CREATION]**/
 
-	public ProductWindow(JFrame parent, LoginController cont, User user) {
+	public ProductWindow(JFrame parent, LoginController cont) {
 		super(parent,true); // Blocks the father window
 		this.cont = cont;
-		this.user = user;
 
 		// Window
 		setTitle("MEDIAMARTA: Products");
@@ -49,7 +47,7 @@ public class ProductWindow extends JDialog implements ActionListener{
 		getContentPane().add(lblProducts);
 
 		// Labels
-		JLabel lblCodUser = new JLabel(user.getUsername());
+		JLabel lblCodUser = new JLabel("Username");
 		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		lblCodUser.setBounds(375, 27, 81, 19);
@@ -70,8 +68,6 @@ public class ProductWindow extends JDialog implements ActionListener{
 		comboxFilter.addItem("ALL");
 		comboxFilter.addItem("MOBILES");
 		comboxFilter.addItem("COMPUTERS");
-
-		loadProductsList();
 
 		// Buttons
 		btnLogOut = new JButton("Log-Out");
@@ -101,15 +97,6 @@ public class ProductWindow extends JDialog implements ActionListener{
 		getContentPane().add(btnClose);
 
 		// Buttons visibility
-		if (user.getTypeU()==TypeU.ADMIN) { // In case the user is an admin these buttons will be visible
-			btnBuy.setVisible(false);
-			btnAddNew.setVisible(true);
-			btnRemove.setVisible(true);			
-		} else { // In case the user is a client these buttons will be visible
-			btnBuy.setVisible(true);
-			btnAddNew.setVisible(false);
-			btnRemove.setVisible(false);
-		}
 
 		// Adding action listener
 		comboxFilter.addActionListener(this);
@@ -122,57 +109,7 @@ public class ProductWindow extends JDialog implements ActionListener{
 
 	/**[METHODS]**/
 
-	// Loads the products to the list depending on the filter
-	public void loadProductsList() {
-		Map<String, Product> products = cont.verifyProduct();
-		DefaultListModel<String> modelName = new DefaultListModel<String>();
-		DefaultListModel<String> modelPrice = new DefaultListModel<String>();
-
-		listName.removeAll();
-		listPrice.removeAll();
-		
-		switch ((String)comboxFilter.getSelectedItem()) {
-		case "MOBILES": // Uses the TreeMap ordered by the key as the name
-			if(!products.isEmpty()) {
-				for (Product p : products.values()){
-					if (p.getStock()>0 && p.getTypeP()==TypeP.MOBILE) {
-						modelName.addElement(p.getNameP());
-						modelPrice.addElement(p.getPrice()+" €");
-					}	
-				}
-			}
-			break;
-		case "COMPUTERS": // Creates a TreeMap ordered by the key as the price
-			if(!products.isEmpty()) {
-				for (Product p : products.values()){
-					if (p.getStock()>0 && p.getTypeP()==TypeP.COMPUTER) {
-						modelName.addElement(p.getNameP());
-						modelPrice.addElement(p.getPrice()+" €");
-					}	
-				}
-			}	
-			break;	
-		default:
-			if(!products.isEmpty()) {
-				for (Product p : products.values()){
-					if (p.getStock()>0) {
-						modelName.addElement(p.getNameP());
-						modelPrice.addElement(p.getPrice()+" €");
-					}	
-				}
-			}
-			break;
-		}
-		listName.setModel(modelName);
-		listPrice.setModel(modelPrice);
-	}
-
-	// Obtains the name and price of the selected product
-	public Product obtainNamePrice() {
-		Product product = new Product();
-		product=cont.obtainProduct(listName.getSelectedValue());
-		return product;
-	}
+	
 
 	/**[ACTION PERFORMER]**/
 
@@ -193,13 +130,13 @@ public class ProductWindow extends JDialog implements ActionListener{
 		}
 		// Detects when new option of order is choosed
 		if (e.getSource()==comboxFilter) {
-			loadProductsList();
+			
 		}
 		// Opens the window for the Check out
 		if (e.getSource() == btnBuy) {
 			if (!listName.isSelectionEmpty()) { // If there is an item selected it will do the action
 				boolean type = true;  // true = Product | false = Component
-				CheckOutWindow checkOut = new CheckOutWindow(this, cont, user, obtainNamePrice().getNameP(), obtainNamePrice().getPrice(), type);
+				CheckOutWindow checkOut = new CheckOutWindow(this, cont);
 				checkOut.setVisible(true);
 			} else {
 				JOptionPane.showMessageDialog(null, "[ERROR] Select an item to buy");
@@ -208,14 +145,14 @@ public class ProductWindow extends JDialog implements ActionListener{
 		// Opens the window to add a new product
 		if (e.getSource()==btnAddNew) {			
 			boolean type = true;  // true = Product | false = Component
-			AddNewWindow addNew = new AddNewWindow(this, cont, user, obtainNamePrice().getNameP(), type);
+			AddNewWindow addNew = new AddNewWindow(this, cont);
 			addNew.setVisible(true);
 		}
 		// Opens the window to delete
 		if (e.getSource()==btnRemove) {
 			if (!listName.isSelectionEmpty()) { // If there is an item selected it will do the action
 				boolean type = true;  // true = Product | false = Component
-				VerificationWindow checkOut = new VerificationWindow(this, cont, obtainNamePrice().getNameP(), type);
+				VerificationWindow checkOut = new VerificationWindow(this, cont);
 				checkOut.setVisible(true);
 			} else {
 				JOptionPane.showMessageDialog(null, "[ERROR] Select an item to delete");

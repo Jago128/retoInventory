@@ -19,18 +19,13 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 	private JSpinner spinner;
 	private User user;
 	private String name;
-	private double price;
 	private boolean type; // true = Product | false = Component
 
 	/**[WINDOW CREATION]**/
 
-	public CheckOutWindow(JDialog parent, LoginController cont, User user, String name, double price, boolean type) {
+	public CheckOutWindow(JDialog parent, LoginController cont) {
 		super(parent, true); // Blocks the father window
 		this.cont = cont;
-		this.user = user;
-		this.name = name;
-		this.price = price;
-		this.type = type; // true = Product | false = Component
 
 		// Window
 		setTitle("MEDIAMARTA: Check-out");
@@ -41,7 +36,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 
 		/* Spinner (Numeric value)
 		 * It needs to be created before because the labels need the value of it */
-		SpinnerModel sm = new SpinnerNumberModel(1, 1, cont.checkStock(name, type), 1); // Default, Min, Max, Increment
+		SpinnerModel sm = new SpinnerNumberModel(1, 1, 9999, 1); // Default, Min, Max, Increment
 		spinner = new JSpinner(sm);
 		spinner.setBounds(214, 111, 187, 34);
 		getContentPane().add(spinner);
@@ -66,7 +61,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 		getContentPane().add(subtotal);
 
 		// Labels
-		JLabel lblCodUser = new JLabel(user.getUsername());
+		JLabel lblCodUser = new JLabel("Username");
 		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
 		lblCodUser.setBounds(375, 27, 81, 19);
@@ -79,7 +74,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 		lblItemName.setBounds(25, 111, 187, 34);
 		getContentPane().add(lblItemName);
 
-		lblPrice = new JLabel(calcPrice() + "€");
+		lblPrice = new JLabel("Price" + "€");
 		lblPrice.setHorizontalAlignment(SwingConstants.LEFT);
 		lblPrice.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		lblPrice.setBounds(214, 156, 187, 34);
@@ -104,29 +99,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 
 	/**[METHODS]**/
 
-	// Calculate price
-	public double calcPrice() {	// Calculates the subtotal basing on the price of the product and the spinner's value
-		return price * (int) spinner.getValue();
-	}
-
-	// Refresh parent window list
-	public void refreshParentList() {
-		JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
-		if 	(parent instanceof ProductWindow){ // Checks the parent window type
-			ProductWindow productWindow = (ProductWindow)parent; // Cast it to its type to be able to use it's methods
-			productWindow.loadProductsList(); // Calls the parent method to reload the list
-		} else if (parent instanceof ComponentWindow){ 
-			ComponentWindow productWindow = (ComponentWindow)parent;
-			productWindow.loadComponentList(); 
-		} else if (parent instanceof BrandWindow){ 
-			BrandWindow productWindow = (BrandWindow)parent;
-			productWindow.loadList(); 
-		}
-		else if (parent instanceof LowStockWindow) {
-			LowStockWindow lowStockWindow = (LowStockWindow)parent;
-			lowStockWindow.loadList();
-		}
-	}
+	
 
 	/**[ACTION PERFORMER & CHANGE LISTENER]**/
 
@@ -139,11 +112,9 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 		}
 		
 		// Calls the method that ejecutes the action on the DataBase
-		if (e.getSource() == btnSubmit) {
-			cont.sellAndSubstract(user.getCodU(), name, (int)spinner.getValue(), calcPrice(), type);
-			ContinueWindow next = new ContinueWindow(this, user, type);
+		if (e.getSource() == btnSubmit) {			
+			ContinueWindow next = new ContinueWindow(this);
 			next.setVisible(true);
-			refreshParentList();
 		}
 	}
 
@@ -152,7 +123,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 	public void stateChanged(ChangeEvent e) {
 		// Closes the window
 		if (e.getSource() == spinner) {
-			lblPrice.setText(calcPrice()+"€");
+			lblPrice.setText("Price"+"€");
 		}
 	}
 }
