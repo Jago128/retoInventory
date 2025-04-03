@@ -23,7 +23,6 @@ public class MenuWindow extends JFrame implements ActionListener {
 	private Map<String, Product> products;
 	private Map<String, Comp> components;
 	private JList<String> listProduct, listComp, listBrand;
-	private JTextField textField;
 
 	/**[WINDOW CREATION]**/
 
