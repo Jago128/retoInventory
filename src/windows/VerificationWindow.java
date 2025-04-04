@@ -124,7 +124,7 @@ public class VerificationWindow extends JDialog implements ActionListener {
 		}
 	}
 
-	/** [ACTION PERFORMER] **/
+	/**[ACTION PERFORMER]**/
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
