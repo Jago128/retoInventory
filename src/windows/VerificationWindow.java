@@ -38,7 +38,7 @@ public class VerificationWindow extends JDialog implements ActionListener {
 		setResizable(false); // Blocks the window so it can't be modified the size
 
 		// Titles
-		lblTitle = new JLabel("Insert the code " + generateCode() + " to verify the action");
+		lblTitle = new JLabel("Insert the code "+generateCode()+" to verify the action");
 		lblTitle.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setBounds(10, 32, 416, 37);
