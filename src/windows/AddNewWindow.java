@@ -106,7 +106,7 @@ public class AddNewWindow extends JDialog implements ActionListener {
 		getContentPane().add(rdbtnC);
 
 		ButtonGroup group = new ButtonGroup(); // Creates a group for the Radio Buttons to only one can be choosed
-		group.add(rdbtnA); 
+		group.add(rdbtnA);
 		group.add(rdbtnB);
 		group.add(rdbtnC);
 
