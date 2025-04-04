@@ -207,12 +207,10 @@ public class AddNewWindow extends JDialog implements ActionListener {
 		if (textName == null || textName.getText().equals("")) {
 			lblName.setText("*NAME:");
 			setLabelColor(lblName, false);
-			// lblName.setForeground(Color.RED);
 			return false;
 		} else {
 			lblName.setText(" NAME:");
 			setLabelColor(lblName, true);
-			// lblName.setForeground(Color.BLACK);
 			return true;
 		}
 	}
@@ -221,13 +219,11 @@ public class AddNewWindow extends JDialog implements ActionListener {
 	public boolean verifyCredentialsType() {
 		if (rdbtnA.isSelected() || rdbtnB.isSelected() || rdbtnC.isSelected()) {
 			lblType.setText(" TYPE:");
-			setLabelColor(lblType, true);
-			// lblType.setForeground(Color.BLACK);
+			setLabelColor(lblType, true);			
 			return true;
 		} else {
 			lblType.setText("*TYPE:");
 			setLabelColor(lblType, false);
-			// lblType.setForeground(Color.RED);
 			return false;
 		}
 	}

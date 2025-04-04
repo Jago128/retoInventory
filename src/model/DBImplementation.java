@@ -303,11 +303,10 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.setString(1, prod.getNameP());
 
 			switch (prod.getTypeP()) {
-			case COMPUTER:
+			case MOBILE:
 				stmt.setString(2, "Mobile");
 				break;
-
-			case MOBILE:
+			case COMPUTER:
 				stmt.setString(2, "Computer");
 				break;
 			}
@@ -511,11 +510,11 @@ public class DBImplementation implements MediaMartaDAO {
 				stmt.setString(2, "Graphics");
 				break;
 
-			case PROCESSOR:
+			case RAM:
 				stmt.setString(2, "RAM");
 				break;
 
-			case RAM:
+			case PROCESSOR:
 				stmt.setString(2, "Processor");
 				break;
 			}
@@ -635,6 +634,7 @@ public class DBImplementation implements MediaMartaDAO {
 				stmt = con.prepareStatement(SQLRESTOCKCOMPONENT);
 				stmt.setInt(1, quantity);
 				stmt.setInt(2, code);
+				stmt.executeUpdate();
 			}
 			stmt.close();
 			con.close();
