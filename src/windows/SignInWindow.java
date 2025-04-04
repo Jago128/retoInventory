@@ -8,16 +8,16 @@ import controller.LoginController;
 import exception.IncorrectPasswordFormatException;
 import model.*;
 
-// CREATE NEW USER WINDOW 
-// Go to->(MenuWindow)
-// Back to->(MainWindow)
+/* CREATE NEW USER WINDOW 
+ * Go to->(MenuWindow)
+ * Back to->(MainWindow)*/
 public class SignInWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private LoginController cont;
 	private JLabel lblTitulo, lblMessage;
 	private JTextField textUserCod, textName;
-	private JPasswordField password, passwordConfirmation;	
+	private JPasswordField password, passwordConfirmation;
 	private JButton btnClose, btnSubmit;
 
 	/**[WINDOW CREATION]**/
@@ -100,11 +100,11 @@ public class SignInWindow extends JDialog implements ActionListener {
 		btnClose.addActionListener(this);
 	}
 
-	/**[METHODS]*/	
+	/**[METHODS]**/
 
 	// Sets the color of the labels true = BLACK | false = RED
 	public void setLabelColor(JLabel label, boolean correct) {
-		if(correct) {
+		if (correct) {
 			label.setForeground(Color.BLACK);
 		} else {
 			label.setForeground(Color.RED);
@@ -152,7 +152,7 @@ public class SignInWindow extends JDialog implements ActionListener {
 	public User setUser(User user) {
 		user.setCodU(textUserCod.getText());
 		user.setUsername(textName.getText());
-		user.setPassword(new String(password.getPassword())); 
+		user.setPassword(new String(password.getPassword()));
 		user.setTypeU(TypeU.CLIENT);
 		return user;
 	}
@@ -164,7 +164,7 @@ public class SignInWindow extends JDialog implements ActionListener {
 		// Closes the window
 		if (e.getSource() == btnClose) {
 			MainWindow frame = new MainWindow(cont);
-			frame.setVisible(true);			
+			frame.setVisible(true);
 			this.dispose();
 		}
 		// Verifies the text fields and creates the user
@@ -174,10 +174,11 @@ public class SignInWindow extends JDialog implements ActionListener {
 				setTextColor(textUserCod, true);
 				try {
 					if (verifyPasswordFormat(new String(password.getPassword()))) { // EXCEPTION
-						if (verifyPassword(new String(password.getPassword()), new String(passwordConfirmation.getPassword()))) { // Verifies if the password is equal in both text fields
+						if (verifyPassword(new String(password.getPassword()),
+								new String(passwordConfirmation.getPassword()))) { // Verifies if the password is equal in both text fields
 							setTextColor(password, true);
-							setTextColor(passwordConfirmation, true);					
-							setUser(user);										 
+							setTextColor(passwordConfirmation, true);
+							setUser(user);
 							cont.registerUser(user); // Registers the user
 							lblMessage.setText("User registered correctly.");
 							setLabelColor(lblMessage, true);

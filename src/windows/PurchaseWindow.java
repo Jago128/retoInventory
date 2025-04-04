@@ -10,9 +10,9 @@ import javax.swing.border.EmptyBorder;
 import controller.LoginController;
 import model.*;
 
-// SHOW PURCHASE WINDOW  
-// Go to->(*close*)
-// Back to->(MenuWindow)
+/* SHOW PURCHASE WINDOW  
+ * Go to->(*close*)
+ * Back to->(MenuWindow)*/
 public class PurchaseWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -20,8 +20,6 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 	private LoginController cont;
 	private JButton btnLogOut, btnClose;
 	private User user;
-	//private Map<String, Purchase> purchases;
-	//private Map<String, Buy> buys;
 	private JList<String> listPurchases;
 
 	/**[WINDOW CREATION]**/
@@ -58,7 +56,6 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 		listPurchases = new JList<String>();
 		listPurchases.setBounds(10, 104, 446, 485);
 		contentPane.add(listPurchases);
-
 		loadProductsList();
 
 		// Buttons
@@ -81,24 +78,23 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 	/**[METHODS]**/
 
 	// Loads the products to the list
-	public void loadProductsList() {		
+	public void loadProductsList() {
 		Map<Integer, Purchase> purchases = cont.getPurchases(user.getCodU());
 		Map<Integer, Buy> buys = cont.getBuys(user.getCodU());
-
-		DefaultListModel<String> model = new DefaultListModel<String>();				
+		DefaultListModel<String> model = new DefaultListModel<String>();
 
 		listPurchases.removeAll();
 
-		if(!purchases.isEmpty()) {
-			for (Purchase p : purchases.values()){
+		if (!purchases.isEmpty()) {
+			for (Purchase p : purchases.values()) {
 				model.addElement(p.allData());
 			}
 		}
 		if (!buys.isEmpty()) {
-			for (Buy b : buys.values()){
+			for (Buy b : buys.values()) {
 				model.addElement(b.allData());
 			}
-		}				
+		}
 		listPurchases.setModel(model);
 	}
 
@@ -114,7 +110,7 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 		}
 		// Closes the window
 		if (e.getSource() == btnClose) {
-			MenuWindow menu = new MenuWindow(cont, user); 
+			MenuWindow menu = new MenuWindow(cont, user);
 			menu.setVisible(true);
 			this.dispose();
 		}

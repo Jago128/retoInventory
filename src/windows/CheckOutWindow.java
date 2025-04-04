@@ -7,9 +7,9 @@ import javax.swing.event.*;
 import controller.LoginController;
 import model.User;
 
-// CHECK OUT WINDOW 
-// Go to->(*close*)
-// Back to->(ProductWindow/ComponentWindow/BrandWindow)
+/* CHECK OUT WINDOW 
+ * Go to->(*close*)
+ * Back to->(ProductWindow/ComponentWindow/BrandWindow)*/
 public class CheckOutWindow extends JDialog implements ActionListener, ChangeListener {
 
 	private static final long serialVersionUID = 1L;
@@ -40,7 +40,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 		setResizable(false); // Blocks the window so it can't be modified the size
 
 		/* Spinner (Numeric value)
-		 * It needs to be created before because the labels need the value of it */
+		 * It needs to be created before because the labels need the value of it*/
 		SpinnerModel sm = new SpinnerNumberModel(1, 1, cont.checkStock(name, type), 1); // Default, Min, Max, Increment
 		spinner = new JSpinner(sm);
 		spinner.setBounds(214, 111, 187, 34);
@@ -79,7 +79,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 		lblItemName.setBounds(25, 111, 187, 34);
 		getContentPane().add(lblItemName);
 
-		lblPrice = new JLabel(calcPrice() + "€");
+		lblPrice = new JLabel(calcPrice()+"€");
 		lblPrice.setHorizontalAlignment(SwingConstants.LEFT);
 		lblPrice.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		lblPrice.setBounds(214, 156, 187, 34);
@@ -105,25 +105,24 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 	/**[METHODS]**/
 
 	// Calculate price
-	public double calcPrice() {	// Calculates the subtotal basing on the price of the product and the spinner's value
-		return price * (int) spinner.getValue();
+	public double calcPrice() { // Calculates the subtotal basing on the price of the product and the spinner's value
+		return price*(int)spinner.getValue();
 	}
 
 	// Refresh parent window list
 	public void refreshParentList() {
 		JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
-		if 	(parent instanceof ProductWindow){ // Checks the parent window type
-			ProductWindow productWindow = (ProductWindow)parent; // Cast it to its type to be able to use it's methods
+		if (parent instanceof ProductWindow) { // Checks the parent window type
+			ProductWindow productWindow = (ProductWindow) parent; // Cast it to its type to be able to use it's methods
 			productWindow.loadProductsList(); // Calls the parent method to reload the list
-		} else if (parent instanceof ComponentWindow){ 
-			ComponentWindow productWindow = (ComponentWindow)parent;
-			productWindow.loadComponentList(); 
-		} else if (parent instanceof BrandWindow){ 
-			BrandWindow productWindow = (BrandWindow)parent;
-			productWindow.loadList(); 
-		}
-		else if (parent instanceof LowStockWindow) {
-			LowStockWindow lowStockWindow = (LowStockWindow)parent;
+		} else if (parent instanceof ComponentWindow) {
+			ComponentWindow productWindow = (ComponentWindow) parent;
+			productWindow.loadComponentList();
+		} else if (parent instanceof BrandWindow) {
+			BrandWindow productWindow = (BrandWindow) parent;
+			productWindow.loadList();
+		} else if (parent instanceof LowStockWindow) {
+			LowStockWindow lowStockWindow = (LowStockWindow) parent;
 			lowStockWindow.loadList();
 		}
 	}

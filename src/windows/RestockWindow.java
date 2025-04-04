@@ -7,9 +7,9 @@ import javax.swing.event.*;
 import controller.LoginController;
 import model.*;
 
-// SHOW LOW STOCK WINDOW
-// Go to->(*close*)
-// Back to->(LowStockWindow)
+/* SHOW LOW STOCK WINDOW
+ * Go to->(*close*)
+ * Back to->(LowStockWindow)*/
 public class RestockWindow extends JDialog implements ActionListener, ChangeListener {
 
 	private static final long serialVersionUID = 1L;
@@ -21,9 +21,10 @@ public class RestockWindow extends JDialog implements ActionListener, ChangeList
 	private int code;
 	private boolean type; // true = Product | false = Component
 
-	/**[WINDOW CREATION]**/
+	/** [WINDOW CREATION] **/
 
-	public RestockWindow(JDialog parent, LoginController cont, User user, String name, int code, double price, boolean type) {
+	public RestockWindow(JDialog parent, LoginController cont, User user, String name, int code, double price,
+			boolean type) {
 		super(parent, true); // Blocks the father window
 		this.cont = cont;
 		this.name = name;
@@ -38,12 +39,12 @@ public class RestockWindow extends JDialog implements ActionListener, ChangeList
 		setResizable(false); // Blocks the window so it can't be modified the size
 
 		/* Spinner (Numeric value)
-		 * It needs to be created before because the labels need the value of it */
+		 * It needs to be created before because the labels need the value of it*/
 		SpinnerModel sm = new SpinnerNumberModel(5, 5, 5000, 5); // Default, Min, Max, Increment
 		spinner = new JSpinner(sm);
 		spinner.setBounds(214, 111, 187, 34);
 		getContentPane().add(spinner);
-		spinner.setValue(5);	
+		spinner.setValue(5);
 
 		// Titles
 		JLabel item = new JLabel("Item");
@@ -84,13 +85,13 @@ public class RestockWindow extends JDialog implements ActionListener, ChangeList
 		lblItemName.setBounds(25, 111, 187, 34);
 		getContentPane().add(lblItemName);
 
-		lblStock = new JLabel(cont.checkStock(name, type)+" units");
+		lblStock = new JLabel(cont.checkStock(name, type) + " units");
 		lblStock.setHorizontalAlignment(SwingConstants.LEFT);
 		lblStock.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		lblStock.setBounds(214, 156, 187, 25);
 		getContentPane().add(lblStock);
 
-		lblStockCalc = new JLabel(calcNewStock()+" units");
+		lblStockCalc = new JLabel(calcNewStock() + " units");
 		lblStockCalc.setHorizontalAlignment(SwingConstants.LEFT);
 		lblStockCalc.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		lblStockCalc.setBounds(214, 184, 187, 25);
@@ -105,7 +106,7 @@ public class RestockWindow extends JDialog implements ActionListener, ChangeList
 		btnClose = new JButton("CLOSE");
 		btnClose.setBounds(5, 5, 80, 21);
 		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		getContentPane().add(btnClose);		
+		getContentPane().add(btnClose);
 
 		// Adding action listener
 		spinner.addChangeListener(this);
@@ -116,24 +117,23 @@ public class RestockWindow extends JDialog implements ActionListener, ChangeList
 	/**[METHODS]**/
 
 	// Calculates the new stock
-	public int calcNewStock() {	// Calculates the subtotal basing on the price of the product and the spinner's value
+	public int calcNewStock() { // Calculates the subtotal basing on the price of the product and the spinner's value
 		return cont.checkStock(name, type) + (int) spinner.getValue();
 	}
 
 	// Refresh parent window list
 	public void refreshParentList() {
 		JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
-		if(parent instanceof ProductWindow){ // Checks the parent window type
+		if (parent instanceof ProductWindow) { // Checks the parent window type
 			ProductWindow productWindow = (ProductWindow)parent; // Cast it to its type to be able to use it's methods
 			productWindow.loadProductsList(); // Calls the parent method to reload the list
-		} else if (parent instanceof ComponentWindow){ 
+		} else if (parent instanceof ComponentWindow) {
 			ComponentWindow productWindow = (ComponentWindow)parent;
-			productWindow.loadComponentList(); 
-		} else if (parent instanceof BrandWindow){ 
+			productWindow.loadComponentList();
+		} else if (parent instanceof BrandWindow) {
 			BrandWindow productWindow = (BrandWindow)parent;
-			productWindow.loadList(); 
-		}
-		else if (parent instanceof LowStockWindow) {
+			productWindow.loadList();
+		} else if (parent instanceof LowStockWindow) {
 			LowStockWindow lowStockWindow = (LowStockWindow)parent;
 			lowStockWindow.loadList();
 		}
@@ -143,13 +143,13 @@ public class RestockWindow extends JDialog implements ActionListener, ChangeList
 
 	// Action Performer
 	@Override
-	public void actionPerformed(ActionEvent e) {				
+	public void actionPerformed(ActionEvent e) {
 		// Closes the window
-		if (e.getSource()==btnClose) {
+		if (e.getSource() == btnClose) {
 			this.dispose();
 		}
 		// 
-		if (e.getSource()==btnSubmit) {			
+		if (e.getSource() == btnSubmit) {
 			cont.restock(code, calcNewStock(), type);
 			JOptionPane.showMessageDialog(null, "Component "+name+" got added "+(int)spinner.getValue()+" units succesfully");
 			refreshParentList();

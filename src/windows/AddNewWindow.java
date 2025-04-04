@@ -7,9 +7,9 @@ import javax.swing.*;
 import controller.LoginController;
 import java.util.*;
 
-// ADD NEW ITEM WINDOW 
-// Go to->(*close*)
-// Back to->(ProductWindow/ComponentWindow/BrandWindow)
+/* ADD NEW ITEM WINDOW
+ * Go to->(*close*)
+ * Back to->(ProductWindow/ComponentWindow/BrandWindow)*/
 public class AddNewWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -28,19 +28,19 @@ public class AddNewWindow extends JDialog implements ActionListener {
 	/**[WINDOW CREATION]*/
 
 	public AddNewWindow(JDialog parent, LoginController cont, User user, String name, boolean type) {
-		super(parent, true); // Blocks the father window		
+		super(parent, true); // Blocks the father window
 		this.cont = cont;
 		this.type = type; // true = Product | false = Component
 
 		// Window
-		setTitle("MEDIAMARTA: Add New " + verifyType(type));
+		setTitle("MEDIAMARTA: Add New "+verifyType(type));
 		setBounds(100, 100, 480, 442);
 		getContentPane().setLayout(null);
 		getContentPane().setBackground(Color.WHITE);
 		setResizable(false); // Blocks the window so it can't be modified the size
 
 		// Titles
-		lblTitle = new JLabel(verifyType(type) + " Information");
+		lblTitle = new JLabel(verifyType(type)+" Information");
 		lblTitle.setBounds(10, 10, 416, 43);
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setFont(new Font("Times New Roman", Font.PLAIN, 20));
@@ -219,7 +219,7 @@ public class AddNewWindow extends JDialog implements ActionListener {
 	public boolean verifyCredentialsType() {
 		if (rdbtnA.isSelected() || rdbtnB.isSelected() || rdbtnC.isSelected()) {
 			lblType.setText(" TYPE:");
-			setLabelColor(lblType, true);			
+			setLabelColor(lblType, true);
 			return true;
 		} else {
 			lblType.setText("*TYPE:");
@@ -257,7 +257,7 @@ public class AddNewWindow extends JDialog implements ActionListener {
 			lblBrand.setForeground(Color.RED);
 			return false;
 		} else {
-			lblBrand.setText(" BRAND:");
+			lblBrand.setText("BRAND:");
 			lblBrand.setForeground(Color.BLACK);
 			return true;
 		}
@@ -265,24 +265,23 @@ public class AddNewWindow extends JDialog implements ActionListener {
 
 	// Gets the Brand code
 	public int setBrandCode() {
-		String brandName = (String) comboBoxBrands.getSelectedItem();
+		String brandName = (String)comboBoxBrands.getSelectedItem();
 		return cont.getBrandCode(brandName);
 	}
 
 	// Refresh parent window list
 	public void refreshParentList() {
 		JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
-		if(parent instanceof ProductWindow){ // Checks the parent window type
+		if (parent instanceof ProductWindow) { // Checks the parent window type
 			ProductWindow productWindow = (ProductWindow)parent; // Cast it to its type to be able to use it's methods
 			productWindow.loadProductsList(); // Calls the parent method to reload the list
-		} else if (parent instanceof ComponentWindow){ 
+		} else if (parent instanceof ComponentWindow) {
 			ComponentWindow productWindow = (ComponentWindow)parent;
-			productWindow.loadComponentList(); 
-		} else if (parent instanceof BrandWindow){ 
+			productWindow.loadComponentList();
+		} else if (parent instanceof BrandWindow) {
 			BrandWindow productWindow = (BrandWindow)parent;
-			productWindow.loadList(); 
-		}
-		else if (parent instanceof LowStockWindow) {
+			productWindow.loadList();
+		} else if (parent instanceof LowStockWindow) {
 			LowStockWindow lowStockWindow = (LowStockWindow)parent;
 			lowStockWindow.loadList();
 		}
@@ -296,6 +295,7 @@ public class AddNewWindow extends JDialog implements ActionListener {
 		if (e.getSource() == btnClose) {
 			this.dispose();
 		}
+		
 		// Verifies the text fields and adds the Product or Component
 		if (e.getSource() == btnSubmit) { // Verifies all the text fields are filled
 			if (verifyCredentialsName() && verifyCredentialsType() && verifyCredentialsBrand()) {
@@ -303,18 +303,18 @@ public class AddNewWindow extends JDialog implements ActionListener {
 				if (type) { // If all fields are filled depending on the choices will create the Product or Component to add it to the database
 					Product product = new Product(textName.getText(), productType, (double)spinnerPrice.getValue(), (int)spinnerQuantity.getValue(), setBrandCode());
 					cont.insertProd(product);
-					JOptionPane.showMessageDialog(null, "Product "+product.getNameP()+" with price "+product.getPrice()+"€ added with "+product.getStock()+" units of stock succesfully");					
+					JOptionPane.showMessageDialog(null, "Product "+product.getNameP()+" with price "+product.getPrice()+"€ added with "+product.getStock()+" units of stock succesfully.");
 					refreshParentList();
 					this.dispose();
 				} else {
-					Comp component = new Comp(textName.getText(), componentType, setBrandCode(), (int)spinnerQuantity.getValue(), (double)spinnerPrice.getValue()); // String nameC, TypeC typeC, int codBrand, int stock, double price
+					Comp component = new Comp(textName.getText(), componentType, setBrandCode(), (int)spinnerQuantity.getValue(), (double)spinnerPrice.getValue());
 					cont.insertComp(component);
-					JOptionPane.showMessageDialog(null, "Component "+component.getNameC()+" with price "+component.getPrice()+"€ added with "+component.getStock()+" units of stock succesfully");
+					JOptionPane.showMessageDialog(null, "Component "+component.getNameC()+" with price "+component.getPrice()+"€ added with "+component.getStock()+" units of stock succesfully.");
 					refreshParentList();
 					this.dispose();
 				}
 			} else {
-				lblMessage.setText("Required parameters must be filled to submit");
+				lblMessage.setText("Required parameters must be filled to submit.");
 			}
 		}
 	}

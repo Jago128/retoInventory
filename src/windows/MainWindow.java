@@ -7,9 +7,9 @@ import javax.swing.border.*;
 import model.*;
 import controller.LoginController;
 
-// MAIN MENU WINDOW 
-// Go to->(MenuWindow, SignInWindow)
-// Back to->(*close*)
+/* MAIN MENU WINDOW 
+ * Go to->(MenuWindow, SignInWindow)
+ * Back to->(*close*)*/
 public class MainWindow extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -83,7 +83,7 @@ public class MainWindow extends JFrame implements ActionListener {
 
 		btnClose = new JButton("CLOSE");
 		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		btnClose.setBounds(5, 5, 80, 21); 
+		btnClose.setBounds(5, 5, 80, 21);
 		contentPane.add(btnClose);
 
 		// Adding action listener
@@ -96,7 +96,7 @@ public class MainWindow extends JFrame implements ActionListener {
 
 	// Sets the color of the labels true = BLACK | false = RED
 	public void setLabelColor(JLabel label, boolean correct) {
-		if(correct) {
+		if (correct) {
 			label.setForeground(Color.BLACK);
 		} else {
 			label.setForeground(Color.RED);
@@ -105,14 +105,14 @@ public class MainWindow extends JFrame implements ActionListener {
 
 	// Sets the color of the text fields true = WHITE | false = RED
 	public void setTextColor(JTextField field, boolean correct) {
-		if(correct) {
+		if (correct) {
 			field.setBackground(Color.WHITE);
 		} else {
 			field.setBackground(new Color(250, 128, 114));
 		}
 	}
 
-	/**[ACTION PERFORMER]**/	
+	/**[ACTION PERFORMER]**/
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -123,22 +123,22 @@ public class MainWindow extends JFrame implements ActionListener {
 		// Verifies if the user exist to log in
 		if (e.getSource() == btnLogIn) {
 			User user = new User(textCodU.getText(), new String(passwordPsw.getPassword()));
-			if (cont.verifyUser(user)) { // Verifies the user exists 
+			if (cont.verifyUser(user)) { // Verifies the user exists
 				setTextColor(textCodU, true);
-				if (cont.verifyUserPassword(user)) { // Verifies the password matches 			
+				if (cont.verifyUserPassword(user)) { // Verifies the password matches
 					user = cont.getUser(user); // Obtains all the data of the user
 					setLabelColor(lblMesageUp, true);
 					setTextColor(passwordPsw, true);
-					lblMesageUp.setText("Welcome " + textCodU.getText());
+					lblMesageUp.setText("Welcome "+textCodU.getText());
 					lblMessageDown.setText("");
-					JOptionPane.showMessageDialog(null, "Welcome " + textCodU.getText()); // Pop-Up Message
-					MenuWindow menu = new MenuWindow(cont, user); 
+					JOptionPane.showMessageDialog(null, "Welcome "+textCodU.getText()); // Pop-Up Message
+					MenuWindow menu = new MenuWindow(cont, user);
 					menu.setVisible(true);
 					this.dispose();
-				}  else { // If the password doesn't match warns the user with a red message
+				} else { // If the password doesn't match warns the user with a red message
 					setLabelColor(lblMesageUp, false);
 					setTextColor(passwordPsw, false);
-					lblMesageUp.setText("Incorrect password.");					
+					lblMesageUp.setText("Incorrect password.");
 				}
 			} else { // If the user doesn't exist warns the user with a red message
 				setLabelColor(lblMesageUp, false);

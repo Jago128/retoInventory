@@ -72,7 +72,7 @@ public class Buy {
 	public void setPrice(double price) {
 		this.price = price;
 	}
-	
+
 	public Date getDate() {
 		return date;
 	}
@@ -83,7 +83,7 @@ public class Buy {
 
 	// Method to show name and price
 	public String allData() {
-		return  "[COD"+codBuy+"] "+quantity+" units of component "+codComponent+" at  total price "+price+"€ on "+date;
+		return  "[Code: "+codBuy+"] "+quantity+" units of component "+codComponent+" at total price "+price+"€ on "+date;
 	}
 
 	// Declare toString

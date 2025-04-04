@@ -29,8 +29,8 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLSELECTPRODUCTNAMEPRICE = "SELECT * FROM product WHERE nameP = ?";
 	final String SQLINSERTPROD = "INSERT INTO product (nameP, typeP, price, stockProduct, codBrand) VALUES (?,?,?,?,?)";
 	final String SQLDELETEPROD = "DELETE FROM product WHERE nameP = ?";
-	final String SQLPRODUCTSTOCK = "SELECT stockProduct FROM product WHERE nameP = ?";	
-	final String SQLSELECTPRODUCTSTOCK = "SELECT * FROM product WHERE stockProduct <= 50 ORDER BY stockProduct";	
+	final String SQLPRODUCTSTOCK = "SELECT stockProduct FROM product WHERE nameP = ?";
+	final String SQLSELECTPRODUCTSTOCK = "SELECT * FROM product WHERE stockProduct <= 50 ORDER BY stockProduct";
 	final String SQLPROD = "SELECT PROD FROM PRODUCT WHERE NAMEP = ?";
 
 	// COMPONENTS
@@ -39,7 +39,7 @@ public class DBImplementation implements MediaMartaDAO {
 	final String SQLINSERTCOMP = "INSERT INTO component (nameComp, typeC, stockComponent, priceComp, codBrand) VALUES (?,?,?,?,?)";
 	final String SQLDELETECOMP = "DELETE FROM component WHERE nameComp = ?";
 	final String SQLCOMPSTOCK = "SELECT stockComponent FROM component WHERE nameComp = ?";
-	final String SQLSELECTCOMPSTOCK = "SELECT * FROM component WHERE stockcomponent <= 50 ORDER BY stockComponent";	
+	final String SQLSELECTCOMPSTOCK = "SELECT * FROM component WHERE stockcomponent <= 50 ORDER BY stockComponent";
 
 	// PRODUCTS & COMPONENTS
 	final String SQLSELL = "CALL sellAndSubstract(?,?,?,?,?)";
@@ -104,7 +104,7 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
-			System.out.println("[Error]" + e.getMessage());
+			System.out.println("[Error]" +e.getMessage());
 		}
 		return exists;
 	}
@@ -132,7 +132,7 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
-			System.out.println("[Error]" + e.getMessage());
+			System.out.println("[Error]" +e.getMessage());
 		}
 		return exists;
 	}
@@ -159,7 +159,7 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
-			System.out.println("[Error]" + e.getMessage());
+			System.out.println("[Error]" +e.getMessage());
 		}
 		return admin;
 	}
@@ -174,18 +174,18 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt = con.prepareStatement(SQLUSER);
 			stmt.setString(1, user.getCodU());
 			rs = stmt.executeQuery();
-			while (rs.next()) {				
+			while (rs.next()) {
 				user.setCodU(rs.getString("codUser"));
 				user.setPassword(rs.getString("psw"));
 				user.setUsername(rs.getString("username"));
 
 				if (verifyUserType(user)) {
 					user.setTypeU(TypeU.ADMIN);
-				} else { 
+				} else {
 					user.setTypeU(TypeU.CLIENT);
 				}
 			}
-			rs.close();			
+			rs.close();
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
@@ -213,7 +213,7 @@ public class DBImplementation implements MediaMartaDAO {
 				stmt.close();
 				con.close();
 			} catch (SQLException e) {
-				System.out.println("Error" + e.getMessage());
+				System.out.println("Error" +e.getMessage());
 			}
 		}
 		return register;
@@ -237,17 +237,17 @@ public class DBImplementation implements MediaMartaDAO {
 				product = new Product();
 				product.setNameP(rs.getString("nameP"));
 				product.setPrice(rs.getDouble("price"));
-				switch(rs.getString("typeP")) {
+				switch (rs.getString("typeP")) {
 				case "Mobile":
 					product.setTypeP(TypeP.MOBILE);
 					break;
 				case "Computer":
 					product.setTypeP(TypeP.COMPUTER);
 					break;
-				}			
+				}
 				product.setCodP(rs.getInt("codProduct"));
 				product.setCodBrand(rs.getInt("codBrand"));
-				product.setStock(rs.getInt("stockProduct"));	
+				product.setStock(rs.getInt("stockProduct"));
 				products.put(product.getNameP(), product);
 			}
 			rs.close();
@@ -276,7 +276,7 @@ public class DBImplementation implements MediaMartaDAO {
 				product.setCodP(rs.getInt("codProduct"));
 				product.setNameP(rs.getString("nameP"));
 				product.setPrice(rs.getDouble("price"));
-				//product.setTypeP(rs.getDouble("priceComp"));
+				// product.setTypeP(rs.getDouble("priceComp"));
 				product.setCodBrand(rs.getInt("codBrand"));
 				product.setStock(rs.getInt("stockProduct"));
 			}
@@ -329,7 +329,7 @@ public class DBImplementation implements MediaMartaDAO {
 	// Delete a product
 	@Override
 	public boolean deleteProd(String nom) {
-		// Open connection and declare a boolean to check if the update is properly executed		
+		// Open connection and declare a boolean to check if the update is properly executed
 		boolean check = false;
 
 		// Opens the connection
@@ -338,7 +338,8 @@ public class DBImplementation implements MediaMartaDAO {
 			// Prepares the SQL query
 			stmt = con.prepareStatement(SQLDELETEPROD);
 			stmt.setString(1, nom);
-			// Executes the SQL query. If the delete is executed correctly, check becomes true
+			// Executes the SQL query. If the delete is executed correctly, check becomes
+			// true
 			if (stmt.executeUpdate()>0) {
 				check = true;
 			}
@@ -365,7 +366,7 @@ public class DBImplementation implements MediaMartaDAO {
 				stmt.setString(1, nomItem);
 				rs = stmt.executeQuery();
 				if (rs.next()) {
-					stock=rs.getInt("STOCKPRODUCT");
+					stock = rs.getInt("STOCKPRODUCT");
 				}
 			} else {
 				// Prepares the SQL query
@@ -373,7 +374,7 @@ public class DBImplementation implements MediaMartaDAO {
 				stmt.setString(1, nomItem);
 				rs = stmt.executeQuery();
 				if (rs.next()) {
-					stock=rs.getInt("STOCKCOMPONENT");
+					stock = rs.getInt("STOCKCOMPONENT");
 				}
 			}
 			rs.close();
@@ -436,7 +437,7 @@ public class DBImplementation implements MediaMartaDAO {
 				component = new Comp();
 				component.setNameC(rs.getString("nameComp"));
 				component.setPrice(rs.getDouble("priceComp"));
-				switch(rs.getString("typeC")) {
+				switch (rs.getString("typeC")) {
 				case "Graphics":
 					component.setTypeC(TypeC.GRAPHICS);
 					break;
@@ -478,7 +479,7 @@ public class DBImplementation implements MediaMartaDAO {
 				component.setCodC(rs.getInt("codComponent"));
 				component.setNameC(rs.getString("nameComp"));
 				component.setPrice(rs.getDouble("priceComp"));
-				//component.setTypeC(rs.getDouble("priceComp"));
+				// component.setTypeC(rs.getDouble("priceComp"));
 				component.setCodBrand(rs.getInt("codBrand"));
 				component.setStock(rs.getInt("stockComponent"));
 			}
@@ -781,11 +782,11 @@ public class DBImplementation implements MediaMartaDAO {
 			while (rs.next()) {
 				purchase = new Purchase();
 				purchase.setCodPurchase(rs.getInt("codPurchase"));
-				purchase.setCodProduct(rs.getInt("codProduct"));			
+				purchase.setCodProduct(rs.getInt("codProduct"));
 				purchase.setCodUser(rs.getString("codUser"));
 				purchase.setQuantity(rs.getInt("quantity"));
-				purchase.setPrice(rs.getDouble("totalPrice"));	
-				purchase.setDate(rs.getDate("dateP"));	
+				purchase.setPrice(rs.getDouble("totalPrice"));
+				purchase.setDate(rs.getDate("dateP"));
 				purchases.put(purchase.getCodPurchase(), purchase);
 			}
 			rs.close();
@@ -812,11 +813,11 @@ public class DBImplementation implements MediaMartaDAO {
 			while (rs.next()) {
 				buy = new Buy();
 				buy.setCodBuy(rs.getInt("codBuy"));
-				buy.setCodComponent(rs.getInt("codComponent"));			
+				buy.setCodComponent(rs.getInt("codComponent"));
 				buy.setCodUser(rs.getString("codUser"));
 				buy.setQuantity(rs.getInt("quantity"));
-				buy.setPrice(rs.getDouble("totalPrice"));	
-				buy.setDate(rs.getDate("dateB"));	
+				buy.setPrice(rs.getDouble("totalPrice"));
+				buy.setDate(rs.getDate("dateB"));
 				buys.put(buy.getCodBuy(), buy);
 			}
 			rs.close();
