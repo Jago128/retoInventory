@@ -80,7 +80,7 @@ public class VerificationWindow extends JDialog implements ActionListener {
 	// Generates a random code from 1 to 4 numbers
 	public int generateCode() {
 		Random random = new Random();
-		cod = random.nextInt(9999 - 0 + 1) + 0;
+		cod = random.nextInt(9999-0+1)+0;
 		return cod;
 	}
 
@@ -139,7 +139,7 @@ public class VerificationWindow extends JDialog implements ActionListener {
 			this.dispose();
 		} else {
 			lblMensaje.setText("Incorrect code");
-			lblTitle.setText("Insert the code " + generateCode() + " to verify the action");
+			lblTitle.setText("Insert the code "+generateCode()+" to verify the action");
 		}
 	}
 }
