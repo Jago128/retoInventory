@@ -104,7 +104,8 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
-			System.out.println("[Error]" +e.getMessage());
+			System.out.println("The user couldn't be verified properly.");
+			e.printStackTrace();
 		}
 		return exists;
 	}
@@ -132,7 +133,8 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
-			System.out.println("[Error]" +e.getMessage());
+			System.out.println("The user couldn't be verified properly.");
+			e.printStackTrace();
 		}
 		return exists;
 	}
@@ -159,7 +161,8 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
-			System.out.println("[Error]" +e.getMessage());
+			System.out.println("The user couldn't be verified properly.");
+			e.printStackTrace();
 		}
 		return admin;
 	}
@@ -189,7 +192,7 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
-			System.out.println("SQL error");
+			System.out.println("The user couldn't be retrieved.");
 			e.printStackTrace();
 		}
 		return user;
@@ -213,7 +216,8 @@ public class DBImplementation implements MediaMartaDAO {
 				stmt.close();
 				con.close();
 			} catch (SQLException e) {
-				System.out.println("Error" +e.getMessage());
+				System.out.println("An error has occurred when attempting to register the user.");
+				e.printStackTrace();
 			}
 		}
 		return register;
@@ -254,7 +258,7 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
-			System.out.println("SQL error");
+			System.out.println("An error has occurred when attempting to retrieve the products.");
 			e.printStackTrace();
 		}
 		return products;
@@ -283,7 +287,7 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
-			System.out.println("SQL error");
+			System.out.println("An error has occurred when attempting to retrieve the product.");
 			e.printStackTrace();
 		}
 		return product;
@@ -320,6 +324,7 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
+			System.out.println("There was a problem trying to add the new product.");
 			e.printStackTrace();
 		}
 		return check;
@@ -346,6 +351,7 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
+			System.out.println("The product couldn't be deleted.");
 			e.printStackTrace();
 		}
 		return check;
@@ -380,6 +386,7 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
+			System.out.println("A problem occurred trying to get the item's stock.");
 			e.printStackTrace();
 		}
 		return stock;
@@ -413,6 +420,7 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
+			System.out.println("A problem occurred trying to retrieve the products.");
 			e.printStackTrace();
 		}
 		return prods;
@@ -456,7 +464,7 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
-			System.out.println("SQL error");
+			System.out.println("A problem occurred when trying to retrieve the components.");
 			e.printStackTrace();
 		}
 		return components;
@@ -478,7 +486,6 @@ public class DBImplementation implements MediaMartaDAO {
 				component.setCodC(rs.getInt("codComponent"));
 				component.setNameC(rs.getString("nameComp"));
 				component.setPrice(rs.getDouble("priceComp"));
-				// component.setTypeC(rs.getDouble("priceComp"));
 				component.setCodBrand(rs.getInt("codBrand"));
 				component.setStock(rs.getInt("stockComponent"));
 			}
@@ -486,7 +493,7 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
-			System.out.println("SQL error");
+			System.out.println("A problem occurred when trying to retrieve the component.");
 			e.printStackTrace();
 		}
 		return component;
@@ -529,6 +536,7 @@ public class DBImplementation implements MediaMartaDAO {
 			stmt.close();
 			con.close();
 		} catch (SQLException e) {
+			System.out.println("A problem occurred when trying to add a new component.");
 			e.printStackTrace();
 		}
 		return check;
