@@ -276,7 +276,6 @@ public class DBImplementation implements MediaMartaDAO {
 				product.setCodP(rs.getInt("codProduct"));
 				product.setNameP(rs.getString("nameP"));
 				product.setPrice(rs.getDouble("price"));
-				// product.setTypeP(rs.getDouble("priceComp"));
 				product.setCodBrand(rs.getInt("codBrand"));
 				product.setStock(rs.getInt("stockProduct"));
 			}
