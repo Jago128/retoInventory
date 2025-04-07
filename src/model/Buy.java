@@ -83,7 +83,7 @@ public class Buy {
 
 	// Method to show name and price
 	public String allData() {
-		return  "[Code: "+codBuy+"] "+quantity+" units of component "+codComponent+" at total price "+price+"€ on "+date;
+		return  "[Code: "+codBuy+"] You bought "+quantity+" unit(s) of component "+codComponent+" at a total price of "+price+"€ on "+date;
 	}
 
 	// Declare toString
