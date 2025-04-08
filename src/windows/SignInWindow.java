@@ -6,6 +6,7 @@ import java.util.regex.*;
 import javax.swing.*;
 import controller.LoginController;
 import exception.IncorrectPasswordFormatException;
+import exception.IncorrectUsernameFormatException;
 import model.*;
 
 /* CREATE NEW USER WINDOW 
@@ -120,20 +121,36 @@ public class SignInWindow extends JDialog implements ActionListener {
 		}
 	}
 
+	// Verifies the username has the format
+	public boolean usernameFormat(String password) {
+		Pattern pattern = Pattern.compile("^(?=.*[A-Za-z]).{4,}$");
+		Matcher matcher = pattern.matcher(password);
+		return matcher.matches();
+	}
+
 	// Verifying the password has the correct format
-	public boolean verifyPasswordFormat(String password) throws IncorrectPasswordFormatException { // EXCEPTION
-		boolean check = passwordFormat(password);
+	public boolean verifyUsernameFormat(String userCod) throws IncorrectUsernameFormatException { // EXCEPTION 1
+		boolean check = usernameFormat(userCod);
 		if (!check) {
-			throw new IncorrectPasswordFormatException();
+			throw new IncorrectUsernameFormatException();
 		}
 		return check;
-	}
+	}	
 
 	// Verifies the password has the format
 	public boolean passwordFormat(String password) {
 		Pattern pattern = Pattern.compile("^(?=.*[0-9])(?=.*[A-Za-z]).{8,}$");
 		Matcher matcher = pattern.matcher(password);
 		return matcher.matches();
+	}
+
+	// Verifying the password has the correct format
+	public boolean verifyPasswordFormat(String password) throws IncorrectPasswordFormatException { // EXCEPTION 2
+		boolean check = passwordFormat(password);
+		if (!check) {
+			throw new IncorrectPasswordFormatException();
+		}
+		return check;
 	}
 
 	// Verifying the password is equal in both text fields
@@ -169,41 +186,51 @@ public class SignInWindow extends JDialog implements ActionListener {
 		}
 		// Verifies the text fields and creates the user
 		if (e.getSource() == btnSubmit) {
-			User user = new User(textUserCod.getText(), textName.getText()); // Creates a user
-			if (!cont.verifyUser(user)) { // Verifies if a user with the same name exists
-				setTextColor(textUserCod, true);
-				try {
-					if (verifyPasswordFormat(new String(password.getPassword()))) { // EXCEPTION
-						if (verifyPassword(new String(password.getPassword()),
-								new String(passwordConfirmation.getPassword()))) { // Verifies if the password is equal in both text fields
-							setTextColor(password, true);
-							setTextColor(passwordConfirmation, true);
-							setUser(user);
-							cont.registerUser(user); // Registers the user
-							lblMessage.setText("User registered correctly.");
-							setLabelColor(lblMessage, true);
-							JOptionPane.showMessageDialog(null, "User registered correctly.");
-							MenuWindow menu = new MenuWindow(cont, user);
-							menu.setVisible(true);
-							this.dispose();
-						} else {
-							lblMessage.setText("The password must be equal in both parts.");
+			try {
+				if (verifyUsernameFormat(textUserCod.getText())) { // EXCEPTION 1 User Code Pattern
+					User user = new User(textUserCod.getText(), textName.getText()); // Creates a user
+					if (!cont.verifyUser(user)) { // Verifies if a user with the same name exists
+						setTextColor(textUserCod, true);
+						try {
+							if (verifyPasswordFormat(new String(password.getPassword()))) { // EXCEPTION 2 Password Pattern
+								if (verifyPassword(new String(password.getPassword()),
+										new String(passwordConfirmation.getPassword()))) { // Verifies if the password is equal in both text fields
+									setTextColor(password, true);
+									setTextColor(passwordConfirmation, true);
+									setUser(user);
+									cont.registerUser(user); // Registers the user
+									lblMessage.setText("User registered correctly.");
+									setLabelColor(lblMessage, true);
+									JOptionPane.showMessageDialog(null, "User registered correctly.");
+									MenuWindow menu = new MenuWindow(cont, user);
+									menu.setVisible(true);
+									this.dispose();
+								} else {
+									lblMessage.setText("The password must be equal in both parts.");
+									setLabelColor(lblMessage, false);
+									setTextColor(password, false);
+									setTextColor(passwordConfirmation, false);
+								}
+							}
+						} catch (IncorrectPasswordFormatException paswordError) { // EXCEPTION 2 Password Pattern
 							setLabelColor(lblMessage, false);
 							setTextColor(password, false);
-							setTextColor(passwordConfirmation, false);
+							lblMessage.setText(paswordError.getMessage());
+							JOptionPane.showMessageDialog(null, "Password must have at least 8 characters and contain one letter and one number.");
 						}
-					}
-				} catch (IncorrectPasswordFormatException error) {
-					setLabelColor(lblMessage, false);
-					setTextColor(password, false);
-					lblMessage.setText(error.getMessage());
-					JOptionPane.showMessageDialog(null, "Password must have at least 8 characters and contain one letter and one number.");
+					} else {
+						lblMessage.setText("User with that code already exists.");
+						setLabelColor(lblMessage, false);
+						setTextColor(textUserCod, false);
+					}				
 				}
-			} else {
-				lblMessage.setText("User with that code already exists.");
+			} catch (IncorrectUsernameFormatException userCodError) { // EXCEPTION 1 User Code Pattern
 				setLabelColor(lblMessage, false);
 				setTextColor(textUserCod, false);
+				lblMessage.setText(userCodError.getMessage());
+				JOptionPane.showMessageDialog(null, "Username must have at least 4 characters.");
 			}
 		}
 	}
 }
+
