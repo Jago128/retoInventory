@@ -5,6 +5,6 @@ public class IncorrectUsernameFormatException  extends Exception {
 	private static final long serialVersionUID = 1L;
 
 	public IncorrectUsernameFormatException() {
-		super("Incorrect username format.");
+		super("The format of the username is invalid.");
 	}
 }
