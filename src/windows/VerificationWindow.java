@@ -6,9 +6,9 @@ import javax.swing.*;
 import controller.LoginController;
 import java.util.*;
 
-// VERIFICATION WINDOW  
-// Go to->(*close*)
-// Back to->(ProductWindow/ComponentWindow/BrandWindow)
+/* VERIFICATION WINDOW  
+ * Go to->(*close*)
+ * Back to->(ProductWindow/ComponentWindow/BrandWindow)*/
 public class VerificationWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -24,13 +24,13 @@ public class VerificationWindow extends JDialog implements ActionListener {
 
 	/**[WINDOW CREATION]**/
 
-	public VerificationWindow(JDialog parent, LoginController cont, String name, boolean type) {		
+	public VerificationWindow(JDialog parent, LoginController cont, String name, boolean type) {
 		super(parent, true); // Blocks the father window
 		this.cont = cont;
 		this.name = name;
 		this.type = type;
 
-		// Window		
+		// Window
 		setTitle("Verify action");
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
@@ -38,7 +38,7 @@ public class VerificationWindow extends JDialog implements ActionListener {
 		setResizable(false); // Blocks the window so it can't be modified the size
 
 		// Titles
-		lblTitle = new JLabel("Insert the code " + generateCode() + " to verify the action");
+		lblTitle = new JLabel("Insert the code "+generateCode()+" to verify the action");
 		lblTitle.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
 		lblTitle.setBounds(10, 32, 416, 37);
@@ -80,7 +80,7 @@ public class VerificationWindow extends JDialog implements ActionListener {
 	// Generates a random code from 1 to 4 numbers
 	public int generateCode() {
 		Random random = new Random();
-		cod = random.nextInt(9999 - 0 + 1) + 0;
+		cod = random.nextInt(9999-0+1)+0;
 		return cod;
 	}
 
@@ -109,17 +109,16 @@ public class VerificationWindow extends JDialog implements ActionListener {
 	// Refresh parent window list
 	public void refreshParentList() {
 		JDialog parent = (JDialog)this.getParent(); // Obtains the parent window
-		if (parent instanceof ProductWindow){ // Checks the parent window type
+		if (parent instanceof ProductWindow) { // Checks the parent window type
 			ProductWindow productWindow = (ProductWindow)parent; // Cast it to its type to be able to use it's methods
 			productWindow.loadProductsList(); // Calls the parent method to reload the list
-		} else if (parent instanceof ComponentWindow){ 
+		} else if (parent instanceof ComponentWindow) {
 			ComponentWindow productWindow = (ComponentWindow)parent;
-			productWindow.loadComponentList(); 
-		} else if (parent instanceof BrandWindow){ 
+			productWindow.loadComponentList();
+		} else if (parent instanceof BrandWindow) {
 			BrandWindow productWindow = (BrandWindow)parent;
-			productWindow.loadList(); 
-		}
-		else if (parent instanceof LowStockWindow) {
+			productWindow.loadList();
+		} else if (parent instanceof LowStockWindow) {
 			LowStockWindow lowStockWindow = (LowStockWindow)parent;
 			lowStockWindow.loadList();
 		}
@@ -133,14 +132,14 @@ public class VerificationWindow extends JDialog implements ActionListener {
 		if (e.getSource() == btnClose) {
 			this.dispose();
 		}
-		// Verifies the code 
+		// Verifies the code
 		if (e.getSource() == btnSubmit && verifyCode(cod, textVerification.getText())) {
-			deletion(cont, name, type);			
+			deletion(cont, name, type);
 			refreshParentList();
 			this.dispose();
 		} else {
 			lblMensaje.setText("Incorrect code");
-			lblTitle.setText("Insert the code " + generateCode() + " to verify the action");
+			lblTitle.setText("Insert the code "+generateCode()+" to verify the action");
 		}
 	}
 }

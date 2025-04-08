@@ -7,23 +7,23 @@ import model.*;
 import javax.swing.*;
 import controller.LoginController;
 
-// SHOW PRODUCT WINDOW  
-// Go to->(CheckOutWindow, NewItemWindow, VerificationWindow)
-// Back to->(MainWindow, MenuWindow)
-public class ProductWindow extends JDialog implements ActionListener{
+/* SHOW PRODUCT WINDOW  
+ * Go to->(CheckOutWindow, NewItemWindow, VerificationWindow)
+ * Back to->(MainWindow, MenuWindow)*/
+public class ProductWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private LoginController cont;
 	private JLabel lblMediaMarta, lblProducts;
 	private JButton btnLogOut, btnBuy, btnAddNew, btnRemove, btnClose;
-	private JComboBox <String> comboxFilter;
+	private JComboBox<String> comboxFilter;
 	private JList<String> listName, listPrice;
 	private User user;
 
 	/**[WINDOW CREATION]**/
 
 	public ProductWindow(JFrame parent, LoginController cont, User user) {
-		super(parent,true); // Blocks the father window
+		super(parent, true); // Blocks the father window
 		this.cont = cont;
 		this.user = user;
 
@@ -57,11 +57,11 @@ public class ProductWindow extends JDialog implements ActionListener{
 		// List, Scroll & ComboBox
 		listName = new JList<String>();
 		listName.setBounds(10, 104, 314, 406);
-		getContentPane().add(listName);			
+		getContentPane().add(listName);
 
 		listPrice = new JList<String>();
 		listPrice.setBounds(327, 104, 129, 406);
-		getContentPane().add(listPrice);		
+		getContentPane().add(listPrice);
 
 		comboxFilter = new JComboBox<String>();
 		comboxFilter.setBounds(10, 81, 446, 22);
@@ -100,10 +100,10 @@ public class ProductWindow extends JDialog implements ActionListener{
 		getContentPane().add(btnClose);
 
 		// Buttons visibility
-		if (user.getTypeU()==TypeU.ADMIN) { // In case the user is an admin these buttons will be visible
+		if (user.getTypeU() == TypeU.ADMIN) { // In case the user is an admin these buttons will be visible
 			btnBuy.setVisible(false);
 			btnAddNew.setVisible(true);
-			btnRemove.setVisible(true);			
+			btnRemove.setVisible(true);
 		} else { // In case the user is a client these buttons will be visible
 			btnBuy.setVisible(true);
 			btnAddNew.setVisible(false);
@@ -116,7 +116,7 @@ public class ProductWindow extends JDialog implements ActionListener{
 		btnBuy.addActionListener(this);
 		btnAddNew.addActionListener(this);
 		btnRemove.addActionListener(this);
-		btnClose.addActionListener(this);	
+		btnClose.addActionListener(this);
 	}
 
 	/**[METHODS]**/
@@ -130,34 +130,34 @@ public class ProductWindow extends JDialog implements ActionListener{
 		listName.removeAll();
 		listPrice.removeAll();
 
-		switch ((String)comboxFilter.getSelectedItem()) {
+		switch ((String) comboxFilter.getSelectedItem()) {
 		case "MOBILES": // Uses the TreeMap ordered by the key as the name
-			if(!products.isEmpty()) {
-				for (Product p : products.values()){
-					if (p.getStock()>0 && p.getTypeP()==TypeP.MOBILE) {
+			if (!products.isEmpty()) {
+				for (Product p : products.values()) {
+					if (p.getStock()>0 && p.getTypeP() == TypeP.MOBILE) {
 						modelName.addElement(p.getNameP());
 						modelPrice.addElement(p.getPrice()+" €");
-					}	
+					}
 				}
 			}
 			break;
 		case "COMPUTERS": // Creates a TreeMap ordered by the key as the price
-			if(!products.isEmpty()) {
-				for (Product p : products.values()){
-					if (p.getStock()>0 && p.getTypeP()==TypeP.COMPUTER) {
+			if (!products.isEmpty()) {
+				for (Product p : products.values()) {
+					if (p.getStock()>0 && p.getTypeP() == TypeP.COMPUTER) {
 						modelName.addElement(p.getNameP());
 						modelPrice.addElement(p.getPrice()+" €");
-					}	
+					}
 				}
-			}	
-			break;	
+			}
+			break;
 		default:
-			if(!products.isEmpty()) {
-				for (Product p : products.values()){
+			if (!products.isEmpty()) {
+				for (Product p : products.values()) {
 					if (p.getStock()>0) {
 						modelName.addElement(p.getNameP());
 						modelPrice.addElement(p.getPrice()+" €");
-					}	
+					}
 				}
 			}
 			break;
@@ -169,7 +169,7 @@ public class ProductWindow extends JDialog implements ActionListener{
 	// Obtains the name and price of the selected product
 	public Product obtainNamePrice() {
 		Product product = new Product();
-		product=cont.obtainProduct(listName.getSelectedValue());
+		product = cont.obtainProduct(listName.getSelectedValue());
 		return product;
 	}
 
@@ -178,26 +178,26 @@ public class ProductWindow extends JDialog implements ActionListener{
 	// Action Performer
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// Logs-Out and moves back to the Main Window	
-		if (e.getSource()==btnLogOut) {
+		// Logs-Out and moves back to the Main Window
+		if (e.getSource() == btnLogOut) {
 			MainWindow frame = new MainWindow(cont);
 			frame.setVisible(true);
 			JFrame parent = (JFrame)this.getParent(); // Obtains the parent window
 			parent.dispose(); // Closes the parent window
 			this.dispose();
-		}		
+		}
 		// Closes the window
-		if (e.getSource()==btnClose) {
+		if (e.getSource() == btnClose) {
 			this.dispose();
 		}
 		// Detects when new option of order is choosed
-		if (e.getSource()==comboxFilter) {
+		if (e.getSource() == comboxFilter) {
 			loadProductsList();
 		}
 		// Opens the window for the Check out
 		if (e.getSource() == btnBuy) {
 			if (!listName.isSelectionEmpty()) { // If there is an item selected it will do the action
-				boolean type = true;  // true = Product | false = Component
+				boolean type = true; // true = Product | false = Component
 				CheckOutWindow checkOut = new CheckOutWindow(this, cont, user, obtainNamePrice().getNameP(), obtainNamePrice().getPrice(), type);
 				checkOut.setVisible(true);
 			} else {
@@ -205,15 +205,15 @@ public class ProductWindow extends JDialog implements ActionListener{
 			}
 		}
 		// Opens the window to add a new product
-		if (e.getSource()==btnAddNew) {			
-			boolean type = true;  // true = Product | false = Component
+		if (e.getSource() == btnAddNew) {
+			boolean type = true; // true = Product | false = Component
 			AddNewWindow addNew = new AddNewWindow(this, cont, user, obtainNamePrice().getNameP(), type);
 			addNew.setVisible(true);
 		}
 		// Opens the window to delete
-		if (e.getSource()==btnRemove) {
+		if (e.getSource() == btnRemove) {
 			if (!listName.isSelectionEmpty()) { // If there is an item selected it will do the action
-				boolean type = true;  // true = Product | false = Component
+				boolean type = true; // true = Product | false = Component
 				VerificationWindow checkOut = new VerificationWindow(this, cont, obtainNamePrice().getNameP(), type);
 				checkOut.setVisible(true);
 			} else {

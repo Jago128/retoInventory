@@ -7,9 +7,9 @@ import javax.swing.*;
 import controller.LoginController;
 import java.util.*;
 
-// SHOW LOW STOCK WINDOW  
-// Go to->(ReestockWindow)
-// Back to->(CheckOutWindow, NewItemWindow, VerificationWindow)
+/* SHOW LOW STOCK WINDOW  
+ * Go to->(ReestockWindow)
+ * Back to->(CheckOutWindow, NewItemWindow, VerificationWindow)*/
 public class LowStockWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -58,7 +58,7 @@ public class LowStockWindow extends JDialog implements ActionListener {
 		// List
 		listName = new JList<String>();
 		listName.setBounds(10, 104, 314, 406);
-		getContentPane().add(listName);		
+		getContentPane().add(listName);
 
 		listStock = new JList<String>();
 		listStock.setBounds(327, 104, 129, 406);
@@ -80,7 +80,7 @@ public class LowStockWindow extends JDialog implements ActionListener {
 		btnClose = new JButton("CLOSE");
 		btnClose.setBounds(5, 5, 80, 21);
 		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		getContentPane().add(btnClose);	
+		getContentPane().add(btnClose);
 
 		// Adding action listener
 		btnLogOut.addActionListener(this);
@@ -91,25 +91,25 @@ public class LowStockWindow extends JDialog implements ActionListener {
 	/**[METHODS]**/
 
 	// Loads the list
-	public void loadList() {	
+	public void loadList() {
 		listName.removeAll();
 		listStock.removeAll();
 
 		DefaultListModel<String> modelName = new DefaultListModel<String>();
 		DefaultListModel<String> modelStock = new DefaultListModel<String>();
 
-		products = cont.showProdsOrderedByStock();		
+		products = cont.showProdsOrderedByStock();
 		if (!products.isEmpty()) {
-			for (Product p : products.values()){
-				modelName.addElement(p.getNameP());	
-				modelStock.addElement("Stock: "+cont.checkStock(p.getNameP(), true));	
+			for (Product p : products.values()) {
+				modelName.addElement(p.getNameP());
+				modelStock.addElement("Stock: " + cont.checkStock(p.getNameP(), true));
 			}
 		}
 		components = cont.showCompsOrderedByStock();
 		if (!components.isEmpty()) {
 			for (Comp c : components.values()) {
 				modelName.addElement(c.getNameC());
-				modelStock.addElement("Stock: "+cont.checkStock(c.getNameC(), false));	
+				modelStock.addElement("Stock: " + cont.checkStock(c.getNameC(), false));
 			}
 		}
 		listName.setModel(modelName);
@@ -121,9 +121,9 @@ public class LowStockWindow extends JDialog implements ActionListener {
 		boolean type = false;
 
 		if (products.containsKey(listName.getSelectedValue())) {
-			type=true;
+			type = true;
 		} else if (components.containsKey(listName.getSelectedValue())) {
-			type=false;
+			type = false;
 		}
 		return type;
 	}
@@ -134,12 +134,12 @@ public class LowStockWindow extends JDialog implements ActionListener {
 
 		if (verifyType()) {
 			Product product = new Product();
-			product=cont.obtainProduct(listName.getSelectedValue());
-			name=product.getNameP();
+			product = cont.obtainProduct(listName.getSelectedValue());
+			name = product.getNameP();
 		} else {
 			Comp component = new Comp();
-			component=cont.obtainComponent(listName.getSelectedValue());
-			name=component.getNameC();
+			component = cont.obtainComponent(listName.getSelectedValue());
+			name = component.getNameC();
 		}
 		return name;
 	}
@@ -150,15 +150,15 @@ public class LowStockWindow extends JDialog implements ActionListener {
 
 		if (verifyType()) {
 			Product product = new Product();
-			product=cont.obtainProduct(listName.getSelectedValue());
-			price=product.getPrice();
+			product = cont.obtainProduct(listName.getSelectedValue());
+			price = product.getPrice();
 		} else {
 			Comp component = new Comp();
-			component=cont.obtainComponent(listName.getSelectedValue());
-			price=component.getPrice();
+			component = cont.obtainComponent(listName.getSelectedValue());
+			price = component.getPrice();
 		}
 		return price;
-	}	
+	}
 
 	// Obtains the name of the selected product or component
 	public int obtainCode() {
@@ -166,12 +166,12 @@ public class LowStockWindow extends JDialog implements ActionListener {
 
 		if (verifyType()) {
 			Product product = new Product();
-			product=cont.obtainProduct(listName.getSelectedValue());
-			code=product.getCodP();
+			product = cont.obtainProduct(listName.getSelectedValue());
+			code = product.getCodP();
 		} else {
 			Comp component = new Comp();
-			component=cont.obtainComponent(listName.getSelectedValue());
-			code=component.getCodC();
+			component = cont.obtainComponent(listName.getSelectedValue());
+			code = component.getCodC();
 		}
 		return code;
 	}
@@ -189,18 +189,19 @@ public class LowStockWindow extends JDialog implements ActionListener {
 			this.dispose();
 		}
 		// Closes the window
-		if (e.getSource()==btnClose) {
+		if (e.getSource() == btnClose) {
 			this.dispose();
-		} 
+		}
 		// Opens the window to restock window
-		if (e.getSource()==btnRestock) {
-			if (!listName.isSelectionEmpty()) { // If there is an item selected it will do the action				
-				RestockWindow restock = new RestockWindow(this, cont, user, obtainName(), obtainCode(), obtainPrice(), verifyType());
+		if (e.getSource() == btnRestock) {
+			if (!listName.isSelectionEmpty()) { // If there is an item selected it will do the action
+				RestockWindow restock = new RestockWindow(this, cont, user, obtainName(), obtainCode(), obtainPrice(),
+						verifyType());
 				restock.setVisible(true);
 			} else {
 				JOptionPane.showMessageDialog(null, "[ERROR] Select an item to add stock");
 			}
 
-		} 
+		}
 	}
 }

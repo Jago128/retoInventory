@@ -23,7 +23,7 @@ class TestBrand {
 
 	@Test
 	void testDefaultConstructor() {
-		Brand defaultBrand=new Brand();
+		Brand defaultBrand = new Brand();
 		assertEquals(0, defaultBrand.getCodB());
 		assertEquals("", defaultBrand.getNameB());
 	}

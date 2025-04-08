@@ -18,7 +18,7 @@ public class Purchase {
 		this.codProduct = 0;
 		this.codUser = "";
 		this.quantity = 0;
-		this.price= 0;
+		this.price = 0;
 		this.date = Date.valueOf(LocalDate.now());
 	}
 
@@ -83,7 +83,7 @@ public class Purchase {
 
 	// Method to show name and price
 	public String allData() {
-		return "[COD"+codPurchase+"] "+quantity+" units of component "+codProduct+" at  total price "+price+"€ on "+date;
+		return "[Code: "+codPurchase+"] You bought "+quantity+" unit(s) of product "+codProduct+" at a total price of "+price+"€ on "+date;
 	}
 
 	// Declare toString

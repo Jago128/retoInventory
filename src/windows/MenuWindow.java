@@ -8,9 +8,9 @@ import javax.swing.border.*;
 import model.*;
 import controller.LoginController;
 
-// MENU WINDOW
-// Go to->(ProductWindow, ComponentWindow, BrandWindow, LowStockWindow)
-// Back to->(MainWindow, *close*)
+/* MENU WINDOW
+ * Go to->(ProductWindow, ComponentWindow, BrandWindow, LowStockWindow)
+ * Back to->(MainWindow, *close*)*/
 public class MenuWindow extends JFrame implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
@@ -61,7 +61,7 @@ public class MenuWindow extends JFrame implements ActionListener {
 		contentPane.add(lblCodUser);
 
 		// Lists & Scroll
-		listProduct = new JList<String>();		
+		listProduct = new JList<String>();
 		listProduct.setLayoutOrientation(JList.VERTICAL);
 
 		JScrollPane scrollPaneProduct = new JScrollPane(listProduct); // Creates a ScrollPane where the list will be
@@ -115,7 +115,7 @@ public class MenuWindow extends JFrame implements ActionListener {
 		btnCheckStock = new JButton("CHECK STOCK");
 		btnCheckStock.setBounds(134, 554, 196, 35);
 		btnCheckStock.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		if (user.getTypeU()==TypeU.ADMIN) { // In case the user is admin the button will be visible
+		if (user.getTypeU() == TypeU.ADMIN) { // In case the user is admin the button will be visible
 			btnCheckStock.setVisible(true);
 		} else { // The client will not have this option visible
 			btnCheckStock.setVisible(false);
@@ -125,18 +125,18 @@ public class MenuWindow extends JFrame implements ActionListener {
 		btnClose = new JButton("CLOSE");
 		btnClose.setBounds(5, 5, 80, 21);
 		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		contentPane.add(btnClose);		
+		contentPane.add(btnClose);
 
 		btnPurchases = new JButton("Purchases");
 		btnPurchases.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		btnPurchases.setBackground(UIManager.getColor("Button.background"));
 		btnPurchases.setBounds(294, 5, 81, 21);
-		if (user.getTypeU()==TypeU.CLIENT) { // In case the user is client the button will be visible
+		if (user.getTypeU() == TypeU.CLIENT) { // In case the user is client the button will be visible
 			btnPurchases.setVisible(true);
 		} else { // The admin will not have this option visible
 			btnPurchases.setVisible(false);
 		}
-		contentPane.add(btnPurchases);		
+		contentPane.add(btnPurchases);
 
 		// Adding action listener
 		btnLogOut.addActionListener(this);
@@ -154,16 +154,16 @@ public class MenuWindow extends JFrame implements ActionListener {
 	public void loadProductsList() {
 		listProduct.removeAll();
 		listComp.removeAll();
-		listBrand.removeAll();		
+		listBrand.removeAll();
 
 		DefaultListModel<String> modelProd = new DefaultListModel<String>();
 		DefaultListModel<String> modelComp = new DefaultListModel<String>();
 		DefaultListModel<String> modelBrand = new DefaultListModel<String>();
 
 		products = cont.verifyProduct();
-		if(!products.isEmpty()) {
-			for (Product p : products.values()){
-				if(p.getStock()>0) {
+		if (!products.isEmpty()) {
+			for (Product p : products.values()) {
+				if (p.getStock()>0) {
 					modelProd.addElement(p.nameAndPrice());
 				}
 			}
@@ -172,9 +172,9 @@ public class MenuWindow extends JFrame implements ActionListener {
 		components = cont.verifyComponent();
 		if (!components.isEmpty()) {
 			for (Comp c : components.values()) {
-				if(c.getStock()>0) {
+				if (c.getStock()>0) {
 					modelComp.addElement(c.nameAndPrice());
-				}				
+				}
 			}
 		}
 
@@ -199,7 +199,7 @@ public class MenuWindow extends JFrame implements ActionListener {
 			MainWindow main = new MainWindow(cont);
 			main.setVisible(true);
 			this.dispose();
-		}// Logs-Out and moves back to the Main Window
+		} // Logs-Out and moves back to the Main Window
 		if (e.getSource() == btnPurchases) {
 			PurchaseWindow purchase = new PurchaseWindow(cont, user);
 			purchase.setVisible(true);
