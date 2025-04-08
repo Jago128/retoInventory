@@ -193,8 +193,7 @@ public class SignInWindow extends JDialog implements ActionListener {
 						setTextColor(textUserCod, true);
 						try {
 							if (verifyPasswordFormat(new String(password.getPassword()))) { // EXCEPTION 2 Password Pattern
-								if (verifyPassword(new String(password.getPassword()),
-										new String(passwordConfirmation.getPassword()))) { // Verifies if the password is equal in both text fields
+								if (verifyPassword(new String(password.getPassword()), new String(passwordConfirmation.getPassword()))) { // Verifies if the password is equal in both text fields
 									setTextColor(password, true);
 									setTextColor(passwordConfirmation, true);
 									setUser(user);
