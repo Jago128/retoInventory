@@ -124,7 +124,7 @@ public class SignInWindow extends JDialog implements ActionListener {
 
 	// Verifies the username has the format
 	public boolean usernameFormat(String userCod) {
-		Pattern pattern = Pattern.compile("^(?=.*[0-9])(?=.*[A-Za-z]).{2,20}$");
+		Pattern pattern = Pattern.compile("^(?=.*\\w).{4,20}$");
 		Matcher matcher = pattern.matcher(userCod);
 		return matcher.matches();
 	}
@@ -242,14 +242,14 @@ public class SignInWindow extends JDialog implements ActionListener {
 							setLabelColor(lblMessage, false);
 							setTextColor(textName, false);
 							lblMessage.setText(nameError.getMessage());
-							JOptionPane.showMessageDialog(null, "Name must have at least 2 characters.");
+							JOptionPane.showMessageDialog(null, "Name must have at least 2 characters and no numbers.");
 						}
 					}
 				} catch (IncorrectUsernameFormatException userCodError) { // EXCEPTION 1 User Code Pattern
 					setLabelColor(lblMessage, false);
 					setTextColor(textUserCod, false);
 					lblMessage.setText(userCodError.getMessage());
-					JOptionPane.showMessageDialog(null, "Username must have at least 2 characters (Numbers and Letters).");
+					JOptionPane.showMessageDialog(null, "Username must have at least 4 characters (Numbers and Letters).");
 				}
 			} else {
 				lblMessage.setText("User with that code already exists.");
