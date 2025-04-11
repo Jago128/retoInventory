@@ -3,6 +3,7 @@ package windows;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.JSpinner.*;
 import javax.swing.event.*;
 import controller.LoginController;
 import model.User;
@@ -45,6 +46,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 		spinner = new JSpinner(sm);
 		spinner.setBounds(214, 111, 187, 34);
 		getContentPane().add(spinner);
+		((DefaultEditor)spinner.getEditor()).getTextField().setEditable(false); // Prevents the spinner textfield from being editable with a keyboard, but doesn't prevent the values from being changed
 
 		// Titles
 		JLabel item = new JLabel("Item");
@@ -145,7 +147,7 @@ public class CheckOutWindow extends JDialog implements ActionListener, ChangeLis
 				refreshParentList();
 			}
 			else {
-				JOptionPane.showMessageDialog(null, "There is no enough stock. Try with less quantity.");
+				JOptionPane.showMessageDialog(null, "There is not enough stock. Try with less quantity.");
 			}
 		}
 	}
