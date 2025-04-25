@@ -20,12 +20,14 @@ public class RestockWindow extends JDialog implements ActionListener, ChangeList
 	private String name;
 	private int code;
 	private boolean type; // true = Product | false = Component
+	private JPanel panelLeft, panelRight;
+	private JLabel logo;
 
 	/** [WINDOW CREATION] **/
 
-	public RestockWindow(JDialog parent, LoginController cont, User user, String name, int code, double price,
-			boolean type) {
+	public RestockWindow(JDialog parent, LoginController cont, User user, String name, int code, double price, boolean type) {
 		super(parent, true); // Blocks the father window
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SignInWindow.class.getResource("/img/MediaMartaLogoB.png")));
 		this.cont = cont;
 		this.name = name;
 		this.code = code;
@@ -33,80 +35,118 @@ public class RestockWindow extends JDialog implements ActionListener, ChangeList
 
 		// Window
 		setTitle("MEDIAMARTA: Restock Item");
-		setBounds(100, 100, 450, 300);
-		getContentPane().setLayout(null);
+		setBounds(100, 100, 500, 350);
 		getContentPane().setBackground(Color.WHITE);
 		setResizable(false); // Blocks the window so it can't be modified the size
+		getContentPane().setLayout(null);
 
-		/* Spinner (Numeric value)
-		 * It needs to be created before because the labels need the value of it*/
+		// Left Panel
+		panelLeft = new JPanel();
+		panelLeft.setBounds(0, 0, 215, 313);
+		panelLeft.setBackground(Color.RED);
+		getContentPane().add(panelLeft);
+		panelLeft.setLayout(null);
+
+		// Buttons
+		btnClose = new JButton("CLOSE");
+		btnClose.setBounds(10, 11, 80, 21);
+		btnClose.setForeground(Color.BLACK);
+		btnClose.setBackground(Color.WHITE);
+		panelLeft.add(btnClose);
+		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
+
+		// Titles
+		JLabel item = new JLabel("Item Name: ");
+		item.setForeground(Color.BLACK);
+		item.setBounds(25, 95, 180, 25);
+		item.setHorizontalAlignment(SwingConstants.LEFT);
+		item.setFont(new Font("Times New Roman", Font.BOLD, 25));
+		panelLeft.add(item);
+
+		// Labels
+		lblActualStock = new JLabel("Actual Stock: ");
+		lblActualStock.setForeground(Color.BLACK);
+		lblActualStock.setBounds(25, 136, 180, 25);
+		lblActualStock.setHorizontalAlignment(SwingConstants.LEFT);
+		lblActualStock.setFont(new Font("Times New Roman", Font.BOLD, 25));
+		panelLeft.add(lblActualStock);
+
+		lblNewStock = new JLabel("New Stock: ");
+		lblNewStock.setForeground(Color.BLACK);
+		lblNewStock.setBounds(25, 226, 180, 25);
+		lblNewStock.setHorizontalAlignment(SwingConstants.LEFT);
+		lblNewStock.setFont(new Font("Times New Roman", Font.BOLD, 25));
+		panelLeft.add(lblNewStock);
+
+		// Right Panel
+		panelRight = new JPanel();
+		panelRight.setBounds(212, 0, 274, 313);
+		panelRight.setBackground(Color.BLACK);
+		panelRight.setLayout(null);
+		getContentPane().add(panelRight);
+
+		// Spinner (Numeric value)
+		// It needs to be created before because the labels need the value of it
 		SpinnerModel sm = new SpinnerNumberModel(5, 5, 5000, 5); // Default, Min, Max, Increment
 		spinner = new JSpinner(sm);
-		spinner.setBounds(214, 111, 187, 34);
-		getContentPane().add(spinner);
+		spinner.setBounds(20, 179, 231, 34);
+		panelRight.add(spinner);
 		spinner.setValue(5);
 
 		// Titles
-		JLabel item = new JLabel("Item");
-		item.setHorizontalAlignment(SwingConstants.CENTER);
-		item.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		item.setBounds(25, 66, 187, 34);
-		getContentPane().add(item);
-
-		JLabel quantity = new JLabel("Quantity");
+		JLabel quantity = new JLabel("Quantity to Restock");
+		quantity.setForeground(Color.WHITE);
 		quantity.setHorizontalAlignment(SwingConstants.CENTER);
-		quantity.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		quantity.setBounds(214, 66, 187, 34);
-		getContentPane().add(quantity);
-
-		lblActualStock = new JLabel("Actual Stock: ");
-		lblActualStock.setHorizontalAlignment(SwingConstants.LEFT);
-		lblActualStock.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblActualStock.setBounds(25, 156, 187, 25);
-		getContentPane().add(lblActualStock);
-
-		lblNewStock = new JLabel("New Stock: ");
-		lblNewStock.setHorizontalAlignment(SwingConstants.LEFT);
-		lblNewStock.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblNewStock.setBounds(25, 184, 187, 25);
-		getContentPane().add(lblNewStock);
+		quantity.setFont(new Font("Times New Roman", Font.BOLD, 25));
+		quantity.setBounds(10, 41, 254, 34);
+		panelRight.add(quantity);
 
 		// Labels
 		JLabel lblCodUser = new JLabel(user.getCodU());
+		lblCodUser.setForeground(Color.RED);
 		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		lblCodUser.setBounds(345, 5, 81, 19);
-		getContentPane().add(lblCodUser);
+		lblCodUser.setBounds(183, 11, 81, 19);
+		panelRight.add(lblCodUser);
 
 		lblItemName = new JLabel(name);
+		lblItemName.setForeground(Color.WHITE);
+		lblItemName.setBounds(20, 89, 231, 34);
 		lblItemName.setBackground(new Color(255, 255, 255));
-		lblItemName.setHorizontalAlignment(SwingConstants.CENTER);
-		lblItemName.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblItemName.setBounds(25, 111, 187, 34);
-		getContentPane().add(lblItemName);
+		lblItemName.setHorizontalAlignment(SwingConstants.LEFT);
+		lblItemName.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		panelRight.add(lblItemName);
 
 		lblStock = new JLabel(cont.checkStock(name, type) + " units");
+		lblStock.setForeground(Color.WHITE);
 		lblStock.setHorizontalAlignment(SwingConstants.LEFT);
 		lblStock.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblStock.setBounds(214, 156, 187, 25);
-		getContentPane().add(lblStock);
+		lblStock.setBounds(20, 134, 231, 34);
+		panelRight.add(lblStock);
 
 		lblStockCalc = new JLabel(calcNewStock() + " units");
+		lblStockCalc.setForeground(Color.WHITE);
 		lblStockCalc.setHorizontalAlignment(SwingConstants.LEFT);
 		lblStockCalc.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblStockCalc.setBounds(214, 184, 187, 25);
-		getContentPane().add(lblStockCalc);
+		lblStockCalc.setBounds(20, 222, 231, 34);
+		panelRight.add(lblStockCalc);
 
 		// Buttons
 		btnSubmit = new JButton("SUBMIT");
-		btnSubmit.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		btnSubmit.setBounds(135, 219, 147, 34);
-		getContentPane().add(btnSubmit);
+		btnSubmit.setBackground(Color.WHITE);
+		btnSubmit.setForeground(Color.BLACK);
+		btnSubmit.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		btnSubmit.setBounds(70, 267, 147, 34);
+		panelRight.add(btnSubmit);
 
-		btnClose = new JButton("CLOSE");
-		btnClose.setBounds(5, 5, 80, 21);
-		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		getContentPane().add(btnClose);
+		// Logo
+		logo = new JLabel("");
+		logo.setBounds(80, 121, 217, 217);
+		logo.setIcon(new ImageIcon(SignInWindow.class.getResource("/img/MediaMartaLogoR.png")));
+		logo.setForeground(Color.WHITE);
+		logo.setFont(new Font("Serif", Font.BOLD, 100));
+		logo.setHorizontalAlignment(SwingConstants.CENTER);
+		panelRight.add(logo);
 
 		// Adding action listener
 		spinner.addChangeListener(this);

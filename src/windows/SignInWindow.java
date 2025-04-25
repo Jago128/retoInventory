@@ -17,89 +17,127 @@ public class SignInWindow extends JDialog implements ActionListener {
 
 	private static final long serialVersionUID = 1L;
 	private LoginController cont;
-	private JLabel lblTitulo, lblMessage;
+	private JLabel lblMessage;
 	private JTextField textUserCod, textName;
 	private JPasswordField password, passwordConfirmation;
 	private JButton btnClose, btnSubmit;
+	private JPanel panelLeft, panelRight;
+	private JLabel logo;
 
 	/**[WINDOW CREATION]**/
 
 	public SignInWindow(LoginController cont) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SignInWindow.class.getResource("/img/MediaMartaLogoB.png")));
 		this.cont = cont;
 
 		// Window
-		setTitle("REGISTER NEW USER");
-		setBounds(100, 100, 450, 300);
-		getContentPane().setLayout(null);
+		setTitle("MEDIAMARTA: Register");
+		setBounds(100, 100, 660, 400);
 		getContentPane().setBackground(Color.WHITE);
 		setResizable(false); // Blocks the window so it can't be modified the size
+		getContentPane().setLayout(null);
+		getContentPane().add(panelRight);
+
+		// Left Panel
+		panelLeft = new JPanel();
+		panelLeft.setBounds(0, 0, 242, 363);
+		panelLeft.setBackground(Color.RED);
+		panelLeft.setLayout(null);
+		getContentPane().add(panelLeft);
+
+		// Buttons
+		btnClose = new JButton("CLOSE");
+		btnClose.setForeground(Color.WHITE);
+		btnClose.setFont(new Font("Times New Roman", Font.BOLD, 10));
+		btnClose.setBackground(Color.BLACK);
+		btnClose.setBounds(10, 11, 80, 21);
+		panelLeft.add(btnClose);
+		
+		// Logo
+		logo = new JLabel("");
+		logo.setIcon(new ImageIcon(SignInWindow.class.getResource("/img/MediaMartaLogoW.png")));
+		logo.setForeground(Color.WHITE);
+		logo.setFont(new Font("Serif", Font.BOLD, 100));
+		logo.setHorizontalAlignment(SwingConstants.CENTER);
+		logo.setBounds(216, 11, 50, 50);
+		logo.setBounds(10, 69, 217, 217);
+		panelLeft.add(logo);		
+
+		// Right Panel
+		panelRight = new JPanel();
+		panelRight.setBounds(241, 0, 405, 363);
+		panelRight.setBackground(Color.WHITE);
+		panelRight.setLayout(null);		
+		getContentPane().add(panelRight);
 
 		// Titles
-		lblTitulo = new JLabel("Register");
-		lblTitulo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitulo.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblTitulo.setBounds(10, 10, 416, 43);
-		getContentPane().add(lblTitulo);
+		JLabel lblMediaMarta = new JLabel("MediaMarta");
+		lblMediaMarta.setBounds(0, 21, 405, 46);
+		panelRight.add(lblMediaMarta);
+		lblMediaMarta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMediaMarta.setFont(new Font("Times New Roman", Font.BOLD, 40));
+
+		JLabel lblRegister = new JLabel("Register");
+		lblRegister.setBounds(0, 56, 393, 30);
+		panelRight.add(lblRegister);
+		lblRegister.setHorizontalAlignment(SwingConstants.CENTER);
+		lblRegister.setFont(new Font("Times New Roman", Font.PLAIN, 25));
 
 		JLabel lblUsername = new JLabel("USERNAME");
-		lblUsername.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		lblUsername.setBounds(66, 63, 147, 19);
-		getContentPane().add(lblUsername);
+		lblUsername.setBounds(15, 106, 193, 30);
+		panelRight.add(lblUsername);
+		lblUsername.setFont(new Font("Times New Roman", Font.BOLD, 15));
 
 		JLabel lblName = new JLabel("NAME");
-		lblName.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		lblName.setBounds(66, 93, 147, 19);
-		getContentPane().add(lblName);
+		lblName.setBounds(15, 147, 193, 30);
+		panelRight.add(lblName);
+		lblName.setFont(new Font("Times New Roman", Font.BOLD, 15));
 
 		JLabel lblPassword = new JLabel("PASSWORD");
-		lblPassword.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		lblPassword.setBounds(66, 121, 147, 19);
-		getContentPane().add(lblPassword);
+		lblPassword.setBounds(15, 186, 193, 30);
+		panelRight.add(lblPassword);
+		lblPassword.setFont(new Font("Times New Roman", Font.BOLD, 15));
 
 		JLabel lblPasswordConf = new JLabel("CONFIRM PASSWORD");
-		lblPasswordConf.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		lblPasswordConf.setBounds(66, 150, 147, 19);
-		getContentPane().add(lblPasswordConf);
+		lblPasswordConf.setBounds(15, 227, 193, 30);
+		panelRight.add(lblPasswordConf);
+		lblPasswordConf.setFont(new Font("Times New Roman", Font.BOLD, 15));
 
 		lblMessage = new JLabel("");
+		lblMessage.setBounds(15, 268, 374, 34);
+		panelRight.add(lblMessage);
 		lblMessage.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMessage.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		lblMessage.setBounds(66, 179, 313, 34);
-		getContentPane().add(lblMessage);
 
 		// Text fields
 		textUserCod = new JTextField();
+		textUserCod.setBounds(218, 105, 166, 30);
+		panelRight.add(textUserCod);
 		textUserCod.setColumns(10);
-		textUserCod.setBounds(213, 62, 166, 19);
-		getContentPane().add(textUserCod);
 
 		textName = new JTextField();
+		textName.setBounds(218, 146, 166, 30);
+		panelRight.add(textName);
 		textName.setColumns(10);
-		textName.setBounds(213, 92, 166, 19);
-		getContentPane().add(textName);
 
 		password = new JPasswordField();
-		password.setBounds(213, 121, 166, 19);
-		getContentPane().add(password);
+		password.setBounds(218, 186, 166, 30);
+		panelRight.add(password);
 
 		passwordConfirmation = new JPasswordField();
-		passwordConfirmation.setBounds(213, 150, 166, 19);
-		getContentPane().add(passwordConfirmation);
+		passwordConfirmation.setBounds(218, 227, 166, 30);
+		panelRight.add(passwordConfirmation);
 
 		// Buttons
 		btnSubmit = new JButton("SUBMIT");
-		btnSubmit.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		btnSubmit.setBounds(135, 219, 147, 34);
-		getContentPane().add(btnSubmit);
-
-		btnClose = new JButton("CLOSE");
-		btnClose.setBounds(5, 5, 80, 21);
-		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		getContentPane().add(btnClose);
+		btnSubmit.setForeground(Color.WHITE);
+		btnSubmit.setBackground(Color.BLACK);
+		btnSubmit.setBounds(121, 313, 147, 34);
+		panelRight.add(btnSubmit);
+		btnSubmit.setFont(new Font("Times New Roman", Font.BOLD, 15));
 
 		// Adding action listener
 		btnSubmit.addActionListener(this);
-		btnClose.addActionListener(this);
 	}
 
 	/**[METHODS]**/
@@ -197,8 +235,8 @@ public class SignInWindow extends JDialog implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		// Closes the window
 		if (e.getSource() == btnClose) {
-			MainWindow frame = new MainWindow(cont);
-			frame.setVisible(true);
+			MainWindow main = new MainWindow(cont);
+			main.setVisible(true);			
 			this.dispose();
 		}
 		// Verifies the text fields and creates the user

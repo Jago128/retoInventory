@@ -22,130 +22,165 @@ public class MenuWindow extends JFrame implements ActionListener {
 	private Map<String, Product> products;
 	private Map<String, Comp> components;
 	private JList<String> listProduct, listComp, listBrand;
+	private JPanel panelHead, panelBody;
+	private JLabel logo;
 
 	/**[WINDOW CREATION]**/
 
 	public MenuWindow(LoginController controlador, User user) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SignInWindow.class.getResource("/img/MediaMartaLogoB.png")));
 		this.cont = controlador;
 		this.user = user;
 
 		// Window
 		setTitle("MEDIAMARTA: Welcome");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 480, 636);
+		setBounds(100, 100, 500, 650);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		setResizable(false); // Blocks the window so it can't be modified the size
-
-		// Titles
-		JLabel lblWelcomeTo = new JLabel("Welcome to");
-		lblWelcomeTo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblWelcomeTo.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblWelcomeTo.setBounds(5, 27, 461, 19);
-		contentPane.add(lblWelcomeTo);
-
-		JLabel lblMediaMarta = new JLabel("MediaMarta");
-		lblMediaMarta.setBounds(5, 37, 461, 46);
-		lblMediaMarta.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMediaMarta.setFont(new Font("Times New Roman", Font.PLAIN, 25));
 		contentPane.setLayout(null);
-		contentPane.add(lblMediaMarta);
 
-		// Labels
-		JLabel lblCodUser = new JLabel(user.getUsername());
-		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		lblCodUser.setBounds(375, 27, 81, 19);
-		contentPane.add(lblCodUser);
-
-		// Lists & Scroll
-		listProduct = new JList<String>();
-		listProduct.setLayoutOrientation(JList.VERTICAL);
-
-		JScrollPane scrollPaneProduct = new JScrollPane(listProduct); // Creates a ScrollPane where the list will be
-		scrollPaneProduct.setViewportView(listProduct);
-		scrollPaneProduct.setBounds(5, 137, 451, 92); // Set bounds of the ScrollPane
-		scrollPaneProduct.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		contentPane.add(scrollPaneProduct);
-
-		listComp = new JList<String>();
-		contentPane.add(listComp);
-
-		JScrollPane scrollPaneComponent = new JScrollPane(listComp); // Creates a ScrollPane where the list will be
-		scrollPaneComponent.setViewportView(listComp);
-		scrollPaneComponent.setBounds(5, 283, 451, 92); // Set bounds of the ScrollPane
-		scrollPaneComponent.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		contentPane.add(scrollPaneComponent);
-
-		listBrand = new JList<String>();
-		contentPane.add(listBrand);
-
-		JScrollPane scrollPaneBrand = new JScrollPane(listBrand); // Creates a ScrollPane where the list will be
-		scrollPaneBrand.setViewportView(listBrand);
-		scrollPaneBrand.setBounds(5, 437, 451, 92); // Set bounds of the ScrollPane
-		scrollPaneBrand.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
-		contentPane.add(scrollPaneBrand);
-
-		loadProductsList();
+		// Head Panel
+		panelHead = new JPanel();
+		panelHead.setBackground(Color.RED);
+		panelHead.setBounds(0, 0, 486, 113);
+		contentPane.add(panelHead);
+		panelHead.setLayout(null);
 
 		// Buttons
 		btnLogOut = new JButton("Log-Out");
-		btnLogOut.setBackground(UIManager.getColor("Button.background"));
+		btnLogOut.setForeground(Color.WHITE);
+		btnLogOut.setBounds(395, 11, 81, 21);
+		panelHead.add(btnLogOut);
+		btnLogOut.setBackground(Color.BLACK);
 		btnLogOut.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		btnLogOut.setBounds(375, 5, 81, 21);
-		contentPane.add(btnLogOut);
-
-		btnProducts = new JButton("PRODUCTS");
-		btnProducts.setBounds(5, 104, 451, 35);
-		btnProducts.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		contentPane.add(btnProducts);
-
-		btnComponents = new JButton("COMPONENTS");
-		btnComponents.setBounds(5, 249, 451, 35);
-		btnComponents.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		contentPane.add(btnComponents);
-
-		btnBrands = new JButton("BRANDS");
-		btnBrands.setBounds(5, 403, 451, 35);
-		btnBrands.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		contentPane.add(btnBrands);
-
-		btnCheckStock = new JButton("CHECK STOCK");
-		btnCheckStock.setBounds(134, 554, 196, 35);
-		btnCheckStock.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		if (user.getTypeU() == TypeU.ADMIN) { // In case the user is admin the button will be visible
-			btnCheckStock.setVisible(true);
-		} else { // The client will not have this option visible
-			btnCheckStock.setVisible(false);
-		}
-		contentPane.add(btnCheckStock);
-
-		btnClose = new JButton("CLOSE");
-		btnClose.setBounds(5, 5, 80, 21);
-		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		contentPane.add(btnClose);
 
 		btnPurchases = new JButton("Purchases");
+		btnPurchases.setForeground(Color.WHITE);
+		btnPurchases.setBounds(318, 11, 81, 21);
+		panelHead.add(btnPurchases);
 		btnPurchases.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		btnPurchases.setBackground(UIManager.getColor("Button.background"));
-		btnPurchases.setBounds(294, 5, 81, 21);
+		btnPurchases.setBackground(Color.BLACK);
+		btnPurchases.addActionListener(this);
 		if (user.getTypeU() == TypeU.CLIENT) { // In case the user is client the button will be visible
 			btnPurchases.setVisible(true);
 		} else { // The admin will not have this option visible
 			btnPurchases.setVisible(false);
 		}
-		contentPane.add(btnPurchases);
+
+		// Logo
+		logo = new JLabel("");
+		logo.setIcon(new ImageIcon(ProductWindow.class.getResource("/img/MediaMartaLogoW.png")));
+		logo.setForeground(Color.WHITE);
+		logo.setFont(new Font("Serif", Font.BOLD, 40));
+		logo.setHorizontalAlignment(SwingConstants.CENTER);
+		logo.setBounds(-69, -34, 258, 191);
+		panelHead.add(logo);
+
+		// Titles
+		JLabel lblWelcomeTo = new JLabel("Welcome to");
+		lblWelcomeTo.setBounds(0, 51, 486, 19);
+		panelHead.add(lblWelcomeTo);
+		lblWelcomeTo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWelcomeTo.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+
+		JLabel lblMediaMarta = new JLabel("MediaMarta");
+		lblMediaMarta.setBounds(0, 56, 486, 46);
+		panelHead.add(lblMediaMarta);
+		lblMediaMarta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMediaMarta.setFont(new Font("Times New Roman", Font.BOLD, 25));
+
+		// Labels
+		JLabel lblCodUser = new JLabel(user.getUsername());
+		lblCodUser.setForeground(Color.WHITE);
+		lblCodUser.setBounds(395, 31, 81, 19);
+		panelHead.add(lblCodUser);
+		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+
+		// Body Panel
+		panelBody = new JPanel();
+		panelBody.setBackground(Color.WHITE);
+		panelBody.setBounds(0, 113, 486, 500);
+		contentPane.add(panelBody);
+		panelBody.setLayout(null);
+
+		// Lists & Scroll
+		listProduct = new JList<String>();
+		listProduct.setLayoutOrientation(JList.VERTICAL);
+
+		JScrollPane scrollPaneProduct = new JScrollPane(listProduct);
+		scrollPaneProduct.setBounds(10, 44, 466, 92);
+		panelBody.add(scrollPaneProduct);
+		scrollPaneProduct.setViewportView(listProduct);
+		scrollPaneProduct.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+		listComp = new JList<String>();
+		listComp.setBounds(1, 1, 432, 90);
+		contentPane.add(listComp);
+
+		JScrollPane scrollPaneComponent = new JScrollPane(listComp);
+		scrollPaneComponent.setBounds(10, 190, 466, 92);
+		panelBody.add(scrollPaneComponent);
+		scrollPaneComponent.setViewportView(listComp);
+		scrollPaneComponent.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+		listBrand = new JList<String>();
+		listBrand.setBounds(1, 1, 432, 90);
+		contentPane.add(listBrand);
+
+		JScrollPane scrollPaneBrand = new JScrollPane(listBrand);
+		scrollPaneBrand.setBounds(10, 344, 466, 92);
+		panelBody.add(scrollPaneBrand);
+		scrollPaneBrand.setViewportView(listBrand);
+		scrollPaneBrand.setVerticalScrollBarPolicy(JScrollPane.VERTICAL_SCROLLBAR_ALWAYS);
+
+		loadProductsList();
+
+		// Buttons
+		btnProducts = new JButton("PRODUCTS");
+		btnProducts.setForeground(Color.WHITE);
+		btnProducts.setBackground(Color.BLACK);
+		btnProducts.setBounds(10, 11, 466, 35);
+		panelBody.add(btnProducts);
+		btnProducts.setFont(new Font("Times New Roman", Font.BOLD, 15));
+
+		btnComponents = new JButton("COMPONENTS");
+		btnComponents.setBackground(Color.BLACK);
+		btnComponents.setForeground(Color.WHITE);
+		btnComponents.setBounds(10, 156, 466, 35);
+		panelBody.add(btnComponents);
+		btnComponents.setFont(new Font("Times New Roman", Font.BOLD, 15));
+
+		btnBrands = new JButton("BRANDS");
+		btnBrands.setForeground(Color.WHITE);
+		btnBrands.setBackground(Color.BLACK);
+		btnBrands.setBounds(10, 310, 466, 35);
+		panelBody.add(btnBrands);
+		btnBrands.setFont(new Font("Times New Roman", Font.BOLD, 15));
+
+		btnCheckStock = new JButton("CHECK STOCK");
+		btnCheckStock.setBackground(Color.RED);
+		btnCheckStock.setForeground(Color.BLACK);
+		btnCheckStock.setBounds(147, 454, 196, 35);
+		panelBody.add(btnCheckStock);
+		btnCheckStock.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		if (user.getTypeU() == TypeU.ADMIN) { // In case the user is admin the button will be visible
+			btnCheckStock.setVisible(true);
+		} else { // The client will not have this option visible
+			btnCheckStock.setVisible(false);
+		}
 
 		// Adding action listener
 		btnLogOut.addActionListener(this);
-		btnPurchases.addActionListener(this);
-		btnProducts.addActionListener(this);
-		btnComponents.addActionListener(this);
-		btnBrands.addActionListener(this);
-		btnCheckStock.addActionListener(this);
 		btnClose.addActionListener(this);
+		btnCheckStock.addActionListener(this);
+		btnBrands.addActionListener(this);
+		btnComponents.addActionListener(this);
+		btnProducts.addActionListener(this);
 	}
 
 	/**[METHODS]**/
@@ -203,10 +238,6 @@ public class MenuWindow extends JFrame implements ActionListener {
 		if (e.getSource() == btnPurchases) {
 			PurchaseWindow purchase = new PurchaseWindow(cont, user);
 			purchase.setVisible(true);
-			this.dispose();
-		}
-		// Closes the window
-		if (e.getSource() == btnClose) {
 			this.dispose();
 		}
 		// Opens the window of the products

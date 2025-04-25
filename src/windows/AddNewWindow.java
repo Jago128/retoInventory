@@ -24,86 +24,137 @@ public class AddNewWindow extends JDialog implements ActionListener {
 	private boolean type; // true = Product | false = Component
 	private TypeP productType;
 	private TypeC componentType;
+	private JPanel panelHead, panelLeftBody, panelRightBody;
+	private JLabel logo;
 
 	/**[WINDOW CREATION]*/
 
 	public AddNewWindow(JDialog parent, LoginController cont, User user, String name, boolean type) {
 		super(parent, true); // Blocks the father window
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SignInWindow.class.getResource("/img/MediaMartaLogoB.png")));
 		this.cont = cont;
 		this.type = type; // true = Product | false = Component
 
 		// Window
 		setTitle("MEDIAMARTA: Add New "+verifyType(type));
-		setBounds(100, 100, 480, 442);
+		setBounds(100, 100, 560, 520);
 		getContentPane().setLayout(null);
 		getContentPane().setBackground(Color.WHITE);
 		setResizable(false); // Blocks the window so it can't be modified the size
 
+		// Head Panel
+		panelHead = new JPanel();
+		panelHead.setBackground(Color.BLACK);
+		panelHead.setBounds(0, 0, 546, 113);
+		getContentPane().add(panelHead);
+		panelHead.setLayout(null);
+
+		// Buttons
+		btnClose = new JButton("CLOSE");
+		btnClose.setForeground(Color.BLACK);
+		btnClose.setBackground(Color.WHITE);
+		btnClose.setBounds(10, 11, 80, 21);
+		panelHead.add(btnClose);
+		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
+
 		// Titles
 		lblTitle = new JLabel(verifyType(type)+" Information");
-		lblTitle.setBounds(10, 10, 416, 43);
+		lblTitle.setForeground(Color.WHITE);
+		lblTitle.setBounds(0, 41, 546, 43);
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		getContentPane().add(lblTitle);
-
-		lblName = new JLabel(" NAME:");
-		lblName.setBounds(10, 68, 214, 27);
-		lblName.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		getContentPane().add(lblName);
-
-		lblType = new JLabel(" TYPE:");
-		lblType.setBounds(10, 108, 214, 27);
-		lblType.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		getContentPane().add(lblType);
-
-		JLabel lblQuantity = new JLabel(" QUANTITY:");
-		lblQuantity.setBounds(10, 235, 214, 27);
-		lblQuantity.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		getContentPane().add(lblQuantity);
-
-		JLabel lblPrice = new JLabel(" PRICE:");
-		lblPrice.setBounds(10, 192, 214, 27);
-		lblPrice.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		getContentPane().add(lblPrice);
-
-		lblBrand = new JLabel(" BRAND:");
-		lblBrand.setBounds(10, 273, 214, 27);
-		lblBrand.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		getContentPane().add(lblBrand);
+		lblTitle.setFont(new Font("Times New Roman", Font.BOLD, 25));
+		panelHead.add(lblTitle);
 
 		// Labels
 		JLabel lblCodUser = new JLabel(user.getUsername());
+		lblCodUser.setForeground(Color.RED);
+		lblCodUser.setBounds(455, 11, 81, 19);
+		panelHead.add(lblCodUser);
 		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		lblCodUser.setBounds(375, 27, 81, 19);
 
+		// Logo
+		logo = new JLabel("");
+		logo.setIcon(new ImageIcon(ProductWindow.class.getResource("/img/MediaMartaLogoR.png")));
+		logo.setForeground(Color.WHITE);
+		logo.setFont(new Font("Serif", Font.BOLD, 40));
+		logo.setHorizontalAlignment(SwingConstants.CENTER);
+		logo.setBounds(-69, -34, 258, 191);
+		panelHead.add(logo);
+
+		// Left Body Panel
+		panelLeftBody = new JPanel();
+		panelLeftBody.setBackground(Color.RED);
+		panelLeftBody.setBounds(0, 113, 173, 370);
+		getContentPane().add(panelLeftBody);
+		panelLeftBody.setLayout(null);
+
+		// Labels
+		lblName = new JLabel(" NAME:");
+		lblName.setForeground(Color.BLACK);
+		lblName.setBounds(10, 68, 153, 27);
+		lblName.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		panelLeftBody.add(lblName);
+
+		lblType = new JLabel(" TYPE:");
+		lblType.setForeground(Color.BLACK);
+		lblType.setBounds(10, 113, 153, 27);
+		lblType.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		panelLeftBody.add(lblType);
+
+		JLabel lblQuantity = new JLabel(" QUANTITY:");
+		lblQuantity.setForeground(Color.BLACK);
+		lblQuantity.setBounds(10, 197, 153, 27);
+		lblQuantity.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		panelLeftBody.add(lblQuantity);
+
+		JLabel lblPrice = new JLabel(" PRICE:");
+		lblPrice.setForeground(Color.BLACK);
+		lblPrice.setBounds(10, 159, 153, 27);
+		lblPrice.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		panelLeftBody.add(lblPrice);
+
+		lblBrand = new JLabel(" BRAND:");
+		lblBrand.setForeground(Color.BLACK);
+		lblBrand.setBounds(10, 235, 153, 27);
+		lblBrand.setFont(new Font("Times New Roman", Font.BOLD, 20));
+		panelLeftBody.add(lblBrand);
+
+		// Left Right Panel
+		panelRightBody = new JPanel();
+		panelRightBody.setBackground(Color.WHITE);
+		panelRightBody.setBounds(171, 113, 375, 370);
+		getContentPane().add(panelRightBody);
+		panelRightBody.setLayout(null);
+
+		// Labels
 		lblMessage = new JLabel("");
 		lblMessage.setForeground(Color.RED);
-		lblMessage.setBounds(10, 313, 446, 34);
-		lblMessage.setFont(new Font("Times New Roman", Font.PLAIN, 14));
-		getContentPane().add(lblMessage);
+		lblMessage.setBounds(10, 284, 355, 34);
+		lblMessage.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		panelRightBody.add(lblMessage);
 
 		// Text Fields
 		textName = new JTextField();
-		textName.setBounds(231, 68, 225, 29);
+		textName.setBounds(46, 64, 290, 29);
 		textName.setColumns(10);
-		getContentPane().add(textName);
+		panelRightBody.add(textName);
 
 		// Radio Buttons
 		rdbtnA = new JRadioButton("");
 		rdbtnA.setFont(new Font("Times New Roman", Font.ITALIC, 12));
-		rdbtnA.setBounds(67, 150, 111, 23);
-		getContentPane().add(rdbtnA);
+		rdbtnA.setBounds(148, 111, 86, 29);
+		panelRightBody.add(rdbtnA);
 
 		rdbtnB = new JRadioButton("");
 		rdbtnB.setFont(new Font("Times New Roman", Font.ITALIC, 12));
-		rdbtnB.setBounds(180, 150, 111, 23);
-		getContentPane().add(rdbtnB);
+		rdbtnB.setBounds(46, 111, 86, 29);
+		panelRightBody.add(rdbtnB);
 
 		rdbtnC = new JRadioButton("");
 		rdbtnC.setFont(new Font("Times New Roman", Font.ITALIC, 12));
-		rdbtnC.setBounds(293, 150, 111, 23);
-		getContentPane().add(rdbtnC);
+		rdbtnC.setBounds(249, 111, 86, 29);
+		panelRightBody.add(rdbtnC);
 
 		ButtonGroup group = new ButtonGroup(); // Creates a group for the Radio Buttons to only one can be choosed
 		group.add(rdbtnA);
@@ -129,30 +180,28 @@ public class AddNewWindow extends JDialog implements ActionListener {
 		// ComboBox & Spinner
 		SpinnerModel smP = new SpinnerNumberModel(1, 0.1, 9999.99, 1); // Default, Min, Max, Increment
 		spinnerPrice = new JSpinner(smP);
-		spinnerPrice.setBounds(231, 191, 225, 30);
-		getContentPane().add(spinnerPrice);
+		spinnerPrice.setBounds(45, 155, 290, 30);
+		panelRightBody.add(spinnerPrice);
 
 		SpinnerModel smQ = new SpinnerNumberModel(1, 1, 10, 1); // Default, Min, Max, Increment
 		spinnerQuantity = new JSpinner(smQ);
-		spinnerQuantity.setBounds(231, 232, 225, 30);
-		getContentPane().add(spinnerQuantity);
+		spinnerQuantity.setBounds(44, 196, 291, 30);
+		panelRightBody.add(spinnerQuantity);
 
 		comboBoxBrands = new JComboBox<String>();
-		comboBoxBrands.setBounds(231, 273, 225, 29);
+		comboBoxBrands.setBounds(44, 237, 291, 29);
 		comboBoxBrands.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		getContentPane().add(comboBoxBrands);
+		panelRightBody.add(comboBoxBrands);
+		
 		loadBrandsComboBox();
 
 		// Buttons
 		btnSubmit = new JButton("SUBMIT");
-		btnSubmit.setBounds(154, 358, 147, 34);
-		btnSubmit.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		getContentPane().add(btnSubmit);
-
-		btnClose = new JButton("CLOSE");
-		btnClose.setBounds(5, 5, 80, 21);
-		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		getContentPane().add(btnClose);
+		btnSubmit.setBackground(Color.RED);
+		btnSubmit.setForeground(Color.BLACK);
+		btnSubmit.setBounds(110, 329, 147, 34);
+		btnSubmit.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		panelRightBody.add(btnSubmit);
 
 		// Adding action listener
 		rdbtnA.addActionListener(this);
@@ -295,7 +344,7 @@ public class AddNewWindow extends JDialog implements ActionListener {
 		if (e.getSource() == btnClose) {
 			this.dispose();
 		}
-		
+
 		// Verifies the text fields and adds the Product or Component
 		if (e.getSource() == btnSubmit) { // Verifies all the text fields are filled
 			if (verifyCredentialsName() && verifyCredentialsType() && verifyCredentialsBrand()) {

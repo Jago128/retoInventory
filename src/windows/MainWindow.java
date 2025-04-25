@@ -16,80 +16,117 @@ public class MainWindow extends JFrame implements ActionListener {
 	private JPanel contentPane;
 	private JTextField textCodU;
 	private JPasswordField passwordPsw;
-	private JButton btnLogIn, btnSignIn, btnClose;
+	private JButton btnLogIn, btnSignIn;
 	private JLabel lblMesageUp, lblMessageDown;
 	private LoginController cont;
+	private JLabel logo;
 
 	/**[WINDOW CREATION]**/
 
 	public MainWindow(LoginController cont) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(MainWindow.class.getResource("/img/MediaMartaLogoB.png")));
 		this.cont = cont;
 
 		// Window
-		setTitle("LOGIN");
+		setTitle("MEDIAMARTA: Log In");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 660, 400);
 		getContentPane().setBackground(Color.WHITE);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
-		contentPane.setLayout(null);
 		setResizable(false); // Blocks the window so it can't be modified the size
+		contentPane.setLayout(null);
 
+		// Left Panel
+		JPanel panelLeft = new JPanel();
+		panelLeft.setBounds(0, 0, 242, 363);
+		panelLeft.setBackground(Color.RED);
+		panelLeft.setLayout(null);
+		contentPane.add(panelLeft);
+		
+		// Logo
+		logo = new JLabel("");
+		logo.setIcon(new ImageIcon(SignInWindow.class.getResource("/img/MediaMartaLogoW.png")));
+		logo.setForeground(Color.WHITE);
+		logo.setFont(new Font("Serif", Font.BOLD, 100));
+		logo.setHorizontalAlignment(SwingConstants.CENTER);
+		logo.setBounds(216, 11, 50, 50);
+		logo.setBounds(10, 69, 217, 217);
+		panelLeft.add(logo);		
+
+		// Right Panel
+		JPanel panelRight = new JPanel();
+		panelRight.setBounds(241, 0, 405, 363);
+		panelRight.setBackground(Color.WHITE);
+		panelRight.setLayout(null);
+		contentPane.add(panelRight);
+		
 		// Titles
+		JLabel lblMediaMarta = new JLabel("MediaMarta");
+		lblMediaMarta.setBounds(0, 21, 405, 46);
+		panelRight.add(lblMediaMarta);
+		lblMediaMarta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMediaMarta.setFont(new Font("Times New Roman", Font.BOLD, 40));
+		
+		JLabel lblWelcomeTo = new JLabel("Login");
+		lblWelcomeTo.setBackground(Color.BLACK);
+		lblWelcomeTo.setBounds(0, 56, 405, 30);
+		panelRight.add(lblWelcomeTo);
+		lblWelcomeTo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWelcomeTo.setFont(new Font("Times New Roman", Font.PLAIN, 25));
+		
 		JLabel lblUser = new JLabel("USER");
-		lblUser.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblUser.setBounds(40, 83, 177, 33);
-		contentPane.add(lblUser);
+		lblUser.setBounds(21, 160, 177, 33);
+		panelRight.add(lblUser);
+		lblUser.setFont(new Font("Times New Roman", Font.BOLD, 20));
 
 		JLabel lblPassword = new JLabel("PASSWORD");
-		lblPassword.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblPassword.setBounds(40, 134, 177, 33);
-		contentPane.add(lblPassword);
+		lblPassword.setBounds(21, 204, 177, 33);
+		panelRight.add(lblPassword);
+		lblPassword.setFont(new Font("Times New Roman", Font.BOLD, 20));
 
 		// Text fields
 		textCodU = new JTextField();
-		textCodU.setBounds(227, 85, 168, 33);
-		contentPane.add(textCodU);
+		textCodU.setBounds(205, 160, 168, 33);
+		panelRight.add(textCodU);
 		textCodU.setColumns(10);
 
 		passwordPsw = new JPasswordField();
-		passwordPsw.setBounds(227, 136, 168, 33);
-		contentPane.add(passwordPsw);
+		passwordPsw.setBounds(205, 206, 168, 33);
+		panelRight.add(passwordPsw);
 
 		// Messages
 		lblMesageUp = new JLabel("");
+		lblMesageUp.setBounds(0, 94, 393, 33);
+		panelRight.add(lblMesageUp);
 		lblMesageUp.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 		lblMesageUp.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMesageUp.setBounds(10, 10, 416, 33);
-		contentPane.add(lblMesageUp);
-
-		lblMessageDown = new JLabel("");
-		lblMessageDown.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMessageDown.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblMessageDown.setBounds(10, 40, 416, 33);
-		contentPane.add(lblMessageDown);
 
 		// Buttons
 		btnLogIn = new JButton("LOG-IN");
-		btnLogIn.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		btnLogIn.setBounds(40, 203, 111, 33);
-		contentPane.add(btnLogIn);
+		btnLogIn.setForeground(Color.WHITE);
+		btnLogIn.setBackground(Color.BLACK);
+		btnLogIn.setBounds(75, 314, 111, 33);
+		panelRight.add(btnLogIn);
+		btnLogIn.setFont(new Font("Times New Roman", Font.BOLD, 15));
 
 		btnSignIn = new JButton("SIGN-IN");
-		btnSignIn.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		btnSignIn.setBounds(284, 203, 111, 33);
-		contentPane.add(btnSignIn);
+		btnSignIn.setForeground(Color.WHITE);
+		btnSignIn.setBackground(Color.BLACK);
+		btnSignIn.setBounds(222, 314, 111, 33);
+		panelRight.add(btnSignIn);
+		btnSignIn.setFont(new Font("Times New Roman", Font.BOLD, 15));
 
-		btnClose = new JButton("CLOSE");
-		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		btnClose.setBounds(5, 5, 80, 21);
-		contentPane.add(btnClose);
+		lblMessageDown = new JLabel("");
+		lblMessageDown.setBounds(0, 264, 393, 33);
+		panelRight.add(lblMessageDown);
+		lblMessageDown.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMessageDown.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 
 		// Adding action listener
 		btnLogIn.addActionListener(this);
 		btnSignIn.addActionListener(this);
-		btnClose.addActionListener(this);
 	}
 
 	/**[METHODS]**/
@@ -116,10 +153,6 @@ public class MainWindow extends JFrame implements ActionListener {
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// Closes the window
-		if (e.getSource() == btnClose) {
-			this.dispose();
-		}
 		// Verifies if the user exist to log in
 		if (e.getSource() == btnLogIn) {
 			User user = new User(textCodU.getText(), new String(passwordPsw.getPassword()));
