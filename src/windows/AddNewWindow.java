@@ -92,31 +92,31 @@ public class AddNewWindow extends JDialog implements ActionListener {
 		// Labels
 		lblName = new JLabel(" NAME:");
 		lblName.setForeground(Color.BLACK);
-		lblName.setBounds(10, 68, 153, 27);
+		lblName.setBounds(20, 68, 143, 27);
 		lblName.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		panelLeftBody.add(lblName);
 
 		lblType = new JLabel(" TYPE:");
 		lblType.setForeground(Color.BLACK);
-		lblType.setBounds(10, 113, 153, 27);
+		lblType.setBounds(20, 113, 143, 27);
 		lblType.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		panelLeftBody.add(lblType);
 
 		JLabel lblQuantity = new JLabel(" QUANTITY:");
 		lblQuantity.setForeground(Color.BLACK);
-		lblQuantity.setBounds(10, 197, 153, 27);
+		lblQuantity.setBounds(20, 197, 143, 27);
 		lblQuantity.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		panelLeftBody.add(lblQuantity);
 
 		JLabel lblPrice = new JLabel(" PRICE:");
 		lblPrice.setForeground(Color.BLACK);
-		lblPrice.setBounds(10, 159, 153, 27);
+		lblPrice.setBounds(20, 159, 143, 27);
 		lblPrice.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		panelLeftBody.add(lblPrice);
 
 		lblBrand = new JLabel(" BRAND:");
 		lblBrand.setForeground(Color.BLACK);
-		lblBrand.setBounds(10, 235, 153, 27);
+		lblBrand.setBounds(20, 235, 143, 27);
 		lblBrand.setFont(new Font("Times New Roman", Font.BOLD, 20));
 		panelLeftBody.add(lblBrand);
 
@@ -218,7 +218,7 @@ public class AddNewWindow extends JDialog implements ActionListener {
 		if (correct) {
 			label.setForeground(Color.BLACK);
 		} else {
-			label.setForeground(Color.RED);
+			label.setForeground(Color.WHITE);
 		}
 	}
 
@@ -303,11 +303,11 @@ public class AddNewWindow extends JDialog implements ActionListener {
 	public boolean verifyCredentialsBrand() {
 		if (comboBoxBrands.getSelectedIndex() == -1) {
 			lblBrand.setText("*BRAND:");
-			lblBrand.setForeground(Color.RED);
+			setLabelColor(lblBrand, false);
 			return false;
 		} else {
-			lblBrand.setText("BRAND:");
-			lblBrand.setForeground(Color.BLACK);
+			lblBrand.setText(" BRAND:");
+			setLabelColor(lblBrand, true);
 			return true;
 		}
 	}
