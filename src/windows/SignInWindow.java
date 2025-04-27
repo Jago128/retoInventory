@@ -36,7 +36,6 @@ public class SignInWindow extends JDialog implements ActionListener {
 		getContentPane().setBackground(Color.WHITE);
 		setResizable(false); // Blocks the window so it can't be modified the size
 		getContentPane().setLayout(null);
-		getContentPane().add(panelRight);
 
 		// Left Panel
 		panelLeft = new JPanel();

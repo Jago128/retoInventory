@@ -16,7 +16,7 @@ public class MenuWindow extends JFrame implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private LoginController cont;
-	private JButton btnLogOut, btnPurchases, btnProducts, btnComponents, btnBrands, btnCheckStock, btnClose;
+	private JButton btnLogOut, btnPurchases, btnProducts, btnComponents, btnBrands, btnCheckStock;
 	private User user;
 	private Map<String, Brand> brands;
 	private Map<String, Product> products;
@@ -176,7 +176,6 @@ public class MenuWindow extends JFrame implements ActionListener {
 
 		// Adding action listener
 		btnLogOut.addActionListener(this);
-		btnClose.addActionListener(this);
 		btnCheckStock.addActionListener(this);
 		btnBrands.addActionListener(this);
 		btnComponents.addActionListener(this);
