@@ -19,53 +19,95 @@ public class ProductWindow extends JDialog implements ActionListener {
 	private JComboBox<String> comboxFilter;
 	private JList<String> listName, listPrice;
 	private User user;
+	private JPanel panelHead, panelBody;
+	private JLabel logo;
 
 	/**[WINDOW CREATION]**/
 
 	public ProductWindow(JFrame parent, LoginController cont, User user) {
 		super(parent, true); // Blocks the father window
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SignInWindow.class.getResource("/img/MediaMartaLogoB.png")));
 		this.cont = cont;
 		this.user = user;
 
 		// Window
 		setTitle("MEDIAMARTA: Products");
-		setBounds(100, 100, 480, 636);
+		setBounds(100, 100, 500, 650);
 		getContentPane().setLayout(null);
 		getContentPane().setBackground(Color.WHITE);
 		setResizable(false); // Blocks the window so it can't be modified the size
 
+		// Head Panel
+		panelHead = new JPanel();
+		panelHead.setBackground(Color.RED);
+		panelHead.setBounds(0, 0, 486, 113);
+		getContentPane().add(panelHead);
+		panelHead.setLayout(null);
+
+		// Buttons
+		btnClose = new JButton("CLOSE");
+		btnClose.setForeground(Color.WHITE);
+		btnClose.setBackground(Color.BLACK);
+		btnClose.setBounds(10, 11, 80, 21);
+		panelHead.add(btnClose);
+		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
+
+		btnLogOut = new JButton("Log-Out");
+		btnLogOut.setForeground(Color.WHITE);
+		btnLogOut.setBounds(395, 11, 81, 21);
+		panelHead.add(btnLogOut);
+		btnLogOut.setBackground(Color.BLACK);
+		btnLogOut.setFont(new Font("Times New Roman", Font.PLAIN, 10));
+
 		// Titles
 		lblMediaMarta = new JLabel("MediaMarta");
+		lblMediaMarta.setBounds(10, 43, 466, 51);
+		panelHead.add(lblMediaMarta);
 		lblMediaMarta.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMediaMarta.setFont(new Font("Times New Roman", Font.PLAIN, 25));
-		lblMediaMarta.setBounds(10, 24, 446, 46);
-		getContentPane().add(lblMediaMarta);
+		lblMediaMarta.setFont(new Font("Times New Roman", Font.BOLD, 25));
 
 		lblProducts = new JLabel("PRODUCTS");
+		lblProducts.setBounds(10, 83, 466, 19);
+		panelHead.add(lblProducts);
 		lblProducts.setHorizontalAlignment(SwingConstants.CENTER);
 		lblProducts.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblProducts.setBounds(10, 58, 446, 19);
-		getContentPane().add(lblProducts);
 
 		// Labels
 		JLabel lblCodUser = new JLabel(user.getUsername());
+		lblCodUser.setForeground(Color.WHITE);
+		lblCodUser.setBounds(395, 31, 81, 19);
+		panelHead.add(lblCodUser);
 		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		lblCodUser.setBounds(375, 27, 81, 19);
-		getContentPane().add(lblCodUser);
+		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));	
+
+		// Logo
+		logo = new JLabel("");
+		logo.setIcon(new ImageIcon(ProductWindow.class.getResource("/img/MediaMartaLogoW.png")));
+		logo.setForeground(Color.WHITE);
+		logo.setFont(new Font("Serif", Font.BOLD, 40));
+		logo.setHorizontalAlignment(SwingConstants.CENTER);
+		logo.setBounds(-69, -34, 258, 191);
+		panelHead.add(logo);
+		
+		// Body Panel
+		panelBody = new JPanel();
+		panelBody.setBackground(Color.WHITE);
+		panelBody.setBounds(0, 113, 486, 500);
+		getContentPane().add(panelBody);
+		panelBody.setLayout(null);
 
 		// List, Scroll & ComboBox
 		listName = new JList<String>();
-		listName.setBounds(10, 104, 314, 406);
-		getContentPane().add(listName);
+		listName.setBounds(10, 43, 327, 406);
+		panelBody.add(listName);
 
 		listPrice = new JList<String>();
-		listPrice.setBounds(327, 104, 129, 406);
-		getContentPane().add(listPrice);
+		listPrice.setBounds(347, 43, 129, 406);
+		panelBody.add(listPrice);
 
 		comboxFilter = new JComboBox<String>();
-		comboxFilter.setBounds(10, 81, 446, 22);
-		getContentPane().add(comboxFilter);
+		comboxFilter.setBounds(10, 11, 466, 22);
+		panelBody.add(comboxFilter);
 		comboxFilter.addItem("ALL");
 		comboxFilter.addItem("MOBILES");
 		comboxFilter.addItem("COMPUTERS");
@@ -73,32 +115,27 @@ public class ProductWindow extends JDialog implements ActionListener {
 		loadProductsList();
 
 		// Buttons
-		btnLogOut = new JButton("Log-Out");
-		btnLogOut.setBackground(UIManager.getColor("Button.background"));
-		btnLogOut.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		btnLogOut.setBounds(375, 5, 81, 21);
-		getContentPane().add(btnLogOut);
-
-		btnBuy = new JButton("BUY");
-		btnBuy.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		btnBuy.setBounds(10, 533, 196, 35);
-		getContentPane().add(btnBuy);
-
 		btnAddNew = new JButton("NEW PRODUCT");
-		btnAddNew.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		btnAddNew.setBounds(10, 533, 196, 35);
-		getContentPane().add(btnAddNew);
+		btnAddNew.setForeground(Color.BLACK);
+		btnAddNew.setBackground(Color.RED);
+		btnAddNew.setBounds(10, 454, 196, 35);
+		panelBody.add(btnAddNew);
+		btnAddNew.setFont(new Font("Times New Roman", Font.BOLD, 15));
 
 		btnRemove = new JButton("REMOVE");
-		btnRemove.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		btnRemove.setBounds(260, 533, 196, 35);
-		getContentPane().add(btnRemove);
+		btnRemove.setBackground(Color.RED);
+		btnRemove.setForeground(Color.BLACK);
+		btnRemove.setBounds(280, 454, 196, 35);
+		panelBody.add(btnRemove);
+		btnRemove.setFont(new Font("Times New Roman", Font.BOLD, 15));
 
-		btnClose = new JButton("CLOSE");
-		btnClose.setBounds(5, 5, 80, 21);
-		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		getContentPane().add(btnClose);
-
+		btnBuy = new JButton("BUY");
+		btnBuy.setForeground(Color.WHITE);
+		btnBuy.setBackground(Color.BLACK);
+		btnBuy.setBounds(147, 454, 196, 35);
+		panelBody.add(btnBuy);
+		btnBuy.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		
 		// Buttons visibility
 		if (user.getTypeU() == TypeU.ADMIN) { // In case the user is an admin these buttons will be visible
 			btnBuy.setVisible(false);
@@ -111,12 +148,12 @@ public class ProductWindow extends JDialog implements ActionListener {
 		}
 
 		// Adding action listener
-		comboxFilter.addActionListener(this);
-		btnLogOut.addActionListener(this);
-		btnBuy.addActionListener(this);
-		btnAddNew.addActionListener(this);
-		btnRemove.addActionListener(this);
 		btnClose.addActionListener(this);
+		btnLogOut.addActionListener(this);
+		comboxFilter.addActionListener(this);
+		btnRemove.addActionListener(this);
+		btnAddNew.addActionListener(this);
+		btnBuy.addActionListener(this);
 	}
 
 	/**[METHODS]**/

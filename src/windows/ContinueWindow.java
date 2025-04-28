@@ -13,36 +13,51 @@ public class ContinueWindow extends JDialog implements ActionListener {
 	private static final long serialVersionUID = 1L;
 	private JLabel lblTitle;
 	private JButton btnYes, btnNo;
+	private JLabel logo;
 
 	/**[WINDOW CREATION]*/
 
 	public ContinueWindow(JDialog parent, User user, boolean type) {
 		super(parent, true); // Blocks the father window
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SignInWindow.class.getResource("/img/MediaMartaLogoB.png")));
 
 		// Window
 		setTitle("Verify action");
-		setBounds(100, 100, 450, 194);
+		setBounds(100, 100, 450, 250);
 		getContentPane().setLayout(null);
-		getContentPane().setBackground(Color.WHITE);
+		getContentPane().setBackground(Color.RED);
 		setResizable(false); // Blocks the window so it can't be modified the size
 
 		// Titles
 		lblTitle = new JLabel(user.getUsername() + ", do you want to keep buying "+verifyType(type)+"?");
-		lblTitle.setFont(new Font("Times New Roman", Font.PLAIN, 15));
+		lblTitle.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setBounds(10, 32, 416, 37);
+		lblTitle.setBounds(10, 44, 416, 37);
 		getContentPane().add(lblTitle);
 
 		// Buttons
 		btnYes = new JButton("YES");
-		btnYes.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		btnYes.setBounds(10, 80, 170, 57);
+		btnYes.setForeground(Color.WHITE);
+		btnYes.setBackground(Color.BLACK);
+		btnYes.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		btnYes.setBounds(28, 107, 170, 57);
 		getContentPane().add(btnYes);
 
 		btnNo = new JButton("NO");
-		btnNo.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		btnNo.setBounds(256, 79, 170, 57);
+		btnNo.setBackground(Color.BLACK);
+		btnNo.setForeground(Color.WHITE);
+		btnNo.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		btnNo.setBounds(235, 107, 170, 57);
 		getContentPane().add(btnNo);
+		
+		// Logo
+		logo = new JLabel("");
+		logo.setIcon(new ImageIcon(SignInWindow.class.getResource("/img/MediaMartaLogoW.png")));
+		logo.setForeground(Color.WHITE);
+		logo.setFont(new Font("Serif", Font.BOLD, 100));
+		logo.setHorizontalAlignment(SwingConstants.CENTER);
+		logo.setBounds(110, 105, 217, 217);
+		getContentPane().add(logo);
 
 		// Adding action listener
 		btnYes.addActionListener(this);

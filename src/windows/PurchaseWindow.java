@@ -21,16 +21,19 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 	private JButton btnLogOut, btnClose;
 	private User user;
 	private JList<String> listPurchases;
+	private JPanel panelHead, panelBody;
+	private JLabel logo;
 
 	/**[WINDOW CREATION]**/
 
 	public PurchaseWindow(LoginController controlador, User user) {
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SignInWindow.class.getResource("/img/MediaMartaLogoB.png")));
 		this.cont = controlador;
 		this.user = user;
 
 		// Window
 		setTitle("MEDIAMARTA: "+user.getUsername()+"'s Purchases");
-		setBounds(100, 100, 480, 636);
+		setBounds(100, 100, 709, 650);
 		getContentPane().setBackground(Color.WHITE);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
@@ -38,37 +41,66 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 		setContentPane(contentPane);
 		setResizable(false);
 
-		JLabel lblYourPurchases = new JLabel(user.getUsername()+"'s Purchases");
-		lblYourPurchases.setBounds(5, 37, 461, 46);
-		lblYourPurchases.setHorizontalAlignment(SwingConstants.CENTER);
-		lblYourPurchases.setFont(new Font("Times New Roman", Font.PLAIN, 25));
-		contentPane.setLayout(null);
-		contentPane.add(lblYourPurchases);
-
-		// Labels
-		JLabel lblCodUser = new JLabel(user.getUsername());
-		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
-		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		lblCodUser.setBounds(375, 27, 81, 19);
-		contentPane.add(lblCodUser);
-
-		// Lists & Scroll
-		listPurchases = new JList<String>();
-		listPurchases.setBounds(10, 104, 446, 485);
-		contentPane.add(listPurchases);
-		loadProductsList();
+		// Head Panel
+		panelHead = new JPanel();
+		panelHead.setBackground(Color.RED);
+		panelHead.setBounds(0, 0, 700, 113);
+		getContentPane().add(panelHead);
+		panelHead.setLayout(null);
 
 		// Buttons
 		btnLogOut = new JButton("Log-Out");
-		btnLogOut.setBackground(UIManager.getColor("Button.background"));
+		btnLogOut.setForeground(Color.WHITE);
+		btnLogOut.setBackground(Color.BLACK);
 		btnLogOut.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		btnLogOut.setBounds(375, 5, 81, 21);
-		contentPane.add(btnLogOut);
+		btnLogOut.setBounds(598, 11, 81, 21);
+		panelHead.add(btnLogOut);
 
 		btnClose = new JButton("CLOSE");
-		btnClose.setBounds(5, 5, 80, 21);
+		btnClose.setForeground(Color.WHITE);
+		btnClose.setBackground(Color.BLACK);
+		btnClose.setBounds(10, 11, 80, 21);
 		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		contentPane.add(btnClose);
+		panelHead.add(btnClose);
+
+		// Labels
+		JLabel lblYourPurchases = new JLabel(user.getUsername()+"'s Purchases");
+		lblYourPurchases.setBounds(5, 37, 685, 46);
+		lblYourPurchases.setHorizontalAlignment(SwingConstants.CENTER);
+		lblYourPurchases.setFont(new Font("Times New Roman", Font.BOLD, 25));
+		contentPane.setLayout(null);
+		panelHead.add(lblYourPurchases);
+
+		// Logo
+		logo = new JLabel("");
+		logo.setIcon(new ImageIcon(ProductWindow.class.getResource("/img/MediaMartaLogoW.png")));
+		logo.setForeground(Color.WHITE);
+		logo.setFont(new Font("Serif", Font.BOLD, 40));
+		logo.setHorizontalAlignment(SwingConstants.CENTER);
+		logo.setBounds(-69, -34, 258, 191);
+		panelHead.add(logo);
+
+		// Labels
+		JLabel lblCodUser = new JLabel(user.getUsername());
+		lblCodUser.setForeground(Color.WHITE);
+		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
+		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
+		lblCodUser.setBounds(598, 35, 81, 19);
+		panelHead.add(lblCodUser);
+
+		// Body Panel
+		panelBody = new JPanel();
+		panelBody.setBackground(Color.WHITE);
+		panelBody.setBounds(0, 113, 700, 500);
+		getContentPane().add(panelBody);
+		panelBody.setLayout(null);
+
+		// Lists & Scroll
+		listPurchases = new JList<String>();
+		listPurchases.setBounds(10, 11, 680, 478);
+		panelBody.add(listPurchases);
+
+		loadProductsList();
 
 		// Adding action listener
 		btnLogOut.addActionListener(this);

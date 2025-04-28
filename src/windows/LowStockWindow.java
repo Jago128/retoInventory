@@ -20,67 +20,103 @@ public class LowStockWindow extends JDialog implements ActionListener {
 	private Map<String, Product> products;
 	private Map<String, Comp> components;
 	private User user;
+	private JPanel panelHead, panelBody;
+	private JLabel logo;
 
 	/**[WINDOW CREATION]**/
 
 	public LowStockWindow(JFrame parent, LoginController cont, User user) {
 		super(parent, true); // Blocks the father window
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SignInWindow.class.getResource("/img/MediaMartaLogoB.png")));
 		this.cont = cont;
 		this.user = user;
 
 		// Window
 		setTitle("MEDIAMARTA: Low Stock Items");
-		setBounds(100, 100, 480, 636);
+		setBounds(100, 100, 500, 650);
 		getContentPane().setLayout(null);
 		getContentPane().setBackground(Color.WHITE);
 		setResizable(false); // Blocks the window so it can't be modified the size
 
+		// Head Panel
+		panelHead = new JPanel();
+		panelHead.setBackground(Color.BLACK);
+		panelHead.setBounds(0, 0, 486, 113);
+		getContentPane().add(panelHead);
+		panelHead.setLayout(null);
+
+		// Buttons
+		btnClose = new JButton("CLOSE");
+		btnClose.setForeground(Color.BLACK);
+		btnClose.setBackground(Color.WHITE);
+		btnClose.setBounds(10, 11, 80, 21);
+		panelHead.add(btnClose);
+		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
+
+		btnLogOut = new JButton("Log-Out");
+		btnLogOut.setForeground(Color.BLACK);
+		btnLogOut.setBounds(395, 11, 81, 21);
+		panelHead.add(btnLogOut);
+		btnLogOut.setBackground(Color.WHITE);
+		btnLogOut.setFont(new Font("Times New Roman", Font.PLAIN, 10));		
+
 		// Titles
 		lblMediaMarta = new JLabel("MediaMarta");
+		lblMediaMarta.setForeground(Color.WHITE);
+		lblMediaMarta.setBounds(10, 43, 466, 51);
+		panelHead.add(lblMediaMarta);
 		lblMediaMarta.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMediaMarta.setFont(new Font("Times New Roman", Font.PLAIN, 25));
-		lblMediaMarta.setBounds(10, 24, 446, 46);
-		getContentPane().add(lblMediaMarta);
+		lblMediaMarta.setFont(new Font("Times New Roman", Font.BOLD, 25));
 
 		lblLowStock = new JLabel("LOW STOCK ITEMS");
+		lblLowStock.setForeground(Color.WHITE);
+		lblLowStock.setBounds(10, 83, 466, 19);
+		panelHead.add(lblLowStock);
 		lblLowStock.setHorizontalAlignment(SwingConstants.CENTER);
 		lblLowStock.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblLowStock.setBounds(10, 58, 446, 19);
-		getContentPane().add(lblLowStock);
 
 		// Labels
 		JLabel lblCodUser = new JLabel(user.getCodU());
+		lblCodUser.setForeground(Color.RED);
+		lblCodUser.setBounds(395, 32, 81, 19);
+		panelHead.add(lblCodUser);
 		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		lblCodUser.setBounds(375, 27, 81, 19);
-		getContentPane().add(lblCodUser);
+
+		// Logo
+		logo = new JLabel("");
+		logo.setIcon(new ImageIcon(ProductWindow.class.getResource("/img/MediaMartaLogoR.png")));
+		logo.setForeground(Color.WHITE);
+		logo.setFont(new Font("Serif", Font.BOLD, 40));
+		logo.setHorizontalAlignment(SwingConstants.CENTER);
+		logo.setBounds(-69, -34, 258, 191);
+		panelHead.add(logo);
+
+		// Body Panel
+		panelBody = new JPanel();
+		panelBody.setBackground(Color.WHITE);
+		panelBody.setBounds(0, 113, 486, 500);
+		getContentPane().add(panelBody);
+		panelBody.setLayout(null);
 
 		// List
 		listName = new JList<String>();
-		listName.setBounds(10, 104, 314, 406);
-		getContentPane().add(listName);
+		listName.setBounds(10, 25, 327, 406);
+		panelBody.add(listName);
 
 		listStock = new JList<String>();
-		listStock.setBounds(327, 104, 129, 406);
-		getContentPane().add(listStock);
+		listStock.setBounds(347, 25, 129, 406);
+		panelBody.add(listStock);
+
 		loadList();
 
 		// Buttons
-		btnLogOut = new JButton("Log-Out");
-		btnLogOut.setBackground(UIManager.getColor("Button.background"));
-		btnLogOut.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		btnLogOut.setBounds(375, 5, 81, 21);
-		getContentPane().add(btnLogOut);
-
 		btnRestock = new JButton("RESTOCK");
-		btnRestock.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		btnRestock.setBounds(137, 533, 196, 35);
-		getContentPane().add(btnRestock);
-
-		btnClose = new JButton("CLOSE");
-		btnClose.setBounds(5, 5, 80, 21);
-		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		getContentPane().add(btnClose);
+		btnRestock.setForeground(Color.BLACK);
+		btnRestock.setBackground(Color.RED);
+		btnRestock.setBounds(147, 454, 196, 35);
+		panelBody.add(btnRestock);
+		btnRestock.setFont(new Font("Times New Roman", Font.BOLD, 15));
 
 		// Adding action listener
 		btnLogOut.addActionListener(this);

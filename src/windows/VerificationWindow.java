@@ -21,35 +21,38 @@ public class VerificationWindow extends JDialog implements ActionListener {
 	private int cod;
 	private String name;
 	private boolean type; // true = Product | false = Component
+	private JLabel logo;
 
 	/**[WINDOW CREATION]**/
 
 	public VerificationWindow(JDialog parent, LoginController cont, String name, boolean type) {
 		super(parent, true); // Blocks the father window
+		setIconImage(Toolkit.getDefaultToolkit().getImage(SignInWindow.class.getResource("/img/MediaMartaLogoB.png")));
 		this.cont = cont;
 		this.name = name;
 		this.type = type;
 
 		// Window
 		setTitle("Verify action");
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 250);
 		getContentPane().setLayout(null);
-		getContentPane().setBackground(Color.WHITE);
+		getContentPane().setBackground(Color.BLACK);
 		setResizable(false); // Blocks the window so it can't be modified the size
 
 		// Titles
 		lblTitle = new JLabel("Insert the code "+generateCode()+" to verify the action");
-		lblTitle.setFont(new Font("Times New Roman", Font.PLAIN, 20));
+		lblTitle.setForeground(Color.WHITE);
+		lblTitle.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setBounds(10, 32, 416, 37);
+		lblTitle.setBounds(15, 22, 416, 37);
 		getContentPane().add(lblTitle);
 
 		// Messages
 		lblMensaje = new JLabel("");
-		lblMensaje.setForeground(new Color(0, 0, 0));
+		lblMensaje.setForeground(Color.RED);
 		lblMensaje.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMensaje.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblMensaje.setBounds(10, 200, 416, 37);
+		lblMensaje.setBounds(85, 52, 259, 29);
 		getContentPane().add(lblMensaje);
 
 		// Text fields
@@ -60,15 +63,28 @@ public class VerificationWindow extends JDialog implements ActionListener {
 		textVerification.setColumns(10);
 
 		// Buttons
-		btnSubmit = new JButton("SUBMIT");
-		btnSubmit.setFont(new Font("Times New Roman", Font.PLAIN, 15));
-		btnSubmit.setBounds(157, 152, 117, 37);
-		getContentPane().add(btnSubmit);
-
 		btnClose = new JButton("CLOSE");
+		btnClose.setForeground(Color.BLACK);
+		btnClose.setBackground(Color.RED);
 		btnClose.setBounds(5, 5, 80, 21);
 		btnClose.setFont(new Font("Times New Roman", Font.PLAIN, 10));
 		getContentPane().add(btnClose);
+		
+		btnSubmit = new JButton("SUBMIT");
+		btnSubmit.setForeground(Color.BLACK);
+		btnSubmit.setBackground(Color.WHITE);
+		btnSubmit.setFont(new Font("Times New Roman", Font.BOLD, 15));
+		btnSubmit.setBounds(157, 152, 117, 37);
+		getContentPane().add(btnSubmit);
+
+		// Logo
+		logo = new JLabel("");
+		logo.setIcon(new ImageIcon(SignInWindow.class.getResource("/img/MediaMartaLogoR.png")));
+		logo.setForeground(Color.WHITE);
+		logo.setFont(new Font("Serif", Font.BOLD, 100));
+		logo.setHorizontalAlignment(SwingConstants.CENTER);
+		logo.setBounds(110, 105, 217, 217);
+		getContentPane().add(logo);
 
 		// Adding action listener
 		btnSubmit.addActionListener(this);
