@@ -33,7 +33,7 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 
 		// Window
 		setTitle("MEDIAMARTA: "+user.getUsername()+"'s Purchases");
-		setBounds(100, 100, 800, 650);
+		setBounds(100, 100, 709, 650);
 		getContentPane().setBackground(Color.WHITE);
 		contentPane = new JPanel();
 		contentPane.setBackground(Color.WHITE);
@@ -44,7 +44,7 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 		// Head Panel
 		panelHead = new JPanel();
 		panelHead.setBackground(Color.RED);
-		panelHead.setBounds(0, 0, 786, 113);
+		panelHead.setBounds(0, 0, 700, 113);
 		getContentPane().add(panelHead);
 		panelHead.setLayout(null);
 
@@ -53,7 +53,7 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 		btnLogOut.setForeground(Color.WHITE);
 		btnLogOut.setBackground(Color.BLACK);
 		btnLogOut.setFont(new Font("Times New Roman", Font.PLAIN, 10));
-		btnLogOut.setBounds(695, 11, 81, 21);
+		btnLogOut.setBounds(598, 11, 81, 21);
 		panelHead.add(btnLogOut);
 
 		btnClose = new JButton("CLOSE");
@@ -65,7 +65,7 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 
 		// Labels
 		JLabel lblYourPurchases = new JLabel(user.getUsername()+"'s Purchases");
-		lblYourPurchases.setBounds(5, 37, 771, 46);
+		lblYourPurchases.setBounds(5, 37, 685, 46);
 		lblYourPurchases.setHorizontalAlignment(SwingConstants.CENTER);
 		lblYourPurchases.setFont(new Font("Times New Roman", Font.BOLD, 25));
 		contentPane.setLayout(null);
@@ -85,19 +85,19 @@ public class PurchaseWindow extends JDialog implements ActionListener {
 		lblCodUser.setForeground(Color.WHITE);
 		lblCodUser.setHorizontalAlignment(SwingConstants.RIGHT);
 		lblCodUser.setFont(new Font("Times New Roman", Font.PLAIN, 12));
-		lblCodUser.setBounds(695, 33, 81, 19);
+		lblCodUser.setBounds(598, 35, 81, 19);
 		panelHead.add(lblCodUser);
 
 		// Body Panel
 		panelBody = new JPanel();
 		panelBody.setBackground(Color.WHITE);
-		panelBody.setBounds(0, 113, 786, 500);
+		panelBody.setBounds(0, 113, 700, 500);
 		getContentPane().add(panelBody);
 		panelBody.setLayout(null);
 
 		// Lists & Scroll
 		listPurchases = new JList<String>();
-		listPurchases.setBounds(10, 11, 766, 478);
+		listPurchases.setBounds(10, 11, 680, 478);
 		panelBody.add(listPurchases);
 
 		loadProductsList();
