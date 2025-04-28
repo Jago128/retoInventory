@@ -136,6 +136,7 @@ public class SignInWindow extends JDialog implements ActionListener {
 		btnSubmit.setFont(new Font("Times New Roman", Font.BOLD, 15));
 
 		// Adding action listener
+		btnClose.addActionListener(this);
 		btnSubmit.addActionListener(this);
 	}
 

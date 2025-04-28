@@ -132,7 +132,7 @@ public class ProductWindow extends JDialog implements ActionListener {
 		btnBuy = new JButton("BUY");
 		btnBuy.setForeground(Color.WHITE);
 		btnBuy.setBackground(Color.BLACK);
-		btnBuy.setBounds(10, 454, 196, 35);
+		btnBuy.setBounds(147, 454, 196, 35);
 		panelBody.add(btnBuy);
 		btnBuy.setFont(new Font("Times New Roman", Font.BOLD, 15));
 		

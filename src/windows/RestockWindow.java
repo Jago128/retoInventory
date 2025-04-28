@@ -3,6 +3,7 @@ package windows;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import javax.swing.JSpinner.DefaultEditor;
 import javax.swing.event.*;
 import controller.LoginController;
 import model.*;
@@ -87,11 +88,12 @@ public class RestockWindow extends JDialog implements ActionListener, ChangeList
 
 		// Spinner (Numeric value)
 		// It needs to be created before because the labels need the value of it
-		SpinnerModel sm = new SpinnerNumberModel(5, 5, 5000, 5); // Default, Min, Max, Increment
+		SpinnerModel sm = new SpinnerNumberModel(5, 5, 5000, 1); // Default, Min, Max, Increment
 		spinner = new JSpinner(sm);
 		spinner.setBounds(20, 179, 231, 34);
 		panelRight.add(spinner);
 		spinner.setValue(5);
+		((DefaultEditor)spinner.getEditor()).getTextField().setEditable(false); // Prevents the spinner textfield from being editable with a keyboard
 
 		// Titles
 		JLabel quantity = new JLabel("Quantity to Restock");
