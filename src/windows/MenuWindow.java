@@ -43,7 +43,7 @@ public class MenuWindow extends JFrame implements ActionListener {
 		JLabel lblWelcomeTo = new JLabel("Welcome to");
 		lblWelcomeTo.setHorizontalAlignment(SwingConstants.CENTER);
 		lblWelcomeTo.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblWelcomeTo.setBounds(5, 27, 461, 19);
+		lblWelcomeTo.setBounds(5, 27, 395, 19);
 		contentPane.add(lblWelcomeTo);
 
 		JLabel lblMediaMarta = new JLabel("MediaMarta");
