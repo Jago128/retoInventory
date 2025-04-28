@@ -44,15 +44,15 @@ public class VerificationWindow extends JDialog implements ActionListener {
 		lblTitle.setForeground(Color.WHITE);
 		lblTitle.setFont(new Font("Times New Roman", Font.BOLD, 22));
 		lblTitle.setHorizontalAlignment(SwingConstants.CENTER);
-		lblTitle.setBounds(10, 32, 416, 37);
+		lblTitle.setBounds(15, 22, 416, 37);
 		getContentPane().add(lblTitle);
 
 		// Messages
 		lblMensaje = new JLabel("");
-		lblMensaje.setForeground(new Color(0, 0, 0));
+		lblMensaje.setForeground(Color.RED);
 		lblMensaje.setHorizontalAlignment(SwingConstants.CENTER);
 		lblMensaje.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblMensaje.setBounds(10, 200, 416, 37);
+		lblMensaje.setBounds(85, 52, 259, 29);
 		getContentPane().add(lblMensaje);
 
 		// Text fields
