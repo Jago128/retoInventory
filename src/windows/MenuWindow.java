@@ -41,20 +41,8 @@ public class MenuWindow extends JFrame implements ActionListener {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		setResizable(false); // Blocks the window so it can't be modified the size
-
-		// Titles
-		JLabel lblWelcomeTo = new JLabel("Welcome to");
-		lblWelcomeTo.setHorizontalAlignment(SwingConstants.CENTER);
-		lblWelcomeTo.setFont(new Font("Times New Roman", Font.PLAIN, 20));
-		lblWelcomeTo.setBounds(5, 27, 395, 19);
-		contentPane.add(lblWelcomeTo);
-
-		JLabel lblMediaMarta = new JLabel("MediaMarta");
-		lblMediaMarta.setBounds(5, 37, 461, 46);
-		lblMediaMarta.setHorizontalAlignment(SwingConstants.CENTER);
-		lblMediaMarta.setFont(new Font("Times New Roman", Font.PLAIN, 25));
 		contentPane.setLayout(null);
-		
+
 		// Head Panel
 		panelHead = new JPanel();
 		panelHead.setBackground(Color.RED);
@@ -92,7 +80,18 @@ public class MenuWindow extends JFrame implements ActionListener {
 		logo.setBounds(-69, -34, 258, 191);
 		panelHead.add(logo);
 
+		// Titles
+		JLabel lblWelcomeTo = new JLabel("Welcome to");
+		lblWelcomeTo.setBounds(0, 51, 486, 19);
+		panelHead.add(lblWelcomeTo);
+		lblWelcomeTo.setHorizontalAlignment(SwingConstants.CENTER);
+		lblWelcomeTo.setFont(new Font("Times New Roman", Font.PLAIN, 20));
 
+		JLabel lblMediaMarta = new JLabel("MediaMarta");
+		lblMediaMarta.setBounds(0, 56, 486, 46);
+		panelHead.add(lblMediaMarta);
+		lblMediaMarta.setHorizontalAlignment(SwingConstants.CENTER);
+		lblMediaMarta.setFont(new Font("Times New Roman", Font.BOLD, 25));
 
 		// Labels
 		JLabel lblCodUser = new JLabel(user.getUsername());
